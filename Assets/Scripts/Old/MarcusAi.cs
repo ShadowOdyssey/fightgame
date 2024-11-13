@@ -35,14 +35,14 @@ public class MarcusAI : MonoBehaviour
 
     private void Update()
     {
-        if (canFight == false && roundSystem.roundStarted == true)
+        if (canFight == false && roundSystem.roundStarted == true) // Only can execute commands in FixedUpdate if round started, but...
         {
             Debug.Log("Round Started");
 
             canFight = true;
         }
 
-        if (canFight == true && roundSystem.roundStarted == false)
+        if (canFight == true && roundSystem.roundStarted == false) // If round not started and is 2nd or 3rd round, load Idle animation till round start again!
         {
             Idle();
             canFight = false;
@@ -53,7 +53,7 @@ public class MarcusAI : MonoBehaviour
     {
         if (health <= 0) return; // Prevent further actions if Marcus is dead
 
-        if (canFight == true)
+        if (canFight == true) // Prevent further actions if round not started yet
         {
             distanceToTarget = Vector3.Distance(transform.position, target.position);
 
@@ -61,11 +61,11 @@ public class MarcusAI : MonoBehaviour
 
             if (distanceToTarget < attackRange)
             {
-                Attack();
+                Attack(); // Attack if player is inside attack range
             }
             else
             {
-                Chase();
+                Chase(); // Follow player if is outside attack range
             }
         }
     }
@@ -151,34 +151,38 @@ public class MarcusAI : MonoBehaviour
 
     private void StartIdleAnimation()
     {
-        animator.SetBool("isIdle", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        animator.SetBool("isWalking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        isAttacking = false;
+        if (animator.GetBool("isIdle") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        {
+            animator.SetBool("isIdle", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isWalking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            isAttacking = false;
+        }
     }
 
     private void StartAttackAnimation()
     {
-        animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        animator.SetBool("isWalking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        animator.SetBool("isAttacking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        isAttacking = true;
+        if (animator.GetBool("isAttacking") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        {
+            animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isWalking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isAttacking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            isAttacking = true;
+        }
     }
 
     private void StartWalkAnimation()
     {
-        animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        animator.SetBool("isWalking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        if (animator.GetBool("isWalking") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        {
+            animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isWalking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        }
     }
 
     private void Attack()
     {
-        if (!isAttacking) // AVOID .NET WAY
-        {
-            StartAttackAnimation();
-        }
-
         if (isAttacking == false) // Correct way
         {
             StartAttackAnimation();
@@ -187,13 +191,20 @@ public class MarcusAI : MonoBehaviour
 
     private void Die()
     {
-        animator.SetTrigger("die"); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        Destroy(gameObject, 2f); // Destroy Marcus after delay to allow death animation
+        if (animator.GetBool("isDead") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        {
+            animator.SetBool("isDead", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        }
     }
 
-    public void CharacterFinishedAttack()
+    public void CharacterFinishedAttack() // Called in the final frame of attack animation
     {
         isAttacking = false; // Reset to allow another attack after cooldown
+    }
+
+    public void IsDead() // Called in the final frame of death animation
+    {
+        Destroy(gameObject); // Destroy Marcus after to reach the final frame in death animation
     }
 
     public void CanFight()

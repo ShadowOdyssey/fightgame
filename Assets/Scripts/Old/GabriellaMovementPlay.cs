@@ -137,14 +137,20 @@ public class GabriellaMovementPlay : MonoBehaviour
             if (roundSystem.roundStarted == true)
             {
                 Debug.Log("Gabriella is moving forward");
+
+                isMovingForward = true;
+                isMovingBackward = false;
             }
             else
             {
                 Debug.Log("Gabriella cant move forward because round not started yet");
-            }
 
-            isMovingForward = true;
-            isMovingBackward = false;
+                if (isMovingForward == true) // Check if any boolean is activate when Gabriela cant move and deactivate it
+                {
+                    isMovingForward = false;
+                    isMovingBackward = false;
+                }                
+            }
         }
     }
 
@@ -155,14 +161,20 @@ public class GabriellaMovementPlay : MonoBehaviour
             if (roundSystem.roundStarted == true)
             {
                 Debug.Log("Gabriella is moving backward");
+
+                isMovingBackward = true;
+                isMovingForward = false;
             }
             else
             {
                 Debug.Log("Gabriella cant move backard because round not started yet");
-            }
 
-            isMovingBackward = true;
-            isMovingForward = false;
+                if (isMovingBackward == true) // Check if any boolean is activate when Gabriela cant move and deactivate it
+                {
+                    isMovingBackward = false;
+                    isMovingForward = false;
+                }
+            }
         }
     }
 
