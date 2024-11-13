@@ -7,6 +7,8 @@ public class RoundManager : MonoBehaviour
     public HealthBar playerHealthBar;         // Gabriella's HealthBar component
     public HealthBar opponentHealthBar;       // Marcus's HealthBar component
 
+    public bool roundStarted = false;
+
     private int currentRound = 1;
     private int maxHealth = 100;
     private int playerHealth;
@@ -17,7 +19,7 @@ public class RoundManager : MonoBehaviour
     private Text roundText;
     private Text timerText;
 
-    private float roundTime = 180f;  // 3-minute timer for each round
+    public float roundTime = 0f;  // 3-minute timer for each round
 
     void Start()
     {
@@ -98,7 +100,7 @@ public class RoundManager : MonoBehaviour
         DrawRoundText("Fight Over!");
     }
 
-    void StartRound()
+    private void StartRound()
     {
         roundOver = false;
         roundTime = 180f; // Reset timer for each round
@@ -127,6 +129,13 @@ public class RoundManager : MonoBehaviour
     {
         while (roundTime > 0 && !roundOver)
         {
+            Debug.Log("Counting round time");
+
+            if (roundStarted == false)
+            {
+                roundStarted = true;
+            }
+
             roundTime -= Time.deltaTime;
             UpdateTimerDisplay();
             yield return null;

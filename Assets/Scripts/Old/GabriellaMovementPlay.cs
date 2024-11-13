@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class GabriellaMovementPlay : MonoBehaviour
 {
+    public RoundManager roundSystem;
+
     public Button buttonForward;    // Button to move right
     public Button buttonBackward;   // Button to move left
     public Button buttonAttack1;    // Button for Attack 1
@@ -78,7 +80,7 @@ public class GabriellaMovementPlay : MonoBehaviour
     private void FixedUpdate()
     {
         // Ensure movement only happens when buttons are held and not during attacks
-        if (!isAttacking && !isHit)
+        if (!isAttacking && !isHit && roundSystem.roundStarted == true)
         {
             if (isMovingForward && CanMoveForward())
             {
@@ -132,7 +134,15 @@ public class GabriellaMovementPlay : MonoBehaviour
     {
         if (CanMoveForward())
         {
-            Debug.Log("Gabriella is moving forward");
+            if (roundSystem.roundStarted == true)
+            {
+                Debug.Log("Gabriella is moving forward");
+            }
+            else
+            {
+                Debug.Log("Gabriella cant move forward because round not started yet");
+            }
+
             isMovingForward = true;
             isMovingBackward = false;
         }
@@ -142,7 +152,15 @@ public class GabriellaMovementPlay : MonoBehaviour
     {
         if (CanMoveBackward())
         {
-            Debug.Log("Gabriella is moving backward");
+            if (roundSystem.roundStarted == true)
+            {
+                Debug.Log("Gabriella is moving backward");
+            }
+            else
+            {
+                Debug.Log("Gabriella cant move backard because round not started yet");
+            }
+
             isMovingBackward = true;
             isMovingForward = false;
         }

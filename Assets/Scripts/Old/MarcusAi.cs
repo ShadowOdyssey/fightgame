@@ -2,23 +2,27 @@ using UnityEngine;
 
 public class MarcusAI : MonoBehaviour
 {
-    public Transform target; // Gabriella's transform
-    public float detectionRange = 5f;
-    public float attackRange = 2f;
-    public float moveSpeed = 2f;
-    public int health = 100;
-
-    private Animator animator;
-    private bool isAttacking = false;
+    public RoundManager roundSystem;
 
     public GameObject hitEffectPrefab; // Prefab for visual effect on hit
+    private Animator animator;
+    public Transform target; // Gabriella's transform
+    public int health = 100;
+    public float detectionRange = 5f;
+    public float attackRange = 19f;
+    public float moveSpeed = 2f;
     public float stopDistance = 1.5f; // Minimum distance to maintain between Marcus and Gabriella
 
-    private int hitCount = 0; // Track the number of times Marcus is hit
     private Vector3 originalPosition; // Save original position to reset after getting up
+    private int hitCount = 0; // Track the number of times Marcus is hit
+    private float distanceToTarget = 0f;
+    private bool isAttacking = false;
+    private bool canFight = false;
 
     private void Start()
     {
+        distanceToTarget = Vector3.Distance(transform.position, target.position);
+
         // Get the Animator component
         animator = GetComponent<Animator>();
 
@@ -31,36 +35,49 @@ public class MarcusAI : MonoBehaviour
 
     private void Update()
     {
-        if (health <= 0) return; // Prevent further actions if Marcus is dead
-
-        float distanceToTarget = Vector3.Distance(transform.localPosition, target.localPosition);
-
-        Debug.Log("Actual distance to target from Marcus is: " + distanceToTarget);
-
-        if (distanceToTarget <= attackRange)
+        if (canFight == false && roundSystem.roundStarted == true)
         {
-            Attack();
+            Debug.Log("Round Started");
+
+            canFight = true;
         }
-        else if (distanceToTarget <= detectionRange && distanceToTarget > stopDistance)
-        {
-            Chase();
-        }
-        else
+
+        if (canFight == true && roundSystem.roundStarted == false)
         {
             Idle();
+            canFight = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (health <= 0) return; // Prevent further actions if Marcus is dead
+
+        if (canFight == true)
+        {
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            Debug.Log("Actual distance to target from Marcus is: " + distanceToTarget);
+
+            if (distanceToTarget < attackRange)
+            {
+                Attack();
+            }
+            else
+            {
+                Chase();
+            }
         }
     }
 
     private void Idle()
     {
-        animator.SetBool("isWalking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        isAttacking = false;
+        StartIdleAnimation();
     }
 
     private void Chase()
     {
-        animator.SetBool("isWalking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        isAttacking = false;
+        StartWalkAnimation();
 
         Vector3 direction = (target.localPosition - transform.localPosition).normalized;
         transform.localPosition += direction * moveSpeed * Time.deltaTime;
@@ -69,27 +86,11 @@ public class MarcusAI : MonoBehaviour
         transform.LookAt(new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z)); // We dont need it since characters only move forward and backward, them are always facing each other
     }
 
-    private void Attack()
-    {
-        if (!isAttacking)
-        {
-            isAttacking = true;
-            animator.SetTrigger("isBoxing"); // Trigger attack animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-
-            StartCoroutine(AttackCoroutine());
-        }
-    }
-
-    private System.Collections.IEnumerator AttackCoroutine()
-    {
-        yield return new WaitForSeconds(1.0f); // Assume 1-second attack cooldown
-        isAttacking = false; // Reset to allow another attack after cooldown
-    }
-
     // Called when Marcus takes damage
     public void TakeDamage(int damage)
     {
         health -= damage;
+
         if (health <= 0)
         {
             Die();
@@ -148,9 +149,55 @@ public class MarcusAI : MonoBehaviour
         }
     }
 
+    private void StartIdleAnimation()
+    {
+        animator.SetBool("isIdle", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        animator.SetBool("isWalking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        isAttacking = false;
+    }
+
+    private void StartAttackAnimation()
+    {
+        animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        animator.SetBool("isWalking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        animator.SetBool("isAttacking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        isAttacking = true;
+    }
+
+    private void StartWalkAnimation()
+    {
+        animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        animator.SetBool("isWalking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+    }
+
+    private void Attack()
+    {
+        if (!isAttacking) // AVOID .NET WAY
+        {
+            StartAttackAnimation();
+        }
+
+        if (isAttacking == false) // Correct way
+        {
+            StartAttackAnimation();
+        }
+    }
+
     private void Die()
     {
         animator.SetTrigger("die"); // Values in parameters should be low case in the first letter because is variable name - Felipe
         Destroy(gameObject, 2f); // Destroy Marcus after delay to allow death animation
+    }
+
+    public void CharacterFinishedAttack()
+    {
+        isAttacking = false; // Reset to allow another attack after cooldown
+    }
+
+    public void CanFight()
+    {
+        canFight = true;
     }
 }
