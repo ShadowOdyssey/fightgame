@@ -18,7 +18,7 @@ public class BattleGroundSelection : MonoBehaviour
 
     [Header("Scene Names")]
     [Tooltip("Ensure these match exactly with your scene names in the Build Settings.")]
-    public string[] battlegroundSceneNames = { "Battleground1", "Battleground2", "Battleground3", "Battleground4" }; // 4 scenes
+    public string[] battlegroundSceneNames = {"Battleground1","Battleground2","Battleground3","Battleground4"}; // 4 scenes
 
     // Array for arena names
     public string[] arenaNames = { "Town", "Castle", "Forest", "Mountain" }; // Add arena names
@@ -54,6 +54,18 @@ public class BattleGroundSelection : MonoBehaviour
         if (battlegroundSceneNames.Length != battlegroundImages.Length)
         {
             Debug.LogError("The number of battleground scene names must match the number of battleground images.");
+            Debug.Log("Actual Battle Ground Scene Names length is: " + battlegroundSceneNames.Length);
+            Debug.Log("Actual Battle Ground Images length is: " + battlegroundImages.Length);
+
+            if (battlegroundSceneNames.Length > battlegroundImages.Length)
+            {
+                Debug.Log("Fix Battle Ground Scene Names, because the value of it is more than Battle Ground Images");
+            }
+
+            if (battlegroundSceneNames.Length < battlegroundImages.Length)
+            {
+                Debug.Log("Fix Battle Ground Scene Names, because the value of it is less than Battle Ground Images");
+            }
         }
 
         // Validate arenaNames array
