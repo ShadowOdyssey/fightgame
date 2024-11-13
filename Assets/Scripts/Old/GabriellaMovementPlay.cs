@@ -145,7 +145,7 @@ public class GabriellaMovementPlay : MonoBehaviour
             {
                 Debug.Log("Gabriella cant move forward because round not started yet");
 
-                if (isMovingForward == true) // Check if any boolean is activate when Gabriela cant move and deactivate it
+                if (isMovingForward == true) // Check if any move boolean is activate when Gabriela cant move and deactivate it
                 {
                     isMovingForward = false;
                     isMovingBackward = false;
@@ -167,7 +167,7 @@ public class GabriellaMovementPlay : MonoBehaviour
             }
             else
             {
-                Debug.Log("Gabriella cant move backard because round not started yet");
+                Debug.Log("Gabriella cant move backward because round not started yet");
 
                 if (isMovingBackward == true) // Check if any boolean is activate when Gabriela cant move and deactivate it
                 {
@@ -181,25 +181,28 @@ public class GabriellaMovementPlay : MonoBehaviour
     // Method to start moving right
     private void MoveRight()
     {
-        if (gabriellaAnimator.GetBool("isGabriellaForward") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way - Felipe
+        if (gabriellaAnimator.GetBool("isForward") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way - Felipe
         {
-            Debug.Log("Gabriella moved to right");
+            //Debug.Log("Gabriella moved to right");
+
             moveDirection = 1f; // Setup new direction only once before to apply new position - Felipe
-            gabriellaAnimator.SetBool("isGabriellaForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            gabriellaAnimator.SetBool("isGabriellaBackwards", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            gabriellaAnimator.SetBool("isForward", true);
+            gabriellaAnimator.SetBool("isBackward", false);
+            gabriellaAnimator.SetBool("isIdle", false);
         }
     }
 
     // Method to start moving left
     private void MoveLeft() // MoveLeft is being called alot, consuming processing and it is bad to mobile, so...
     {
-        if (gabriellaAnimator.GetBool("isGabriellaBackwards") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - Felipe
+        if (gabriellaAnimator.GetBool("isBackward") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - Felipe
         {
-            Debug.Log("Gabriella moved to left");
+            //Debug.Log("Gabriella moved to left");
 
             moveDirection = -1f; // Setup new direction only once before to apply new position - Felipe
-            gabriellaAnimator.SetBool("isGabriellaForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            gabriellaAnimator.SetBool("isGabriellaBackwards", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            gabriellaAnimator.SetBool("isBackward", true);
+            gabriellaAnimator.SetBool("isForward", false);
+            gabriellaAnimator.SetBool("isIdle", false);
         }
     }
 
@@ -208,18 +211,22 @@ public class GabriellaMovementPlay : MonoBehaviour
     {
         // Check if Gabriella moved forward to StopMoving trigger the boolean change in the animation parameter
 
-        if (gabriellaAnimator.GetBool("isGabriellaForward") == true) // Check if Gabriella moved forward to StopMoving trigger the boolean change in the animation parameter
+        if (gabriellaAnimator.GetBool("isForward") == true) // Check if Gabriella moved forward to StopMoving trigger the boolean change in the animation parameter
         {
             Debug.Log("Gabriella stopped to move forward");
-            gabriellaAnimator.SetBool("isGabriellaForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            gabriellaAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
-        if (gabriellaAnimator.GetBool("isGabriellaBackwards") == true) // Check if Gabriella moved backward to StopMoving trigger the boolean change in the animation parameter
+        if (gabriellaAnimator.GetBool("isBackward") == true) // Check if Gabriella moved backward to StopMoving trigger the boolean change in the animation parameter
         {
             Debug.Log("Gabriella stopped to move backward");
-            gabriellaAnimator.SetBool("isGabriellaBackwards", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            gabriellaAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
+        if (gabriellaAnimator.GetBool("isIdle") == false)
+        {
+            gabriellaAnimator.SetBool("isIdle", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        }
         // If both triggers to be false, execute nothing, so it saves processing instead to apply false to both animation parameters in each frame, it only will trigger if is true and only once
     }
 

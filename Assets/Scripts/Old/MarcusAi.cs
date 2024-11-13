@@ -5,32 +5,37 @@ public class MarcusAI : MonoBehaviour
     public RoundManager roundSystem;
 
     public GameObject hitEffectPrefab; // Prefab for visual effect on hit
-    private Animator animator;
     public Transform target; // Gabriella's transform
+
+    public Animator animator;
+
     public int health = 100;
     public float detectionRange = 5f;
-    public float attackRange = 19f;
+    public float attackRange = 13f;
     public float moveSpeed = 2f;
     public float stopDistance = 1.5f; // Minimum distance to maintain between Marcus and Gabriella
 
     private Vector3 originalPosition; // Save original position to reset after getting up
     private int hitCount = 0; // Track the number of times Marcus is hit
     private float distanceToTarget = 0f;
+    private bool isWalking = false;
     private bool isAttacking = false;
     private bool canFight = false;
+    private bool changedAnimDirectionToForward = false;
+    private bool changedAnimDirectionToBackward = false;
 
     private void Start()
     {
         distanceToTarget = Vector3.Distance(transform.position, target.position);
 
         // Get the Animator component
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>(); // Dont need it since the variable is public and you attached Gabriella object by inspector - Felipe
 
         // Assume Gabriella is tagged as "Gabriella" in the scene
         //target = GameObject.FindGameObjectWithTag("Gabriella").transform; // Dont need it since the variable is public and you attached Gabriella object by inspector - Felipe
 
         // Save the original position
-        originalPosition = transform.localPosition;
+        originalPosition = transform.position;
     }
 
     private void Update()
@@ -57,15 +62,23 @@ public class MarcusAI : MonoBehaviour
         {
             distanceToTarget = Vector3.Distance(transform.position, target.position);
 
-            Debug.Log("Actual distance to target from Marcus is: " + distanceToTarget);
+            //Debug.Log("Actual distance to target from Marcus is: " + distanceToTarget); // Debug actual distance between Marcus and Gabriella
 
-            if (distanceToTarget < attackRange)
+            if (distanceToTarget < attackRange && distanceToTarget > attackRange - 1f)
             {
                 Attack(); // Attack if player is inside attack range
             }
-            else
+            
+            if (distanceToTarget > attackRange)
             {
-                Chase(); // Follow player if is outside attack range
+                FixWalkAnimDirectionToForward();
+                Move(); // Follow player if is outside attack range
+            }
+
+            if (distanceToTarget < attackRange && distanceToTarget < attackRange - 1f)
+            {
+                FixWalkAnimDirectionToBackward();
+                Move();
             }
         }
     }
@@ -75,15 +88,25 @@ public class MarcusAI : MonoBehaviour
         StartIdleAnimation();
     }
 
-    private void Chase()
+    private void Move()
     {
         StartWalkAnimation();
 
-        Vector3 direction = (target.localPosition - transform.localPosition).normalized;
-        transform.localPosition += direction * moveSpeed * Time.deltaTime;
+        if (isWalking == true)
+        {
+            if (changedAnimDirectionToForward == true)
+            {
+                transform.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime);
+            }
+            
+            if (changedAnimDirectionToBackward == true)
+            {
+                transform.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveSpeed * Time.deltaTime);
+            }
+        }
 
         // Face Gabriella
-        transform.LookAt(new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z)); // We dont need it since characters only move forward and backward, them are always facing each other
+        //transform.LookAt(new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z)); // We dont need it since characters only move forward and backward, them are always facing each other
     }
 
     // Called when Marcus takes damage
@@ -140,12 +163,26 @@ public class MarcusAI : MonoBehaviour
         hitCount = 0;
     }
 
-    private void ShowHitEffect()
+    private void StartWalkAnimation()
     {
-        if (hitEffectPrefab != null)
+        if (animator.GetBool("isForward") == false && changedAnimDirectionToForward == true) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
-            GameObject hitEffect = Instantiate(hitEffectPrefab, transform.localPosition, Quaternion.identity);
-            Destroy(hitEffect, 0.5f); // Remove effect after a short delay
+            animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            isAttacking = false;
+            isWalking = true;
+        }
+
+        if (animator.GetBool("isBackward") == false && changedAnimDirectionToBackward == true) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        {
+            animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            isAttacking = false;
+            isWalking = true;
         }
     }
 
@@ -154,9 +191,11 @@ public class MarcusAI : MonoBehaviour
         if (animator.GetBool("isIdle") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
             animator.SetBool("isIdle", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isWalking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             isAttacking = false;
+            isWalking = false;
         }
     }
 
@@ -165,19 +204,38 @@ public class MarcusAI : MonoBehaviour
         if (animator.GetBool("isAttacking") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
             animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isWalking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isAttacking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
             isAttacking = true;
+            isWalking = false;
         }
     }
 
-    private void StartWalkAnimation()
+    private void FixWalkAnimDirectionToForward()
     {
-        if (animator.GetBool("isWalking") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        if (changedAnimDirectionToForward == false) // Reverse Backward animation to make it Forward animation
         {
-            animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isWalking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            changedAnimDirectionToForward = true;
+            changedAnimDirectionToBackward = false;
+        }
+    }
+
+    private void FixWalkAnimDirectionToBackward()
+    {
+        if (changedAnimDirectionToBackward == false) // Reverse Backward animation to make it Forward animation
+        {
+            changedAnimDirectionToForward = false;
+            changedAnimDirectionToBackward = true;
+        }
+    }
+
+    private void ShowHitEffect()
+    {
+        if (hitEffectPrefab != null)
+        {
+            GameObject hitEffect = Instantiate(hitEffectPrefab, transform.localPosition, Quaternion.identity);
+            Destroy(hitEffect, 0.5f); // Remove effect after a short delay
         }
     }
 
@@ -200,6 +258,7 @@ public class MarcusAI : MonoBehaviour
     public void CharacterFinishedAttack() // Called in the final frame of attack animation
     {
         isAttacking = false; // Reset to allow another attack after cooldown
+        StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet
     }
 
     public void IsDead() // Called in the final frame of death animation

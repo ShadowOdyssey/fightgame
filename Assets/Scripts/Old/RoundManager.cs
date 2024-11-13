@@ -118,8 +118,8 @@ public class RoundManager : MonoBehaviour
 
         while (!roundOver)
         {
-            ApplyDamageToOpponent(opponentDamagePerSecond);
-            ApplyDamageToPlayer(playerDamagePerSecond);
+            //ApplyDamageToOpponent(opponentDamagePerSecond);
+            //ApplyDamageToPlayer(playerDamagePerSecond);
 
             yield return new WaitForSeconds(damageInterval);
         }
