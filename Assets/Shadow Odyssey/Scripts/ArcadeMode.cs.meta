@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 0d8bab75fe11d0f4e9efd9e2de39db43
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - exitButtonTexture: {instanceID: 0}
+  - chooseYourHeroSound: {fileID: 8300000, guid: 6f74d506c6d6d024b87b495422770fdb,
+      type: 3}
+  - selectYourArenaSound: {fileID: 8300000, guid: f24b6dcbd9b623445b623b64fb4a41bf,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

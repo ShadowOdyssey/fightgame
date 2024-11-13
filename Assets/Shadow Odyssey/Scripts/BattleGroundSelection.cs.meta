@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 97868ce06e488384a95775d280229790
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - voiceClip: {fileID: 8300000, guid: f24b6dcbd9b623445b623b64fb4a41bf, type: 3}
+  - backgroundTexture: {instanceID: 0}
+  - checkmarkTexture: {instanceID: 0}
+  - selectButtonTexture: {instanceID: 0}
+  - exitButtonImage: {instanceID: 0}
+  - checkboxTexture: {instanceID: 0}
+  - checkboxSelectedTexture: {instanceID: 0}
+  - selectionPanel: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
