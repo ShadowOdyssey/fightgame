@@ -413,6 +413,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 2.827
       objectReference: {fileID: 0}
+    - target: {fileID: -7853120362946791194, guid: b4c347ca67b3df946995ad03477fefb1,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: b4c347ca67b3df946995ad03477fefb1,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -2601552257854514524, guid: b4c347ca67b3df946995ad03477fefb1,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b4c347ca67b3df946995ad03477fefb1,
         type: 3}
       propertyPath: m_Name
@@ -482,9 +497,9 @@ Animation:
   m_GameObject: {fileID: 278071661}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 613bfdadb04741344af787c3dd43e897, type: 2}
+  m_Animation: {fileID: 0}
   m_Animations:
-  - {fileID: 7400000, guid: b29eb826b22a838439dda5a1f05f8e06, type: 2}
+  - {fileID: 0}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -957,7 +972,6 @@ GameObject:
   - component: {fileID: 436174687}
   - component: {fileID: 436174686}
   - component: {fileID: 436174685}
-  - component: {fileID: 436174684}
   - component: {fileID: 436174688}
   m_Layer: 5
   m_Name: ButtonAttack3
@@ -986,18 +1000,6 @@ RectTransform:
   m_AnchoredPosition: {x: 796, y: -374}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &436174684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 436174681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e5469463d106e14eb5a5d2707c89813, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &436174685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1719,9 +1721,7 @@ Animation:
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: d8fafcd101dd4574ead1ba7500d24272, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: d8fafcd101dd4574ead1ba7500d24272, type: 2}
-  - {fileID: 7400000, guid: 15ab7ae4b457a5a4cbb8491ba38c235e, type: 2}
-  - {fileID: 7400000, guid: e6828dbf1db008b4ab547be1b9499e37, type: 2}
+  - {fileID: 0}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 1
