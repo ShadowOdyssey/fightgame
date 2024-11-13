@@ -137,31 +137,32 @@ public class GabriellaMovementPlay : MonoBehaviour
     // Method to start moving right
     private void MoveRight()
     {
-        if (gabriellaAnimator.GetBool("isGabriellaBackwards") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way
+        if (gabriellaAnimator.GetBool("isGabriellaForward") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way - Felipe
         {
             Debug.Log("Gabriella moved to right");
-
-            moveDirection = 1f;
-            Vector3 newPosition = transform.position + Vector3.right * moveDirection * stepSize;
-            transform.position = newPosition;
+            moveDirection = 1f; // Setup new direction only once before to apply new position - Felipe
             gabriellaAnimator.SetBool("isGabriellaForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
             gabriellaAnimator.SetBool("isGabriellaBackwards", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
+
+        Vector3 newPosition = transform.position + Vector3.right * moveDirection * stepSize;
+        transform.position = newPosition;
     }
 
     // Method to start moving left
     private void MoveLeft() // MoveLeft is being called alot, consuming processing and it is bad to mobile, so...
     {
-        if (gabriellaAnimator.GetBool("isGabriellaBackwards") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way
+        if (gabriellaAnimator.GetBool("isGabriellaBackwards") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - Felipe
         {
             Debug.Log("Gabriella moved to left");
 
-            moveDirection = -1f;
-            Vector3 newPosition = transform.position + Vector3.right * moveDirection * stepSize;
-            transform.position = newPosition;
+            moveDirection = -1f; // Setup new direction only once before to apply new position - Felipe
             gabriellaAnimator.SetBool("isGabriellaForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             gabriellaAnimator.SetBool("isGabriellaBackwards", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
+
+        Vector3 newPosition = transform.position + Vector3.right * moveDirection * stepSize;
+        transform.position = newPosition;
     }
 
     // Stop movement and set idle animation

@@ -23,7 +23,7 @@ public class MarcusAI : MonoBehaviour
         animator = GetComponent<Animator>();
 
         // Assume Gabriella is tagged as "Gabriella" in the scene
-        target = GameObject.FindGameObjectWithTag("Gabriella").transform;
+        //target = GameObject.FindGameObjectWithTag("Gabriella").transform; // Dont need it since the variable is public and you attached Gabriella object by inspector - Felipe
 
         // Save the original position
         originalPosition = transform.position;
