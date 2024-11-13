@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 754372a63e3afbb4fb5e6321ae44a475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overviewImage: {fileID: 2800000, guid: af5390bbe9ad3fb41af6de82c7011004, type: 3}
+  overviewImage: {fileID: 2800000, guid: f3de9963c70c1ff4f85bf8a1ba47b987, type: 3}
   skipButtonStyle:
     m_Name: 
     m_Normal:

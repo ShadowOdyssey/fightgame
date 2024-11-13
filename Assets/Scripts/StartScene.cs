@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class StartScene : MonoBehaviour
 {
@@ -8,8 +7,6 @@ public class StartScene : MonoBehaviour
     public Texture2D _settingsButtonImage; // Settings button image
     public Texture2D _exitButtonImage; // Exit button image
     public Texture2D[] settingsBackgroundImages; // Array to hold the settings panel background images
-
-    public GameObject settingsPanel; // Reference to the settings panel GameObject
 
     private bool settingsOpen = false;
     private bool isSoundOn = true; // Flag to track sound state
@@ -24,13 +21,13 @@ public class StartScene : MonoBehaviour
     void Start()
     {
         Cursor.visible = true;
-        settingsPanel.SetActive(false); // Settings panel is initially hidden
+        // settingsPanel.SetActive(false); // Removed settingsPanel reference
     }
 
     void OnGUI()
     {
-        float buttonWidth = Screen.width * 0.5f; // Increased width for the play button
-        float buttonHeight = Screen.height * 0.3f; // Increased height for the play button
+        float buttonWidth = Screen.width * 0.3f; // Width for the play button
+        float buttonHeight = Screen.height * 0.15f; // Height for the play button
 
         // Draw background image for the whole scene
         GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), settingsBackgroundImages[currentSettingsBackgroundIndex]);
@@ -38,7 +35,7 @@ public class StartScene : MonoBehaviour
         // Exit button
         float exitButtonWidth = Screen.width * 0.08f; // Smaller exit button width
         float exitButtonHeight = Screen.height * 0.08f; // Smaller exit button height
-        float exitButtonX = Screen.width - exitButtonWidth - 20;
+        float exitButtonX = Screen.width - exitButtonWidth - 20; // Positioning
         float exitButtonY = 20;
         Rect exitButtonRect = new Rect(exitButtonX, exitButtonY, exitButtonWidth, exitButtonHeight);
         if (GUI.Button(exitButtonRect, _exitButtonImage, GUIStyle.none))
@@ -47,27 +44,25 @@ public class StartScene : MonoBehaviour
         }
 
         // Settings button
-        float settingsButtonWidth = exitButtonWidth;
-        float settingsButtonHeight = exitButtonHeight;
+        float settingsButtonWidth = exitButtonWidth; // Same width as the exit button
+        float settingsButtonHeight = exitButtonHeight; // Same height as the exit button
         float settingsButtonX = exitButtonX - settingsButtonWidth - 20; // Adjusted to reduce the gap
         float settingsButtonY = exitButtonY;
         Rect settingsButtonRect = new Rect(settingsButtonX, settingsButtonY, settingsButtonWidth, settingsButtonHeight);
         if (GUI.Button(settingsButtonRect, _settingsButtonImage, GUIStyle.none))
         {
-            settingsOpen = !settingsOpen;
-            settingsPanel.SetActive(settingsOpen); // Toggle settings panel visibility
+            settingsOpen = !settingsOpen; // Toggle settings state
         }
 
-        // Play button
-        float playButtonOffsetX = 450f; // Centered horizontally
-        float playButtonOffsetY = 100f; // Centered vertically
-        Rect playButtonRect = new Rect((Screen.width - buttonWidth) / 2 + playButtonOffsetX, (Screen.height - buttonHeight) / 2 + playButtonOffsetY, buttonWidth, buttonHeight);
+        // Centered Play button with further right adjustment
+        float playButtonOffsetX = 100f; // Increased value to move the button further to the right
+        Rect playButtonRect = new Rect((Screen.width - buttonWidth) / 2 + playButtonOffsetX, (Screen.height - buttonHeight) / 2, buttonWidth, buttonHeight);
         if (GUI.Button(playButtonRect, _playButtonImage, GUIStyle.none))
         {
             StartButtonClicked();
         }
 
-        // Settings panel
+        // Draw settings panel when settingsOpen is true
         if (settingsOpen)
         {
             DrawSettingsPanel();
@@ -80,7 +75,7 @@ public class StartScene : MonoBehaviour
             float alpha = Mathf.Clamp01(fadeTimer / fadeDuration);
 
             // Fade in
-            if (isFading && alpha < 1.0f)
+            if (alpha < 1.0f)
             {
                 fadeColor.a = alpha;
                 GUI.color = fadeColor;
@@ -99,8 +94,8 @@ public class StartScene : MonoBehaviour
     {
         float panelWidth = Screen.width * 0.7f; // Increased panel width
         float panelHeight = Screen.height * 0.8f; // Increased panel height
-        float panelX = Screen.width / 2 - panelWidth / 2;
-        float panelY = Screen.height / 2 - panelHeight / 2;
+        float panelX = Screen.width / 2 - panelWidth / 2; // Center panel
+        float panelY = Screen.height / 2 - panelHeight / 2; // Center panel
 
         // Create a custom GUIStyle for the buttons with a larger font size
         GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
@@ -121,7 +116,7 @@ public class StartScene : MonoBehaviour
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Display", buttonStyle, GUILayout.ExpandWidth(true), GUILayout.Height(80))) // Increased height
         {
-            // Display button action
+            DisplayButtonClicked(); // Load 1BattleGroundSelection when Display is clicked
         }
         GUILayout.EndHorizontal();
 
@@ -131,7 +126,7 @@ public class StartScene : MonoBehaviour
     void ToggleSound()
     {
         isSoundOn = !isSoundOn;
-        // Here you can implement logic to toggle sound on and off
+        // Implement logic to toggle sound on and off
         if (isSoundOn)
         {
             Debug.Log("Sound On");
@@ -144,13 +139,19 @@ public class StartScene : MonoBehaviour
 
     void StartButtonClicked()
     {
-        // Here you can load the next scene after clicking the Start button
+        // Load the next scene after clicking the Start button
         SceneManager.LoadScene("MainMenu");
     }
 
     void ExitButtonClicked()
     {
         SceneManager.LoadScene("OverviewStory");
+    }
+
+    void DisplayButtonClicked()
+    {
+        // Load the 1BattleGroundSelection scene when the Display button is clicked
+        SceneManager.LoadScene("1BattleGroundSelection");
     }
 
     void Update()

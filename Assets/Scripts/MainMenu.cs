@@ -3,20 +3,21 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public Texture2D _singlePlayerButtonImage;
-    public Texture2D _trainingModeButtonImage;
-    public Texture2D _leaderboardsButtonImage;
+    public Texture2D playButton;
+    public Texture2D characterButton;
+    public Texture2D trainingModeButton;
+    public Texture2D arcadeButton;
+    public Texture2D settingsButton;
     public Texture2D _settingsButtonIcon;
     public Texture2D _exitButtonIcon;
     public Texture2D[] settingsBackgroundImages;
-    public GameObject settingsPanel;
+    public AudioClip backgroundMusic;
 
-    private bool settingsOpen = false;
+    private AudioSource audioSource;
     private bool isSoundOn = true;
     private int currentSettingsBackgroundIndex = 0;
 
-    // Fading variables
-    private float fadeDuration = 10f; // Duration of fade in seconds
+    private float fadeDuration = 10f;
     private float fadeTimer = 10f;
     private bool isFading = false;
     private Color fadeColor = Color.clear;
@@ -24,7 +25,16 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         Cursor.visible = true;
-        settingsPanel.SetActive(false); // Settings panel is initially hidden
+
+        // Initialize audio source and set mute based on isSoundOn
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = backgroundMusic;
+        audioSource.loop = true;
+        audioSource.playOnAwake = false;
+
+        // Only play music if sound is on
+        audioSource.mute = !isSoundOn;
+        audioSource.Play();
     }
 
     void OnGUI()
@@ -46,59 +56,49 @@ public class MainMenu : MonoBehaviour
             ExitButtonClicked();
         }
 
-        // Settings Button
-        float settingsButtonWidth = exitButtonWidth;
-        float settingsButtonHeight = exitButtonHeight;
-        float settingsButtonX = exitButtonX - settingsButtonWidth - 20;
-        float settingsButtonY = exitButtonY;
-        Rect settingsButtonRect = new Rect(settingsButtonX, settingsButtonY, settingsButtonWidth, settingsButtonHeight);
-        if (GUI.Button(settingsButtonRect, _settingsButtonIcon, GUIStyle.none))
-        {
-            settingsOpen = !settingsOpen;
-            settingsPanel.SetActive(settingsOpen); // Toggle settings panel visibility
-        }
-
         GUI.color = Color.white;
 
         // Calculate panel dimensions and position
         float panelWidth = buttonWidth + 40;
-        float panelHeight = buttonHeight * 3 + buttonGap * 2;
+        float panelHeight = buttonHeight * 4 + buttonGap * 3;
         float panelX = 100;
         float panelY = Screen.height / 2 - panelHeight / 2;
 
         GUI.Box(new Rect(panelX, panelY, panelWidth, panelHeight), GUIContent.none, GUI.skin.box);
 
-        // Centering buttons
         float centerX = Screen.width / 2 - buttonWidth / 2;
 
-        // Single Player Button
-        Rect singlePlayerButtonRect = new Rect(centerX, panelY, buttonWidth, buttonHeight);
-        if (GUI.Button(singlePlayerButtonRect, GUIContent.none, GUIStyle.none))
+        // Play Button
+        Rect playButtonRect = new Rect(centerX, panelY, buttonWidth, buttonHeight);
+        if (GUI.Button(playButtonRect, GUIContent.none, GUIStyle.none))
         {
-            SceneManager.LoadScene("SinglePlayer");
+            SceneManager.LoadScene("SelectionCharacter");
         }
-        GUI.DrawTexture(singlePlayerButtonRect, _singlePlayerButtonImage, ScaleMode.ScaleToFit);
+        GUI.DrawTexture(playButtonRect, playButton, ScaleMode.ScaleToFit);
+
+        // Character Button
+        Rect characterButtonRect = new Rect(centerX, playButtonRect.yMax + buttonGap, buttonWidth, buttonHeight);
+        if (GUI.Button(characterButtonRect, GUIContent.none, GUIStyle.none))
+        {
+            LoadScene("CharactersViewing");
+        }
+        GUI.DrawTexture(characterButtonRect, characterButton, ScaleMode.ScaleToFit);
 
         // Training Mode Button
-        Rect trainingModeButtonRect = new Rect(centerX, singlePlayerButtonRect.yMax + buttonGap, buttonWidth, buttonHeight);
+        Rect trainingModeButtonRect = new Rect(centerX, characterButtonRect.yMax + buttonGap, buttonWidth, buttonHeight);
         if (GUI.Button(trainingModeButtonRect, GUIContent.none, GUIStyle.none))
         {
             LoadScene("TrainingMode");
         }
-        GUI.DrawTexture(trainingModeButtonRect, _trainingModeButtonImage, ScaleMode.ScaleToFit);
+        GUI.DrawTexture(trainingModeButtonRect, trainingModeButton, ScaleMode.ScaleToFit);
 
-        // Leaderboards Button
-        Rect leaderboardsButtonRect = new Rect(centerX, trainingModeButtonRect.yMax + buttonGap, buttonWidth, buttonHeight);
-        if (GUI.Button(leaderboardsButtonRect, GUIContent.none, GUIStyle.none))
+        // Arcade Button
+        Rect arcadeButtonRect = new Rect(centerX, trainingModeButtonRect.yMax + buttonGap, buttonWidth, buttonHeight);
+        if (GUI.Button(arcadeButtonRect, GUIContent.none, GUIStyle.none))
         {
-            LoadScene("Leaderboards");
+            LoadScene("ArcadeMode");
         }
-        GUI.DrawTexture(leaderboardsButtonRect, _leaderboardsButtonImage, ScaleMode.ScaleToFit);
-
-        if (settingsOpen)
-        {
-            DrawSettingsPanel();
-        }
+        GUI.DrawTexture(arcadeButtonRect, arcadeButton, ScaleMode.ScaleToFit);
 
         // Apply fading effect
         if (isFading)
@@ -106,7 +106,6 @@ public class MainMenu : MonoBehaviour
             fadeTimer += Time.deltaTime;
             float alpha = Mathf.Clamp01(fadeTimer / fadeDuration);
 
-            // Fade in
             if (isFading && alpha < 1.0f)
             {
                 fadeColor.a = alpha;
@@ -122,42 +121,10 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    void DrawSettingsPanel()
-    {
-        float panelWidth = Screen.width * 0.7f; // Increased panel width
-        float panelHeight = Screen.height * 0.8f; // Increased panel height
-        float panelX = Screen.width / 2 - panelWidth / 2;
-        float panelY = Screen.height / 2 - panelHeight / 2;
-
-        // Create a custom GUIStyle for the buttons with a larger font size
-        GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
-        buttonStyle.fontSize = 30;
-
-        GUILayout.BeginArea(new Rect(panelX, panelY, panelWidth, panelHeight), GUI.skin.box);
-        GUILayout.Label("Settings", GUILayout.ExpandWidth(true));
-
-        // Sound Button
-        GUILayout.BeginHorizontal();
-        if (GUILayout.Button(isSoundOn ? "Sound On" : "No Sound", buttonStyle, GUILayout.ExpandWidth(true), GUILayout.Height(80))) // Increased height
-        {
-            ToggleSound(); // Toggle sound when clicked
-        }
-        GUILayout.EndHorizontal();
-
-        // Display Button
-        GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Display", buttonStyle, GUILayout.ExpandWidth(true), GUILayout.Height(80))) // Increased height
-        {
-            // Display button action
-        }
-        GUILayout.EndHorizontal();
-
-        GUILayout.EndArea();
-    }
-
     void ToggleSound()
     {
         isSoundOn = !isSoundOn;
+        audioSource.mute = !isSoundOn;  // Toggle mute based on sound setting
         Debug.Log(isSoundOn ? "Sound On" : "No Sound");
     }
 
@@ -173,10 +140,9 @@ public class MainMenu : MonoBehaviour
 
     void Update()
     {
-        // Automatically cycle through the settings background images
-        if (settingsBackgroundImages.Length > 1 && !settingsOpen)
+        if (settingsBackgroundImages.Length > 1)
         {
-            float interval = 5.0f; // Change image every 5 seconds
+            float interval = 5.0f;
             if (Time.time > interval)
             {
                 currentSettingsBackgroundIndex = (currentSettingsBackgroundIndex + 1) % settingsBackgroundImages.Length;

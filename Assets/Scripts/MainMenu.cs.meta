@@ -3,7 +3,16 @@ guid: de558d0295de552448d5a4d10b6db5c3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playButton: {instanceID: 0}
+  - characterButton: {instanceID: 0}
+  - trainingModeButton: {instanceID: 0}
+  - arcadeButton: {instanceID: 0}
+  - settingsButton: {instanceID: 0}
+  - _settingsButtonIcon: {instanceID: 0}
+  - _exitButtonIcon: {instanceID: 0}
+  - settingsPanel: {instanceID: 0}
+  - backgroundMusic: {fileID: 8300000, guid: 51413e93cc339f04f9652ef5205ce8fe, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
