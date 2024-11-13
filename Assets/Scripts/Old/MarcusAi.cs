@@ -51,13 +51,13 @@ public class MarcusAI : MonoBehaviour
 
     private void Idle()
     {
-        animator.SetBool("isWalking", false);
+        animator.SetBool("isWalking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         isAttacking = false;
     }
 
     private void Chase()
     {
-        animator.SetBool("isWalking", true);
+        animator.SetBool("isWalking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
         isAttacking = false;
 
         Vector3 direction = (target.position - transform.position).normalized;
@@ -72,7 +72,7 @@ public class MarcusAI : MonoBehaviour
         if (!isAttacking)
         {
             isAttacking = true;
-            animator.SetTrigger("IsBoxing"); // Trigger attack animation
+            animator.SetTrigger("isBoxing"); // Trigger attack animation - Values in parameters should be low case in the first letter because is variable name - Felipe
 
             StartCoroutine(AttackCoroutine());
         }
@@ -99,13 +99,13 @@ public class MarcusAI : MonoBehaviour
             if (hitCount == 1)
             {
                 // Play block animation on first hit
-                animator.SetTrigger("Block");
+                animator.SetTrigger("block"); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 ShowHitEffect();
             }
             else if (hitCount == 3)
             {
                 // Play stunned animation on third hit
-                animator.SetTrigger("Stunned");
+                animator.SetTrigger("stunned"); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 ShowHitEffect();
 
                 // Start coroutine to play getting up animation and reset position
@@ -114,7 +114,7 @@ public class MarcusAI : MonoBehaviour
             else
             {
                 // Play hurt animation for other hits
-                animator.SetTrigger("Hurt");
+                animator.SetTrigger("hurt"); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 ShowHitEffect();
             }
         }
@@ -125,7 +125,7 @@ public class MarcusAI : MonoBehaviour
         yield return new WaitForSeconds(2.0f); // Assume stunned animation duration
 
         // Play the getting-up animation
-        animator.SetTrigger("GettingUp");
+        animator.SetTrigger("gettingUp"); // Values in parameters should be low case in the first letter because is variable name - Felipe
 
         // Wait for getting-up animation to finish
         yield return new WaitForSeconds(1.5f);
@@ -148,7 +148,7 @@ public class MarcusAI : MonoBehaviour
 
     private void Die()
     {
-        animator.SetTrigger("Die");
+        animator.SetTrigger("die"); // Values in parameters should be low case in the first letter because is variable name - Felipe
         Destroy(gameObject, 2f); // Destroy Marcus after delay to allow death animation
     }
 }

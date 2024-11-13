@@ -115,6 +115,7 @@ public class GabriellaMovementPlay : MonoBehaviour
     {
         if (CanMoveForward())
         {
+            Debug.Log("Gabriella is moving forward");
             isMovingForward = true;
             isMovingBackward = false;
         }
@@ -124,6 +125,7 @@ public class GabriellaMovementPlay : MonoBehaviour
     {
         if (CanMoveBackward())
         {
+            Debug.Log("Gabriella is moving backward");
             isMovingBackward = true;
             isMovingForward = false;
         }
@@ -132,37 +134,39 @@ public class GabriellaMovementPlay : MonoBehaviour
     // Method to start moving right
     private void MoveRight()
     {
-        Debug.Log("Moved to right");
+        Debug.Log("Gabriella moved to right");
 
         moveDirection = 1f;
         Vector3 newPosition = transform.position + Vector3.right * moveDirection * stepSize;
         transform.position = newPosition;
-        gabriellaAnimator.SetBool("IsGabriellaForward", true);
-        gabriellaAnimator.SetBool("IsGabriellaBackwards", false);
+        gabriellaAnimator.SetBool("isGabriellaForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        gabriellaAnimator.SetBool("isGabriellaBackwards", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
     }
 
     // Method to start moving left
     private void MoveLeft()
     {
-        Debug.Log("Moved to left");
+        Debug.Log("Gabriella moved to left");
 
         moveDirection = -1f;
         Vector3 newPosition = transform.position + Vector3.right * moveDirection * stepSize;
         transform.position = newPosition;
-        gabriellaAnimator.SetBool("IsGabriellaForward", false);
-        gabriellaAnimator.SetBool("IsGabriellaBackwards", true);
+        gabriellaAnimator.SetBool("isGabriellaForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        gabriellaAnimator.SetBool("isGabriellaBackwards", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
     }
 
     // Stop movement and set idle animation
     private void StopMoving()
     {
-        gabriellaAnimator.SetBool("IsGabriellaForward", false);
-        gabriellaAnimator.SetBool("IsGabriellaBackwards", false);
+        Debug.Log("Gabriella stopped to move");
+        gabriellaAnimator.SetBool("isGabriellaForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        gabriellaAnimator.SetBool("isGabriellaBackwards", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
     }
 
     public void OnAttack1ButtonPressed()
     {
-        gabriellaAnimator.SetTrigger("Attack1");
+        Debug.Log("Gabriella activated Attack 1");
+        gabriellaAnimator.SetTrigger("attack1"); // Values in parameters should be low case in the first letter because is variable name - Felipe
         isAttacking = true;
         StopMoving();
         StartCoroutine(EndAttackAnimation());
@@ -170,7 +174,8 @@ public class GabriellaMovementPlay : MonoBehaviour
 
     public void OnAttack2ButtonPressed()
     {
-        gabriellaAnimator.SetTrigger("Attack2");
+        Debug.Log("Gabriella activated Attack 2");
+        gabriellaAnimator.SetTrigger("attack2"); // Values in parameters should be low case in the first letter because is variable name - Felipe
         isAttacking = true;
         StopMoving();
         StartCoroutine(EndAttackAnimation());
@@ -178,7 +183,8 @@ public class GabriellaMovementPlay : MonoBehaviour
 
     public void OnAttack3ButtonPressed()
     {
-        gabriellaAnimator.SetTrigger("Attack3");
+        Debug.Log("Gabriella activated Attack 3");
+        gabriellaAnimator.SetTrigger("attack3"); // Values in parameters should be low case in the first letter because is variable name - Felipe
         isAttacking = true;
         StopMoving();
         StartCoroutine(EndAttackAnimation());
@@ -189,6 +195,7 @@ public class GabriellaMovementPlay : MonoBehaviour
     {
         if (!isHit)
         {
+            Debug.Log("Gabriella got hit");
             isHit = true;
             gabriellaAnimator.SetTrigger("React"); // Trigger reaction animation
             Instantiate(hitEffectPrefab, transform.position, Quaternion.identity); // Show hit effect
