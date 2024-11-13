@@ -63,8 +63,8 @@
     <Compile Include="Assets\Opponents\Opponent(ofMarcus)\OpponentMovementofMarcus.cs" />
     <Compile Include="Assets\Scripts\Old\SampleScript.cs" />
     <Compile Include="Assets\Scripts\Old\FightingSingle.cs" />
-    <Compile Include="Assets\Scripts\Old\TrainingModeMenu.cs" />
     <Compile Include="Assets\Scripts\Old\ComboPunchController.cs" />
+    <Compile Include="Assets\Scripts\Old\TrainingModeMenu.cs" />
     <Compile Include="Assets\Scripts\Old\Sample1.cs" />
     <Compile Include="Assets\Scripts\Old\Joystick.cs" />
     <Compile Include="Assets\Scripts\Old\RoundManager.cs" />
@@ -885,33 +885,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.Formats.Fbx.Runtime.Player.csproj">
-      <Project>{4B634033-49EB-970B-3666-D26973C61311}</Project>
-      <Name>Unity.Formats.Fbx.Runtime.Player</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Flow.Player.csproj">
-      <Project>{2F1FDB4E-6F2E-7235-86D2-905F7BBCD269}</Project>
-      <Name>Unity.VisualScripting.Flow.Player</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.Player.csproj">
-      <Project>{6F786B86-BDD8-83E2-EFEB-9C417FDB3014}</Project>
-      <Name>Unity.TextMeshPro.Player</Name>
+    <ProjectReference Include="Unity.AdaptivePerformance.Samsung.Android.Player.csproj">
+      <Project>{FAB992F4-11C1-BA5A-D330-BB84C610487E}</Project>
+      <Name>Unity.AdaptivePerformance.Samsung.Android.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Animation.Rigging.Player.csproj">
       <Project>{6F994EF8-12A4-71B4-C886-ED6F7D4ED0AC}</Project>
       <Name>Unity.Animation.Rigging.Player</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Profiling.Core.Player.csproj">
-      <Project>{1745C43F-ADFD-80B7-629E-F98040161C04}</Project>
-      <Name>Unity.Profiling.Core.Player</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Notifications.Unified.Player.csproj">
-      <Project>{59424701-B032-E59B-E896-FC355ECEE3D2}</Project>
-      <Name>Unity.Notifications.Unified.Player</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.AdaptivePerformance.Samsung.Android.Player.csproj">
-      <Project>{FAB992F4-11C1-BA5A-D330-BB84C610487E}</Project>
-      <Name>Unity.AdaptivePerformance.Samsung.Android.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Burst.Player.csproj">
       <Project>{5C1AEF2A-F814-2C04-EF3C-F5D22072C491}</Project>
@@ -929,6 +909,14 @@
       <Project>{87960734-D0D4-14EE-0B80-CC9BB28A2906}</Project>
       <Name>UnityEngine.UI.Player</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.Formats.Fbx.Runtime.Player.csproj">
+      <Project>{4B634033-49EB-970B-3666-D26973C61311}</Project>
+      <Name>Unity.Formats.Fbx.Runtime.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.VisualScripting.Flow.Player.csproj">
+      <Project>{2F1FDB4E-6F2E-7235-86D2-905F7BBCD269}</Project>
+      <Name>Unity.VisualScripting.Flow.Player</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.Timeline.Player.csproj">
       <Project>{65329F36-A07D-9C24-251B-F356F84E3D1C}</Project>
       <Name>Unity.Timeline.Player</Name>
@@ -945,6 +933,10 @@
       <Project>{4C3C2947-1451-9A1F-1A21-60265292B6FE}</Project>
       <Name>Unity.Mathematics.Player</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.Player.csproj">
+      <Project>{6F786B86-BDD8-83E2-EFEB-9C417FDB3014}</Project>
+      <Name>Unity.TextMeshPro.Player</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.State.Player.csproj">
       <Project>{D24CE4ED-D190-CD1F-DE4D-7BC5A66240F6}</Project>
       <Name>Unity.VisualScripting.State.Player</Name>
@@ -956,6 +948,14 @@
     <ProjectReference Include="Unity.Notifications.Android.Player.csproj">
       <Project>{11486DC3-4CF9-0C2E-E6ED-50BA9A503787}</Project>
       <Name>Unity.Notifications.Android.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Profiling.Core.Player.csproj">
+      <Project>{1745C43F-ADFD-80B7-629E-F98040161C04}</Project>
+      <Name>Unity.Profiling.Core.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Notifications.Unified.Player.csproj">
+      <Project>{59424701-B032-E59B-E896-FC355ECEE3D2}</Project>
+      <Name>Unity.Notifications.Unified.Player</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

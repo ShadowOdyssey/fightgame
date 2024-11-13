@@ -64,12 +64,15 @@ public class GabriellaMovementPlay : MonoBehaviour
 
     private void Start()
     {
-        // Store Marcus's initial rotation
+        /*// Store Marcus's initial rotation
         if (marcusTransform != null)
         {
             Debug.Log("Saved initial Marcus rotation in Gabriella script");
-            lastMarcusRotation = marcusTransform.rotation;
+            lastMarcusRotation = marcusTransform.localRotation;
+
+            // We dont need it since characters only moves forward and backward, so them are always facing each other
         }
+        */
     }
 
     private void FixedUpdate()
@@ -91,26 +94,37 @@ public class GabriellaMovementPlay : MonoBehaviour
             }
         }
 
+        if (isMovingBackward == true || isMovingForward == true)
+        {
+            // It is not yet right! - Felipe
+            Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
+            transform.localPosition = newPosition;
+        }
+
+        /*
         // Synchronize Gabriella's rotation to the opposite of Marcus's rotation
-        if (marcusTransform != null && marcusTransform.rotation != lastMarcusRotation)
+        if (marcusTransform != null && marcusTransform.localRotation != lastMarcusRotation)
         {
             // Apply an inverse rotation to Gabriella
             Debug.Log("Applied inverse rotation in Marcus character from Gabriella rotation");
-            transform.rotation = Quaternion.Inverse(marcusTransform.rotation);
-            lastMarcusRotation = marcusTransform.rotation;
+            transform.rotation = Quaternion.Inverse(marcusTransform.localRotation); // It is right! Added the real body of Gabriella that should be moved - Felipe
+            lastMarcusRotation = marcusTransform.localRotation; // It is right! - Felipe
+
+            // We dont need it since characters only moves forward and backward, so them are always facing each other
         }
+        */
     }
 
     // Check if Gabriella can move forward without colliding with Marcus
     private bool CanMoveForward()
     {
-        return Vector3.Distance(transform.position, marcusTransform.position) > (minimumDistance + colliderBuffer);
+        return Vector3.Distance(transform.localPosition, marcusTransform.localPosition) > (minimumDistance + colliderBuffer); // It is not yet right! Added the real body of Gabriella that should be moved - Felipe
     }
 
     // Check if Gabriella can move backward without colliding with Marcus
     private bool CanMoveBackward()
     {
-        return Vector3.Distance(transform.position, marcusTransform.position) > (minimumDistance + colliderBuffer);
+        return Vector3.Distance(transform.localPosition, marcusTransform.localPosition) > (minimumDistance + colliderBuffer); // It is not yet right! Added the real body of Gabriella that should be moved - Felipe
     }
 
     // Button press handlers
@@ -144,9 +158,6 @@ public class GabriellaMovementPlay : MonoBehaviour
             gabriellaAnimator.SetBool("isGabriellaForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
             gabriellaAnimator.SetBool("isGabriellaBackwards", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
-
-        Vector3 newPosition = transform.position + Vector3.right * moveDirection * stepSize;
-        transform.position = newPosition;
     }
 
     // Method to start moving left
@@ -160,9 +171,6 @@ public class GabriellaMovementPlay : MonoBehaviour
             gabriellaAnimator.SetBool("isGabriellaForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             gabriellaAnimator.SetBool("isGabriellaBackwards", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
-
-        Vector3 newPosition = transform.position + Vector3.right * moveDirection * stepSize;
-        transform.position = newPosition;
     }
 
     // Stop movement and set idle animation
@@ -220,7 +228,7 @@ public class GabriellaMovementPlay : MonoBehaviour
             Debug.Log("Gabriella got hit");
             isHit = true;
             gabriellaAnimator.SetTrigger("react"); // Trigger reaction animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-            Instantiate(hitEffectPrefab, transform.position, Quaternion.identity); // Show hit effect
+            Instantiate(hitEffectPrefab, transform.localPosition, Quaternion.identity); // Show hit effect
             StartCoroutine(HandleHitCooldown());
         }
     }
@@ -254,7 +262,14 @@ public class GabriellaMovementPlay : MonoBehaviour
     // Called when the button is released
     private void OnMoveButtonReleased(BaseEventData eventData)
     {
-        isMovingForward = false;
-        isMovingBackward = false;
+        if (isMovingForward == true)
+        {
+            isMovingForward = false;
+        }
+
+        if (isMovingBackward == true)
+        {
+            isMovingBackward = false;
+        }
     }
 }

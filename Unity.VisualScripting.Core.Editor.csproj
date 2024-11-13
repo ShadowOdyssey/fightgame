@@ -257,8 +257,8 @@
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Inspection\IndividualEditor.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Plugin\Acknowledgements\Acknowledgement_SQLite.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Utilities\PackageVersionUtility.cs" />
-    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Inspection\Unity\Ray2DInspector.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Inspection\GraphEditor.cs" />
+    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Inspection\Unity\Ray2DInspector.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Windows\Page.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Description\GraphNesterDescriptor.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Platforms\EditorPlatformUtility.cs" />
@@ -411,8 +411,8 @@
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Plugin\Changelogs\Changelog_1_4_5.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Analysis\IGraphElementAnalysis.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Inspection\Unity\LayerMaskInspector.cs" />
-    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Interface\Colors\SkinnedColor.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Interface\Licenses\License.Iconmonstr.cs" />
+    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Interface\Colors\SkinnedColor.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Inspection\Primitives\LongInspector.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Description\GraphItemDescriptor.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Utilities\LudiqEditorUtility.cs" />

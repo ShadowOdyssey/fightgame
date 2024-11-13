@@ -81,8 +81,8 @@
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.34\Rider\Editor\ProjectGeneration\LastWriteTracker.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.34\Rider\Editor\ProjectGeneration\ProjectPart.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.34\Rider\Editor\Util\LibcNativeInterop.cs" />
-    <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.34\Rider\Editor\ProjectGeneration\IGenerator.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.34\Rider\Editor\Debugger\LinkXmlInstaller.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.34\Rider\Editor\ProjectGeneration\IGenerator.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.34\Rider\Editor\ProjectGeneration\PackageManagerTracker.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.34\Rider\Editor\ProjectGeneration\ProjectGeneration.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.34\Rider\Editor\Util\CommandLineParser.cs" />

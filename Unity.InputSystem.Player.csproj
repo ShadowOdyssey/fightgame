@@ -67,8 +67,8 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Utilities\TypeHelpers.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Controls\Processors\InvertVector2Processor.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\Pen.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\XR\Devices\OpenVR.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\Commands\DisableDeviceCommand.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\XR\Devices\OpenVR.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Editor\InputDiagnostics.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Controls\TouchControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\iOS\InputSettingsiOS.cs" />
@@ -102,10 +102,10 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Actions\IInputActionCollection.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\UI\MultiplayerEventSystem.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Actions\InputBinding.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Controls\QuaternionControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\HID\HIDParser.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Editor\Internal\InputStateWindow.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\Commands\IInputDeviceCommandInfo.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Controls\QuaternionControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\Joystick.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\Steam\IStreamControllerAPI.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\PlayerInput\PlayerInput.cs" />
@@ -131,8 +131,8 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Utilities\InlinedArray.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\Commands\EnableDeviceCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\OSX\OSXGameController.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\Commands\InitiateUserAccountPairingCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\WebGL\WebGLJoystick.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\Commands\InitiateUserAccountPairingCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\XR\Devices\GoogleVR.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Controls\Processors\ClampProcessor.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\XR\Devices\WindowsMR.cs" />
@@ -211,8 +211,8 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Editor\UITKAssetEditor\Views\CompositePartBindingPropertiesView.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Utilities\ArrayHelpers.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\DualShock\DualShockSupport.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Controls\InputControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\PlayerInput\PlayerJoinBehavior.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Controls\InputControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Utilities\Observables\WhereObservable.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Controls\DeltaControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\Commands\UseWindowsGamingInputCommand.cs" />
@@ -238,8 +238,8 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\ICustomDeviceReset.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\EnhancedTouch\TouchSimulation.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Editor\EditorInputControlLayoutCache.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\Commands\WarpMousePositionCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\XR\TrackedPoseDriver.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\Commands\WarpMousePositionCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\Commands\SetIMECursorPositionCommand.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\UnityRemote\UnityRemoteSupport.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Editor\ControlPicker\InputControlPickerDropdown.cs" />
@@ -298,8 +298,8 @@
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\InputDeviceBuilder.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Controls\Processors\NormalizeVector3Processor.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Events\IInputEventTypeInfo.cs" />
-    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\Gamepad.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Actions\InputActionTrace.cs" />
+    <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Devices\Gamepad.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\iOS\iOSPostProcessBuild.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Controls\TouchPhaseControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.inputsystem@1.7.0\InputSystem\Plugins\HID\HID.cs" />

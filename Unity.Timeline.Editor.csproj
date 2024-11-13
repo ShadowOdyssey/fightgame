@@ -161,8 +161,8 @@
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\DirectorNamedColor.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Animation\TimelineAnimationUtilities.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Utilities\TimeFormat.cs" />
-    <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\TimelineHelpers.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Animation\AnimationClipActions.cs" />
+    <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\TimelineHelpers.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\treeview\ManipulationsTracks.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Items\ItemsGroup.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Actions\MarkerActions.cs" />
@@ -214,9 +214,9 @@
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\CustomEditors\MarkerEditor.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Items\ItemsUtils.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\inspectors\TimelinePreferences.cs" />
+    <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\treeview\ItemGui\TimelineMarkerGUI.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Actions\TimelineAction.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Window\TimelineWindow_TimeArea.cs" />
-    <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\treeview\ItemGui\TimelineMarkerGUI.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Actions\IAction.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\treeview\TrackGui\TimelineTrackGUI.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.7.6\Editor\Animation\CurvesProxy.cs" />

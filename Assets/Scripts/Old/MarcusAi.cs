@@ -26,14 +26,16 @@ public class MarcusAI : MonoBehaviour
         //target = GameObject.FindGameObjectWithTag("Gabriella").transform; // Dont need it since the variable is public and you attached Gabriella object by inspector - Felipe
 
         // Save the original position
-        originalPosition = transform.position;
+        originalPosition = transform.localPosition;
     }
 
     private void Update()
     {
         if (health <= 0) return; // Prevent further actions if Marcus is dead
 
-        float distanceToTarget = Vector3.Distance(transform.position, target.position);
+        float distanceToTarget = Vector3.Distance(transform.localPosition, target.localPosition);
+
+        Debug.Log("Actual distance to target from Marcus is: " + distanceToTarget);
 
         if (distanceToTarget <= attackRange)
         {
@@ -60,11 +62,11 @@ public class MarcusAI : MonoBehaviour
         animator.SetBool("isWalking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
         isAttacking = false;
 
-        Vector3 direction = (target.position - transform.position).normalized;
-        transform.position += direction * moveSpeed * Time.deltaTime;
+        Vector3 direction = (target.localPosition - transform.localPosition).normalized;
+        transform.localPosition += direction * moveSpeed * Time.deltaTime;
 
         // Face Gabriella
-        transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+        transform.LookAt(new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z)); // We dont need it since characters only move forward and backward, them are always facing each other
     }
 
     private void Attack()
@@ -131,7 +133,7 @@ public class MarcusAI : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         // Reset position to the original position
-        transform.position = originalPosition;
+        transform.localPosition = originalPosition;
 
         // Reset hit count
         hitCount = 0;
@@ -141,7 +143,7 @@ public class MarcusAI : MonoBehaviour
     {
         if (hitEffectPrefab != null)
         {
-            GameObject hitEffect = Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+            GameObject hitEffect = Instantiate(hitEffectPrefab, transform.localPosition, Quaternion.identity);
             Destroy(hitEffect, 0.5f); // Remove effect after a short delay
         }
     }
