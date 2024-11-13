@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18296549, g: 0.22865623, b: 0.3068282, a: 1}
+  m_IndirectSpecularColor: {r: 0.18296568, g: 0.22865614, b: 0.30682814, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1170,7 +1170,7 @@ GameObject:
   - component: {fileID: 471720623}
   m_Layer: 0
   m_Name: Gabriella
-  m_TagString: Untagged
+  m_TagString: Gabriella
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4005,10 +4005,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1581898509}
-  - {fileID: 835816781}
   - {fileID: 1496494906}
   - {fileID: 471720621}
   - {fileID: 1833903672}
   - {fileID: 1646095385}
   - {fileID: 374819413}
   - {fileID: 448668107}
+  - {fileID: 835816781}
