@@ -366,7 +366,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b4c347ca67b3df946995ad03477fefb1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.74
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b4c347ca67b3df946995ad03477fefb1,
         type: 3}
@@ -381,7 +381,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b4c347ca67b3df946995ad03477fefb1,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 0.30070582
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b4c347ca67b3df946995ad03477fefb1,
         type: 3}
@@ -391,7 +391,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b4c347ca67b3df946995ad03477fefb1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -1
+      value: -0.95371693
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b4c347ca67b3df946995ad03477fefb1,
         type: 3}
@@ -406,7 +406,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b4c347ca67b3df946995ad03477fefb1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -180
+      value: -145
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b4c347ca67b3df946995ad03477fefb1,
         type: 3}
@@ -2448,7 +2448,7 @@ MonoBehaviour:
     type: 3}
   moveSpeed: 1
   stepSize: 0.1
-  minimumDistance: 1.5
+  minimumDistance: 13
   colliderBuffer: 0.5
 --- !u!54 &1311155267
 Rigidbody:
