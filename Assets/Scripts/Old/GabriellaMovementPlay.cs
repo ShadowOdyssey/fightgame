@@ -64,11 +64,12 @@ public class GabriellaMovementPlay : MonoBehaviour
         // Store Marcus's initial rotation
         if (marcusTransform != null)
         {
+            Debug.Log("Saved initial Marcus rotation in Gabriella script");
             lastMarcusRotation = marcusTransform.rotation;
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         // Ensure movement only happens when buttons are held and not during attacks
         if (!isAttacking && !isHit)
@@ -91,6 +92,7 @@ public class GabriellaMovementPlay : MonoBehaviour
         if (marcusTransform != null && marcusTransform.rotation != lastMarcusRotation)
         {
             // Apply an inverse rotation to Gabriella
+            Debug.Log("Applied inverse rotation in Marcus character from Gabriella rotation");
             transform.rotation = Quaternion.Inverse(marcusTransform.rotation);
             lastMarcusRotation = marcusTransform.rotation;
         }
@@ -130,6 +132,8 @@ public class GabriellaMovementPlay : MonoBehaviour
     // Method to start moving right
     private void MoveRight()
     {
+        Debug.Log("Moved to right");
+
         moveDirection = 1f;
         Vector3 newPosition = transform.position + Vector3.right * moveDirection * stepSize;
         transform.position = newPosition;
@@ -140,6 +144,8 @@ public class GabriellaMovementPlay : MonoBehaviour
     // Method to start moving left
     private void MoveLeft()
     {
+        Debug.Log("Moved to left");
+
         moveDirection = -1f;
         Vector3 newPosition = transform.position + Vector3.right * moveDirection * stepSize;
         transform.position = newPosition;
