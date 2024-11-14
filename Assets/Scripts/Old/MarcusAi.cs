@@ -16,16 +16,18 @@ public class MarcusAI : MonoBehaviour
     public float attackRange = 13f;
     public float moveSpeed = 2f;
     public float randomizeTimer = 0f;
+    public float distanceToTarget = 0f;
 
     private Vector3 originalPosition; // Save original position to reset after getting up
     private int actualRandomValue = 0;
     private int attackRandom = 0;
     private int hitCount = 0; // Track the number of times Marcus is hit
-    private float distanceToTarget = 0f;
     private bool successRandom = false; // The success is based in the difficulty level
-    private bool isResetRandom = false;
+    private bool attackSuccessRandom = false;
+    private bool isResetRandom = false; 
     private bool isWalking = false;
     private bool isAttacking = false;
+    private bool isHit = false;
     private bool canFight = false;
     private bool checkDamage = false;
     private bool canRandomize = false;
@@ -232,36 +234,45 @@ public class MarcusAI : MonoBehaviour
 
             //Debug.Log("Actual distance to target from Marcus is: " + distanceToTarget); // Debug actual distance between Marcus and Gabriella
 
-            if (distanceToTarget < attackRange && distanceToTarget > attackRange - 1f)
+            if (distanceToTarget < attackRange && distanceToTarget > attackRange - 1f && isHit == false)
             {
-                if (checkDamage == true && distanceToTarget > attackRange - 0.5f) // Only apply damage if player is really inside attack area
+                if (checkDamage == true) // Only apply damage if player is really inside attack area
                 {
                     gabriellaSystem.TakeHit(15);
                     checkDamage = false;
                 }
 
-                if (isResetRandom == false) // Call for attack action randomize, AI can decide if attack or not when player is inside attack area
+                if (isResetRandom == false && isAttacking == false) // Call for attack action randomize, AI can decide if attack or not when player is inside attack area
                 {
                     attackRandom = Random.Range(1, 100);
 
                     if (enemyDifficulty == 0 && attackRandom >= 81 && attackRandom <= 100) // 20% the easy AI have to attack
                     {
+                        attackSuccessRandom = true;
                         Attack(); // Attack if player is inside attack area
                     }
 
                     if (enemyDifficulty == 1 && attackRandom >= 61 && attackRandom <= 100) // 40% the moderate AI have to attack
                     {
+                        attackSuccessRandom = true;
                         Attack(); // Attack if player is inside attack area
                     }
 
                     if (enemyDifficulty == 2 && attackRandom >= 41 && attackRandom <= 100) // 60% the normal AI have to attack
                     {
+                        attackSuccessRandom = true;
                         Attack(); // Attack if player is inside attack area
                     }
 
                     if (enemyDifficulty == 3 && attackRandom >= 21 && attackRandom <= 100) // 80% the hard AI have to attack
                     {
+                        attackSuccessRandom = true;
                         Attack(); // Attack if player is inside attack area
+                    }
+
+                    if (attackSuccessRandom == false) // Check if enemy decided to attack player
+                    {
+                        Idle(); // Call for Idle because enemy is to much near player
                     }
 
                     isResetRandom = true; // Close the attack random call and reset it
@@ -270,7 +281,7 @@ public class MarcusAI : MonoBehaviour
                 // Attack area is determined by Attack Range and Attack Range -1, so if Attack Range is 8, the area will between 8f and 7f in the distance value, if player is 6.9f or less the AI will move backward
             }
             
-            if (distanceToTarget > attackRange && isAttacking == false)
+            if (distanceToTarget > attackRange && isAttacking == false && isHit == false)
             {
                 if (checkDamage == true) // Check if player got out from attack area when damage is trying to be applied
                 {
@@ -281,9 +292,9 @@ public class MarcusAI : MonoBehaviour
                 Move(); // Follow player if is outside attack area to attack the player
             }
 
-            if (distanceToTarget < attackRange && distanceToTarget < attackRange - 1f && isAttacking == false)
+            if (distanceToTarget < attackRange && distanceToTarget < attackRange - 1f && isAttacking == false && isHit == false || isHit == true)
             {
-                FixWalkAnimDirectionToBackward();
+                FixWalkAnimDirectionToBackward(); // Move opponent to backward if player to much near or if it is taking damage
                 Move(); // Get far from player if is to much inside attack area to not let AI vulnerable for attacks
             }
         }
@@ -315,45 +326,47 @@ public class MarcusAI : MonoBehaviour
     // Called when Marcus takes damage
     public void TakeDamage(int damage)
     {
-        health -= damage;
+        if (isHit == false) // With this trigger we make sure opponent only will take damage 1 time
+        {
+            health -= damage;
 
-        if (health <= 0)
-        {
-            Die();
-        }
-        else
-        {
-            if (hitCount != hitCount + 1)
+            if (hitCount != 0)
             {
-                Debug.Log("Checking for actual Hit Count");
-
-                hitCount = hitCount + 1; // Increment hit count
+                hitCount = 0; // We are resetting HitCount here but we will reset it later in the last frame of the current hit animation
             }
 
-            if (hitCount == 1)
+            if (health <= 0)
             {
-                // Play block animation on first hit
-                animator.SetTrigger("block"); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                ShowHitEffect();
-            }
-            else if (hitCount == 3)
-            {
-                // Play stunned animation on third hit
-                animator.SetTrigger("stunned"); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                ShowHitEffect();
-
-                // Start coroutine to play getting up animation and reset position
-                StartCoroutine(StunRecoveryCoroutine());
+                Die(); // Kill opponent because life reached to zero
             }
             else
             {
-                // Play hurt animation for other hits
-                animator.SetTrigger("hurt"); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 ShowHitEffect();
+
+                hitCount = hitCount + 1;
+
+                if (hitCount == 1)
+                {
+                    // Play block animation on first hit
+                    //animator.SetTrigger("block"); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                }
+                else if (hitCount == 3)
+                {
+                    // Play stunned animation on third hit
+                    //animator.SetTrigger("stunned"); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                }
+                else
+                {
+                    // Play hurt animation for other hits
+                    //animator.SetTrigger("hurt"); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                }
             }
+
+            isHit = true; // Activate the condition that opponent was hit, now only the end of Hit animation will deactivate this trigger
         }
     }
 
+    /*
     private System.Collections.IEnumerator StunRecoveryCoroutine()
     {
         yield return new WaitForSeconds(2.0f); // Assume stunned animation duration
@@ -370,6 +383,7 @@ public class MarcusAI : MonoBehaviour
         // Reset hit count
         hitCount = 0;
     }
+    */
 
     private void StartWalkAnimation()
     {
@@ -445,11 +459,21 @@ public class MarcusAI : MonoBehaviour
 
     public void CharacterFinishedAttack() // Called in the final frame of attack animation
     {
+        attackSuccessRandom = false;
         isAttacking = false; // Reset to allow another attack after cooldown
         checkDamage = true; // Check damage from last attack
         isWalking = true; // AI can move if player to get far from punch area
         canFight = true; // AI can follow player if is outside range
         StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet
+    }
+
+    private void Attack()
+    {
+        if (isAttacking == false) // We only want to make CPU to read here only 1 time
+        {
+            isAttacking = true; // Closing the IF so CPU only will read it 1 time
+            StartAttackAnimation(); // Now activate the attack animation
+        }
     }
 
     private void Die()
@@ -460,19 +484,14 @@ public class MarcusAI : MonoBehaviour
         }
     }
 
+    public void HitAnimFinished()
+    {
+        isHit = false;
+    }
 
     private void Idle()
     {
         StartIdleAnimation(); // Start Idle Animation
-    }
-
-    private void Attack()
-    {
-        if (isAttacking == false) // We only want to make CPU to read here only 1 time
-        {
-            isAttacking = true; // Closing the IF so CPU only will read it 1 time
-            StartAttackAnimation(); // Now activate the attack animation
-        }
     }
 
     public void IsDead() // Called in the final frame of death animation

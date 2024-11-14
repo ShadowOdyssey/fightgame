@@ -14,28 +14,30 @@ public class GabriellaMovementPlay : MonoBehaviour
     public Button buttonAttack2;                 // Button for Attack 2
     public Button buttonAttack3;                 // Button for Attack 3
 
-    public Transform marcusTransform;            // Reference to Marcus's transform
-    public GameObject hitEffectPrefab;           // GameObject of Hit Effect that will be Set Active true or false to show it on screen
+    public Transform enemyTransform;             // Reference to any opponent transform
+    public GameObject hitEffect;                 // GameObject of Hit Effect that will be Set Active true or false to show it on screen
 
-    public int totalLife = 100;
+    public int totalLife = 100;                  // Current player life
 
+    public float attackRange = 14f;              // Distance player can attack opponent
     public float moveSpeed = 2f;                 // Speed of movement for small steps
-    private float moveDirection = 0f;            // Direction of movement (right or left)
-
     public float stepSize = 0.1f;                // Set the size of each small step
     public float minimumDistance = 1.5f;         // Minimum distance to maintain from Marcus
     public float colliderBuffer = 0.5f;          // Buffer to keep distance from Marcus
 
+    private MarcusAI enemySystem;                // Get the system from the current opponent in scene
     private Animator gabriellaAnimator;          // Reference to the Animator component
-
+    private float moveDirection = 0f;            // Direction of movement (right or left)
     private bool isMovingForward = false;        // Tracks if forward button is held
     private bool isMovingBackward = false;       // Tracks if backward button is held
     private bool isAttacking = false;            // Tracks if an attack animation is playing
-    private bool isHit = false;                  // Tracks if Gabriella is hit
+    private bool isHit = false;                  // Tracks if player is hit
+    private bool checkDamage = false;            // Track if opponent can receive damage
 
     private void Awake()
     {
-        gabriellaAnimator = GetComponent<Animator>();
+        gabriellaAnimator = gameObject.GetComponent<Animator>();
+        enemySystem = GameObject.FindGameObjectWithTag("Opponent").GetComponent<MarcusAI>();
 
         if (gabriellaAnimator == null)
         {
@@ -89,6 +91,15 @@ public class GabriellaMovementPlay : MonoBehaviour
                 // It is not yet right! - Felipe
                 Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
                 transform.localPosition = newPosition;
+            }
+        }
+
+        if (isAttacking == true && enemySystem.distanceToTarget < attackRange)
+        {
+            if (checkDamage == true)
+            {
+                enemySystem.TakeDamage(20);
+                checkDamage = false;
             }
         }
 
@@ -195,6 +206,11 @@ public class GabriellaMovementPlay : MonoBehaviour
     // Method to handle hit from Marcus
     public void TakeHit(int damageAmmount)
     {
+        if (isAttacking == true) // Check if player is attacking
+        {
+            isAttacking = false; // Disable it because we will activate Hit animation
+        }
+
         if (isHit == false)
         {
             Debug.Log("Gabriella got a hit and got " + damageAmmount + " of damage!");
@@ -204,7 +220,7 @@ public class GabriellaMovementPlay : MonoBehaviour
             if (totalLife > 0)
             {
                 AnimIsHit();
-                hitEffectPrefab.SetActive(true); // Show hit effect
+                hitEffect.SetActive(true); // Show hit effect
                 Invoke("DisableEffect", 1f);
             }
             else
@@ -374,6 +390,7 @@ public class GabriellaMovementPlay : MonoBehaviour
 
     public void AttackAnimFinished() // It shows zero references but is activated by the last frame of any Attack animation
     {
+        checkDamage = true;
         isAttacking = false; // Attack animation finished
         AnimIsIdle(); // Reset animation to Idle
     }
@@ -381,17 +398,17 @@ public class GabriellaMovementPlay : MonoBehaviour
     // Check if Gabriella can move forward without colliding with Marcus
     private bool CanMoveForward()
     {
-        return Vector3.Distance(transform.localPosition, marcusTransform.localPosition) > (minimumDistance + colliderBuffer); // It is not yet right! Added the real body of Gabriella that should be moved - Felipe
+        return Vector3.Distance(transform.localPosition, enemyTransform.localPosition) > (minimumDistance + colliderBuffer); // It is not yet right! - Felipe
     }
 
     // Check if Gabriella can move backward without colliding with Marcus
     private bool CanMoveBackward()
     {
-        return Vector3.Distance(transform.localPosition, marcusTransform.localPosition) > (minimumDistance + colliderBuffer); // It is not yet right! Added the real body of Gabriella that should be moved - Felipe
+        return Vector3.Distance(transform.localPosition, enemyTransform.localPosition) > (minimumDistance + colliderBuffer); // It is not yet right! - Felipe
     }
 
     private void DisableEffect()
     {
-        hitEffectPrefab.SetActive(false);
+        hitEffect.SetActive(false);
     }
 }
