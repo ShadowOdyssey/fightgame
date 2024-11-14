@@ -211,7 +211,7 @@ public class PlayerSystem : MonoBehaviour
             {
                 AnimIsHit();
                 hitEffect.SetActive(true); // Show hit effect
-                Invoke("DisableEffect", 1f);
+                Invoke(nameof(DisableEffect), 1f);
             }
             else
             {
@@ -451,6 +451,15 @@ public class PlayerSystem : MonoBehaviour
         checkDamage = true;
         isAttacking = false; // Attack animation finished
         AnimIsIdle(); // Reset animation to Idle
+    }
+
+    #endregion
+
+    #region Effect Operations
+
+    private void DisableEffect()
+    {
+        hitEffect.SetActive(false);
     }
 
     #endregion

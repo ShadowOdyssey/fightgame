@@ -483,8 +483,6 @@ public class EnemySystem : MonoBehaviour
             }
             else
             {
-                hitEffect.SetActive(true); // Activate Hit Effect in the body of AI
-
                 hitCount = hitCount + 1;
 
                 if (hitCount == 1)
@@ -502,6 +500,9 @@ public class EnemySystem : MonoBehaviour
                     // Play hurt animation for other hits
                     //animator.SetTrigger("hurt"); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 }
+
+                hitEffect.SetActive(true); // Activate Hit Effect in the body of AI
+                Invoke(nameof(DisableEffect), 1f);
             }
 
             isHit = true; // Activate the condition that opponent was hit, now only the end of Hit animation will deactivate this trigger
@@ -627,7 +628,6 @@ public class EnemySystem : MonoBehaviour
 
     public void HitAnimFinished()
     {
-        hitEffect.SetActive(false); // Deactivate Hit Effect in the body of AI
         EnemyIsIdle(); // Start Idle animation after opponent to get a hit
     }
 
@@ -662,6 +662,15 @@ public class EnemySystem : MonoBehaviour
         }
 
         StartIdleAnimation(); // Start Idle Animation
+    }
+
+    #endregion
+
+    #region Effects Operations
+
+    private void DisableEffect()
+    {
+        hitEffect.SetActive(false); // Deactivate Hit Effect in the body of AI
     }
 
     #endregion
