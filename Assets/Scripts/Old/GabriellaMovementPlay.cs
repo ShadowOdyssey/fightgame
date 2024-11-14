@@ -64,19 +64,6 @@ public class GabriellaMovementPlay : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        /*// Store Marcus's initial rotation
-        if (marcusTransform != null)
-        {
-            Debug.Log("Saved initial Marcus rotation in Gabriella script");
-            lastMarcusRotation = marcusTransform.localRotation;
-
-            // We dont need it since characters only moves forward and backward, so them are always facing each other
-        }
-        */
-    }
-
     private void FixedUpdate()
     {
         // Ensure movement only happens when buttons are held and not during attacks
@@ -102,19 +89,6 @@ public class GabriellaMovementPlay : MonoBehaviour
             Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
             transform.localPosition = newPosition;
         }
-
-        /*
-        // Synchronize Gabriella's rotation to the opposite of Marcus's rotation
-        if (marcusTransform != null && marcusTransform.localRotation != lastMarcusRotation)
-        {
-            // Apply an inverse rotation to Gabriella
-            Debug.Log("Applied inverse rotation in Marcus character from Gabriella rotation");
-            transform.rotation = Quaternion.Inverse(marcusTransform.localRotation); // It is right! Added the real body of Gabriella that should be moved - Felipe
-            lastMarcusRotation = marcusTransform.localRotation; // It is right! - Felipe
-
-            // We dont need it since characters only moves forward and backward, so them are always facing each other
-        }
-        */
     }
 
     // Check if Gabriella can move forward without colliding with Marcus

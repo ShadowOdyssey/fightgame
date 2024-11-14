@@ -28,12 +28,6 @@ public class MarcusAI : MonoBehaviour
     {
         distanceToTarget = Vector3.Distance(transform.position, target.position);
 
-        // Get the Animator component
-        //animator = GetComponent<Animator>(); // Dont need it since the variable is public and you attached Gabriella object by inspector - Felipe
-
-        // Assume Gabriella is tagged as "Gabriella" in the scene
-        //target = GameObject.FindGameObjectWithTag("Gabriella").transform; // Dont need it since the variable is public and you attached Gabriella object by inspector - Felipe
-
         // Save the original position
         originalPosition = transform.position;
     }
@@ -69,13 +63,13 @@ public class MarcusAI : MonoBehaviour
                 Attack(); // Attack if player is inside attack range
             }
             
-            if (distanceToTarget > attackRange)
+            if (distanceToTarget > attackRange && isAttacking == false)
             {
                 FixWalkAnimDirectionToForward();
                 Move(); // Follow player if is outside attack range
             }
 
-            if (distanceToTarget < attackRange && distanceToTarget < attackRange - 1f)
+            if (distanceToTarget < attackRange && distanceToTarget < attackRange - 1f && isAttacking == false)
             {
                 FixWalkAnimDirectionToBackward();
                 Move();
@@ -104,9 +98,6 @@ public class MarcusAI : MonoBehaviour
                 transform.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveSpeed * Time.deltaTime);
             }
         }
-
-        // Face Gabriella
-        //transform.LookAt(new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z)); // We dont need it since characters only move forward and backward, them are always facing each other
     }
 
     // Called when Marcus takes damage
@@ -171,7 +162,6 @@ public class MarcusAI : MonoBehaviour
             animator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            isAttacking = false;
             isWalking = true;
         }
 
@@ -181,7 +171,6 @@ public class MarcusAI : MonoBehaviour
             animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            isAttacking = false;
             isWalking = true;
         }
     }
@@ -194,7 +183,6 @@ public class MarcusAI : MonoBehaviour
             animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            isAttacking = false;
             isWalking = false;
         }
     }
