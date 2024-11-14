@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemySystem : MonoBehaviour
 {
+    #region Variables
+
     [Header("Animator Setup")]
     [Tooltip("Attach current enemy Animator component here")]
     public Animator animator;
@@ -34,19 +36,34 @@ public class EnemySystem : MonoBehaviour
     private int attackRandom = 0;
     [Tooltip("Hit Count determines the combo hit and the combo should be applied in a short period of time by player")]
     private int hitCount = 0;
-    private bool successRandom = false; // The success is based in the difficulty level
+    [Tooltip("Move Success Random determines if AI decided to change movement when enabled and the action is based in enemy difficulty level")]
+    private bool moveSuccessRandom = false;
+    [Tooltip("Attack Success Random determines if AI decided to change attack action when enabled and the action is based in enemy difficulty level")]
     private bool attackSuccessRandom = false;
-    private bool isResetRandom = false; 
+    [Tooltip("Reset Random will reset actual random values when enabled")]
+    private bool isResetRandom = false;
+    [Tooltip("Enemy can move when enabled")]
     private bool isWalking = false;
+    [Tooltip("Enemy is attacking when enabled, it is a behaviour")]
     private bool isAttacking = false;
+    [Tooltip("Enemy is being hit when enabled")]
     private bool isHit = false;
+    [Tooltip("Enemy can attack when enabled")]
     private bool canFight = false;
+    [Tooltip("Enemy can deals damage to player when enabled")]
     private bool checkDamage = false;
+    [Tooltip("Enemy can make a decision when enabled")]
     private bool canRandomize = false;
+    [Tooltip("Enemy is moving forward when enabled")]
     private bool changedAnimDirectionToForward = false;
+    [Tooltip("Enemy is moving backward when enabled")]
     private bool changedAnimDirectionToBackward = false;
-    
+
     #endregion
+
+    #endregion
+
+    #region Loading Components
 
     private void Awake()
     {
@@ -57,20 +74,34 @@ public class EnemySystem : MonoBehaviour
         playerSystem = GameObject.Find("Gabriella").GetComponent<PlayerSystem>();
     }
 
+    #endregion
+
+    #region Setup Loaded Components
+
     private void Start()
     {
-        distanceToTarget = Vector3.Distance(transform.position, playerBody.position); // Get initial position from Gabriella to get the first distance measure only once
+        distanceToTarget = Vector3.Distance(transform.position, playerBody.position); // Get initial position from Player to get the first distance measure only once
     }
+
+    #endregion
+
+    #region Real Time Operations
 
     private void Update()
     {
-        if (canFight == false && roundSystem.roundStarted == true && successRandom == false) // Only can execute commands in FixedUpdate if round started, but...
+        #region Checking if round started
+
+        if (canFight == false && roundSystem.roundStarted == true && moveSuccessRandom == false) // Only can execute commands in FixedUpdate if round started, but...
         {
             Debug.Log("Round Started");
 
             canRandomize = true; // Round started, so activate randomizer
             canFight = true; // Round started, so can fight
         }
+
+        #endregion
+
+        #region Checking if round finished
 
         if (canFight == true && roundSystem.roundStarted == false) // If round not started and is 2nd or 3rd round, load Idle animation till round start again! - Felipe
         {
@@ -80,8 +111,12 @@ public class EnemySystem : MonoBehaviour
             isWalking = false; // Disable movement
             changedAnimDirectionToBackward = false; // Disable all directions movement
             changedAnimDirectionToForward = false; // Disable all directions movement
-            Idle(); // Round finished, trigger Idle animation - We can change it later to defeat animation or victory animation on each round based in remaning life - Felipe
+            EnemyIsIdle(); // Round finished, trigger Idle animation - We can change it later to defeat animation or victory animation on each round based in remaning life - Felipe
         }
+
+        #endregion
+
+        #region Randomize Movement
 
         if (canRandomize == true && isAttacking == false) // Begin to randomize to AI to make decisions so fighting against IA will not to be linear and predictible
         {
@@ -97,12 +132,12 @@ public class EnemySystem : MonoBehaviour
 
                         if (moveRandom <= 1 && moveRandom <= 80) // 80% chance to AI not to change behaviour
                         {
-                            successRandom = false; // Continue to do what is doing
+                            moveSuccessRandom = false; // Continue to do what is doing
                         }
 
                         if (moveRandom >= 81 &&  moveRandom <= 100) // 20% chance to AI to change behaviour
                         {
-                            successRandom = true; // No agression and no defense - Call for more Idle and stop to move in the middle of the combate and dont attack
+                            moveSuccessRandom = true; // No agression and no defense - Call for more Idle and stop to move in the middle of the combate and dont attack
                         }
 
                         break;
@@ -111,12 +146,12 @@ public class EnemySystem : MonoBehaviour
 
                         if (moveRandom <= 1 && moveRandom <= 40) // 40% chance to AI not to change behaviour
                         {
-                            successRandom = false; // Continue to do what is doing
+                            moveSuccessRandom = false; // Continue to do what is doing
                         }
 
                         if (moveRandom >= 41 && moveRandom <= 100) // 60% chance to AI to change behaviour
                         {
-                            successRandom = true; // Move more far from player or use defensive skills if possible
+                            moveSuccessRandom = true; // Move more far from player or use defensive skills if possible
                         }
 
                         break;
@@ -125,12 +160,12 @@ public class EnemySystem : MonoBehaviour
 
                         if (moveRandom <= 1 && moveRandom <= 50) // 50% chance to AI not to change behaviour
                         {
-                            successRandom = false; // Continue to do what is doing
+                            moveSuccessRandom = false; // Continue to do what is doing
                         }
 
                         if (moveRandom >= 51 && moveRandom <= 100) // 50% chance to AI to change behaviour
                         {
-                            successRandom = true; // Move more near from player or use aggressive skills if possible
+                            moveSuccessRandom = true; // Move more near from player or use aggressive skills if possible
                         }
 
                         break;
@@ -139,18 +174,18 @@ public class EnemySystem : MonoBehaviour
 
                         if (moveRandom <= 1 && moveRandom <= 20) // 20% chance to AI not to change behaviour
                         {
-                            successRandom = false; // Continue to do what is doing
+                            moveSuccessRandom = false; // Continue to do what is doing
                         }
 
                         if (moveRandom >= 21 && moveRandom <= 100) // 80% chance to AI to change behaviour
                         {
-                            successRandom = true; // Move more near from player and use aggressive skills if player is far or move more far from player or use defensive skills if possible
+                            moveSuccessRandom = true; // Move more near from player and use aggressive skills if player is far or move more far from player or use defensive skills if possible
                         }
 
                         break;
                 }
 
-                if (isWalking == true && successRandom == true) // Apply the success in random number based in the level difficulty
+                if (isWalking == true && moveSuccessRandom == true) // Apply the success in random number based in the level difficulty
                 {
                     switch (enemyDifficulty)
                     {
@@ -162,7 +197,7 @@ public class EnemySystem : MonoBehaviour
                                 isWalking = false;
                                 changedAnimDirectionToBackward = false;
                                 changedAnimDirectionToForward = false;
-                                Idle();
+                                EnemyIsIdle();
                             }
 
                             break;
@@ -214,6 +249,10 @@ public class EnemySystem : MonoBehaviour
             }
         }
 
+        #endregion
+
+        #region Reset Randomizer
+
         if (isResetRandom == true) // Beginning to reset randomizer timer
         {
             randomizeTimer = randomizeTimer + Time.deltaTime; // Using randomizer timer to reset now
@@ -232,9 +271,9 @@ public class EnemySystem : MonoBehaviour
                     canFight = true; // AI can fight now
                 }
 
-                if (successRandom == true) // Check if AI got succes on the closed thead, reset it to generate new value...
+                if (moveSuccessRandom == true) // Check if AI got succes on the closed thead, reset it to generate new value...
                 {
-                    successRandom = false; // Disable last success in random to make success avaiable again
+                    moveSuccessRandom = false; // Disable last success in random to make success avaiable again
                 }
 
                 isResetRandom = false; // We already was reset randomizer system
@@ -245,25 +284,43 @@ public class EnemySystem : MonoBehaviour
                 }
             }
         }
+
+        #endregion
     }
 
     private void FixedUpdate()
     {
-        if (totalHealth <= 0) return; // Prevent further actions if Marcus is dead
+        #region Check if enemy is not alive anymore
+
+        if (totalHealth <= 0) return; // Prevent further actions if Enemy is dead
+
+        #endregion
+
+        #region Check if enemy is still alive and perform actions if alive
 
         if (canFight == true) // Prevent further actions if round not started yet
         {
             distanceToTarget = Vector3.Distance(transform.position, playerBody.position);
 
-            //Debug.Log("Actual distance to target from Marcus is: " + distanceToTarget); // Debug actual distance between Marcus and Gabriella
+            //Debug.Log("Actual distance to target from Enemy is: " + distanceToTarget); // Debug actual distance between Enemy and Player
+
+            #region Check distance to player and make decisions
+
+            #region Decide what to do when player is inside attack range
 
             if (distanceToTarget < attackRange && distanceToTarget > attackRange - 1f && isHit == false)
             {
+                #region Enemy deals damage to player
+
                 if (checkDamage == true) // Only apply damage if player is really inside attack area
                 {
                     playerSystem.TakeHit(15);
                     checkDamage = false;
                 }
+
+                #endregion
+
+                #region Randomize Attack
 
                 if (isResetRandom == false && isAttacking == false) // Call for attack action randomize, AI can decide if attack or not when player is inside attack area
                 {
@@ -272,38 +329,44 @@ public class EnemySystem : MonoBehaviour
                     if (enemyDifficulty == 0 && attackRandom >= 81 && attackRandom <= 100) // 20% the easy AI have to attack
                     {
                         attackSuccessRandom = true;
-                        Attack(); // Attack if player is inside attack area
+                        EnemyIsAttacking(); // Attack if player is inside attack area
                     }
 
                     if (enemyDifficulty == 1 && attackRandom >= 61 && attackRandom <= 100) // 40% the moderate AI have to attack
                     {
                         attackSuccessRandom = true;
-                        Attack(); // Attack if player is inside attack area
+                        EnemyIsAttacking(); // Attack if player is inside attack area
                     }
 
                     if (enemyDifficulty == 2 && attackRandom >= 41 && attackRandom <= 100) // 60% the normal AI have to attack
                     {
                         attackSuccessRandom = true;
-                        Attack(); // Attack if player is inside attack area
+                        EnemyIsAttacking(); // Attack if player is inside attack area
                     }
 
                     if (enemyDifficulty == 3 && attackRandom >= 21 && attackRandom <= 100) // 80% the hard AI have to attack
                     {
                         attackSuccessRandom = true;
-                        Attack(); // Attack if player is inside attack area
+                        EnemyIsAttacking(); // Attack if player is inside attack area
                     }
 
                     if (attackSuccessRandom == false) // Check if enemy decided to attack player
                     {
-                        Idle(); // Call for Idle because enemy is to much near player
+                        EnemyIsIdle(); // Call for Idle because enemy is to much near player
                     }
 
                     isResetRandom = true; // Close the attack random call and reset it
                 }
 
+                #endregion
+
                 // Attack area is determined by Attack Range and Attack Range -1, so if Attack Range is 8, the area will between 8f and 7f in the distance value, if player is 6.9f or less the AI will move backward
             }
-            
+
+            #endregion
+
+            #region Decide to do when player is outside attack range
+
             if (distanceToTarget > attackRange && isAttacking == false && isHit == false)
             {
                 if (checkDamage == true) // Check if player got out from attack area when damage is trying to be applied
@@ -312,44 +375,95 @@ public class EnemySystem : MonoBehaviour
                 }
 
                 FixWalkAnimDirectionToForward();
-                Move(); // Follow player if is outside attack area to attack the player
+                EnemyCanMove(); // Follow player if is outside attack area to attack the player
             }
+
+            #endregion
+
+            #region Decide what to do when player is beyound attack range
 
             if (distanceToTarget < attackRange && distanceToTarget < attackRange - 1f && isAttacking == false && isHit == false)
             {
                 FixWalkAnimDirectionToBackward(); // Move opponent to backward if player to much near or if it is taking damage
-                Move(); // Get far from player if is to much inside attack area to not let AI vulnerable for attacks
+                EnemyCanMove(); // Get far from player if is to much inside attack area to not let AI vulnerable for attacks
             }
+
+            #endregion
+
+            #endregion
         }
+
+        #endregion
     }
 
-    private void Move()
+    #endregion
+
+    #region Movement Operations
+
+    private void EnemyCanMove()
     {
+        #region Check if enemy is being hit, if is being hit dont trigger move animation
+
         if (isHit == false)
         {
             StartWalkAnimation();
         }
 
+        #endregion
+
+        #region Apply movement to enemy
+
         if (isWalking == true && enemyDifficulty > 0 || // Only AI difficulty zero stops to move, so check if is AI difficulty level zero
-            isWalking == true && enemyDifficulty == 0 && successRandom == false)  // If is difficulty level zero, we make sure to only apply movement if success was false, because if true AI should stop to move
+            isWalking == true && enemyDifficulty == 0 && moveSuccessRandom == false)  // If is difficulty level zero, we make sure to only apply movement if success was false, because if true AI should stop to move
         {
-            if (changedAnimDirectionToForward == true || successRandom == true && enemyDifficulty == 2 || successRandom == true && enemyDifficulty == 3)
+            #region Move enemy forward
+
+            if (changedAnimDirectionToForward == true || moveSuccessRandom == true && enemyDifficulty == 2 || moveSuccessRandom == true && enemyDifficulty == 3)
             {
                 // Check if normal and hard enemy difficulty got success to move forward
 
                 transform.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime);
             }
-            
-            if (changedAnimDirectionToBackward == true || successRandom == true && enemyDifficulty == 1 || successRandom == true && enemyDifficulty == 3 || isHit == true)
+
+            #endregion
+
+            #region Move enemy backward
+
+            if (changedAnimDirectionToBackward == true || moveSuccessRandom == true && enemyDifficulty == 1 || moveSuccessRandom == true && enemyDifficulty == 3 || isHit == true)
             {
                 // Check if moderate and hard enemy difficulty got success to move forward
 
                 transform.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveSpeed * Time.deltaTime);
             }
+
+            #endregion
+        }
+
+        #endregion
+    }
+
+    private void FixWalkAnimDirectionToForward()
+    {
+        if (changedAnimDirectionToForward == false) // Reverse Backward animation to make it Forward animation
+        {
+            changedAnimDirectionToForward = true;
+            changedAnimDirectionToBackward = false;
         }
     }
 
-    // Called when Marcus takes damage
+    private void FixWalkAnimDirectionToBackward()
+    {
+        if (changedAnimDirectionToBackward == false) // Reverse Backward animation to make it Forward animation
+        {
+            changedAnimDirectionToForward = false;
+            changedAnimDirectionToBackward = true;
+        }
+    }
+
+    #endregion
+
+    #region Called when Enemy takes damage
+
     public void TakeDamage(int damage)
     {
         if (isHit == false) // With this trigger we make sure opponent only will take damage 1 time
@@ -369,7 +483,7 @@ public class EnemySystem : MonoBehaviour
             }
             else
             {
-                ShowHitEffect();
+                hitEffect.SetActive(true); // Activate Hit Effect in the body of AI
 
                 hitCount = hitCount + 1;
 
@@ -394,7 +508,10 @@ public class EnemySystem : MonoBehaviour
         }
     }
 
-    /*
+    #endregion
+
+    /* I just let it here to consult about attack structure, we will not use coroutines
+     * 
     private System.Collections.IEnumerator StunRecoveryCoroutine()
     {
         yield return new WaitForSeconds(2.0f); // Assume stunned animation duration
@@ -413,10 +530,12 @@ public class EnemySystem : MonoBehaviour
     }
     */
 
+    #region Animation Operations
+
     private void StartWalkAnimation()
     {
         if (animator.GetBool("isForward") == false && changedAnimDirectionToForward == true ||
-            enemyDifficulty == 0 && successRandom == false && animator.GetBool("isForward") == false && changedAnimDirectionToForward == true)
+            enemyDifficulty == 0 && moveSuccessRandom == false && animator.GetBool("isForward") == false && changedAnimDirectionToForward == true)
         // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
             animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
@@ -428,7 +547,7 @@ public class EnemySystem : MonoBehaviour
         }
 
         if (animator.GetBool("isBackward") == false && changedAnimDirectionToBackward == true ||
-            enemyDifficulty == 0 && successRandom == false && animator.GetBool("isBackward") == false && changedAnimDirectionToBackward == true)
+            enemyDifficulty == 0 && moveSuccessRandom == false && animator.GetBool("isBackward") == false && changedAnimDirectionToBackward == true)
             // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
             animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
@@ -479,7 +598,6 @@ public class EnemySystem : MonoBehaviour
         }
     }
 
-
     private void Die()
     {
         if (animator.GetBool("isDead") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
@@ -493,6 +611,10 @@ public class EnemySystem : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Last animations frame operations
+
     public void CharacterFinishedAttack() // Called in the final frame of attack animation
     {
         attackSuccessRandom = false;
@@ -503,25 +625,22 @@ public class EnemySystem : MonoBehaviour
         StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet
     }
 
-    private void FixWalkAnimDirectionToForward()
+    public void HitAnimFinished()
     {
-        if (changedAnimDirectionToForward == false) // Reverse Backward animation to make it Forward animation
-        {
-            changedAnimDirectionToForward = true;
-            changedAnimDirectionToBackward = false;
-        }
+        hitEffect.SetActive(false); // Deactivate Hit Effect in the body of AI
+        EnemyIsIdle(); // Start Idle animation after opponent to get a hit
     }
 
-    private void FixWalkAnimDirectionToBackward()
+    public void IsDead() // Called in the final frame of death animation
     {
-        if (changedAnimDirectionToBackward == false) // Reverse Backward animation to make it Forward animation
-        {
-            changedAnimDirectionToForward = false;
-            changedAnimDirectionToBackward = true;
-        }
+        Destroy(gameObject, 5f); // Destroy Enemy after to reach the final frame in death animation after 5 seconds
     }
 
-    private void Attack()
+    #endregion
+
+    #region Attack Operations
+
+    private void EnemyIsAttacking()
     {
         if (isAttacking == false) // We only want to make CPU to read here only 1 time
         {
@@ -530,18 +649,7 @@ public class EnemySystem : MonoBehaviour
         }
     }
 
-    private void ShowHitEffect()
-    {
-        hitEffect.SetActive(true); // Activate Hit Effect in the body of AI
-    }
-
-    public void HitAnimFinished()
-    {
-        hitEffect.SetActive(false); // Deactivate Hit Effect in the body of AI
-        Idle(); // Start Idle animation after opponent to get a hit
-    }
-
-    private void Idle()
+    private void EnemyIsIdle()
     {
         if (isHit == true) // Check if Hit trigger is still activated and disable it
         {
@@ -556,8 +664,5 @@ public class EnemySystem : MonoBehaviour
         StartIdleAnimation(); // Start Idle Animation
     }
 
-    public void IsDead() // Called in the final frame of death animation
-    {
-        Destroy(gameObject); // Destroy Marcus after to reach the final frame in death animation
-    }
+    #endregion
 }

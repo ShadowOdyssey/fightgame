@@ -63,7 +63,7 @@ public class PlayerSystem : MonoBehaviour
 
     #endregion
 
-    #region Loading components
+    #region Loading Components
 
     private void Awake()
     {
