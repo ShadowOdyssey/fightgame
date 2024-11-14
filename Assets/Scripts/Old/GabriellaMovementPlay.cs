@@ -7,30 +7,30 @@ public class GabriellaMovementPlay : MonoBehaviour
 {
     public RoundManager roundSystem;
 
-    public Button buttonForward;    // Button to move right
-    public Button buttonBackward;   // Button to move left
-    public Button buttonAttack1;    // Button for Attack 1
-    public Button buttonAttack2;    // Button for Attack 2
-    public Button buttonAttack3;    // Button for Attack 3
+    public Button buttonForward;                 // Button to move right
+    public Button buttonBackward;                // Button to move left
+    public Button buttonAttack1;                 // Button for Attack 1
+    public Button buttonAttack2;                 // Button for Attack 2
+    public Button buttonAttack3;                 // Button for Attack 3
 
-    public Transform marcusTransform;   // Reference to Marcus's transform
-    public GameObject hitEffectPrefab;  // Prefab to show when Gabriella is hit
+    public Transform marcusTransform;            // Reference to Marcus's transform
+    public GameObject hitEffectPrefab;           // GameObject of Hit Effect that will be Set Active true or false to show it on screen
 
     public int totalLife = 100;
 
-    public float moveSpeed = 2f;        // Speed of movement for small steps
-    private float moveDirection = 0f;   // Direction of movement (right or left)
+    public float moveSpeed = 2f;                 // Speed of movement for small steps
+    private float moveDirection = 0f;            // Direction of movement (right or left)
 
-    public float stepSize = 0.1f;       // Set the size of each small step
-    public float minimumDistance = 1.5f; // Minimum distance to maintain from Marcus
-    public float colliderBuffer = 0.5f; // Buffer to keep distance from Marcus
+    public float stepSize = 0.1f;                // Set the size of each small step
+    public float minimumDistance = 1.5f;         // Minimum distance to maintain from Marcus
+    public float colliderBuffer = 0.5f;          // Buffer to keep distance from Marcus
 
-    private Animator gabriellaAnimator;  // Reference to the Animator component
+    private Animator gabriellaAnimator;          // Reference to the Animator component
 
-    private bool isMovingForward = false; // Tracks if forward button is held
-    private bool isMovingBackward = false; // Tracks if backward button is held
-    private bool isAttacking = false;     // Tracks if an attack animation is playing
-    private bool isHit = false;            // Tracks if Gabriella is hit
+    private bool isMovingForward = false;        // Tracks if forward button is held
+    private bool isMovingBackward = false;       // Tracks if backward button is held
+    private bool isAttacking = false;            // Tracks if an attack animation is playing
+    private bool isHit = false;                  // Tracks if Gabriella is hit
 
     private void Awake()
     {

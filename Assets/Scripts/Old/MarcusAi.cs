@@ -5,7 +5,7 @@ public class MarcusAI : MonoBehaviour
     public RoundManager roundSystem;
     public GabriellaMovementPlay gabriellaSystem;
 
-    public GameObject hitEffectPrefab; // Prefab for visual effect on hit
+    public GameObject hitEffect; // GameObject of Hit Effect that will be Set Active true or false to show it on screen
     public Transform target; // Gabriella's transform
 
     public Animator animator;
@@ -395,8 +395,7 @@ public class MarcusAI : MonoBehaviour
     {
         if (hitEffectPrefab != null)
         {
-            GameObject hitEffect = Instantiate(hitEffectPrefab, transform.localPosition, Quaternion.identity);
-            Destroy(hitEffect, 0.5f); // Remove effect after a short delay
+            hitEffect.SetActive(true);
         }
     }
 
