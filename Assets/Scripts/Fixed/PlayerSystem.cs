@@ -330,7 +330,7 @@ public class PlayerSystem : MonoBehaviour
 
     #endregion
 
-    #region Method when player using basic attack
+    #region Method when player using attacks
 
     private void AnimIsAttack1()
     {
