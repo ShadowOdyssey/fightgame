@@ -60,7 +60,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Vs. Marcus.unity
     guid: cf07eca346e28a54694a46f813bee52c
   - enabled: 1
-    path: Assets/Scenes/Gabriella Vs. Marcus.unity
+    path: Assets/Scenes/Fixed/Gabriella Vs. Marcus.unity
     guid: 4d9d588ece77f61488429f4f6ce6c29a
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 916ae7c2df14593429be9a9342b8e9c5,

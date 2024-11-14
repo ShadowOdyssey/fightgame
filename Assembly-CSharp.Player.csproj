@@ -73,9 +73,7 @@
     <Compile Include="Assets\Scripts\Old\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Old\CharacterViewing.cs" />
     <Compile Include="Assets\Scripts\Old\OrionMovement.cs" />
-    <Compile Include="Assets\Scripts\Old\ArenaBoundary.cs" />
     <Compile Include="Assets\Scripts\Old\MainMenu.cs" />
-    <Compile Include="Assets\Scripts\Old\MarcusAi.cs" />
     <Compile Include="Assets\Scripts\Old\StartScene.cs" />
     <Compile Include="Assets\Scripts\Old\selena vs.cs" />
     <Compile Include="Assets\Scripts\Old\MarcusMovement.cs" />
@@ -89,9 +87,10 @@
     <Compile Include="Assets\Scripts\Old\InvisibleBarrier.cs" />
     <Compile Include="Assets\Scripts\Old\ArcadeMode.cs" />
     <Compile Include="Assets\Scripts\Fixed\Scene Management.cs" />
+    <Compile Include="Assets\Scripts\Fixed\PlayerSystem.cs" />
     <Compile Include="Assets\Scripts\Old\SplashScene.cs" />
+    <Compile Include="Assets\Scripts\Fixed\EnemySystem.cs" />
     <Compile Include="Assets\Scripts\Old\SettingsBattle.cs" />
-    <Compile Include="Assets\Scripts\Old\GabriellaMovementPlay.cs" />
     <Compile Include="Assets\Scripts\Old\Battleground1.cs" />
     <Compile Include="Assets\Scripts\Old\AriaMovement.cs" />
     <Compile Include="Assets\Scripts\Old\AdjustJoystickSize.cs" />

@@ -1,16 +1,17 @@
 using UnityEngine;
 
-public class MarcusAI : MonoBehaviour
+public class EnemySystem : MonoBehaviour
 {
-    public RoundManager roundSystem;
-    public GabriellaMovementPlay gabriellaSystem;
-
-    public GameObject hitEffect; // GameObject of Hit Effect that will be Set Active true or false to show it on screen
-    public Transform target; // Gabriella's transform
-
+    [Header("Animator Setup")]
+    [Tooltip("Attach current enemy Animator component here")]
     public Animator animator;
 
-    public int health = 100;
+    [Header("Hit Effect Setup")]
+    [Tooltip("Attach current enemy HitEffect GameObject here")]
+    public GameObject hitEffect;
+
+    [Header("Enemy Setup")]
+    public int totalHealth = 100;
     public int enemyDifficulty = 0; // 0 = easy 1 = moderate 2 = normal 3 = hard
     public int randomMaxValue = 100;
     public float attackRange = 13f;
@@ -18,10 +19,21 @@ public class MarcusAI : MonoBehaviour
     public float randomizeTimer = 0f;
     public float distanceToTarget = 0f;
 
-    private Vector3 originalPosition; // Save original position to reset after getting up
-    private int actualRandomValue = 0;
+    #region Hidden Variables
+
+    [Header("Monitor")] // Turn variables into public to show monitor
+    [Tooltip("Actual Round System from RoundManager object in the current scene, it will be loaded when scene to awake")]
+    private RoundManager roundSystem;
+    [Tooltip("Actual Player System from selected player in singleplayer or multiplayer, it will be loaded when scene to awake")]
+    private PlayerSystem playerSystem;
+    [Tooltip("Actual Player Transform from selected player in singleplayer or multiplayer, it will be loaded when scene to awake")]
+    private Transform playerBody;
+    [Tooltip("Move Random determines if IA will move, stop or reverse actual movemente")]
+    private int moveRandom = 0;
+    [Tooltip("Attack Random determines if IA will attack, stop or to select different skills")]
     private int attackRandom = 0;
-    private int hitCount = 0; // Track the number of times Marcus is hit
+    [Tooltip("Hit Count determines the combo hit and the combo should be applied in a short period of time by player")]
+    private int hitCount = 0;
     private bool successRandom = false; // The success is based in the difficulty level
     private bool attackSuccessRandom = false;
     private bool isResetRandom = false; 
@@ -33,10 +45,21 @@ public class MarcusAI : MonoBehaviour
     private bool canRandomize = false;
     private bool changedAnimDirectionToForward = false;
     private bool changedAnimDirectionToBackward = false;
+    
+    #endregion
+
+    private void Awake()
+    {
+        // When multiplayer to be done we need to look for the right components, the other components declared dont need to be found, just attached in Inspector
+
+        roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
+        playerBody = GameObject.Find("Gabriella").GetComponent<Transform>();
+        playerSystem = GameObject.Find("Gabriella").GetComponent<PlayerSystem>();
+    }
 
     private void Start()
     {
-        distanceToTarget = Vector3.Distance(transform.position, target.position); // Get initial position from Gabriella to get the first distance measure only once
+        distanceToTarget = Vector3.Distance(transform.position, playerBody.position); // Get initial position from Gabriella to get the first distance measure only once
     }
 
     private void Update()
@@ -66,18 +89,18 @@ public class MarcusAI : MonoBehaviour
 
             if (randomizeTimer >= 3f) // I was setup 3 seconds, but you can change this value if you want
             {
-                actualRandomValue = Random.Range(1, randomMaxValue); // Randomizing a new value
+                moveRandom = Random.Range(1, randomMaxValue); // Randomizing a new value
 
                 switch (enemyDifficulty) // Check sucess in the random number generated
                 {
                     case 0: // Less agressive and less defensive
 
-                        if (actualRandomValue <= 1 && actualRandomValue <= 80) // 80% chance to AI not to change behaviour
+                        if (moveRandom <= 1 && moveRandom <= 80) // 80% chance to AI not to change behaviour
                         {
                             successRandom = false; // Continue to do what is doing
                         }
 
-                        if (actualRandomValue >= 81 &&  actualRandomValue <= 100) // 20% chance to AI to change behaviour
+                        if (moveRandom >= 81 &&  moveRandom <= 100) // 20% chance to AI to change behaviour
                         {
                             successRandom = true; // No agression and no defense - Call for more Idle and stop to move in the middle of the combate and dont attack
                         }
@@ -86,12 +109,12 @@ public class MarcusAI : MonoBehaviour
                     
                     case 1: // less agressive and more defensive
 
-                        if (actualRandomValue <= 1 && actualRandomValue <= 40) // 40% chance to AI not to change behaviour
+                        if (moveRandom <= 1 && moveRandom <= 40) // 40% chance to AI not to change behaviour
                         {
                             successRandom = false; // Continue to do what is doing
                         }
 
-                        if (actualRandomValue >= 41 && actualRandomValue <= 100) // 60% chance to AI to change behaviour
+                        if (moveRandom >= 41 && moveRandom <= 100) // 60% chance to AI to change behaviour
                         {
                             successRandom = true; // Move more far from player or use defensive skills if possible
                         }
@@ -100,12 +123,12 @@ public class MarcusAI : MonoBehaviour
                     
                     case 2: // More agressive and less defensive
 
-                        if (actualRandomValue <= 1 && actualRandomValue <= 50) // 50% chance to AI not to change behaviour
+                        if (moveRandom <= 1 && moveRandom <= 50) // 50% chance to AI not to change behaviour
                         {
                             successRandom = false; // Continue to do what is doing
                         }
 
-                        if (actualRandomValue >= 51 && actualRandomValue <= 100) // 50% chance to AI to change behaviour
+                        if (moveRandom >= 51 && moveRandom <= 100) // 50% chance to AI to change behaviour
                         {
                             successRandom = true; // Move more near from player or use aggressive skills if possible
                         }
@@ -114,12 +137,12 @@ public class MarcusAI : MonoBehaviour
                     
                     case 3: // More agressive and more defensive
 
-                        if (actualRandomValue <= 1 && actualRandomValue <= 20) // 20% chance to AI not to change behaviour
+                        if (moveRandom <= 1 && moveRandom <= 20) // 20% chance to AI not to change behaviour
                         {
                             successRandom = false; // Continue to do what is doing
                         }
 
-                        if (actualRandomValue >= 21 && actualRandomValue <= 100) // 80% chance to AI to change behaviour
+                        if (moveRandom >= 21 && moveRandom <= 100) // 80% chance to AI to change behaviour
                         {
                             successRandom = true; // Move more near from player and use aggressive skills if player is far or move more far from player or use defensive skills if possible
                         }
@@ -226,11 +249,11 @@ public class MarcusAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (health <= 0) return; // Prevent further actions if Marcus is dead
+        if (totalHealth <= 0) return; // Prevent further actions if Marcus is dead
 
         if (canFight == true) // Prevent further actions if round not started yet
         {
-            distanceToTarget = Vector3.Distance(transform.position, target.position);
+            distanceToTarget = Vector3.Distance(transform.position, playerBody.position);
 
             //Debug.Log("Actual distance to target from Marcus is: " + distanceToTarget); // Debug actual distance between Marcus and Gabriella
 
@@ -238,7 +261,7 @@ public class MarcusAI : MonoBehaviour
             {
                 if (checkDamage == true) // Only apply damage if player is really inside attack area
                 {
-                    gabriellaSystem.TakeHit(15);
+                    playerSystem.TakeHit(15);
                     checkDamage = false;
                 }
 
@@ -333,9 +356,9 @@ public class MarcusAI : MonoBehaviour
         {
             hitCount = 0; // Just for debug, it will be removed later
 
-            health = health - damage;
+            totalHealth = totalHealth - damage;
 
-            if (health <= 0)
+            if (totalHealth <= 0)
             {
                 if (hitCount != 0)
                 {

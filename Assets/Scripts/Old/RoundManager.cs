@@ -7,19 +7,17 @@ public class RoundManager : MonoBehaviour
     public HealthBar playerHealthBar;         // Player's HealthBar component
     public HealthBar opponentHealthBar;       // Enemy's HealthBar component
 
+    public float textDisplayDuration = 2f;
+    public float roundTime = 0f;  // 3-minute timer for each round
     public bool roundStarted = false;
 
+    private Text roundText;
+    private Text timerText;
     private int currentRound = 1;
     private int maxHealth = 100;
     private int playerHealth;
     private int opponentHealth;
     private bool roundOver = false;
-
-    public float textDisplayDuration = 2f;
-    private Text roundText;
-    private Text timerText;
-
-    public float roundTime = 0f;  // 3-minute timer for each round
 
     void Start()
     {
@@ -107,16 +105,16 @@ public class RoundManager : MonoBehaviour
         //Debug.Log("Round " + currentRound + " started: Health reset.");
 
         // Start automatically decreasing health over the duration of the round
-        StartCoroutine(DecreaseHealthOverTime());
+        //StartCoroutine(DecreaseHealthOverTime());
     }
 
     IEnumerator DecreaseHealthOverTime()
     {
         float damageInterval = 1f; // How often to deal damage
-        int playerDamagePerSecond = 5; // Example damage per second for player
-        int opponentDamagePerSecond = 3; // Example damage per second for opponent
+        //int playerDamagePerSecond = 5; // Example damage per second for player
+        //int opponentDamagePerSecond = 3; // Example damage per second for opponent
 
-        while (!roundOver)
+        while (roundOver == false)
         {
             //ApplyDamageToOpponent(opponentDamagePerSecond);
             //ApplyDamageToPlayer(playerDamagePerSecond);
