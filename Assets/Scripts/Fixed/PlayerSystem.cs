@@ -103,6 +103,28 @@ public class PlayerSystem : MonoBehaviour
 
     private void Update()
     {
+        if (roundSystem.roundOver == true && totalHealth != 100)
+        {
+            ResetAllAnimations();
+
+            if (totalHealth > enemySystem.totalHealth)
+            {
+                // Victory animation
+            }
+
+            if (totalHealth == enemySystem.totalHealth)
+            {
+                // Draw animation
+            }
+
+            if (totalHealth < enemySystem.totalHealth)
+            {
+                // Defeat animation
+            }
+
+            ResetAllTriggers();
+        }
+
         if (checkDamage == true && enemySystem.distanceToTarget < attackRange)
         {
             enemySystem.TakeDamage(20);
@@ -112,16 +134,6 @@ public class PlayerSystem : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (roundSystem.roundOver == true && totalHealth != 100)
-        {
-            isAttacking = false;
-            isMovingBackward = false;
-            isMovingBackward = false;
-            isHit = false;
-            checkDamage = false;
-            totalHealth = 100;
-        }
-
         // Ensure movement only happens when buttons are held and not during attacks
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false) // Check if round started so Player can move and if Player is not attacking
         {
@@ -463,6 +475,31 @@ public class PlayerSystem : MonoBehaviour
         checkDamage = true;
         isAttacking = false; // Attack animation finished
         AnimIsIdle(); // Reset animation to Idle
+    }
+
+    #endregion
+
+    #region Round Operations
+
+    private void ResetAllAnimations()
+    {
+        PlayerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        PlayerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        PlayerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        PlayerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        PlayerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        PlayerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        PlayerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+    }
+
+    private void ResetAllTriggers()
+    {
+        isAttacking = false;
+        isMovingBackward = false;
+        isMovingBackward = false;
+        isHit = false;
+        checkDamage = false;
+        totalHealth = 100;
     }
 
     #endregion
