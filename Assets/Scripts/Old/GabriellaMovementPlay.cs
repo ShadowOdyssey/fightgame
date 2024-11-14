@@ -68,7 +68,7 @@ public class GabriellaMovementPlay : MonoBehaviour
     private void FixedUpdate()
     {
         // Ensure movement only happens when buttons are held and not during attacks
-        if (!isAttacking && !isHit && roundSystem.roundStarted == true && isAttacking == false) // Check if round started so Gabriella can move and if Gabriella is not attacking
+        if (!isAttacking && roundSystem.roundStarted == true && isAttacking == false && isHit == false) // Check if round started so Gabriella can move and if Gabriella is not attacking
         {
             if (isMovingForward && CanMoveForward())
             {
@@ -80,15 +80,20 @@ public class GabriellaMovementPlay : MonoBehaviour
             }
             else
             {
-                StopMoving();
+                AnimIsIdle();
+            }
+
+            if (isMovingBackward == true || isMovingForward == true) // Check if Gabriella is moving so apply new position, turned 2 lines code into 1 since both forward and backward calls same method
+            {
+                // It is not yet right! - Felipe
+                Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
+                transform.localPosition = newPosition;
             }
         }
 
-        if (isMovingBackward == true || isMovingForward == true) // Check if Gabriella is moving so apply new position, turned 2 lines code into 1 since both forward and backward calls same method
+        if (isHit == true)
         {
-            // It is not yet right! - Felipe
-            Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
-            transform.localPosition = newPosition;
+            transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime * 3f);
         }
     }
 
@@ -161,9 +166,10 @@ public class GabriellaMovementPlay : MonoBehaviour
             //Debug.Log("Gabriella moved to right");
 
             moveDirection = 1f; // Setup new direction only once before to apply new position - Felipe
-            gabriellaAnimator.SetBool("isForward", true);
-            gabriellaAnimator.SetBool("isBackward", false);
-            gabriellaAnimator.SetBool("isIdle", false);
+            gabriellaAnimator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            gabriellaAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            gabriellaAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            gabriellaAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
     }
 
@@ -175,14 +181,15 @@ public class GabriellaMovementPlay : MonoBehaviour
             //Debug.Log("Gabriella moved to left");
 
             moveDirection = -1f; // Setup new direction only once before to apply new position - Felipe
-            gabriellaAnimator.SetBool("isBackward", true);
-            gabriellaAnimator.SetBool("isForward", false);
-            gabriellaAnimator.SetBool("isIdle", false);
+            gabriellaAnimator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            gabriellaAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            gabriellaAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            gabriellaAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
     }
 
     // Stop movement and set idle animation
-    private void StopMoving() // StopMoving is being called alot, consuming processing and it is bad to mobile, so...
+    private void AnimIsIdle() // StopMoving is being called alot, consuming processing and it is bad to mobile, so...
     {
         // Check if Gabriella moved forward to StopMoving trigger the boolean change in the animation parameter
 
@@ -198,11 +205,28 @@ public class GabriellaMovementPlay : MonoBehaviour
             gabriellaAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
+        if (gabriellaAnimator.GetBool("isHit") == true)
+        {
+            gabriellaAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        }
+
         if (gabriellaAnimator.GetBool("isIdle") == false)
         {
             gabriellaAnimator.SetBool("isIdle", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
+
         // If both triggers to be false, execute nothing, so it saves processing instead to apply false to both animation parameters in each frame, it only will trigger if is true and only once
+    }
+
+    private void AnimIsHit()
+    {
+        if (gabriellaAnimator.GetBool("isHit") == false)
+        {
+            gabriellaAnimator.SetBool("isHit", true); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
+            gabriellaAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            gabriellaAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            gabriellaAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        }
     }
 
     public void OnAttack1ButtonPressed()
@@ -210,7 +234,7 @@ public class GabriellaMovementPlay : MonoBehaviour
         Debug.Log("Gabriella activated Attack 1");
         gabriellaAnimator.SetTrigger("attack1"); // Values in parameters should be low case in the first letter because is variable name - Felipe
         isAttacking = true;
-        StopMoving();
+        AnimIsIdle();
         StartCoroutine(EndAttackAnimation());
     }
 
@@ -219,7 +243,7 @@ public class GabriellaMovementPlay : MonoBehaviour
         Debug.Log("Gabriella activated Attack 2");
         gabriellaAnimator.SetTrigger("attack2"); // Values in parameters should be low case in the first letter because is variable name - Felipe
         isAttacking = true;
-        StopMoving();
+        AnimIsIdle();
         StartCoroutine(EndAttackAnimation());
     }
 
@@ -228,7 +252,7 @@ public class GabriellaMovementPlay : MonoBehaviour
         Debug.Log("Gabriella activated Attack 3");
         gabriellaAnimator.SetTrigger("attack3"); // Values in parameters should be low case in the first letter because is variable name - Felipe
         isAttacking = true;
-        StopMoving();
+        AnimIsIdle();
         StartCoroutine(EndAttackAnimation());
     }
 
@@ -243,18 +267,16 @@ public class GabriellaMovementPlay : MonoBehaviour
 
             if (totalLife > 0)
             {
-                if (gabriellaAnimator.GetBool("isHit") == false)
-                {
-                    gabriellaAnimator.SetBool("isHit", true); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-                }
-
-                Instantiate(hitEffectPrefab, transform.localPosition, Quaternion.identity); // Show hit effect
-                isHit = true;
+                AnimIsHit();
+                hitEffectPrefab.SetActive(true); // Show hit effect
+                Invoke("DisableEffect", 1f);
             }
             else
             {
                 // Game Over
             }
+
+            isHit = true;
         }
     }
 
@@ -293,7 +315,12 @@ public class GabriellaMovementPlay : MonoBehaviour
 
     public void IsHitAnimationFinished()
     {
-        gabriellaAnimator.SetBool("isHit", true); // Disable isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
         isHit = false;
+        AnimIsIdle();
+    }
+
+    private void DisableEffect()
+    {
+        hitEffectPrefab.SetActive(false);
     }
 }

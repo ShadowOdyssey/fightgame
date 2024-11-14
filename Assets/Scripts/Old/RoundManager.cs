@@ -129,7 +129,7 @@ public class RoundManager : MonoBehaviour
     {
         while (roundTime > 0 && !roundOver)
         {
-            Debug.Log("Counting round time");
+            //Debug.Log("Counting round time");
 
             if (roundStarted == false)
             {

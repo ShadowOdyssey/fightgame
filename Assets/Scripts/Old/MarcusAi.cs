@@ -201,8 +201,13 @@ public class MarcusAI : MonoBehaviour
                     canFight = true;
                 }
 
-                canRandomize = true;
+                if (successRandom == true)
+                {
+                    successRandom = false;
+                }
+
                 isResetRandom = false;
+                canRandomize = true;
             }
         }
     }
@@ -242,11 +247,6 @@ public class MarcusAI : MonoBehaviour
         }
     }
 
-    private void Idle()
-    {
-        StartIdleAnimation();
-    }
-
     private void Move()
     {
         StartWalkAnimation();
@@ -276,7 +276,12 @@ public class MarcusAI : MonoBehaviour
         }
         else
         {
-            hitCount++; // Increment hit count
+            if (hitCount != hitCount + 1)
+            {
+                Debug.Log("Checking for actual Hit Count");
+
+                hitCount = hitCount + 1; // Increment hit count
+            }
 
             if (hitCount == 1)
             {
@@ -364,7 +369,6 @@ public class MarcusAI : MonoBehaviour
             animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isAttacking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            isAttacking = true;
             isWalking = false;
         }
     }
@@ -396,12 +400,13 @@ public class MarcusAI : MonoBehaviour
         }
     }
 
-    private void Attack()
+    public void CharacterFinishedAttack() // Called in the final frame of attack animation
     {
-        if (isAttacking == false) // Correct way
-        {
-            StartAttackAnimation();
-        }
+        isAttacking = false; // Reset to allow another attack after cooldown
+        isWalking = true;
+        canFight = true;
+        checkDamage = true;
+        StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet
     }
 
     private void Die()
@@ -412,11 +417,19 @@ public class MarcusAI : MonoBehaviour
         }
     }
 
-    public void CharacterFinishedAttack() // Called in the final frame of attack animation
+
+    private void Idle()
     {
-        isAttacking = false; // Reset to allow another attack after cooldown
-        checkDamage = true;
-        StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet
+        StartIdleAnimation();
+    }
+
+    private void Attack()
+    {
+        if (isAttacking == false) // Correct way
+        {
+            isAttacking = true;
+            StartAttackAnimation();
+        }
     }
 
     public void IsDead() // Called in the final frame of death animation
