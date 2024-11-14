@@ -80,7 +80,7 @@ public class GabriellaMovementPlay : MonoBehaviour
     private void FixedUpdate()
     {
         // Ensure movement only happens when buttons are held and not during attacks
-        if (!isAttacking && !isHit && roundSystem.roundStarted == true)
+        if (!isAttacking && !isHit && roundSystem.roundStarted == true && isAttacking == false) // Check if round started so Gabriella can move and if Gabriella is not attacking
         {
             if (isMovingForward && CanMoveForward())
             {
@@ -96,7 +96,7 @@ public class GabriellaMovementPlay : MonoBehaviour
             }
         }
 
-        if (isMovingBackward == true || isMovingForward == true)
+        if (isMovingBackward == true || isMovingForward == true) // Check if Gabriella is moving so apply new position, turned 2 lines code into 1 since both forward and backward calls same method
         {
             // It is not yet right! - Felipe
             Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
