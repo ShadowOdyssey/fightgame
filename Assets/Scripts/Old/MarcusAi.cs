@@ -292,7 +292,7 @@ public class MarcusAI : MonoBehaviour
                 Move(); // Follow player if is outside attack area to attack the player
             }
 
-            if (distanceToTarget < attackRange && distanceToTarget < attackRange - 1f && isAttacking == false && isHit == false || isHit == true)
+            if (distanceToTarget < attackRange && distanceToTarget < attackRange - 1f && isAttacking == false && isHit == false)
             {
                 FixWalkAnimDirectionToBackward(); // Move opponent to backward if player to much near or if it is taking damage
                 Move(); // Get far from player if is to much inside attack area to not let AI vulnerable for attacks
@@ -302,7 +302,10 @@ public class MarcusAI : MonoBehaviour
 
     private void Move()
     {
-        StartWalkAnimation();
+        if (isHit == false)
+        {
+            StartWalkAnimation();
+        }
 
         if (isWalking == true && enemyDifficulty > 0 || // Only AI difficulty zero stops to move, so check if is AI difficulty level zero
             isWalking == true && enemyDifficulty == 0 && successRandom == false)  // If is difficulty level zero, we make sure to only apply movement if success was false, because if true AI should stop to move
@@ -314,7 +317,7 @@ public class MarcusAI : MonoBehaviour
                 transform.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime);
             }
             
-            if (changedAnimDirectionToBackward == true || successRandom == true && enemyDifficulty == 1 || successRandom == true && enemyDifficulty == 3)
+            if (changedAnimDirectionToBackward == true || successRandom == true && enemyDifficulty == 1 || successRandom == true && enemyDifficulty == 3 || isHit == true)
             {
                 // Check if moderate and hard enemy difficulty got success to move forward
 
@@ -328,15 +331,17 @@ public class MarcusAI : MonoBehaviour
     {
         if (isHit == false) // With this trigger we make sure opponent only will take damage 1 time
         {
-            health -= damage;
+            hitCount = 0; // Just for debug, it will be removed later
 
-            if (hitCount != 0)
-            {
-                hitCount = 0; // We are resetting HitCount here but we will reset it later in the last frame of the current hit animation
-            }
+            health = health - damage;
 
             if (health <= 0)
             {
+                if (hitCount != 0)
+                {
+                    hitCount = 0; // Reset hit count because opponent died
+                }
+
                 Die(); // Kill opponent because life reached to zero
             }
             else
@@ -348,7 +353,7 @@ public class MarcusAI : MonoBehaviour
                 if (hitCount == 1)
                 {
                     // Play block animation on first hit
-                    //animator.SetTrigger("block"); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                    StartBlockAnim();
                 }
                 else if (hitCount == 3)
                 {
@@ -395,6 +400,7 @@ public class MarcusAI : MonoBehaviour
             animator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             isWalking = true;
         }
 
@@ -406,6 +412,7 @@ public class MarcusAI : MonoBehaviour
             animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             isWalking = true;
         }
     }
@@ -418,6 +425,7 @@ public class MarcusAI : MonoBehaviour
             animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             isWalking = false;
         }
     }
@@ -430,8 +438,46 @@ public class MarcusAI : MonoBehaviour
             animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             animator.SetBool("isAttacking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             isWalking = false;
         }
+    }
+
+    private void StartBlockAnim()
+    {
+        if (animator.GetBool("isBlock") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        {
+            animator.SetBool("isBlock", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            isWalking = false;
+        }
+    }
+
+
+    private void Die()
+    {
+        if (animator.GetBool("isDead") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        {
+            animator.SetBool("isDead", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            animator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        }
+    }
+
+    public void CharacterFinishedAttack() // Called in the final frame of attack animation
+    {
+        attackSuccessRandom = false;
+        isAttacking = false; // Reset to allow another attack after cooldown
+        checkDamage = true; // Check damage from last attack
+        isWalking = true; // AI can move if player to get far from punch area
+        canFight = true; // AI can follow player if is outside range
+        StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet
     }
 
     private void FixWalkAnimDirectionToForward()
@@ -452,21 +498,6 @@ public class MarcusAI : MonoBehaviour
         }
     }
 
-    private void ShowHitEffect()
-    {
-        hitEffect.SetActive(true); // Activate Hit Effect in the body of AI
-    }
-
-    public void CharacterFinishedAttack() // Called in the final frame of attack animation
-    {
-        attackSuccessRandom = false;
-        isAttacking = false; // Reset to allow another attack after cooldown
-        checkDamage = true; // Check damage from last attack
-        isWalking = true; // AI can move if player to get far from punch area
-        canFight = true; // AI can follow player if is outside range
-        StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet
-    }
-
     private void Attack()
     {
         if (isAttacking == false) // We only want to make CPU to read here only 1 time
@@ -476,21 +507,29 @@ public class MarcusAI : MonoBehaviour
         }
     }
 
-    private void Die()
+    private void ShowHitEffect()
     {
-        if (animator.GetBool("isDead") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-        {
-            animator.SetBool("isDead", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        }
+        hitEffect.SetActive(true); // Activate Hit Effect in the body of AI
     }
 
     public void HitAnimFinished()
     {
-        isHit = false;
+        hitEffect.SetActive(false); // Deactivate Hit Effect in the body of AI
+        Idle(); // Start Idle animation after opponent to get a hit
     }
 
     private void Idle()
     {
+        if (isHit == true) // Check if Hit trigger is still activated and disable it
+        {
+            isHit = false;
+        }
+        
+        if (isAttacking == true) // Check if Attacking trigger is still activated and disable it
+        {
+            isAttacking = false;
+        }
+
         StartIdleAnimation(); // Start Idle Animation
     }
 

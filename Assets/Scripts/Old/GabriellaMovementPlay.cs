@@ -94,13 +94,10 @@ public class GabriellaMovementPlay : MonoBehaviour
             }
         }
 
-        if (isAttacking == true && enemySystem.distanceToTarget < attackRange)
+        if (checkDamage == true && enemySystem.distanceToTarget < attackRange)
         {
-            if (checkDamage == true)
-            {
-                enemySystem.TakeDamage(20);
-                checkDamage = false;
-            }
+            enemySystem.TakeDamage(20);
+            checkDamage = false;
         }
 
         if (isHit == true)
