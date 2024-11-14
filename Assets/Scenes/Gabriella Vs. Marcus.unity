@@ -336,7 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundSystem: {fileID: 222489663}
   gabriellaSystem: {fileID: 1311155265}
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: 719282227}
   target: {fileID: 1311155263}
   animator: {fileID: 228756886}
   health: 100
@@ -345,6 +345,7 @@ MonoBehaviour:
   attackRange: 12
   moveSpeed: 4
   randomizeTimer: 0
+  distanceToTarget: 0
 --- !u!95 &228756886 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: b4c347ca67b3df946995ad03477fefb1,
@@ -1368,6 +1369,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MarcusBoxing
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b4c347ca67b3df946995ad03477fefb1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Opponent
       objectReference: {fileID: 0}
     - target: {fileID: 1092408308860062549, guid: b4c347ca67b3df946995ad03477fefb1,
         type: 3}
@@ -3096,14 +3102,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 563897815}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -8127,13 +8133,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 719282227}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.99251425, z: -0, w: 0.12212921}
-  m_LocalPosition: {x: -76.00421, y: 120.36363, z: 364.2154}
-  m_LocalScale: {x: 30, y: 18.181816, z: 10}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1, y: 114, z: 2}
+  m_LocalScale: {x: 3, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 228756884}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!199 &719282229
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -8216,14 +8222,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 719282227}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -8398,7 +8404,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.24696925, b: 0, a: 1}
+      maxColor: {r: 0, g: 0.9433962, b: 0.9254712, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -13745,9 +13751,10 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
-  marcusTransform: {fileID: 228756884}
-  hitEffectPrefab: {fileID: 563897815}
+  enemyTransform: {fileID: 228756884}
+  hitEffect: {fileID: 563897815}
   totalLife: 100
+  attackRange: 14
   moveSpeed: 0.8
   stepSize: 0.1
   minimumDistance: 8
