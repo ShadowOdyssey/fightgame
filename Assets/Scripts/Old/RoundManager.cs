@@ -17,6 +17,9 @@ public class RoundManager : MonoBehaviour
     private int maxHealth = 100;
     private int playerHealth;
     private int opponentHealth;
+    private int playerDamagePerSecond = 5; // Example damage per second for player
+    private int opponentDamagePerSecond = 3; // Example damage per second for opponent
+    private float damageInterval = 1f; // How often to deal damage
     private bool roundOver = false;
 
     void Start()
@@ -105,19 +108,15 @@ public class RoundManager : MonoBehaviour
         //Debug.Log("Round " + currentRound + " started: Health reset.");
 
         // Start automatically decreasing health over the duration of the round
-        //StartCoroutine(DecreaseHealthOverTime());
+        StartCoroutine(DecreaseHealthOverTime());
     }
 
     IEnumerator DecreaseHealthOverTime()
     {
-        float damageInterval = 1f; // How often to deal damage
-        //int playerDamagePerSecond = 5; // Example damage per second for player
-        //int opponentDamagePerSecond = 3; // Example damage per second for opponent
-
         while (roundOver == false)
         {
-            //ApplyDamageToOpponent(opponentDamagePerSecond);
-            //ApplyDamageToPlayer(playerDamagePerSecond);
+            ApplyDamageToOpponent(opponentDamagePerSecond);
+            ApplyDamageToPlayer(playerDamagePerSecond);
 
             yield return new WaitForSeconds(damageInterval);
         }
@@ -203,5 +202,15 @@ public class RoundManager : MonoBehaviour
         opponentHealth -= damage;
         opponentHealthBar.SetHealth(opponentHealth);
         if (opponentHealth <= 0) roundOver = true;
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }
