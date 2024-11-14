@@ -70,8 +70,8 @@ public class PlayerSystem : MonoBehaviour
         // When multiplayer to be done we need to look for the right components, the other components declared dont need to be found, just attached in Inspector
 
         roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
-        enemySystem = GameObject.Find("Enemy").GetComponent<EnemySystem>();
-        enemyBody = GameObject.Find("Enemy").GetComponent<Transform>();
+        enemySystem = GameObject.Find("Marcus").GetComponent<EnemySystem>();
+        enemyBody = GameObject.Find("Marcus").GetComponent<Transform>();
 
         if (buttonForward != null)
         {
@@ -206,6 +206,8 @@ public class PlayerSystem : MonoBehaviour
             Debug.Log("Player got a hit and got " + damageAmmount + " of damage!");
 
             totalHealth = totalHealth - damageAmmount;
+            
+            roundSystem.ApplyDamageToPlayer(damageAmmount); // Inform RoundManager that Player got damage by Enemy
 
             if (totalHealth > 0)
             {

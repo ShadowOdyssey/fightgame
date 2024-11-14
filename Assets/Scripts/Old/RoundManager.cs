@@ -14,13 +14,14 @@ public class RoundManager : MonoBehaviour
     private Text roundText;
     private Text timerText;
     private int currentRound = 1;
-    private int maxHealth = 100;
     private int playerHealth;
     private int opponentHealth;
-    private int playerDamagePerSecond = 5; // Example damage per second for player
-    private int opponentDamagePerSecond = 3; // Example damage per second for opponent
-    private float damageInterval = 1f; // How often to deal damage
     private bool roundOver = false;
+
+    private readonly int maxHealth = 100;
+    private readonly int playerDamagePerSecond = 2; // Example damage per second for player
+    private readonly int opponentDamagePerSecond = 1; // Example damage per second for opponent
+    private readonly float damageInterval = 1f; // How often to deal damage
 
     void Start()
     {

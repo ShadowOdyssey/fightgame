@@ -472,6 +472,8 @@ public class EnemySystem : MonoBehaviour
 
             totalHealth = totalHealth - damage;
 
+            roundSystem.ApplyDamageToOpponent(damage); // Inform RoundManager that Enemy tooks damage by player
+
             if (totalHealth <= 0)
             {
                 if (hitCount != 0)
@@ -502,7 +504,7 @@ public class EnemySystem : MonoBehaviour
                 }
 
                 hitEffect.SetActive(true); // Activate Hit Effect in the body of AI
-                Invoke(nameof(DisableEffect), 1f);
+                Invoke(nameof(DisableEffect), 1f); // Deactivate Hit Effect after 1 second
             }
 
             isHit = true; // Activate the condition that opponent was hit, now only the end of Hit animation will deactivate this trigger
