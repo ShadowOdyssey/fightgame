@@ -51,30 +51,30 @@ public class MarcusAI : MonoBehaviour
             canRandomize = false; // Round finished, stop to randomize - Felipe
             randomizeTimer = 0f; // Reset randomizer time when next round to start if to have a new round yet
             canFight = false; // Round finished, stop to fight - Felipe
-            isWalking = false;
-            changedAnimDirectionToBackward = false;
-            changedAnimDirectionToForward = false;
+            isWalking = false; // Disable movement
+            changedAnimDirectionToBackward = false; // Disable all directions movement
+            changedAnimDirectionToForward = false; // Disable all directions movement
             Idle(); // Round finished, trigger Idle animation - We can change it later to defeat animation or victory animation on each round based in remaning life - Felipe
         }
 
-        if (canRandomize == true)
+        if (canRandomize == true) // Begin to randomize to AI to make decisions so fighting against IA will not to be linear and predictible
         {
-            randomizeTimer = randomizeTimer + Time.deltaTime;
+            randomizeTimer = randomizeTimer + Time.deltaTime; // Count the time to start to randomize
 
-            if (randomizeTimer >= 3f)
+            if (randomizeTimer >= 3f) // I was setup 3 seconds, but you can change this value if you want
             {
-                actualRandomValue = Random.Range(1, randomMaxValue);
+                actualRandomValue = Random.Range(1, randomMaxValue); // Randomizing a new value
 
                 switch (enemyDifficulty) // Check sucess in the random number generated
                 {
                     case 0: // Less agressive and less defensive
 
-                        if (actualRandomValue <= 1 && actualRandomValue <= 80)
+                        if (actualRandomValue <= 1 && actualRandomValue <= 80) // 80% chance to AI not to change behaviour
                         {
                             successRandom = false; // Continue to do what is doing
                         }
 
-                        if (actualRandomValue >= 81 &&  actualRandomValue <= 100)
+                        if (actualRandomValue >= 81 &&  actualRandomValue <= 100) // 20% chance to AI to change behaviour
                         {
                             successRandom = true; // No agression and no defense - Call for more Idle and stop to move in the middle of the combate and dont attack
                         }
@@ -83,12 +83,12 @@ public class MarcusAI : MonoBehaviour
                     
                     case 1: // less agressive and more defensive
 
-                        if (actualRandomValue <= 1 && actualRandomValue <= 40)
+                        if (actualRandomValue <= 1 && actualRandomValue <= 40) // 40% chance to AI not to change behaviour
                         {
                             successRandom = false; // Continue to do what is doing
                         }
 
-                        if (actualRandomValue >= 41 && actualRandomValue <= 100)
+                        if (actualRandomValue >= 41 && actualRandomValue <= 100) // 60% chance to AI to change behaviour
                         {
                             successRandom = true; // Move more far from player or use defensive skills if possible
                         }
@@ -97,12 +97,12 @@ public class MarcusAI : MonoBehaviour
                     
                     case 2: // More agressive and less defensive
 
-                        if (actualRandomValue <= 1 && actualRandomValue <= 80)
+                        if (actualRandomValue <= 1 && actualRandomValue <= 50) // 50% chance to AI not to change behaviour
                         {
                             successRandom = false; // Continue to do what is doing
                         }
 
-                        if (actualRandomValue >= 81 && actualRandomValue <= 100)
+                        if (actualRandomValue >= 51 && actualRandomValue <= 100) // 50% chance to AI to change behaviour
                         {
                             successRandom = true; // Move more near from player or use aggressive skills if possible
                         }
@@ -111,12 +111,12 @@ public class MarcusAI : MonoBehaviour
                     
                     case 3: // More agressive and more defensive
 
-                        if (actualRandomValue <= 1 && actualRandomValue <= 80)
+                        if (actualRandomValue <= 1 && actualRandomValue <= 20) // 20% chance to AI not to change behaviour
                         {
                             successRandom = false; // Continue to do what is doing
                         }
 
-                        if (actualRandomValue >= 81 && actualRandomValue <= 100)
+                        if (actualRandomValue >= 21 && actualRandomValue <= 100) // 80% chance to AI to change behaviour
                         {
                             successRandom = true; // Move more near from player and use aggressive skills if player is far or move more far from player or use defensive skills if possible
                         }
@@ -182,32 +182,32 @@ public class MarcusAI : MonoBehaviour
                     }
                 }
 
-                isResetRandom = true;
-                randomizeTimer = 0f;
-                canRandomize = false;
+                isResetRandom = true; // After to get the random value, to check AI difficulty, time to reset timer of the randomizer to generate a new random value
+                randomizeTimer = 0f; // Zero the randomizer time to use it to reset randomizer system
+                canRandomize = false; // We got the values we was wish, time to close the randomize thread
             }
         }
 
-        if (isResetRandom == true)
+        if (isResetRandom == true) // Beginning to reset randomizer timer
         {
-            randomizeTimer = randomizeTimer + Time.deltaTime;
+            randomizeTimer = randomizeTimer + Time.deltaTime; // Using randomizer timer to reset now
 
-            if (randomizeTimer > 2f)
+            if (randomizeTimer > 2f) // I was put 2 seconds, but you can change this value to a value you to wish
             {
-                randomizeTimer = 0f;
+                randomizeTimer = 0f; // Randomizer time was reseted
 
-                if (canFight == false)
+                if (canFight == false) // Check if AI was fighting
                 {
                     canFight = true;
                 }
 
-                if (successRandom == true)
+                if (successRandom == true) // Check if AI got succes on the closed thead, reset it to generate new value
                 {
                     successRandom = false;
                 }
 
-                isResetRandom = false;
-                canRandomize = true;
+                isResetRandom = false; // We already was reset randomizer system
+                canRandomize = true; // Randomize again!!!
             }
         }
     }
@@ -232,7 +232,7 @@ public class MarcusAI : MonoBehaviour
 
                 Attack(); // Attack if player is inside attack area
 
-                // Attack area is determined by Attack Range and Attack Range -1, so if Attack Range is 8, the area will between 8 and 7 in the distance value, if player is 6 or less the AI will move backward
+                // Attack area is determined by Attack Range and Attack Range -1, so if Attack Range is 8, the area will between 8f and 7f in the distance value, if player is 6.9f or less the AI will move backward
             }
             
             if (distanceToTarget > attackRange && isAttacking == false)
@@ -253,15 +253,20 @@ public class MarcusAI : MonoBehaviour
     {
         StartWalkAnimation();
 
-        if (isWalking == true && enemyDifficulty > 0 || isWalking == true && enemyDifficulty == 0 && successRandom == false)
+        if (isWalking == true && enemyDifficulty > 0 || // Only AI difficulty zero stops to move, so check if is AI difficulty level zero
+            isWalking == true && enemyDifficulty == 0 && successRandom == false)  // If is difficulty level zero, we make sure to only apply movement if success was false, because if true AI should stop to move
         {
             if (changedAnimDirectionToForward == true || successRandom == true && enemyDifficulty == 2 || successRandom == true && enemyDifficulty == 3)
             {
+                // Check if moderate and hard enemy difficulty got success to move forward
+
                 transform.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime);
             }
             
             if (changedAnimDirectionToBackward == true || successRandom == true && enemyDifficulty == 1 || successRandom == true && enemyDifficulty == 3)
             {
+                // Check if moderate and hard enemy difficulty got success to move forward
+
                 transform.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveSpeed * Time.deltaTime);
             }
         }
