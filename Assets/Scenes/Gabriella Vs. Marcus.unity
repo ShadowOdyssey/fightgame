@@ -335,15 +335,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roundSystem: {fileID: 222489663}
+  gabriellaSystem: {fileID: 1311155265}
   hitEffectPrefab: {fileID: 919132149155446097, guid: b00f330d2a95437429dc5ee5c6fe82f3,
     type: 3}
   target: {fileID: 1311155263}
   animator: {fileID: 228756886}
   health: 100
-  detectionRange: 5
   attackRange: 13
   moveSpeed: 2
-  stopDistance: 1.5
 --- !u!95 &228756886 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: b4c347ca67b3df946995ad03477fefb1,
@@ -972,7 +971,7 @@ GameObject:
   - component: {fileID: 436174685}
   - component: {fileID: 436174688}
   m_Layer: 5
-  m_Name: ButtonAttack3
+  m_Name: Button Super Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1254,7 +1253,7 @@ GameObject:
   - component: {fileID: 605903491}
   - component: {fileID: 605903489}
   m_Layer: 5
-  m_Name: ButtonAttack2
+  m_Name: Button Medium Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1595,7 +1594,7 @@ GameObject:
   - component: {fileID: 720947327}
   - component: {fileID: 720947326}
   m_Layer: 5
-  m_Name: ButtonAttack1
+  m_Name: Button Basic Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2286,14 +2285,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 57f99af5c827c0247be8efb64da17d9f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1311155267}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 57f99af5c827c0247be8efb64da17d9f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1311155268}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 57f99af5c827c0247be8efb64da17d9f,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1311155265}
   m_SourcePrefab: {fileID: 100100000, guid: 57f99af5c827c0247be8efb64da17d9f, type: 3}
 --- !u!1 &1293506556
@@ -2457,58 +2448,11 @@ MonoBehaviour:
   marcusTransform: {fileID: 228756884}
   hitEffectPrefab: {fileID: 919132149155446097, guid: acd520f830d7310428e0309eaa4ed405,
     type: 3}
+  totalLife: 100
   moveSpeed: 1
   stepSize: 0.1
   minimumDistance: 8
   colliderBuffer: 0.5
---- !u!54 &1311155267
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 864128510}
-  serializedVersion: 4
-  m_Mass: 5
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 108
-  m_CollisionDetection: 1
---- !u!65 &1311155268
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 864128510}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 1
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 5, y: 20, z: 5}
-  m_Center: {x: 0, y: 6, z: 0}
 --- !u!1 &1341768742
 GameObject:
   m_ObjectHideFlags: 0

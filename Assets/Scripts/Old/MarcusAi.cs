@@ -3,6 +3,7 @@ using UnityEngine;
 public class MarcusAI : MonoBehaviour
 {
     public RoundManager roundSystem;
+    public GabriellaMovementPlay gabriellaSystem;
 
     public GameObject hitEffectPrefab; // Prefab for visual effect on hit
     public Transform target; // Gabriella's transform
@@ -10,10 +11,8 @@ public class MarcusAI : MonoBehaviour
     public Animator animator;
 
     public int health = 100;
-    public float detectionRange = 5f;
     public float attackRange = 13f;
     public float moveSpeed = 2f;
-    public float stopDistance = 1.5f; // Minimum distance to maintain between Marcus and Gabriella
 
     private Vector3 originalPosition; // Save original position to reset after getting up
     private int hitCount = 0; // Track the number of times Marcus is hit
@@ -21,15 +20,13 @@ public class MarcusAI : MonoBehaviour
     private bool isWalking = false;
     private bool isAttacking = false;
     private bool canFight = false;
+    private bool checkDamage = false;
     private bool changedAnimDirectionToForward = false;
     private bool changedAnimDirectionToBackward = false;
 
     private void Start()
     {
-        distanceToTarget = Vector3.Distance(transform.position, target.position);
-
-        // Save the original position
-        originalPosition = transform.position;
+        distanceToTarget = Vector3.Distance(transform.position, target.position); // Get initial position from Gabriella to get the first distance measure only once
     }
 
     private void Update()
@@ -60,6 +57,12 @@ public class MarcusAI : MonoBehaviour
 
             if (distanceToTarget < attackRange && distanceToTarget > attackRange - 1f)
             {
+                if (checkDamage == true) // Only apply damage if player is inside attack area
+                {
+                    gabriellaSystem.TakeHit(15);
+                    checkDamage = false;
+                }
+
                 Attack(); // Attack if player is inside attack range
             }
             
@@ -246,6 +249,7 @@ public class MarcusAI : MonoBehaviour
     public void CharacterFinishedAttack() // Called in the final frame of attack animation
     {
         isAttacking = false; // Reset to allow another attack after cooldown
+        checkDamage = true;
         StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet
     }
 

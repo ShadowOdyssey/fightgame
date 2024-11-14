@@ -16,6 +16,8 @@ public class GabriellaMovementPlay : MonoBehaviour
     public Transform marcusTransform;   // Reference to Marcus's transform
     public GameObject hitEffectPrefab;  // Prefab to show when Gabriella is hit
 
+    public int totalLife = 100;
+
     public float moveSpeed = 2f;        // Speed of movement for small steps
     private float moveDirection = 0f;   // Direction of movement (right or left)
 
@@ -24,7 +26,6 @@ public class GabriellaMovementPlay : MonoBehaviour
     public float colliderBuffer = 0.5f; // Buffer to keep distance from Marcus
 
     private Animator gabriellaAnimator;  // Reference to the Animator component
-    private Quaternion lastMarcusRotation;  // Tracks Marcus's last rotation
 
     private bool isMovingForward = false; // Tracks if forward button is held
     private bool isMovingBackward = false; // Tracks if backward button is held
@@ -232,15 +233,28 @@ public class GabriellaMovementPlay : MonoBehaviour
     }
 
     // Method to handle hit from Marcus
-    public void TakeHit()
+    public void TakeHit(int damageAmmount)
     {
-        if (!isHit)
+        if (isHit == false)
         {
-            Debug.Log("Gabriella got hit");
-            isHit = true;
-            gabriellaAnimator.SetTrigger("react"); // Trigger reaction animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-            Instantiate(hitEffectPrefab, transform.localPosition, Quaternion.identity); // Show hit effect
-            StartCoroutine(HandleHitCooldown());
+            Debug.Log("Gabriella got a hit and got " + damageAmmount + " of damage!");
+
+            totalLife = totalLife - damageAmmount;
+
+            if (totalLife > 0)
+            {
+                if (gabriellaAnimator.GetBool("isHit") == false)
+                {
+                    gabriellaAnimator.SetBool("isHit", true); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
+                }
+
+                Instantiate(hitEffectPrefab, transform.localPosition, Quaternion.identity); // Show hit effect
+                isHit = true;
+            }
+            else
+            {
+                // Game Over
+            }
         }
     }
 
@@ -249,13 +263,6 @@ public class GabriellaMovementPlay : MonoBehaviour
     {
         yield return new WaitForSeconds(1f); // Adjust duration based on the attack animation length
         isAttacking = false; // Allow movement again after attack animation finishes
-    }
-
-    // Coroutine to manage hit cooldown
-    private System.Collections.IEnumerator HandleHitCooldown()
-    {
-        yield return new WaitForSeconds(1f); // Adjust the duration as needed
-        isHit = false; // Reset hit state after cooldown
     }
 
     // Utility method to add event triggers to buttons
@@ -282,5 +289,11 @@ public class GabriellaMovementPlay : MonoBehaviour
         {
             isMovingBackward = false;
         }
+    }
+
+    public void IsHitAnimationFinished()
+    {
+        gabriellaAnimator.SetBool("isHit", true); // Disable isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
+        isHit = false;
     }
 }
