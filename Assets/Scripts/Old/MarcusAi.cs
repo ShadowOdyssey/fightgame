@@ -393,10 +393,7 @@ public class MarcusAI : MonoBehaviour
 
     private void ShowHitEffect()
     {
-        if (hitEffectPrefab != null)
-        {
-            hitEffect.SetActive(true);
-        }
+        hitEffect.SetActive(true);
     }
 
     public void CharacterFinishedAttack() // Called in the final frame of attack animation

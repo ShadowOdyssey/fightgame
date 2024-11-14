@@ -336,8 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundSystem: {fileID: 222489663}
   gabriellaSystem: {fileID: 1311155265}
-  hitEffectPrefab: {fileID: 919132149155446097, guid: b00f330d2a95437429dc5ee5c6fe82f3,
-    type: 3}
+  hitEffectPrefab: {fileID: 719282227}
   target: {fileID: 1311155263}
   animator: {fileID: 228756886}
   health: 100
