@@ -10,13 +10,13 @@ public class RoundManager : MonoBehaviour
     public float textDisplayDuration = 2f;
     public float roundTime = 0f;  // 3-minute timer for each round
     public bool roundStarted = false;
+    public bool roundOver = false;
 
     private Text roundText;
     private Text timerText;
     private int currentRound = 1;
     private int playerHealth;
     private int opponentHealth;
-    private bool roundOver = false;
 
     private readonly int maxHealth = 100;
     private readonly int playerDamagePerSecond = 2; // Example damage per second for player

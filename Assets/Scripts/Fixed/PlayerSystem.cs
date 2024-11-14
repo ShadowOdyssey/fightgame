@@ -112,8 +112,18 @@ public class PlayerSystem : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (roundSystem.roundOver == true && totalHealth != 100)
+        {
+            isAttacking = false;
+            isMovingBackward = false;
+            isMovingBackward = false;
+            isHit = false;
+            checkDamage = false;
+            totalHealth = 100;
+        }
+
         // Ensure movement only happens when buttons are held and not during attacks
-        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false) // Check if round started so Player can move and if Player is not attacking
+        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false) // Check if round started so Player can move and if Player is not attacking
         {
             if (isMovingForward == true && isMovingBackward == false)
             {
@@ -136,7 +146,7 @@ public class PlayerSystem : MonoBehaviour
             }
         }
 
-        if (isHit == true)
+        if (isHit == true && roundSystem.roundOver == false)
         {
             transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime * 3f);
         }

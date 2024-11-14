@@ -91,7 +91,7 @@ public class EnemySystem : MonoBehaviour
     {
         #region Checking if round started
 
-        if (canFight == false && roundSystem.roundStarted == true && moveSuccessRandom == false) // Only can execute commands in FixedUpdate if round started, but...
+        if (canFight == false && roundSystem.roundStarted == true && moveSuccessRandom == false && roundSystem.roundOver == false) // Only can execute commands in FixedUpdate if round started, but...
         {
             Debug.Log("Round Started");
 
@@ -103,12 +103,19 @@ public class EnemySystem : MonoBehaviour
 
         #region Checking if round finished
 
-        if (canFight == true && roundSystem.roundStarted == false) // If round not started and is 2nd or 3rd round, load Idle animation till round start again! - Felipe
+        if (canFight == true && roundSystem.roundOver == true) // If round not started and is 2nd or 3rd round, load Idle animation till round start again! - Felipe
         {
-            canRandomize = false; // Round finished, stop to randomize - Felipe
+            Debug.Log("Reset all Enemy´s triggers");
+            totalHealth = 100;
             randomizeTimer = 0f; // Reset randomizer time when next round to start if to have a new round yet
             canFight = false; // Round finished, stop to fight - Felipe
             isWalking = false; // Disable movement
+            canRandomize = false; // Round finished, stop to randomize - Felipe
+            isHit = false; // Round finished, reset all variables
+            isAttacking = false; // Round finished, reset all variables
+            checkDamage = false; // Round finished, reset all variables
+            moveSuccessRandom = false; // Round finished, reset all variables
+            attackSuccessRandom = false; // Round finished, reset all variables
             changedAnimDirectionToBackward = false; // Disable all directions movement
             changedAnimDirectionToForward = false; // Disable all directions movement
             EnemyIsIdle(); // Round finished, trigger Idle animation - We can change it later to defeat animation or victory animation on each round based in remaning life - Felipe
@@ -298,7 +305,7 @@ public class EnemySystem : MonoBehaviour
 
         #region Check if enemy is still alive and perform actions if alive
 
-        if (canFight == true) // Prevent further actions if round not started yet
+        if (canFight == true && roundSystem.roundOver == false) // Prevent further actions if round not started yet
         {
             distanceToTarget = Vector3.Distance(transform.position, playerBody.position);
 
