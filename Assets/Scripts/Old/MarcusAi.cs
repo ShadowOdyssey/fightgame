@@ -19,6 +19,7 @@ public class MarcusAI : MonoBehaviour
 
     private Vector3 originalPosition; // Save original position to reset after getting up
     private int actualRandomValue = 0;
+    private int attackRandom = 0;
     private int hitCount = 0; // Track the number of times Marcus is hit
     private float distanceToTarget = 0f;
     private bool successRandom = false; // The success is based in the difficulty level
@@ -57,7 +58,7 @@ public class MarcusAI : MonoBehaviour
             Idle(); // Round finished, trigger Idle animation - We can change it later to defeat animation or victory animation on each round based in remaning life - Felipe
         }
 
-        if (canRandomize == true) // Begin to randomize to AI to make decisions so fighting against IA will not to be linear and predictible
+        if (canRandomize == true && isAttacking == false) // Begin to randomize to AI to make decisions so fighting against IA will not to be linear and predictible
         {
             randomizeTimer = randomizeTimer + Time.deltaTime; // Count the time to start to randomize
 
@@ -196,18 +197,27 @@ public class MarcusAI : MonoBehaviour
             {
                 randomizeTimer = 0f; // Randomizer time was reseted
 
-                if (canFight == false) // Check if AI was fighting
+                if (attackRandom != 0) // Only reset if AttackRandom was being used
                 {
-                    canFight = true;
+                    attackRandom = 0; // Randomize attack again if AI will attack or not
                 }
 
-                if (successRandom == true) // Check if AI got succes on the closed thead, reset it to generate new value
+                if (canFight == false) // Check if AI is not fighting...
                 {
-                    successRandom = false;
+                    canFight = true; // AI can fight now
+                }
+
+                if (successRandom == true) // Check if AI got succes on the closed thead, reset it to generate new value...
+                {
+                    successRandom = false; // Disable last success in random to make success avaiable again
                 }
 
                 isResetRandom = false; // We already was reset randomizer system
-                canRandomize = true; // Randomize again!!!
+
+                if (canRandomize == false) // Only activate if CanRandomize was being used
+                {
+                    canRandomize = true; // Randomize AI actions again!!!
+                }
             }
         }
     }
@@ -224,27 +234,57 @@ public class MarcusAI : MonoBehaviour
 
             if (distanceToTarget < attackRange && distanceToTarget > attackRange - 1f)
             {
-                if (checkDamage == true) // Only apply damage if player is inside attack area
+                if (checkDamage == true && distanceToTarget > attackRange - 0.5f) // Only apply damage if player is really inside attack area
                 {
                     gabriellaSystem.TakeHit(15);
                     checkDamage = false;
                 }
 
-                Attack(); // Attack if player is inside attack area
+                if (isResetRandom == false) // Call for attack action randomize, AI can decide if attack or not when player is inside attack area
+                {
+                    attackRandom = Random.Range(1, 100);
+
+                    if (enemyDifficulty == 0 && attackRandom >= 81 && attackRandom <= 100) // 20% the easy AI have to attack
+                    {
+                        Attack(); // Attack if player is inside attack area
+                    }
+
+                    if (enemyDifficulty == 1 && attackRandom >= 61 && attackRandom <= 100) // 40% the moderate AI have to attack
+                    {
+                        Attack(); // Attack if player is inside attack area
+                    }
+
+                    if (enemyDifficulty == 2 && attackRandom >= 41 && attackRandom <= 100) // 60% the normal AI have to attack
+                    {
+                        Attack(); // Attack if player is inside attack area
+                    }
+
+                    if (enemyDifficulty == 3 && attackRandom >= 21 && attackRandom <= 100) // 80% the hard AI have to attack
+                    {
+                        Attack(); // Attack if player is inside attack area
+                    }
+
+                    isResetRandom = true; // Close the attack random call and reset it
+                }
 
                 // Attack area is determined by Attack Range and Attack Range -1, so if Attack Range is 8, the area will between 8f and 7f in the distance value, if player is 6.9f or less the AI will move backward
             }
             
             if (distanceToTarget > attackRange && isAttacking == false)
             {
+                if (checkDamage == true) // Check if player got out from attack area when damage is trying to be applied
+                {
+                    checkDamage = false; // Player is outside attack area so dont apply damage to player, only apply damage if player is really inside attack area
+                }
+
                 FixWalkAnimDirectionToForward();
-                Move(); // Follow player if is outside attack area
+                Move(); // Follow player if is outside attack area to attack the player
             }
 
             if (distanceToTarget < attackRange && distanceToTarget < attackRange - 1f && isAttacking == false)
             {
                 FixWalkAnimDirectionToBackward();
-                Move();
+                Move(); // Get far from player if is to much inside attack area to not let AI vulnerable for attacks
             }
         }
     }
@@ -258,7 +298,7 @@ public class MarcusAI : MonoBehaviour
         {
             if (changedAnimDirectionToForward == true || successRandom == true && enemyDifficulty == 2 || successRandom == true && enemyDifficulty == 3)
             {
-                // Check if moderate and hard enemy difficulty got success to move forward
+                // Check if normal and hard enemy difficulty got success to move forward
 
                 transform.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime);
             }
@@ -406,9 +446,9 @@ public class MarcusAI : MonoBehaviour
     public void CharacterFinishedAttack() // Called in the final frame of attack animation
     {
         isAttacking = false; // Reset to allow another attack after cooldown
+        checkDamage = true; // Check damage from last attack
         isWalking = true; // AI can move if player to get far from punch area
         canFight = true; // AI can follow player if is outside range
-        checkDamage = true; // Check damage from last attack
         StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet
     }
 

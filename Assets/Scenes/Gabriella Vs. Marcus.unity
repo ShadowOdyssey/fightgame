@@ -336,7 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundSystem: {fileID: 222489663}
   gabriellaSystem: {fileID: 1311155265}
-  hitEffectPrefab: {fileID: 719282227}
+  hitEffect: {fileID: 0}
   target: {fileID: 1311155263}
   animator: {fileID: 228756886}
   health: 100
@@ -451,7 +451,11 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: cc569294897c54b4f91a4a66204b6d1a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b4c347ca67b3df946995ad03477fefb1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 719282228}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b4c347ca67b3df946995ad03477fefb1,
         type: 3}
@@ -1002,7 +1006,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 436174686}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1311155265}
+        m_TargetAssemblyTypeName: GabriellaMovementPlay, Assembly-CSharp
+        m_MethodName: OnAttack3ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &436174686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1071,7 +1087,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 228756884}
-  - {fileID: 719282228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &471720620
@@ -1104,7 +1119,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1311155263}
-  - {fileID: 563897816}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &563313169
@@ -1208,12 +1222,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 563897815}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.052597333, z: -0, w: 0.9986158}
-  m_LocalPosition: {x: -6.7424507, y: 6.8600006, z: 8.975138}
+  m_LocalRotation: {x: -0, y: -0.05407874, z: -0, w: 0.9985367}
+  m_LocalPosition: {x: -0.0053441934, y: 10.860001, z: 0.97512615}
   m_LocalScale: {x: 3, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 471720621}
+  m_Father: {fileID: 1311155263}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!199 &563897817
 ParticleSystemRenderer:
@@ -6094,7 +6108,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 605903492}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1311155265}
+        m_TargetAssemblyTypeName: GabriellaMovementPlay, Assembly-CSharp
+        m_MethodName: OnAttack2ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &605903492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6316,12 +6342,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 719282227}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.052597333, z: -0, w: 0.9986158}
-  m_LocalPosition: {x: 7.457549, y: 6.236364, z: -37.124863}
-  m_LocalScale: {x: 3, y: 1.8181818, z: 1}
+  m_LocalRotation: {x: -0, y: 0.99251425, z: -0, w: 0.12212921}
+  m_LocalPosition: {x: -76.00421, y: 120.36363, z: 364.2154}
+  m_LocalScale: {x: 30, y: 18.181816, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 448668107}
+  m_Father: {fileID: 228756884}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!199 &719282229
 ParticleSystemRenderer:
@@ -11240,7 +11266,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 720947324}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1311155265}
+        m_TargetAssemblyTypeName: GabriellaMovementPlay, Assembly-CSharp
+        m_MethodName: OnAttack1ButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &835816777
 GameObject:
   m_ObjectHideFlags: 0
@@ -11669,7 +11707,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 57f99af5c827c0247be8efb64da17d9f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9986158
+      value: 0.9999989
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 57f99af5c827c0247be8efb64da17d9f,
         type: 3}
@@ -11679,7 +11717,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 57f99af5c827c0247be8efb64da17d9f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.052597333
+      value: 0.0014835156
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 57f99af5c827c0247be8efb64da17d9f,
         type: 3}
@@ -11694,7 +11732,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 57f99af5c827c0247be8efb64da17d9f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -6.03
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 57f99af5c827c0247be8efb64da17d9f,
         type: 3}
@@ -11753,7 +11791,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 57f99af5c827c0247be8efb64da17d9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 563897816}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 57f99af5c827c0247be8efb64da17d9f,
         type: 3}
