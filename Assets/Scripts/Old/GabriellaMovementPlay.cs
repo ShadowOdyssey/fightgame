@@ -116,14 +116,14 @@ public class GabriellaMovementPlay : MonoBehaviour
         {
             if (roundSystem.roundStarted == true)
             {
-                Debug.Log("Gabriella is moving forward");
+                //Debug.Log("Gabriella is moving forward");
 
                 isMovingForward = true;
                 isMovingBackward = false;
             }
             else
             {
-                Debug.Log("Gabriella cant move forward because round not started yet");
+                //Debug.Log("Gabriella cant move forward because round not started yet");
 
                 if (isMovingForward == true) // Check if any move boolean is activate when Gabriela cant move and deactivate it
                 {
@@ -140,14 +140,14 @@ public class GabriellaMovementPlay : MonoBehaviour
         {
             if (roundSystem.roundStarted == true)
             {
-                Debug.Log("Gabriella is moving backward");
+                //Debug.Log("Gabriella is moving backward");
 
                 isMovingBackward = true;
                 isMovingForward = false;
             }
             else
             {
-                Debug.Log("Gabriella cant move backward because round not started yet");
+                //Debug.Log("Gabriella cant move backward because round not started yet");
 
                 if (isMovingBackward == true) // Check if any boolean is activate when Gabriela cant move and deactivate it
                 {
@@ -195,13 +195,13 @@ public class GabriellaMovementPlay : MonoBehaviour
 
         if (gabriellaAnimator.GetBool("isForward") == true) // Check if Gabriella moved forward to StopMoving trigger the boolean change in the animation parameter
         {
-            Debug.Log("Gabriella stopped to move forward");
+            //Debug.Log("Gabriella stopped to move forward");
             gabriellaAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
         if (gabriellaAnimator.GetBool("isBackward") == true) // Check if Gabriella moved backward to StopMoving trigger the boolean change in the animation parameter
         {
-            Debug.Log("Gabriella stopped to move backward");
+            //Debug.Log("Gabriella stopped to move backward");
             gabriellaAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 

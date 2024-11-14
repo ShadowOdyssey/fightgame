@@ -230,13 +230,15 @@ public class MarcusAI : MonoBehaviour
                     checkDamage = false;
                 }
 
-                Attack(); // Attack if player is inside attack range
+                Attack(); // Attack if player is inside attack area
+
+                // Attack area is determined by Attack Range and Attack Range -1, so if Attack Range is 8, the area will between 8 and 7 in the distance value, if player is 6 or less the AI will move backward
             }
             
             if (distanceToTarget > attackRange && isAttacking == false)
             {
                 FixWalkAnimDirectionToForward();
-                Move(); // Follow player if is outside attack range
+                Move(); // Follow player if is outside attack area
             }
 
             if (distanceToTarget < attackRange && distanceToTarget < attackRange - 1f && isAttacking == false)
@@ -393,15 +395,15 @@ public class MarcusAI : MonoBehaviour
 
     private void ShowHitEffect()
     {
-        hitEffect.SetActive(true);
+        hitEffect.SetActive(true); // Activate Hit Effect in the body of AI
     }
 
     public void CharacterFinishedAttack() // Called in the final frame of attack animation
     {
         isAttacking = false; // Reset to allow another attack after cooldown
-        isWalking = true;
-        canFight = true;
-        checkDamage = true;
+        isWalking = true; // AI can move if player to get far from punch area
+        canFight = true; // AI can follow player if is outside range
+        checkDamage = true; // Check damage from last attack
         StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet
     }
 
@@ -416,25 +418,20 @@ public class MarcusAI : MonoBehaviour
 
     private void Idle()
     {
-        StartIdleAnimation();
+        StartIdleAnimation(); // Start Idle Animation
     }
 
     private void Attack()
     {
-        if (isAttacking == false) // Correct way
+        if (isAttacking == false) // We only want to make CPU to read here only 1 time
         {
-            isAttacking = true;
-            StartAttackAnimation();
+            isAttacking = true; // Closing the IF so CPU only will read it 1 time
+            StartAttackAnimation(); // Now activate the attack animation
         }
     }
 
     public void IsDead() // Called in the final frame of death animation
     {
         Destroy(gameObject); // Destroy Marcus after to reach the final frame in death animation
-    }
-
-    public void CanFight()
-    {
-        canFight = true;
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class RoundManager : MonoBehaviour
 {
-    public HealthBar playerHealthBar;         // Gabriella's HealthBar component
-    public HealthBar opponentHealthBar;       // Marcus's HealthBar component
+    public HealthBar playerHealthBar;         // Player's HealthBar component
+    public HealthBar opponentHealthBar;       // Enemy's HealthBar component
 
     public bool roundStarted = false;
 
@@ -104,7 +104,7 @@ public class RoundManager : MonoBehaviour
     {
         roundOver = false;
         roundTime = 180f; // Reset timer for each round
-        Debug.Log("Round " + currentRound + " started: Health reset.");
+        //Debug.Log("Round " + currentRound + " started: Health reset.");
 
         // Start automatically decreasing health over the duration of the round
         StartCoroutine(DecreaseHealthOverTime());
@@ -205,18 +205,5 @@ public class RoundManager : MonoBehaviour
         opponentHealth -= damage;
         opponentHealthBar.SetHealth(opponentHealth);
         if (opponentHealth <= 0) roundOver = true;
-    }
-
-    void Update()
-    {
-        // Simulate damage for testing
-        if (Input.GetKeyDown(KeyCode.Space)) // Simulate Gabriella taking damage
-        {
-            ApplyDamageToPlayer(10); // Reduce Gabriella's health by 10
-        }
-        if (Input.GetKeyDown(KeyCode.M)) // Simulate Marcus taking damage
-        {
-            ApplyDamageToOpponent(10); // Reduce Marcus's health by 10
-        }
     }
 }
