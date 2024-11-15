@@ -38,11 +38,13 @@ public class EnemySystem : MonoBehaviour
     [Tooltip("It should be always 100 - Dont change it!")]
     private readonly int randomMaxValue = 100;
     [Tooltip("Actual enemy time while randomizing! It should be always zero! - Dont change it!")]
-    public float randomizeTimer = 0f;
+    private float randomizeTimer = 0f;
     [Tooltip("Move Random determines if IA will move, stop or reverse actual movemente")]
     private int moveRandom = 0;
     [Tooltip("Attack Random determines if IA will attack, stop or to select different skills")]
     private int attackRandom = 0;
+    [Tooltip("Skill Random determines wich skill will AI to use to attack")]
+    private int skillRandom = 0;
     [Tooltip("Hit Count determines the combo hit and the combo should be applied in a short period of time by player")]
     private int hitCount = 0;
     [Tooltip("Move Success Random determines if AI decided to change movement when enabled and the action is based in enemy difficulty level")]
@@ -355,8 +357,10 @@ public class EnemySystem : MonoBehaviour
 
                 #region Randomize Attack
 
-                if (isResetRandom == false && isAttacking == false) // Call for attack action randomize, AI can decide if attack or not when player is inside attack area
+                if (isResetRandom == false && isAttacking == false)
                 {
+                    // Call for attack action randomize, AI can decide if attack or not when player is inside attack area
+
                     attackRandom = Random.Range(1, 100);
 
                     if (enemyDifficulty == 0 && attackRandom >= 81 && attackRandom <= 100) // 20% the easy AI have to attack
@@ -790,7 +794,107 @@ public class EnemySystem : MonoBehaviour
 
     private void RandomizeSkill()
     {
-        actualAttack = Random.Range(1, 3); // Randomize between 1 and 3 to select a skill
+        skillRandom = Random.Range(1, 100); // Randomize current attack skill
+
+        #region Enemy Difficulty 0 - Easy
+
+        if (enemyDifficulty == 0 && skillRandom >= 0 && skillRandom <= 20) // 20% chance to use Attack 3
+        {
+            //Debug.Log("AI level 0 difficulty was choice Attack 3");
+
+            actualAttack = 3;
+        }
+
+        if (enemyDifficulty == 0 && skillRandom >= 21 && skillRandom <= 50) // 30% chance to use Attack 2
+        {
+            //Debug.Log("AI level 0 difficulty was choice Attack 2");
+
+            actualAttack = 2;
+        }
+
+        if (enemyDifficulty == 0 && skillRandom >= 51 && skillRandom <= 100) // 50% chance to use Attack 1
+        {
+            //Debug.Log("AI level 0 difficulty was choice Attack 1");
+
+            actualAttack = 1;
+        }
+
+        #endregion
+
+        #region Enemy Difficulty 1 - Moderate
+
+        if (enemyDifficulty == 1 && skillRandom >= 0 && skillRandom <= 40) // 40% chance to use Attack 3
+        {
+            //Debug.Log("AI level 1 difficulty was choice Attack 3");
+
+            actualAttack = 3;
+        }
+
+        if (enemyDifficulty == 1 && skillRandom >= 41 && skillRandom <= 70) // 30% chance to use Attack 2
+        {
+            //Debug.Log("AI level 1 difficulty was choice Attack 2");
+
+            actualAttack = 2;
+        }
+
+        if (enemyDifficulty == 1 && skillRandom >= 71 && skillRandom <= 100) // 30% chance to use Attack 1
+        {
+            //Debug.Log("AI level 1 difficulty was choice Attack 1");
+
+            actualAttack = 1;
+        }
+
+        #endregion
+
+        #region Enemy Difficulty 2 - Normal
+
+        if (enemyDifficulty == 2 && skillRandom >= 0 && skillRandom <= 10) // 10% chance to use Attack 3
+        {
+            //Debug.Log("AI level 2 difficulty was choice Attack 3");
+
+            actualAttack = 3;
+        }
+
+        if (enemyDifficulty == 2 && skillRandom >= 11 && skillRandom <= 70) // 60% chance to use Attack 2
+        {
+            //Debug.Log("AI level 2 difficulty was choice Attack 2");
+
+            actualAttack = 2;
+        }
+
+        if (enemyDifficulty == 2 && skillRandom >= 71 && skillRandom <= 100) // 30% chance to use Attack 1
+        {
+            //Debug.Log("AI level 2 difficulty was choice Attack 1");
+
+            actualAttack = 1;
+        }
+
+        #endregion
+
+        #region Enemy Difficulty 3 - Hard
+
+        if (enemyDifficulty == 3 && skillRandom >= 0 && skillRandom <= 70) // 70% chance to use Attack 3
+        {
+            //Debug.Log("AI level 3 difficulty was choice Attack 3");
+
+            actualAttack = 3;
+        }
+
+        if (enemyDifficulty == 3 && skillRandom >= 71 && skillRandom <= 90) // 20% chance to use Attack 2
+        {
+            //Debug.Log("AI level 3 difficulty was choice Attack 2");
+
+            actualAttack = 2;
+        }
+
+        if (enemyDifficulty == 3 && skillRandom >= 91 && skillRandom <= 100) // 10% chance to use Attack 1
+        {
+            //Debug.Log("AI level 3 difficulty was choice Attack 1");
+
+            actualAttack = 1;
+        }
+
+        #endregion
 
         EnemyIsAttacking(); // Attack if player is inside attack area
     }
