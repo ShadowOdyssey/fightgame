@@ -922,9 +922,16 @@ public class EnemySystem : MonoBehaviour
             {
                 CharacterFinishedAttack(); // If all skills are in cooldown, cancel the attack
             }
-            else
+
+            if (isCooldown3 == true && isCooldown1 == false && isCooldown2 == true ||
+                isCooldown3 == true && isCooldown1 == false && isCooldown2 == false)
             {
                 UseAttack1(); // If Attack 3 is in cooldown so change to Attack 1
+            }
+
+            if (isCooldown3 == true && isCooldown2 == false && isCooldown1 == true)
+            {
+                UseAttack2(); // If Attack 3 is in cooldown so change to Attack 2
             }
         }
     }
