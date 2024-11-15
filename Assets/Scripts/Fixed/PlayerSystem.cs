@@ -161,6 +161,7 @@ public class PlayerSystem : MonoBehaviour
 
             if (damageTime > 1f)
             {
+                damageTime = 0f;
                 checkDamage = false;
             }
         }
