@@ -342,7 +342,7 @@ public class EnemySystem : MonoBehaviour
 
         if (isCooldown1 == true) // If Attack 1 cooldown is activated...
         {
-            attackCooldown1 = attackCooldown1 + Time.deltaTime; // Count cooldwon time
+            attackCooldown1 = attackCooldown1 - Time.deltaTime; // Count cooldwon time
 
             if (attackCooldown1 < 0f) // If cooldown time finished...
             {
@@ -353,7 +353,7 @@ public class EnemySystem : MonoBehaviour
 
         if (isCooldown2 == true) // If Attack 2 cooldown is activated...
         {
-            attackCooldown2 = attackCooldown2 + Time.deltaTime; // Count cooldwon time
+            attackCooldown2 = attackCooldown2 - Time.deltaTime; // Count cooldwon time
 
             if (attackCooldown2 < 0f) // If cooldown time finished...
             {
@@ -364,7 +364,7 @@ public class EnemySystem : MonoBehaviour
 
         if (isCooldown3 == true) // If Attack 3 cooldown is activated...
         {
-            attackCooldown3 = attackCooldown3 + Time.deltaTime; // Count cooldwon time
+            attackCooldown3 = attackCooldown3 - Time.deltaTime; // Count cooldwon time
 
             if (attackCooldown3< 0f) // If cooldown time finished...
             {
