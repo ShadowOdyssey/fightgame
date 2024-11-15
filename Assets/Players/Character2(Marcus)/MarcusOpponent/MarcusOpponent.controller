@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isAttack1
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isIdle
@@ -52,7 +52,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isForward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isAttack1
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: isBackward
@@ -89,7 +89,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isForward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isAttack1
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isBlock
@@ -151,7 +151,13 @@ AnimatorStateTransition:
     m_ConditionEvent: isBackward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isAttack1
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack2
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack3
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8918128813438059309}
@@ -182,7 +188,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isForward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isAttack1
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isBackward
@@ -208,7 +214,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: isAttacking
+  m_Name: isAttack1
   m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
@@ -252,7 +258,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isBackward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isAttack1
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8918128813438059309}
@@ -289,7 +295,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isBackward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isAttack1
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8918128813438059309}
@@ -326,7 +332,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isBackward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isAttack1
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8918128813438059309}
@@ -430,10 +436,19 @@ AnimatorStateTransition:
     m_ConditionEvent: isForward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isBackward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isBackward
+    m_ConditionEvent: isBlock
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack1
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack2
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack3
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3246562772380845883}
@@ -464,10 +479,19 @@ AnimatorStateTransition:
     m_ConditionEvent: isForward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isBackward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isBackward
+    m_ConditionEvent: isBlock
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack1
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack2
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack3
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5606820010136101542}
@@ -521,13 +545,22 @@ AnimatorStateTransition:
     m_ConditionEvent: isIdle
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
     m_ConditionEvent: isForward
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isBackward
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isBlock
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack1
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack2
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack3
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3246562772380845883}
@@ -552,6 +585,12 @@ AnimatorController:
   m_Name: MarcusOpponent
   serializedVersion: 5
   m_AnimatorParameters:
+  - m_Name: isIntro
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   - m_Name: isIdle
     m_Type: 4
     m_DefaultFloat: 0
@@ -570,25 +609,31 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: isAttacking
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
   - m_Name: isBlock
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: isDead
+  - m_Name: isAttack1
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: isIntro
+  - m_Name: isAttack2
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: isAttack3
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: isDead
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -625,10 +670,16 @@ AnimatorStateTransition:
     m_ConditionEvent: isBackward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isBlock
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isBlock
+    m_ConditionEvent: isAttack1
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack2
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack3
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3246562772380845883}
@@ -652,17 +703,26 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isAttack1
+    m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isIdle
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isForward
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: isAttacking
-    m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isBackward
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isBlock
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack2
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack3
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5898578078745642734}
@@ -690,7 +750,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isIdle
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isAttack1
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isForward
@@ -727,7 +787,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isForward
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isAttack1
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isBackward
@@ -764,7 +824,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isBackward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isAttack1
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isBlock
@@ -798,7 +858,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isForward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isAttack1
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: isBackward
@@ -825,17 +885,26 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: isIdle
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
-    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: isForward
     m_EventTreshold: 0
   - m_ConditionMode: 2
+    m_ConditionEvent: isIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
     m_ConditionEvent: isBackward
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isBlock
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack1
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack2
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack3
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 9188170357079645784}
@@ -896,10 +965,19 @@ AnimatorStateTransition:
     m_ConditionEvent: isForward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isBackward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isBackward
+    m_ConditionEvent: isBlock
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack1
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack2
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isAttack3
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3246562772380845883}
@@ -956,7 +1034,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isForward
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isAttacking
+    m_ConditionEvent: isAttack1
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isBackward

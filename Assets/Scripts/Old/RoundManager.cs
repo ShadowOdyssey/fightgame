@@ -111,6 +111,7 @@ public class RoundManager : MonoBehaviour
         }
 
         DrawRoundText("Fight Over!");
+        Invoke(nameof(FightEnded), 15f);
     }
 
     private void StartRound()
@@ -247,6 +248,11 @@ public class RoundManager : MonoBehaviour
         opponentHealth -= damage;
         opponentHealthBar.SetHealth(opponentHealth);
         if (opponentHealth <= 0) roundOver = true;
+    }
+
+    private void FightEnded()
+    {
+        Debug.Log("Fight ended! Return to scene of character selecting an opponent");
     }
 
     private void RestartRound()
