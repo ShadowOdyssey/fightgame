@@ -4,18 +4,21 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Gabriella
   - Opponent
+  - Light
+  - System
+  - Arena
+  - Collider
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Opponent
+  - Scenario
+  - Collider
   - 
   - 
   - 

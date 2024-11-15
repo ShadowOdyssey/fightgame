@@ -38,6 +38,8 @@ public class PlayerSystem : MonoBehaviour
     #region Hidden Variables
 
     [Header("Monitor")] // Turn variables into public to show monitor
+    [Tooltip("Actual Camera System from MainCamera object in the current scene, it will be loaded when scene to awake")]
+    private CameraSystem cameraSystem;
     [Tooltip("Actual Round System from RoundManager object in the current scene, it will be loaded when scene to awake")]
     private RoundManager roundSystem;
     [Tooltip("Actual Enemy System from selected enemy by IA or multiplayer, it will be loaded when scene to awake")]
@@ -71,6 +73,7 @@ public class PlayerSystem : MonoBehaviour
     {
         // When multiplayer to be done we need to look for the right components, the other components declared dont need to be found, just attached in Inspector
 
+        cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
         roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
         enemySystem = GameObject.Find("Marcus").GetComponent<EnemySystem>();
         enemyBody = GameObject.Find("Marcus").GetComponent<Transform>();
@@ -192,6 +195,31 @@ public class PlayerSystem : MonoBehaviour
         }
 
         #endregion
+    }
+
+    #endregion
+
+    #region Camera Movement
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "Left Collider")
+        {
+            cameraSystem.MoveToLeft();
+        }
+
+        if (other.name == "Right Collider")
+        {
+            cameraSystem.MoveToRight();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Collider") == true)
+        {
+            cameraSystem.StopToMove();
+        }
     }
 
     #endregion
@@ -572,7 +600,7 @@ public class PlayerSystem : MonoBehaviour
     private void StartIntroAnimation()
     {
         //Debug.Log("Player started Intro anim");
-
+        cameraSystem.ResetCamera();
         gameObject.transform.position = initialPosition; // Move Player to start position because a new round started
         playerAnimator.Play("isIntro"); // Play Intro animation because a new round started
     }
