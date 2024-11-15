@@ -307,9 +307,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealthBar: {fileID: 383739935}
   opponentHealthBar: {fileID: 1662190001}
+  roundText: {fileID: 0}
   textDisplayDuration: 10
   roundTime: 180
   roundStarted: 0
+  roundOver: 0
+  wasDetermined: 0
 --- !u!1 &228756883 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b4c347ca67b3df946995ad03477fefb1,
@@ -334,8 +337,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73328725e553eb248ab2ce53b3d90bfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyAnimator: {fileID: 228756886}
   hitEffect: {fileID: 719282227}
-  animator: {fileID: 228756886}
   totalHealth: 100
   enemyDifficulty: 0
   randomMaxValue: 100
@@ -13647,7 +13650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397f50eb45fc173439fb8142fd31b522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerAnimator: {fileID: 1253591596}
+  playerAnimator: {fileID: 1253591596}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -13655,7 +13658,7 @@ MonoBehaviour:
   buttonAttack3: {fileID: 436174685}
   hitEffect: {fileID: 563897815}
   totalHealth: 100
-  attackRange: 14
+  attackRange: 15
   moveSpeed: 0.8
   stepSize: 0.1
 --- !u!1 &1341768742

@@ -6,7 +6,7 @@ public class EnemySystem : MonoBehaviour
 
     [Header("Animator Setup")]
     [Tooltip("Attach current enemy Animator component here")]
-    public Animator animator;
+    public Animator enemyAnimator;
 
     [Header("Hit Effect Setup")]
     [Tooltip("Attach current enemy HitEffect GameObject here")]
@@ -89,12 +89,30 @@ public class EnemySystem : MonoBehaviour
 
     private void Update()
     {
+        #region Animate Intro while round dont start
+
+        if (roundSystem.roundText.text == "Round 1" && enemyAnimator.GetBool("isIntro") == false)
+        {
+            enemyAnimator.SetBool("isIntro", true);
+            StartIntroAnimation();
+        }
+
+        if (roundSystem.roundText.text == "Round 2" && enemyAnimator.GetBool("isIntro") == false ||
+            roundSystem.roundText.text == "Round 3" && enemyAnimator.GetBool("isIntro") == false)
+        {
+            enemyAnimator.SetBool("isIntro", true);
+            Invoke(nameof(StartIntroAnimation), 5f);
+        }
+
+        #endregion
+
         #region Checking if round started
 
         if (canFight == false && roundSystem.roundStarted == true && moveSuccessRandom == false && roundSystem.roundOver == false) // Only can execute commands in FixedUpdate if round started, but...
         {
             Debug.Log("Round Started");
 
+            enemyAnimator.SetBool("isIntro", false); // Reset Intro animation to use it in the next round
             canRandomize = true; // Round started, so activate randomizer
             canFight = true; // Round started, so can fight
         }
@@ -103,23 +121,29 @@ public class EnemySystem : MonoBehaviour
 
         #region Checking if round finished
 
-        if (canFight == true && roundSystem.roundOver == true) // If round not started and is 2nd or 3rd round, load Idle animation till round start again! - Felipe
+        if (canFight == true && roundSystem.roundOver == true && roundSystem.wasDetermined == false) // If round not started and is 2nd or 3rd round, load Idle animation till round start again! - Felipe
         {
             ResetAllAnimations();
 
-            if (totalHealth > playerSystem.totalHealth)
+            if (roundSystem.opponentHealthBar.slider.value > roundSystem.playerHealthBar.slider.value) // Victory animation
             {
-                // Victory animation
+                Debug.Log("Enemy Victory was activated");
+
+                enemyAnimator.Play("isVictory");
             }
 
-            if (totalHealth == playerSystem.totalHealth)
+            if (roundSystem.opponentHealthBar.slider.value == roundSystem.playerHealthBar.slider.value) // Draw animation
             {
-                // Draw animation
+                Debug.Log("Enemy Draw was activated");
+
+                enemyAnimator.Play("isDefeat");
             }
 
-            if (totalHealth < playerSystem.totalHealth)
+            if (roundSystem.opponentHealthBar.slider.value < roundSystem.playerHealthBar.slider.value) // Defeat animation
             {
-                // Defeat animation
+                Debug.Log("Enemy Defeat was activated");
+
+                enemyAnimator.Play("isDefeat");
             }
 
             ResetAllTriggers();
@@ -492,7 +516,7 @@ public class EnemySystem : MonoBehaviour
                     hitCount = 0; // Reset hit count because opponent died
                 }
 
-                Die(); // Kill opponent because life reached to zero
+                StartDeathAnimation(); // Kill opponent because life reached to zero
             }
             else
             {
@@ -548,81 +572,88 @@ public class EnemySystem : MonoBehaviour
 
     private void StartWalkAnimation()
     {
-        if (animator.GetBool("isForward") == false && changedAnimDirectionToForward == true ||
-            enemyDifficulty == 0 && moveSuccessRandom == false && animator.GetBool("isForward") == false && changedAnimDirectionToForward == true)
+        if (enemyAnimator.GetBool("isForward") == false && changedAnimDirectionToForward == true ||
+            enemyDifficulty == 0 && moveSuccessRandom == false && enemyAnimator.GetBool("isForward") == false && changedAnimDirectionToForward == true)
         // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
-            animator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             isWalking = true;
         }
 
-        if (animator.GetBool("isBackward") == false && changedAnimDirectionToBackward == true ||
-            enemyDifficulty == 0 && moveSuccessRandom == false && animator.GetBool("isBackward") == false && changedAnimDirectionToBackward == true)
+        if (enemyAnimator.GetBool("isBackward") == false && changedAnimDirectionToBackward == true ||
+            enemyDifficulty == 0 && moveSuccessRandom == false && enemyAnimator.GetBool("isBackward") == false && changedAnimDirectionToBackward == true)
             // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
-            animator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             isWalking = true;
         }
     }
 
     private void StartIdleAnimation()
     {
-        if (animator.GetBool("isIdle") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        if (enemyAnimator.GetBool("isIdle") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
-            animator.SetBool("isIdle", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isIdle", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             isWalking = false;
         }
     }
 
     private void StartAttackAnimation()
     {
-        if (animator.GetBool("isAttacking") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        if (enemyAnimator.GetBool("isAttacking") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
-            animator.SetBool("isAttacking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isAttacking", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             isWalking = false;
         }
     }
 
     private void StartBlockAnim()
     {
-        if (animator.GetBool("isBlock") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        if (enemyAnimator.GetBool("isBlock") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
-            animator.SetBool("isBlock", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isBlock", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             isWalking = false;
         }
     }
 
-    private void Die()
+    private void StartDeathAnimation()
     {
-        if (animator.GetBool("isDead") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        if (enemyAnimator.GetBool("isDead") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
-            animator.SetBool("isDead", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            animator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isDead", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
+    }
+
+    private void StartIntroAnimation()
+    {
+        Debug.Log("Enemy started Intro anim");
+
+        enemyAnimator.Play("isIntro");
     }
 
     #endregion
@@ -683,11 +714,11 @@ public class EnemySystem : MonoBehaviour
 
     private void ResetAllAnimations()
     {
-        animator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        animator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        animator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        animator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        animator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        enemyAnimator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
     }
 
     private void ResetAllTriggers()

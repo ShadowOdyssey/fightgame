@@ -7,12 +7,14 @@ public class RoundManager : MonoBehaviour
     public HealthBar playerHealthBar;         // Player's HealthBar component
     public HealthBar opponentHealthBar;       // Enemy's HealthBar component
 
+    public Text roundText;
+
     public float textDisplayDuration = 2f;
     public float roundTime = 0f;  // 3-minute timer for each round
     public bool roundStarted = false;
     public bool roundOver = false;
+    public bool wasDetermined = false;
 
-    private Text roundText;
     private Text timerText;
     private int currentRound = 1;
     private int playerHealth;
@@ -104,9 +106,16 @@ public class RoundManager : MonoBehaviour
 
     private void StartRound()
     {
+        roundText.text = "";
         roundOver = false;
         roundTime = 180f; // Reset timer for each round
+                        
         //Debug.Log("Round " + currentRound + " started: Health reset.");
+
+        if (wasDetermined == true)
+        {
+            wasDetermined = false;
+        }
 
         // Start automatically decreasing health over the duration of the round
         StartCoroutine(DecreaseHealthOverTime());
@@ -125,7 +134,7 @@ public class RoundManager : MonoBehaviour
 
     IEnumerator RoundCountdown()
     {
-        while (roundTime > 0 && !roundOver)
+        while (roundTime > 0f && roundOver == false)
         {
             //Debug.Log("Counting round time");
 
@@ -139,16 +148,19 @@ public class RoundManager : MonoBehaviour
             yield return null;
 
             // Check if either player's health is zero
-            if (playerHealth <= 0 || opponentHealth <= 0)
+            if (playerHealth <= 0f || opponentHealth <= 0f)
             {
                 roundOver = true;
+                DetermineRoundWinner();
             }
         }
 
-        if (roundTime <= 0 && !roundOver)
+        if (roundTime <= 0f && roundOver == false)
         {
-            roundOver = true;
+            roundTime = 0f;
+            UpdateTimerDisplay();
             DetermineRoundWinner();
+            roundOver = true;
         }
 
         yield return new WaitForSeconds(1);
@@ -167,18 +179,32 @@ public class RoundManager : MonoBehaviour
 
     private void DetermineRoundWinner()
     {
-        // Determine the winner of the round based on remaining health
-        if (playerHealth > opponentHealth)
+        Debug.Log("Determining winner");
+
+        if (wasDetermined == false)
         {
-            DrawRoundText("Gabriella Wins Round " + currentRound + "!");
-        }
-        else if (opponentHealth > playerHealth)
-        {
-            DrawRoundText("Marcus Wins Round " + currentRound + "!");
-        }
-        else
-        {
-            DrawRoundText("Round " + currentRound + " Draw!");
+
+            // Determine the winner of the round based on remaining health
+            if (playerHealth > opponentHealth)
+            {
+                Debug.Log("Player Won");
+
+                DrawRoundText("Gabriella Wins Round " + currentRound + "!");
+            }
+            else if (opponentHealth > playerHealth)
+            {
+                Debug.Log("Enemy Won");
+
+                DrawRoundText("Marcus Wins Round " + currentRound + "!");
+            }
+            else
+            {
+                Debug.Log("Nobody Won");
+
+                DrawRoundText("Round " + currentRound + " Draw!");
+            }
+
+            wasDetermined = true;
         }
     }
 
@@ -203,6 +229,11 @@ public class RoundManager : MonoBehaviour
         opponentHealth -= damage;
         opponentHealthBar.SetHealth(opponentHealth);
         if (opponentHealth <= 0) roundOver = true;
+    }
+
+    private void RestartRound()
+    {
+        roundOver = false;
     }
 
     private void OnDisable()

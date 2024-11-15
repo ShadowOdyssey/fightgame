@@ -9,7 +9,7 @@ public class PlayerSystem : MonoBehaviour
 
     [Header("Animator Setup")]
     [Tooltip("Attach current player Animator component here")]
-    public Animator PlayerAnimator;
+    public Animator playerAnimator;
 
     [Header("Buttons UI Setup")]
     [Tooltip("Attach current player Button Forward component here")]
@@ -103,40 +103,78 @@ public class PlayerSystem : MonoBehaviour
 
     private void Update()
     {
-        if (roundSystem.roundOver == true && totalHealth != 100)
+        #region Animate Intro while round dont start
+
+        if (roundSystem.roundText.text == "Round 1" && playerAnimator.GetBool("isIntro") == false)
+        {
+            playerAnimator.SetBool("isIntro", true);
+            StartIntroAnimation();
+        }
+
+        if (roundSystem.roundText.text == "Round 2" && playerAnimator.GetBool("isIntro") == false ||
+            roundSystem.roundText.text == "Round 3" && playerAnimator.GetBool("isIntro") == false)
+        {
+            playerAnimator.SetBool("isIntro", true);
+            Invoke(nameof(StartIntroAnimation), 5f);
+        }
+
+        #endregion
+
+        #region Check if round finished
+
+        if (roundSystem.roundOver == true && roundSystem.wasDetermined == false)
         {
             ResetAllAnimations();
 
-            if (totalHealth > enemySystem.totalHealth)
+            if (roundSystem.playerHealthBar.slider.value > roundSystem.opponentHealthBar.slider.value) // Victory animation
             {
-                // Victory animation
+                Debug.Log("Player Victory was activated");
+
+                playerAnimator.Play("isVictory");
             }
 
-            if (totalHealth == enemySystem.totalHealth)
+            if (roundSystem.playerHealthBar.slider.value == roundSystem.opponentHealthBar.slider.value) // Draw animation
             {
-                // Draw animation
+                Debug.Log("Player Draw was activated");
+
+                playerAnimator.Play("isDefeat");
             }
 
-            if (totalHealth < enemySystem.totalHealth)
+            if (roundSystem.playerHealthBar.slider.value < roundSystem.opponentHealthBar.slider.value) // Defeat animation
             {
-                // Defeat animation
+                Debug.Log("Player Defeat was activated");
+
+                playerAnimator.Play("isDefeat");
             }
 
             ResetAllTriggers();
         }
+
+        #endregion
+
+        #region Check if Player dealed damage to Enemy
 
         if (checkDamage == true && enemySystem.distanceToTarget < attackRange)
         {
             enemySystem.TakeDamage(20);
             checkDamage = false;
         }
+
+        #endregion
     }
 
     private void FixedUpdate()
     {
+        #region Movement Player because round started
+
         // Ensure movement only happens when buttons are held and not during attacks
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false) // Check if round started so Player can move and if Player is not attacking
         {
+            if (playerAnimator.GetBool("isIntro") == true)
+            {
+                playerAnimator.SetBool("isIntro", false); // Reset Intro animation to use it in the next round
+            }
+
             if (isMovingForward == true && isMovingBackward == false)
             {
                 MoveRight();
@@ -158,10 +196,16 @@ public class PlayerSystem : MonoBehaviour
             }
         }
 
+        #endregion
+
+        #region Player got a hit so move Player a bit to backwards or enemy can hit Player forever
+
         if (isHit == true && roundSystem.roundOver == false)
         {
             transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime * 3f);
         }
+
+        #endregion
     }
 
     #endregion
@@ -172,41 +216,41 @@ public class PlayerSystem : MonoBehaviour
     {
         // Check if Player moved forward to StopMoving trigger the boolean change in the animation parameter
 
-        if (PlayerAnimator.GetBool("isForward") == true) // Check if Player moved forward to StopMoving trigger the boolean change in the animation parameter
+        if (playerAnimator.GetBool("isForward") == true) // Check if Player moved forward to StopMoving trigger the boolean change in the animation parameter
         {
             //Debug.Log("Player stopped to move forward");
-            PlayerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
-        if (PlayerAnimator.GetBool("isBackward") == true) // Check if Player moved backward to StopMoving trigger the boolean change in the animation parameter
+        if (playerAnimator.GetBool("isBackward") == true) // Check if Player moved backward to StopMoving trigger the boolean change in the animation parameter
         {
             //Debug.Log("Player stopped to move backward");
-            PlayerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
-        if (PlayerAnimator.GetBool("isHit") == true)
+        if (playerAnimator.GetBool("isHit") == true)
         {
-            PlayerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
-        if (PlayerAnimator.GetBool("isAttack1") == true)
+        if (playerAnimator.GetBool("isAttack1") == true)
         {
-            PlayerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
-        if (PlayerAnimator.GetBool("isAttack2") == true)
+        if (playerAnimator.GetBool("isAttack2") == true)
         {
-            PlayerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
-        if (PlayerAnimator.GetBool("isAttack3") == true)
+        if (playerAnimator.GetBool("isAttack3") == true)
         {
-            PlayerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
-        if (PlayerAnimator.GetBool("isIdle") == false)
+        if (playerAnimator.GetBool("isIdle") == false)
         {
-            PlayerAnimator.SetBool("isIdle", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isIdle", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
         // If both triggers to be false, execute nothing, so it saves processing instead to apply false to both animation parameters in each frame, it only will trigger if is true and only once
@@ -237,10 +281,6 @@ public class PlayerSystem : MonoBehaviour
                 hitEffect.SetActive(true); // Show hit effect
                 Invoke(nameof(DisableEffect), 1f);
             }
-            else
-            {
-                // Game Over
-            }
 
             isHit = true;
         }
@@ -252,7 +292,7 @@ public class PlayerSystem : MonoBehaviour
 
     public void OnMoveRightButtonPressed(BaseEventData eventData)
     {
-        if (roundSystem.roundStarted == true)
+        if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
         {
             //Debug.Log("Player is moving forward");
 
@@ -273,7 +313,7 @@ public class PlayerSystem : MonoBehaviour
 
     public void OnMoveLeftButtonPressed(BaseEventData eventData)
     {
-        if (roundSystem.roundStarted == true)
+        if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
         {
             //Debug.Log("Player is moving backward");
 
@@ -298,18 +338,18 @@ public class PlayerSystem : MonoBehaviour
     
     private void MoveRight()
     {
-        if (PlayerAnimator.GetBool("isForward") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way - Felipe
+        if (playerAnimator.GetBool("isForward") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way - Felipe
         {
             //Debug.Log("Player moved to right");
 
             moveDirection = 1f; // Setup new direction only once before to apply new position - Felipe
-            PlayerAnimator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
     }
 
@@ -319,18 +359,18 @@ public class PlayerSystem : MonoBehaviour
     
     private void MoveLeft() // MoveLeft is being called alot, consuming processing and it is bad to mobile, so...
     {
-        if (PlayerAnimator.GetBool("isBackward") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - Felipe
+        if (playerAnimator.GetBool("isBackward") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - Felipe
         {
             //Debug.Log("Player moved to left");
 
             moveDirection = -1f; // Setup new direction only once before to apply new position - Felipe
-            PlayerAnimator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
     }
 
@@ -340,15 +380,15 @@ public class PlayerSystem : MonoBehaviour
 
     private void AnimIsHit()
     {
-        if (PlayerAnimator.GetBool("isHit") == false)
+        if (playerAnimator.GetBool("isHit") == false)
         {
-            PlayerAnimator.SetBool("isHit", true); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isHit", true); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
     }
 
@@ -358,43 +398,55 @@ public class PlayerSystem : MonoBehaviour
 
     private void AnimIsAttack1()
     {
-        if (PlayerAnimator.GetBool("isAttack1") == false)
+        if (playerAnimator.GetBool("isAttack1") == false)
         {
-            PlayerAnimator.SetBool("isAttack1", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack1", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            Invoke(nameof(CheckStuck), 1.5f);
         }
     }
 
     private void AnimIsAttack2()
     {
-        if (PlayerAnimator.GetBool("isAttack2") == false)
+        if (playerAnimator.GetBool("isAttack2") == false)
         {
-            PlayerAnimator.SetBool("isAttack2", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack2", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            Invoke(nameof(CheckStuck), 1.5f);
         }
     }
 
     private void AnimIsAttack3()
     {
-        if (PlayerAnimator.GetBool("isAttack3") == false)
+        if (playerAnimator.GetBool("isAttack3") == false)
         {
-            PlayerAnimator.SetBool("isAttack3", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            PlayerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack3", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            Invoke(nameof(CheckStuck), 1.5f);
+        }
+    }
+
+    private void CheckStuck()
+    {
+        if (isAttacking == true) // Sometimes Animator dont triggers correctly in the end of the frame so we make sure it will be triggered
+        {
+            isAttacking = false; // Attack animation finished
+            AnimIsIdle(); // Reset animation to Idle
         }
     }
 
@@ -432,9 +484,9 @@ public class PlayerSystem : MonoBehaviour
 
     public void OnAttack1ButtonPressed()
     {
-        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false)
+        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
-            Debug.Log("Player activated Attack 1");
+            //Debug.Log("Player activated Attack 1");
             isAttacking = true;
             AnimIsAttack1();
         }
@@ -442,9 +494,9 @@ public class PlayerSystem : MonoBehaviour
 
     public void OnAttack2ButtonPressed()
     {
-        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false)
+        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
-            Debug.Log("Player activated Attack 2");
+            //Debug.Log("Player activated Attack 2");
             isAttacking = true;
             AnimIsAttack2();
         }
@@ -452,9 +504,9 @@ public class PlayerSystem : MonoBehaviour
 
     public void OnAttack3ButtonPressed()
     {
-        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false)
+        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
-            Debug.Log("Player activated Attack 3");
+            //Debug.Log("Player activated Attack 3");
             isAttacking = true;
             AnimIsAttack3();
         }
@@ -483,13 +535,13 @@ public class PlayerSystem : MonoBehaviour
 
     private void ResetAllAnimations()
     {
-        PlayerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        PlayerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        PlayerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        PlayerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        PlayerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        PlayerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        PlayerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        playerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
     }
 
     private void ResetAllTriggers()
@@ -500,6 +552,13 @@ public class PlayerSystem : MonoBehaviour
         isHit = false;
         checkDamage = false;
         totalHealth = 100;
+    }
+
+    private void StartIntroAnimation()
+    {
+        Debug.Log("Player started Intro anim");
+
+        playerAnimator.Play("isIntro");
     }
 
     #endregion
