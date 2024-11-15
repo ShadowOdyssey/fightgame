@@ -266,7 +266,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: isAttack2
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -3296105401476061360}
@@ -625,10 +625,10 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: isAttack1
     m_EventTreshold: 0
-  - m_ConditionMode: 1
+  - m_ConditionMode: 2
     m_ConditionEvent: isAttack2
     m_EventTreshold: 0
-  - m_ConditionMode: 1
+  - m_ConditionMode: 2
     m_ConditionEvent: isAttack3
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -1653,7 +1653,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: isAttack3
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -5090308214282985076}
