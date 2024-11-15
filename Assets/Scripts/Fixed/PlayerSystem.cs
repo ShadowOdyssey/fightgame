@@ -42,6 +42,8 @@ public class PlayerSystem : MonoBehaviour
     private CameraSystem cameraSystem;
     [Tooltip("Actual Round System from RoundManager object in the current scene, it will be loaded when scene to awake")]
     private RoundManager roundSystem;
+    [Tooltip("Actual Cooldown System from RoundManager object in the current scene, it will be loaded when scene to awake")]
+    private CooldownSystem cooldownSystem;
     [Tooltip("Actual Enemy System from selected enemy by IA or multiplayer, it will be loaded when scene to awake")]
     private EnemySystem enemySystem;
     [Tooltip("Actual Enemy Transform from selected enemy by IA or multiplayer, it will be loaded when scene to awake")]
@@ -56,6 +58,12 @@ public class PlayerSystem : MonoBehaviour
     private bool isMovingBackward = false;
     [Tooltip("If enabled means player is attacking")]
     private bool isAttacking = false;
+    [Tooltip("If enabled means player is used Attack 1 and should wait cooldown to finish")]
+    private bool isCooldown1 = false;
+    [Tooltip("If enabled means player is used Attack 2 and should wait cooldown to finish")]
+    private bool isCooldown2 = false;
+    [Tooltip("If enabled means player is used Attack 3 and should wait cooldown to finish")]
+    private bool isCooldown3 = false;
     [Tooltip("If enabled means player got a hit")]
     private bool isHit = false;
     [Tooltip("If enabled means player dealed a damage to an opponent")]
@@ -75,6 +83,7 @@ public class PlayerSystem : MonoBehaviour
 
         cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
         roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
+        cooldownSystem = GameObject.Find("RoundManager").GetComponent<CooldownSystem>();
         enemySystem = GameObject.Find("Marcus").GetComponent<EnemySystem>();
         enemyBody = GameObject.Find("Marcus").GetComponent<Transform>();
 
@@ -278,11 +287,6 @@ public class PlayerSystem : MonoBehaviour
 
     public void TakeHit(int damageAmmount)
     {
-        if (isAttacking == true) // Check if player is attacking
-        {
-            isAttacking = false; // Disable it because we will activate Hit animation
-        }
-
         if (isHit == false)
         {
             Debug.Log("Player got a hit and got " + damageAmmount + " of damage!");
@@ -439,46 +443,64 @@ public class PlayerSystem : MonoBehaviour
 
     private void AnimIsAttack1()
     {
-        if (playerAnimator.GetBool("isAttack1") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        if (isCooldown1 == false) // Check if skill is in cooldown
         {
-            playerAnimator.SetBool("isAttack1", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            Invoke(nameof(CheckStuck), 1.5f);
+            if (playerAnimator.GetBool("isAttack1") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            {
+                cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
+                playerAnimator.SetBool("isAttack1", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
+                isAttacking = true; // We make sure only to trigger isAttacking after animation started
+                Invoke(nameof(CheckStuck), 1.5f);
+            }
         }
     }
 
     private void AnimIsAttack2()
     {
-        if (playerAnimator.GetBool("isAttack2") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        if (isCooldown2 == false) // Check if skill is in cooldown
         {
-            playerAnimator.SetBool("isAttack2", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            Invoke(nameof(CheckStuck), 1.5f);
+            if (playerAnimator.GetBool("isAttack2") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            {
+                cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
+                playerAnimator.SetBool("isAttack2", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
+                isAttacking = true; // We make sure only to trigger isAttacking after animation started
+                Invoke(nameof(CheckStuck), 1.5f);
+            }
         }
     }
 
     private void AnimIsAttack3()
     {
-        if (playerAnimator.GetBool("isAttack3") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        if (isCooldown3 == false) // Check if skill is in cooldown
         {
-            playerAnimator.SetBool("isAttack3", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            Invoke(nameof(CheckStuck), 1.5f);
+            if (playerAnimator.GetBool("isAttack3") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            {
+                cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
+                playerAnimator.SetBool("isAttack3", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                isCooldown3 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
+                isAttacking = true; // We make sure only to trigger isAttacking after animation started
+                Invoke(nameof(CheckStuck), 1.5f);
+            }
         }
     }
 
@@ -528,7 +550,6 @@ public class PlayerSystem : MonoBehaviour
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
             //Debug.Log("Player activated Attack 1");
-            isAttacking = true;
             AnimIsAttack1();
         }
     }
@@ -538,7 +559,6 @@ public class PlayerSystem : MonoBehaviour
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
             //Debug.Log("Player activated Attack 2");
-            isAttacking = true;
             AnimIsAttack2();
         }
     }
@@ -548,7 +568,6 @@ public class PlayerSystem : MonoBehaviour
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
             //Debug.Log("Player activated Attack 3");
-            isAttacking = true;
             AnimIsAttack3();
         }
     }
@@ -639,6 +658,21 @@ public class PlayerSystem : MonoBehaviour
     private void DisableEffect()
     {
         hitEffect.SetActive(false);
+    }
+
+    public void Cooldown1Finished()
+    {
+        isCooldown1 = false;
+    }
+
+    public void Cooldown2Finished()
+    {
+        isCooldown2 = false;
+    }
+
+    public void Cooldown3Finished()
+    {
+        isCooldown3 = false;
     }
 
     #endregion

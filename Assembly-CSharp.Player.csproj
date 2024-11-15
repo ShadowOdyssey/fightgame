@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Old\RoundManager.cs" />
     <Compile Include="Assets\Scripts\Old\SinglePlayer.cs" />
     <Compile Include="Assets\Scripts\Old\BattleGroundSelection.cs" />
+    <Compile Include="Assets\Scripts\Fixed\CooldownSystem.cs" />
     <Compile Include="Assets\Scripts\Old\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Old\CharacterViewing.cs" />
     <Compile Include="Assets\Scripts\Old\OrionMovement.cs" />

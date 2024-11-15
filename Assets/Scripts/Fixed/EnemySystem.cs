@@ -50,7 +50,7 @@ public class EnemySystem : MonoBehaviour
     [Tooltip("Attack Cooldown 2 determines the cooldown when Attack 2 was used")]
     private float attackCooldown2 = 9f;
     [Tooltip("Attack Cooldown 3 determines the cooldown when Attack 3 was used")]
-    private float attackCooldown3 = 12f;
+    private float attackCooldown3 = 15f;
     [Tooltip("Move Success Random determines if AI decided to change movement when enabled and the action is based in enemy difficulty level")]
     private bool moveSuccessRandom = false;
     [Tooltip("Attack Success Random determines if AI decided to change attack action when enabled and the action is based in enemy difficulty level")]
@@ -364,7 +364,7 @@ public class EnemySystem : MonoBehaviour
 
             if (attackCooldown3< 0f) // If cooldown time finished...
             {
-                attackCooldown3 = 12f; // Reset cooldown time
+                attackCooldown3 = 15f; // Reset cooldown time
                 isCooldown3 = false; // Disable cooldown event so AI can use the skill again
             }
         }
