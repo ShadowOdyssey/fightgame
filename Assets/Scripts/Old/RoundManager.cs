@@ -252,7 +252,7 @@ public class RoundManager : MonoBehaviour
 
     private void FightEnded()
     {
-        Debug.Log("Fight ended! Return to scene of character selecting an opponent");
+        Debug.Log("Fight ended! Return to scene of character selecting an opponent or go to main menu if Player lost the battle");
     }
 
     private void RestartRound()
