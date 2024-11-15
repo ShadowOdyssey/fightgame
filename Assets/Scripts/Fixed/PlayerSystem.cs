@@ -216,7 +216,7 @@ public class PlayerSystem : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Collider") == true)
+        if (other.name == "Left Collider" || other.name == "Right Collider")
         {
             cameraSystem.StopToMove();
         }
