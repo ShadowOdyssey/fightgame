@@ -37,6 +37,8 @@ public class RoundManager : MonoBehaviour
 
     private void Awake()
     {
+        StopAllCoroutines(); // Stop all coroutines from old scenes
+
         playerSystem = GameObject.Find("Gabriella").GetComponent<PlayerSystem>();
         enemySystem = GameObject.Find("Marcus").GetComponent<EnemySystem>();
     }

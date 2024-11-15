@@ -14,26 +14,26 @@ public class SelectionCharacter : MonoBehaviour
     public Texture2D vsIcon;
     public Texture2D marcusTexture;
 
-    private string[] characterNames = { "Gabriella", "Marcus", "Selena", "Bryan", "Nun", "Oliver", "Orion", "Aria" };
+    private readonly string[] characterNames = { "Gabriella", "Marcus", "Selena", "Bryan", "Nun", "Oliver", "Orion", "Aria" };
 
-    private int[] durabilityStats = { 7, 5, 9, 6, 8, 6, 8, 10 };
-    private int[] offenseStats = { 8, 9, 7, 6, 6, 9, 7, 10 };
-    private int[] controlEffectStats = { 6, 4, 8, 5, 7, 5, 9, 10 };
-    private int[] difficultyStats = { 4, 6, 8, 3, 5, 4, 5, 10 };
+    private readonly int[] durabilityStats = { 7, 5, 9, 6, 8, 6, 8, 10 };
+    private readonly int[] offenseStats = { 8, 9, 7, 6, 6, 9, 7, 10 };
+    private readonly int[] controlEffectStats = { 6, 4, 8, 5, 7, 5, 9, 10 };
+    private readonly int[] difficultyStats = { 4, 6, 8, 3, 5, 4, 5, 10 };
 
     private int currentIndex = 0;
     private AudioSource audioSource;
     private bool hasPlayedIntro = false;
 
     // Locking mechanism
-    private bool[] isUnlocked = { true, false, false, false, false, false, false, false }; // Only Gabriella is unlocked by default
+    private readonly bool[] isUnlocked = { true, false, false, false, false, false, false, false }; // Only Gabriella is unlocked by default
 
     private bool showLockedMessage = false; // Indicates if the locked character message should be shown
     private float lockedMessageTimer = 0f; // Timer to control how long the message appears
 
     // New variables for the VS panel display with countdown
     private bool showVsPanel = false;
-    private int countdownDuration = 5; // Countdown duration in seconds
+    private readonly int countdownDuration = 5; // Countdown duration in seconds
     private int currentCountdown;
     private Coroutine countdownCoroutine; // Store the reference to the countdown coroutine
 
@@ -214,7 +214,7 @@ public class SelectionCharacter : MonoBehaviour
 
        if (showVsPanel) // Only load the scene if the VS panel is still active
       {
-        SceneManager.LoadScene("Gabriella Vs. Marcus");
+        SceneManager.LoadScene("FightScene");
       }
     }
 
