@@ -716,11 +716,13 @@ public class EnemySystem : MonoBehaviour
     private void StartStunnedAnimation()
     {
         ResetAllAnimations();
+        enemyAnimator.Play("isStunned");
     }
 
     private void StartHurtAnimation()
     {
         ResetAllAnimations();
+        enemyAnimator.Play("isHurt");
     }
 
     #endregion
