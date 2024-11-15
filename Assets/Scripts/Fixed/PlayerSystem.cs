@@ -28,8 +28,6 @@ public class PlayerSystem : MonoBehaviour
     public GameObject hitEffect;
 
     [Header("Player Setup")]
-    [Tooltip("Setup actual player health")]
-    public int totalHealth = 100;
     [Tooltip("Setup actual player attack range")]
     public float attackRange = 14f;
     [Tooltip("Setup actual player movement speed")]
@@ -261,15 +259,40 @@ public class PlayerSystem : MonoBehaviour
         {
             Debug.Log("Player got a hit and got " + damageAmmount + " of damage!");
 
-            totalHealth = totalHealth - damageAmmount;
-            
             roundSystem.ApplyDamageToPlayer(damageAmmount); // Inform RoundManager that Player got damage by Enemy
-
-            if (totalHealth > 0)
+            
+            if (roundSystem.playerHealthBar.slider.value <= 0)
             {
-                AnimIsHit();
-                hitEffect.SetActive(true); // Show hit effect
-                Invoke(nameof(DisableEffect), 1f);
+                if (roundSystem.enemyTotalCombo != 0)
+                {
+                    roundSystem.EnemyFinishedCombo(); // Reset hit count because opponent died
+                }
+            }
+            else
+            {
+                if (roundSystem.enemyTotalCombo == 0)
+                {
+                    roundSystem.EnemyStartCombo();
+                }
+
+                if (roundSystem.enemyTotalCombo == 1)
+                {
+                    roundSystem.EnemyContinueCombo();
+                }
+
+                if (roundSystem.enemyTotalCombo == 2)
+                {
+                    roundSystem.EnemyContinueCombo();
+                }
+
+                if (roundSystem.enemyTotalCombo == 3)
+                {
+                    roundSystem.EnemyFinishedCombo();
+                }
+
+                AnimIsHit(); // Start Hit animation in Player
+                hitEffect.SetActive(true); // Activate Hit Effect in the body of Player
+                Invoke(nameof(DisableEffect), 1f); // Deactivate Hit Effect after 1 second
             }
 
             isHit = true;
@@ -543,7 +566,6 @@ public class PlayerSystem : MonoBehaviour
         isMovingBackward = false;
         isHit = false;
         checkDamage = false;
-        totalHealth = 100;
         wasResetTriggers = true;
     }
 

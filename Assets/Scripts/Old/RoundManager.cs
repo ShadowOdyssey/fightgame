@@ -9,24 +9,31 @@ public class RoundManager : MonoBehaviour
 
     public Text roundText;
 
+    public int playerTotalCombo = 0;
+    public int enemyTotalCombo = 0;
     public float textDisplayDuration = 2f;
     public float roundTime = 0f;  // 3-minute timer for each round
     public bool roundStarted = false;
     public bool roundOver = false;
     public bool wasDetermined = false;
+    public bool isPlayerCombo = false;
+    public bool isEnemyCombo = false;
 
     private PlayerSystem playerSystem;
     private EnemySystem enemySystem;
-
-    private Text timerText;
-    private int currentRound = 1;
-    private int playerHealth;
-    private int opponentHealth;
 
     private readonly int maxHealth = 100;
     private readonly int playerDamagePerSecond = 2; // Example damage per second for player
     private readonly int opponentDamagePerSecond = 1; // Example damage per second for opponent
     private readonly float damageInterval = 1f; // How often to deal damage
+
+    private Text timerText;
+    private int currentRound = 1;
+    private int playerHealth = 0;
+    private int opponentHealth = 0;
+    private float comboTimeLimit = 3f;
+    private float playerComboTime = 0f;
+    private float enemyComboTime = 0f;
 
     private void Awake()
     {
@@ -50,6 +57,29 @@ public class RoundManager : MonoBehaviour
 
         // Start displaying round information
         StartCoroutine(DisplayRoundText());
+    }
+
+    private void Update()
+    {
+        if (isPlayerCombo == true)
+        {
+            playerComboTime = playerComboTime + Time.deltaTime;
+
+            if (playerComboTime > comboTimeLimit)
+            {
+                PlayerFinishedCombo();
+            }
+        }
+
+        if (isEnemyCombo == true)
+        {
+            enemyComboTime = enemyComboTime + Time.deltaTime;
+
+            if (enemyComboTime > comboTimeLimit)
+            {
+                EnemyFinishedCombo();
+            }
+        }
     }
 
     private void SetupRoundTextUI()
@@ -236,6 +266,40 @@ public class RoundManager : MonoBehaviour
         opponentHealthBar.SetMaxHealth(maxHealth);
     }
 
+    public void PlayerFinishedCombo()
+    {
+        if (playerTotalCombo < 3)
+        {
+            isPlayerCombo = false;
+            playerComboTime = 0f;
+            playerTotalCombo = 0;
+        }
+        else
+        {
+            UpdatePlayerComboOnScreen();
+            isPlayerCombo = false;
+            playerComboTime = 0f;
+            playerTotalCombo = 0;
+        }
+    }
+
+    public void EnemyFinishedCombo()
+    {
+        if (enemyTotalCombo < 3)
+        {
+            isEnemyCombo = false;
+            enemyTotalCombo = 0;
+            enemyComboTime = 0f;
+        }
+        else
+        {
+            UpdateEnemyComboOnScreen();
+            isEnemyCombo = false;
+            enemyComboTime = 0f;
+            enemyTotalCombo = 0;
+        }
+    }
+
     public void ApplyDamageToPlayer(int damage)
     {
         playerHealth -= damage;
@@ -248,6 +312,56 @@ public class RoundManager : MonoBehaviour
         opponentHealth -= damage;
         opponentHealthBar.SetHealth(opponentHealth);
         if (opponentHealth <= 0) roundOver = true;
+    }
+
+    public void PlayerStartCombo()
+    {
+        if (isPlayerCombo == false)
+        {
+            playerTotalCombo = 1;
+            UpdatePlayerComboOnScreen();
+            isPlayerCombo = true;
+        }
+    }
+
+    public void EnemyStartCombo()
+    {
+        if (isEnemyCombo == false)
+        {
+            enemyTotalCombo = 1;
+            UpdateEnemyComboOnScreen();
+            isEnemyCombo = true;
+        }
+    }
+
+    public void PlayerContinueCombo()
+    {
+        if (playerComboTime != 0f)
+        {
+            playerTotalCombo = playerTotalCombo + 1;
+            UpdatePlayerComboOnScreen();
+            playerComboTime = 0f;
+        }
+    }
+
+    public void EnemyContinueCombo()
+    {
+        if (enemyComboTime != 0f)
+        {
+            enemyTotalCombo = enemyTotalCombo + 1;
+            UpdateEnemyComboOnScreen();
+            enemyComboTime = 0f;
+        }
+    }
+
+    private void UpdatePlayerComboOnScreen()
+    {
+
+    }
+
+    private void UpdateEnemyComboOnScreen()
+    {
+
     }
 
     private void FightEnded()

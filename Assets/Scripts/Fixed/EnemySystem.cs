@@ -13,8 +13,6 @@ public class EnemySystem : MonoBehaviour
     public GameObject hitEffect;
 
     [Header("Enemy Setup")]
-    [Tooltip("Setup actual enemy health")]
-    public int totalHealth = 100;
     [Tooltip("Actual enemy attack AI or multiplayer selected - It should be public because in multiplayer we will allow Player to read this value")]
     public int actualAttack = 1;
     [Tooltip("Setup actual enemy difficulty level - Current levels you can choice: 0 = easy 1 = moderate 2 = normal 3 = hard")]
@@ -47,8 +45,6 @@ public class EnemySystem : MonoBehaviour
     private int attackRandom = 0;
     [Tooltip("Skill Random determines wich skill will AI to use to attack")]
     private int skillRandom = 0;
-    [Tooltip("Hit Count determines the combo hit and the combo should be applied in a short period of time by player")]
-    private int hitCount = 0;
     [Tooltip("Attack Cooldown 1 determines the cooldown when Attack 1 was used")]
     private float attackCooldown1 = 3f;
     [Tooltip("Attack Cooldown 2 determines the cooldown when Attack 2 was used")]
@@ -380,7 +376,7 @@ public class EnemySystem : MonoBehaviour
     {
         #region Check if enemy is not alive anymore
 
-        if (totalHealth <= 0) return; // Prevent further actions if Enemy is dead
+        if (roundSystem.opponentHealthBar.slider.value <= 0) return; // Prevent further actions if Enemy is dead
 
         #endregion
 
@@ -558,38 +554,40 @@ public class EnemySystem : MonoBehaviour
     {
         if (isHit == false) // With this trigger we make sure opponent only will take damage 1 time
         {
-            hitCount = 0; // Just for debug, it will be removed later
-
-            totalHealth = totalHealth - damage;
-
             roundSystem.ApplyDamageToOpponent(damage); // Inform RoundManager that Enemy tooks damage by player
 
-            if (totalHealth <= 0)
+            if (roundSystem.opponentHealthBar.slider.value <= 0)
             {
-                if (hitCount != 0)
+                if (roundSystem.playerTotalCombo != 0)
                 {
-                    hitCount = 0; // Reset hit count because opponent died
+                    roundSystem.PlayerFinishedCombo(); // Reset hit count because opponent died
                 }
-
-                StartDeathAnimation(); // Enemy lost the battle so animate it going to the ground
             }
             else
             {
-                hitCount = hitCount + 1;
+                if (roundSystem.playerTotalCombo == 0)
+                {
+                    roundSystem.PlayerStartCombo();
+                }
 
-                if (hitCount == 1)
+                if (roundSystem.playerTotalCombo == 1)
                 {
                     StartBlockAnimation(); // Play Block animation on first hit
+                    roundSystem.PlayerContinueCombo();
                 }
                 
-                if (hitCount == 2)
+                if (roundSystem.playerTotalCombo == 2)
                 {
-                    StartStunnedAnimation(); // Play Stunned animation on third hit
+                    StartBlockAnimation(); // Just for debug will be removed later
+                    //StartStunnedAnimation(); // Play Stunned animation on third hit
+                    roundSystem.PlayerContinueCombo();
                 }
                 
-                if (hitCount == 3)
+                if (roundSystem.playerTotalCombo == 3)
                 {
-                    StartHurtAnimation(); // Play Hurt animation for other hits
+                    StartBlockAnimation(); // Just for debug will be removed later
+                    //StartHurtAnimation(); // Play Hurt animation for other hits
+                    roundSystem.PlayerFinishedCombo();
                 }
 
                 hitEffect.SetActive(true); // Activate Hit Effect in the body of AI
@@ -986,7 +984,6 @@ public class EnemySystem : MonoBehaviour
     {
         //Debug.Log("Reset all Enemy´s triggers");
 
-        totalHealth = 100;
         randomizeTimer = 0f; // Reset randomizer time when next round to start if to have a new round yet
         canFight = false; // Round finished, stop to fight - Felipe
         isWalking = false; // Disable movement
