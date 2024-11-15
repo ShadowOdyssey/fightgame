@@ -36,7 +36,7 @@ public class EnemySystem : MonoBehaviour
     [Tooltip("Actual Player Transform from selected player in singleplayer or multiplayer, it will be loaded when scene to awake")]
     private Transform playerBody;
     [Tooltip("It should be always 100 - Dont change it!")]
-    private int randomMaxValue = 100;
+    private readonly int randomMaxValue = 100;
     [Tooltip("Actual enemy time while randomizing! It should be always zero! - Dont change it!")]
     public float randomizeTimer = 0f;
     [Tooltip("Move Random determines if IA will move, stop or reverse actual movemente")]
@@ -731,7 +731,7 @@ public class EnemySystem : MonoBehaviour
 
     public void CharacterFinishedAttack() // Called in the final frame of attack animation
     {
-        attackSuccessRandom = false;
+        attackSuccessRandom = false; // Reset to allow another attack randomization after cooldown
         isAttacking = false; // Reset to allow another attack after cooldown
         checkDamage = true; // Check damage from last attack
         isWalking = true; // AI can move if player to get far from punch area
@@ -759,12 +759,12 @@ public class EnemySystem : MonoBehaviour
                 StartAttack1Animation(); // Now activate the attack 1 animation
             }
 
-            if (actualAttack == 1)
+            if (actualAttack == 2)
             {
                 StartAttack2Animation(); // Now activate the attack 2 animation
             }
 
-            if (actualAttack == 1)
+            if (actualAttack == 3)
             {
                 StartAttack3Animation(); // Now activate the attack 3 animation
             }
@@ -790,9 +790,7 @@ public class EnemySystem : MonoBehaviour
 
     private void RandomizeSkill()
     {
-        attackRandom = 0; // Reset AttackRandom integer variable to use it again to skills
-        attackRandom = Random.Range(1, 3); // Randomize between 1 and 3 to select a skill
-        actualAttack = attackRandom; // Save the current attack selected by random, but in multiplayer it will be defined by opponent button pressed
+        actualAttack = Random.Range(1, 3); // Randomize between 1 and 3 to select a skill
 
         EnemyIsAttacking(); // Attack if player is inside attack area
     }
