@@ -469,7 +469,7 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
                 playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
+                isCooldown1= true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
                 Invoke(nameof(CheckStuck), 1.5f);
             }
