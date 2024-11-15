@@ -94,4 +94,14 @@ public class CooldownSystem : MonoBehaviour
             isCooldown3 = true;
         }
     }
+
+    public void ResetAllCooldowns()
+    {
+        cooldown1Image.fillAmount = 0f;
+        cooldown2Image.fillAmount = 0f;
+        cooldown3Image.fillAmount = 0f;
+        isCooldown1 = false;
+        isCooldown2 = false;
+        isCooldown3 = false;
+    }
 }

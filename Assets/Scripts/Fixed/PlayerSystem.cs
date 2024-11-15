@@ -51,7 +51,9 @@ public class PlayerSystem : MonoBehaviour
     [Tooltip("Initial position from Player to use it when a new round to start to move Player to initial position")]
     private Vector3 initialPosition;
     [Tooltip("Current movement direction player is using when moving")]
-    private float moveDirection = 0f;
+    private int moveDirection = 0;
+    [Tooltip("Check if Player applied damage in a certain ammount of time, if Enemy not to be inside range when time is over so Player dont dealed damage to Enemy")]
+    private float damageTime = 0f;
     [Tooltip("If enabled means player is moving forward, it means forward button is being held")]
     private bool isMovingForward = false;
     [Tooltip("If enabled means player is moving backward, it means backward button is being held")]
@@ -147,10 +149,20 @@ public class PlayerSystem : MonoBehaviour
 
         #region Check if Player dealed damage to Enemy
 
-        if (checkDamage == true && enemySystem.distanceToTarget < attackRange)
+        if (checkDamage == true)
         {
-            enemySystem.TakeDamage(20);
-            checkDamage = false;
+            damageTime = damageTime + Time.deltaTime;
+
+            if (enemySystem.distanceToTarget < attackRange && damageTime > 0f)
+            {
+                enemySystem.TakeDamage(20);
+                checkDamage = false;
+            }
+
+            if (damageTime > 1f)
+            {
+                checkDamage = false;
+            }
         }
 
         #endregion
@@ -387,7 +399,7 @@ public class PlayerSystem : MonoBehaviour
         {
             //Debug.Log("Player moved to right");
 
-            moveDirection = 1f; // Setup new direction only once before to apply new position - Felipe
+            moveDirection = 1; // Setup new direction only once before to apply new position - Felipe
             playerAnimator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
@@ -408,7 +420,7 @@ public class PlayerSystem : MonoBehaviour
         {
             //Debug.Log("Player moved to left");
 
-            moveDirection = -1f; // Setup new direction only once before to apply new position - Felipe
+            moveDirection = -1; // Setup new direction only once before to apply new position - Felipe
             playerAnimator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
@@ -613,6 +625,10 @@ public class PlayerSystem : MonoBehaviour
         isMovingBackward = false;
         isHit = false;
         checkDamage = false;
+        isCooldown1 = false;
+        isCooldown2 = false;
+        isCooldown3 = false;
+        cooldownSystem.ResetAllCooldowns();
         wasResetTriggers = true;
     }
 
