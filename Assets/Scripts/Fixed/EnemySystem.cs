@@ -708,12 +708,6 @@ public class EnemySystem : MonoBehaviour
         }
     }
 
-    private void StartDeathAnimation()
-    {
-        ResetAllAnimations();
-        StartDefeatAnimation();
-    }
-
     private void StartIntroAnimation()
     {
         //Debug.Log("Enemy started Intro anim");
@@ -782,92 +776,6 @@ public class EnemySystem : MonoBehaviour
     #endregion
 
     #region Attack Operations
-
-    private void EnemyIsAttacking()
-    {
-        if (isAttacking == false) // We only want to make CPU to read here only 1 time
-        {
-            isAttacking = true; // Closing the IF so CPU only will read it 1 time and it should be called before any attack animation
-
-            if (actualAttack == 1)
-            {
-                UseAttack1(); // Start Attack 1 if AI selected skill 1 to attack
-            }
-
-            if (actualAttack == 2)
-            {
-                UseAttack2(); // Start Attack 2 if AI selected skill 2 to attack
-            }
-
-            if (actualAttack == 3)
-            {
-                UseAttack3(); // Start Attack 3 if AI selected skill 3 to attack
-            }
-
-            // Attack animations will deactivate isAttacking in the last frame, so we make sure isAttacking is true before to play any Attack animation
-        }
-    }
-
-    private void UseAttack1()
-    {
-        if (isCooldown1 == false) // If Attack 1 not in cooldown start Attack 1
-        {
-            StartAttack1Animation(); // Now activate the attack 1 animation
-            isCooldown1 = true;
-        }
-        else
-        {
-            UseAttack2(); // If Attack 1 is in cooldown so change to Attack 2
-        }
-    }
-
-    private void UseAttack2()
-    {
-        if (isCooldown2 == false) // If Attack 2 not in cooldown start Attack 2
-        {
-            StartAttack2Animation(); // Now activate the attack 2 animation
-            isCooldown2 = true;
-        }
-        else
-        {
-            UseAttack3(); // If Attack 2 is in cooldown so change to Attack 3
-        }
-    }
-
-    private void UseAttack3()
-    {
-        if (isCooldown3 == false) // If Attack 3 not in cooldown start Attack 3
-        {
-            StartAttack3Animation(); // Now activate the attack 3 animation
-            isCooldown3 = true;
-        }
-        else
-        {
-            if (isCooldown1 == true && isCooldown2 == true && isCooldown3 == true)
-            {
-                CharacterFinishedAttack(); // If all skills are in cooldown, cancel the attack
-            }
-            else
-            {
-                UseAttack1(); // If Attack 3 is in cooldown so change to Attack 1
-            }
-        }
-    }
-
-    private void EnemyIsIdle()
-    {
-        if (isHit == true) // Check if Hit trigger is still activated and disable it
-        {
-            isHit = false;
-        }
-        
-        if (isAttacking == true) // Check if Attacking trigger is still activated and disable it
-        {
-            isAttacking = false;
-        }
-
-        StartIdleAnimation(); // Start Idle Animation
-    }
 
     private void RandomizeSkill()
     {
@@ -976,9 +884,95 @@ public class EnemySystem : MonoBehaviour
         EnemyIsAttacking(); // Attack if player is inside attack area
     }
 
+    private void EnemyIsAttacking()
+    {
+        if (isAttacking == false) // We only want to make CPU to read here only 1 time
+        {
+            isAttacking = true; // Closing the IF so CPU only will read it 1 time and it should be called before any attack animation
+
+            if (actualAttack == 1)
+            {
+                UseAttack1(); // Start Attack 1 if AI selected skill 1 to attack
+            }
+
+            if (actualAttack == 2)
+            {
+                UseAttack2(); // Start Attack 2 if AI selected skill 2 to attack
+            }
+
+            if (actualAttack == 3)
+            {
+                UseAttack3(); // Start Attack 3 if AI selected skill 3 to attack
+            }
+
+            // Attack animations will deactivate isAttacking in the last frame, so we make sure isAttacking is true before to play any Attack animation
+        }
+    }
+
+    private void UseAttack3()
+    {
+        if (isCooldown3 == false) // If Attack 3 not in cooldown start Attack 3
+        {
+            StartAttack3Animation(); // Now activate the attack 3 animation
+            isCooldown3 = true;
+        }
+        else
+        {
+            if (isCooldown1 == true && isCooldown2 == true && isCooldown3 == true)
+            {
+                CharacterFinishedAttack(); // If all skills are in cooldown, cancel the attack
+            }
+            else
+            {
+                UseAttack1(); // If Attack 3 is in cooldown so change to Attack 1
+            }
+        }
+    }
+
+    private void EnemyIsIdle()
+    {
+        if (isHit == true) // Check if Hit trigger is still activated and disable it
+        {
+            isHit = false;
+        }
+
+        if (isAttacking == true) // Check if Attacking trigger is still activated and disable it
+        {
+            isAttacking = false;
+        }
+
+        StartIdleAnimation(); // Start Idle Animation
+    }
+
+    private void UseAttack1()
+    {
+        if (isCooldown1 == false) // If Attack 1 not in cooldown start Attack 1
+        {
+            StartAttack1Animation(); // Now activate the attack 1 animation
+            isCooldown1 = true;
+        }
+        else
+        {
+            UseAttack2(); // If Attack 1 is in cooldown so change to Attack 2
+        }
+    }
+
+    private void UseAttack2()
+    {
+        if (isCooldown2 == false) // If Attack 2 not in cooldown start Attack 2
+        {
+            StartAttack2Animation(); // Now activate the attack 2 animation
+            isCooldown2 = true;
+        }
+        else
+        {
+            UseAttack3(); // If Attack 2 is in cooldown so change to Attack 3
+        }
+    }
+
     #endregion
 
-    #region Roumd Operations
+    #region Round Operations
 
     private void ResetAllTriggers()
     {

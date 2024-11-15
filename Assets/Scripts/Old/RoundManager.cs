@@ -68,6 +68,7 @@ public class RoundManager : MonoBehaviour
             if (playerComboTime > comboTimeLimit)
             {
                 PlayerFinishedCombo();
+                //DisablePlayerComboOnScreen(); // Disable current Player combo on screen
             }
         }
 
@@ -78,6 +79,7 @@ public class RoundManager : MonoBehaviour
             if (enemyComboTime > comboTimeLimit)
             {
                 EnemyFinishedCombo();
+                //DisableEnemyComboOnScreen(); // Disable current Enemy combo on screen
             }
         }
     }
@@ -356,12 +358,12 @@ public class RoundManager : MonoBehaviour
 
     private void UpdatePlayerComboOnScreen()
     {
-
+        // Show current Player combo in the screen
     }
 
     private void UpdateEnemyComboOnScreen()
     {
-
+        // Show current Enemy combo in the screen
     }
 
     private void FightEnded()
