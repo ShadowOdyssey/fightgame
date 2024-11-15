@@ -543,7 +543,7 @@ public class PlayerSystem : MonoBehaviour
 
     private void StartIntroAnimation()
     {
-        Debug.Log("Player started Intro anim");
+        //Debug.Log("Player started Intro anim");
 
         playerAnimator.Play("isIntro");
     }
@@ -552,7 +552,7 @@ public class PlayerSystem : MonoBehaviour
     {
         ResetAllAnimations();
 
-        Debug.Log("Player Victory was activated");
+        //Debug.Log("Player Victory was activated");
 
         playerAnimator.Play("isVictory");
     }
@@ -561,7 +561,7 @@ public class PlayerSystem : MonoBehaviour
     {
         ResetAllAnimations();
 
-        Debug.Log("Player Draw was activated");
+        //Debug.Log("Player Draw was activated");
 
         playerAnimator.Play("isDefeat");
     }
@@ -570,7 +570,7 @@ public class PlayerSystem : MonoBehaviour
     {
         ResetAllAnimations();
 
-        Debug.Log("Player Defeat was activated");
+        //Debug.Log("Player Defeat was activated");
 
         playerAnimator.Play("isDefeat");
     }

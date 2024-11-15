@@ -311,6 +311,16 @@ public class EnemySystem : MonoBehaviour
         }
 
         #endregion
+
+        #region Enemy deals damage to player
+
+        if (checkDamage == true && distanceToTarget < attackRange) // Only apply damage if player is really inside attack area
+        {
+            playerSystem.TakeHit(15);
+            checkDamage = false;
+        }
+
+        #endregion
     }
 
     private void FixedUpdate()
@@ -345,16 +355,6 @@ public class EnemySystem : MonoBehaviour
 
             if (distanceToTarget < attackRange && distanceToTarget > attackRange - 1f && isHit == false)
             {
-                #region Enemy deals damage to player
-
-                if (checkDamage == true) // Only apply damage if player is really inside attack area
-                {
-                    playerSystem.TakeHit(15);
-                    checkDamage = false;
-                }
-
-                #endregion
-
                 #region Randomize Attack
 
                 if (isResetRandom == false && isAttacking == false)
