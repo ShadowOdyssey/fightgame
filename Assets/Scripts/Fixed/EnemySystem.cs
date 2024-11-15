@@ -49,6 +49,12 @@ public class EnemySystem : MonoBehaviour
     private int skillRandom = 0;
     [Tooltip("Hit Count determines the combo hit and the combo should be applied in a short period of time by player")]
     private int hitCount = 0;
+    [Tooltip("Attack Cooldown 1 determines the cooldown when Attack 1 was used")]
+    private float attackCooldown1 = 3f;
+    [Tooltip("Attack Cooldown 2 determines the cooldown when Attack 2 was used")]
+    private float attackCooldown2 = 9f;
+    [Tooltip("Attack Cooldown 3 determines the cooldown when Attack 3 was used")]
+    private float attackCooldown3 = 12f;
     [Tooltip("Move Success Random determines if AI decided to change movement when enabled and the action is based in enemy difficulty level")]
     private bool moveSuccessRandom = false;
     [Tooltip("Attack Success Random determines if AI decided to change attack action when enabled and the action is based in enemy difficulty level")]
@@ -59,6 +65,12 @@ public class EnemySystem : MonoBehaviour
     private bool isWalking = false;
     [Tooltip("Enemy is attacking when enabled, it is a behaviour")]
     private bool isAttacking = false;
+    [Tooltip("IsCooldown1 determines that Attack 1 is on cooldown when enabled")]
+    private bool isCooldown1 = false;
+    [Tooltip("IsCooldown2 determines that Attack 2 is on cooldown when enabled")]
+    private bool isCooldown2 = false;
+    [Tooltip("IsCooldown3 determines that Attack 3 is on cooldown when enabled")]
+    private bool isCooldown3 = false;
     [Tooltip("Enemy is being hit when enabled")]
     private bool isHit = false;
     [Tooltip("Enemy can attack when enabled")]
@@ -302,7 +314,7 @@ public class EnemySystem : MonoBehaviour
 
                 if (moveSuccessRandom == true) // Check if AI got succes on the closed thead, reset it to generate new value...
                 {
-                    moveSuccessRandom = false; // Disable last success in random to make success avaiable again
+                    moveSuccessRandom = false; // Disable last success in random to make random success avaiable again
                 }
 
                 isResetRandom = false; // We already was reset randomizer system
@@ -322,6 +334,43 @@ public class EnemySystem : MonoBehaviour
         {
             playerSystem.TakeHit(15);
             checkDamage = false;
+        }
+
+        #endregion
+
+        #region Check actual cooldown in skills
+
+        if (isCooldown1 == true) // If Attack 1 cooldown is activated...
+        {
+            attackCooldown1 = attackCooldown1 + Time.deltaTime; // Count cooldwon time
+
+            if (attackCooldown1 < 0f) // If cooldown time finished...
+            {
+                attackCooldown1 = 3f; // Reset cooldown time
+                isCooldown1 = false; // Disable cooldown event so AI can use the skill again
+            }
+        }
+
+        if (isCooldown2 == true) // If Attack 2 cooldown is activated...
+        {
+            attackCooldown2 = attackCooldown2 + Time.deltaTime; // Count cooldwon time
+
+            if (attackCooldown2 < 0f) // If cooldown time finished...
+            {
+                attackCooldown2 = 9f; // Reset cooldown time
+                isCooldown2 = false; // Disable cooldown event so AI can use the skill again
+            }
+        }
+
+        if (isCooldown3 == true) // If Attack 3 cooldown is activated...
+        {
+            attackCooldown3 = attackCooldown3 + Time.deltaTime; // Count cooldwon time
+
+            if (attackCooldown3< 0f) // If cooldown time finished...
+            {
+                attackCooldown3 = 12f; // Reset cooldown time
+                isCooldown3 = false; // Disable cooldown event so AI can use the skill again
+            }
         }
 
         #endregion
@@ -553,26 +602,6 @@ public class EnemySystem : MonoBehaviour
 
     #endregion
 
-    /* I just let it here to consult about attack structure, we will not use coroutines
-     * 
-    private System.Collections.IEnumerator StunRecoveryCoroutine()
-    {
-        yield return new WaitForSeconds(2.0f); // Assume stunned animation duration
-
-        // Play the getting-up animation
-        animator.SetTrigger("gettingUp"); // Values in parameters should be low case in the first letter because is variable name - Felipe
-
-        // Wait for getting-up animation to finish
-        yield return new WaitForSeconds(1.5f);
-
-        // Reset position to the original position
-        transform.localPosition = originalPosition;
-
-        // Reset hit count
-        hitCount = 0;
-    }
-    */
-
     #region Animation Operations
 
     private void StartWalkAnimation()
@@ -764,20 +793,66 @@ public class EnemySystem : MonoBehaviour
 
             if (actualAttack == 1)
             {
-                StartAttack1Animation(); // Now activate the attack 1 animation
+                UseAttack1(); // Start Attack 1 if AI selected skill 1 to attack
             }
 
             if (actualAttack == 2)
             {
-                StartAttack2Animation(); // Now activate the attack 2 animation
+                UseAttack2(); // Start Attack 2 if AI selected skill 2 to attack
             }
 
             if (actualAttack == 3)
             {
-                StartAttack3Animation(); // Now activate the attack 3 animation
+                UseAttack3(); // Start Attack 3 if AI selected skill 3 to attack
             }
 
             // Attack animations will deactivate isAttacking in the last frame, so we make sure isAttacking is true before to play any Attack animation
+        }
+    }
+
+    private void UseAttack1()
+    {
+        if (isCooldown1 == false) // If Attack 1 not in cooldown start Attack 1
+        {
+            StartAttack1Animation(); // Now activate the attack 1 animation
+            isCooldown1 = true;
+        }
+        else
+        {
+            UseAttack2(); // If Attack 1 is in cooldown so change to Attack 2
+        }
+    }
+
+    private void UseAttack2()
+    {
+        if (isCooldown2 == false) // If Attack 2 not in cooldown start Attack 2
+        {
+            StartAttack2Animation(); // Now activate the attack 2 animation
+            isCooldown2 = true;
+        }
+        else
+        {
+            UseAttack3(); // If Attack 2 is in cooldown so change to Attack 3
+        }
+    }
+
+    private void UseAttack3()
+    {
+        if (isCooldown3 == false) // If Attack 3 not in cooldown start Attack 3
+        {
+            StartAttack3Animation(); // Now activate the attack 3 animation
+            isCooldown3 = true;
+        }
+        else
+        {
+            if (isCooldown1 == true && isCooldown2 == true && isCooldown3 == true)
+            {
+                CharacterFinishedAttack(); // If all skills are in cooldown, cancel the attack
+            }
+            else
+            {
+                UseAttack1(); // If Attack 3 is in cooldown so change to Attack 1
+            }
         }
     }
 
