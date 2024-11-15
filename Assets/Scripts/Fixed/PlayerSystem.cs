@@ -58,7 +58,9 @@ public class PlayerSystem : MonoBehaviour
     private bool isHit = false;
     [Tooltip("If enabled means player dealed a damage to an opponent")]
     private bool checkDamage = false;
-    
+    [Tooltip("If enabled means player triggers will be reseted on each end of round")]
+    private bool wasResetTriggers = false;
+
     #endregion
 
     #endregion
@@ -122,31 +124,8 @@ public class PlayerSystem : MonoBehaviour
 
         #region Check if round finished
 
-        if (roundSystem.roundOver == true && roundSystem.wasDetermined == false)
+        if (roundSystem.roundOver == true && wasResetTriggers == false)
         {
-            ResetAllAnimations();
-
-            if (roundSystem.playerHealthBar.slider.value > roundSystem.opponentHealthBar.slider.value) // Victory animation
-            {
-                Debug.Log("Player Victory was activated");
-
-                playerAnimator.Play("isVictory");
-            }
-
-            if (roundSystem.playerHealthBar.slider.value == roundSystem.opponentHealthBar.slider.value) // Draw animation
-            {
-                Debug.Log("Player Draw was activated");
-
-                playerAnimator.Play("isDefeat");
-            }
-
-            if (roundSystem.playerHealthBar.slider.value < roundSystem.opponentHealthBar.slider.value) // Defeat animation
-            {
-                Debug.Log("Player Defeat was activated");
-
-                playerAnimator.Play("isDefeat");
-            }
-
             ResetAllTriggers();
         }
 
@@ -173,6 +152,11 @@ public class PlayerSystem : MonoBehaviour
             if (playerAnimator.GetBool("isIntro") == true)
             {
                 playerAnimator.SetBool("isIntro", false); // Reset Intro animation to use it in the next round
+            }
+
+            if (wasResetTriggers == true)
+            {
+                wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
             }
 
             if (isMovingForward == true && isMovingBackward == false)
@@ -542,6 +526,8 @@ public class PlayerSystem : MonoBehaviour
         playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        playerAnimator.SetBool("isDead", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        playerAnimator.SetBool("isIntro", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
     }
 
     private void ResetAllTriggers()
@@ -552,6 +538,7 @@ public class PlayerSystem : MonoBehaviour
         isHit = false;
         checkDamage = false;
         totalHealth = 100;
+        wasResetTriggers = true;
     }
 
     private void StartIntroAnimation()
@@ -559,6 +546,33 @@ public class PlayerSystem : MonoBehaviour
         Debug.Log("Player started Intro anim");
 
         playerAnimator.Play("isIntro");
+    }
+
+    public void StartVictoryAnimation()
+    {
+        ResetAllAnimations();
+
+        Debug.Log("Player Victory was activated");
+
+        playerAnimator.Play("isVictory");
+    }
+
+    public void StartDrawAnimation()
+    {
+        ResetAllAnimations();
+
+        Debug.Log("Player Draw was activated");
+
+        playerAnimator.Play("isDefeat");
+    }
+
+    public void StartDefeatAnimation()
+    {
+        ResetAllAnimations();
+
+        Debug.Log("Player Defeat was activated");
+
+        playerAnimator.Play("isDefeat");
     }
 
     #endregion

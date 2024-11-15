@@ -15,6 +15,9 @@ public class RoundManager : MonoBehaviour
     public bool roundOver = false;
     public bool wasDetermined = false;
 
+    private PlayerSystem playerSystem;
+    private EnemySystem enemySystem;
+
     private Text timerText;
     private int currentRound = 1;
     private int playerHealth;
@@ -25,7 +28,13 @@ public class RoundManager : MonoBehaviour
     private readonly int opponentDamagePerSecond = 1; // Example damage per second for opponent
     private readonly float damageInterval = 1f; // How often to deal damage
 
-    void Start()
+    private void Awake()
+    {
+        playerSystem = GameObject.Find("Gabriella").GetComponent<PlayerSystem>();
+        enemySystem = GameObject.Find("Marcus").GetComponent<EnemySystem>();
+    }
+
+    private void Start()
     {
         // Set both characters' initial health to max health
         playerHealth = maxHealth;
@@ -189,17 +198,26 @@ public class RoundManager : MonoBehaviour
             {
                 Debug.Log("Player Won");
 
-                DrawRoundText("Gabriella Wins Round " + currentRound + "!");
+                playerSystem.StartVictoryAnimation();
+                enemySystem.StartDefeatAnimation();
+
+                DrawRoundText("Player Wins Round " + currentRound + "!");
             }
             else if (opponentHealth > playerHealth)
             {
                 Debug.Log("Enemy Won");
 
-                DrawRoundText("Marcus Wins Round " + currentRound + "!");
+                playerSystem.StartDefeatAnimation();
+                enemySystem.StartVictoryAnimation();
+
+                DrawRoundText("Enemy Wins Round " + currentRound + "!");
             }
             else
             {
                 Debug.Log("Nobody Won");
+
+                playerSystem.StartDrawAnimation();
+                enemySystem.StartDrawAnimation();
 
                 DrawRoundText("Round " + currentRound + " Draw!");
             }

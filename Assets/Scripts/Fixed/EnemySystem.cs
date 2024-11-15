@@ -58,6 +58,8 @@ public class EnemySystem : MonoBehaviour
     private bool changedAnimDirectionToForward = false;
     [Tooltip("Enemy is moving backward when enabled")]
     private bool changedAnimDirectionToBackward = false;
+    [Tooltip("If enabled means player triggers will be reseted on each end of round")]
+    private bool wasResetTriggers = false;
 
     #endregion
 
@@ -121,31 +123,8 @@ public class EnemySystem : MonoBehaviour
 
         #region Checking if round finished
 
-        if (canFight == true && roundSystem.roundOver == true && roundSystem.wasDetermined == false) // If round not started and is 2nd or 3rd round, load Idle animation till round start again! - Felipe
+        if (roundSystem.roundOver == true && wasResetTriggers == false) // If round not started and is 2nd or 3rd round, load Idle animation till round start again! - Felipe
         {
-            ResetAllAnimations();
-
-            if (roundSystem.opponentHealthBar.slider.value > roundSystem.playerHealthBar.slider.value) // Victory animation
-            {
-                Debug.Log("Enemy Victory was activated");
-
-                enemyAnimator.Play("isVictory");
-            }
-
-            if (roundSystem.opponentHealthBar.slider.value == roundSystem.playerHealthBar.slider.value) // Draw animation
-            {
-                Debug.Log("Enemy Draw was activated");
-
-                enemyAnimator.Play("isDefeat");
-            }
-
-            if (roundSystem.opponentHealthBar.slider.value < roundSystem.playerHealthBar.slider.value) // Defeat animation
-            {
-                Debug.Log("Enemy Defeat was activated");
-
-                enemyAnimator.Play("isDefeat");
-            }
-
             ResetAllTriggers();
         }
 
@@ -335,6 +314,16 @@ public class EnemySystem : MonoBehaviour
 
         if (canFight == true && roundSystem.roundOver == false) // Prevent further actions if round not started yet
         {
+            if (enemyAnimator.GetBool("isIntro") == true)
+            {
+                enemyAnimator.SetBool("isIntro", false); // Reset Intro animation to use it in the next round
+            }
+
+            if (wasResetTriggers == true)
+            {
+                wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
+            }
+
             distanceToTarget = Vector3.Distance(transform.position, playerBody.position);
 
             //Debug.Log("Actual distance to target from Enemy is: " + distanceToTarget); // Debug actual distance between Enemy and Player
@@ -656,6 +645,33 @@ public class EnemySystem : MonoBehaviour
         enemyAnimator.Play("isIntro");
     }
 
+    public void StartVictoryAnimation()
+    {
+        ResetAllAnimations();
+
+        Debug.Log("Enemy Victory was activated");
+
+        enemyAnimator.Play("isVictory");
+    }
+
+    public void StartDrawAnimation()
+    {
+        ResetAllAnimations();
+
+        Debug.Log("Enemy Draw was activated");
+
+        enemyAnimator.Play("isDefeat");
+    }
+
+    public void StartDefeatAnimation()
+    {
+        ResetAllAnimations();
+
+        Debug.Log("Enemy Defeat was activated");
+
+        enemyAnimator.Play("isDefeat");
+    }
+
     #endregion
 
     #region Last animations frame operations
@@ -719,6 +735,8 @@ public class EnemySystem : MonoBehaviour
         enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         enemyAnimator.SetBool("isAttacking", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        enemyAnimator.SetBool("isDead", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        enemyAnimator.SetBool("isIntro", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
     }
 
     private void ResetAllTriggers()
@@ -737,6 +755,7 @@ public class EnemySystem : MonoBehaviour
         attackSuccessRandom = false; // Round finished, reset all variables
         changedAnimDirectionToBackward = false; // Disable all directions movement
         changedAnimDirectionToForward = false; // Disable all directions movement
+        wasResetTriggers = true;
     }
 
     #endregion
