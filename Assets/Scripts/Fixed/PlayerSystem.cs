@@ -156,6 +156,7 @@ public class PlayerSystem : MonoBehaviour
             if (enemySystem.distanceToTarget < attackRange && damageTime > 0f)
             {
                 enemySystem.TakeDamage(20);
+                damageTime = 0f;
                 checkDamage = false;
             }
 
