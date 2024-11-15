@@ -35,6 +35,8 @@ public class EnemySystem : MonoBehaviour
     private PlayerSystem playerSystem;
     [Tooltip("Actual Player Transform from selected player in singleplayer or multiplayer, it will be loaded when scene to awake")]
     private Transform playerBody;
+    [Tooltip("Initial position from Enemy to use it when a new round to start to move Enemy to initial position")]
+    private Vector3 initialPosition;
     [Tooltip("It should be always 100 - Dont change it!")]
     private readonly int randomMaxValue = 100;
     [Tooltip("Actual enemy time while randomizing! It should be always zero! - Dont change it!")]
@@ -85,6 +87,8 @@ public class EnemySystem : MonoBehaviour
         roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
         playerBody = GameObject.Find("Gabriella").GetComponent<Transform>();
         playerSystem = GameObject.Find("Gabriella").GetComponent<PlayerSystem>();
+
+        initialPosition = gameObject.transform.position; // Store the initial position to use it when a new round to start, so can move Enemy always to initial position
     }
 
     #endregion
@@ -106,15 +110,15 @@ public class EnemySystem : MonoBehaviour
 
         if (roundSystem.roundText.text == "Round 1" && enemyAnimator.GetBool("isIntro") == false)
         {
-            enemyAnimator.SetBool("isIntro", true);
-            StartIntroAnimation();
+            enemyAnimator.SetBool("isIntro", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            StartIntroAnimation(); // Round 1 started so activate Intro animation
         }
 
         if (roundSystem.roundText.text == "Round 2" && enemyAnimator.GetBool("isIntro") == false ||
             roundSystem.roundText.text == "Round 3" && enemyAnimator.GetBool("isIntro") == false)
         {
-            enemyAnimator.SetBool("isIntro", true);
-            Invoke(nameof(StartIntroAnimation), 5f);
+            enemyAnimator.SetBool("isIntro", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
         }
 
         #endregion
@@ -312,7 +316,7 @@ public class EnemySystem : MonoBehaviour
 
         #endregion
 
-        #region Enemy deals damage to player
+        #region Check if Enemy dealed damage to player
 
         if (checkDamage == true && distanceToTarget < attackRange) // Only apply damage if player is really inside attack area
         {
@@ -686,7 +690,7 @@ public class EnemySystem : MonoBehaviour
     private void StartIntroAnimation()
     {
         //Debug.Log("Enemy started Intro anim");
-        
+        gameObject.transform.position = initialPosition; // Move Enemy to initial position because a new round started
         enemyAnimator.Play("isIntro"); // Call directly Intro animation and it goes automatically to Idle animation when Intro animation to finish
     }
 
@@ -919,7 +923,7 @@ public class EnemySystem : MonoBehaviour
         attackSuccessRandom = false; // Round finished, reset all variables
         changedAnimDirectionToBackward = false; // Disable all directions movement
         changedAnimDirectionToForward = false; // Disable all directions movement
-        wasResetTriggers = true;
+        wasResetTriggers = true; // All tiggers was reset, so close this Reset Trigger call
     }
 
     private void ResetAllAnimations()

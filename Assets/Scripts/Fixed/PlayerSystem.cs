@@ -46,6 +46,8 @@ public class PlayerSystem : MonoBehaviour
     private EnemySystem enemySystem;
     [Tooltip("Actual Enemy Transform from selected enemy by IA or multiplayer, it will be loaded when scene to awake")]
     private Transform enemyBody;
+    [Tooltip("Initial position from Player to use it when a new round to start to move Player to initial position")]
+    private Vector3 initialPosition;
     [Tooltip("Current movement direction player is using when moving")]
     private float moveDirection = 0f;
     [Tooltip("If enabled means player is moving forward, it means forward button is being held")]
@@ -74,6 +76,8 @@ public class PlayerSystem : MonoBehaviour
         roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
         enemySystem = GameObject.Find("Marcus").GetComponent<EnemySystem>();
         enemyBody = GameObject.Find("Marcus").GetComponent<Transform>();
+
+        initialPosition = transform.position;
 
         if (buttonForward != null)
         {
@@ -109,15 +113,15 @@ public class PlayerSystem : MonoBehaviour
 
         if (roundSystem.roundText.text == "Round 1" && playerAnimator.GetBool("isIntro") == false)
         {
-            playerAnimator.SetBool("isIntro", true);
-            StartIntroAnimation();
+            playerAnimator.SetBool("isIntro", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            StartIntroAnimation(); // Round 1 started so activate Intro Animation
         }
 
         if (roundSystem.roundText.text == "Round 2" && playerAnimator.GetBool("isIntro") == false ||
             roundSystem.roundText.text == "Round 3" && playerAnimator.GetBool("isIntro") == false)
         {
-            playerAnimator.SetBool("isIntro", true);
-            Invoke(nameof(StartIntroAnimation), 5f);
+            playerAnimator.SetBool("isIntro", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
         }
 
         #endregion
@@ -200,15 +204,22 @@ public class PlayerSystem : MonoBehaviour
     {
         // Check if Player moved forward to StopMoving trigger the boolean change in the animation parameter
 
+        if (playerAnimator.GetBool("isIdle") == false)
+        {
+            playerAnimator.SetBool("isIdle", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        }
+
         if (playerAnimator.GetBool("isForward") == true) // Check if Player moved forward to StopMoving trigger the boolean change in the animation parameter
         {
             //Debug.Log("Player stopped to move forward");
+
             playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
         if (playerAnimator.GetBool("isBackward") == true) // Check if Player moved backward to StopMoving trigger the boolean change in the animation parameter
         {
             //Debug.Log("Player stopped to move backward");
+
             playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
@@ -230,11 +241,6 @@ public class PlayerSystem : MonoBehaviour
         if (playerAnimator.GetBool("isAttack3") == true)
         {
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        }
-
-        if (playerAnimator.GetBool("isIdle") == false)
-        {
-            playerAnimator.SetBool("isIdle", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
         }
 
         // If both triggers to be false, execute nothing, so it saves processing instead to apply false to both animation parameters in each frame, it only will trigger if is true and only once
@@ -382,9 +388,9 @@ public class PlayerSystem : MonoBehaviour
 
     private void AnimIsAttack1()
     {
-        if (playerAnimator.GetBool("isAttack1") == false)
+        if (playerAnimator.GetBool("isAttack1") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
-            playerAnimator.SetBool("isAttack1", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack1", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
@@ -397,7 +403,7 @@ public class PlayerSystem : MonoBehaviour
 
     private void AnimIsAttack2()
     {
-        if (playerAnimator.GetBool("isAttack2") == false)
+        if (playerAnimator.GetBool("isAttack2") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
             playerAnimator.SetBool("isAttack2", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
@@ -412,7 +418,7 @@ public class PlayerSystem : MonoBehaviour
 
     private void AnimIsAttack3()
     {
-        if (playerAnimator.GetBool("isAttack3") == false)
+        if (playerAnimator.GetBool("isAttack3") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         {
             playerAnimator.SetBool("isAttack3", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
@@ -508,8 +514,8 @@ public class PlayerSystem : MonoBehaviour
 
     public void AttackAnimFinished() // It shows zero references but is activated by the last frame of any Attack animation
     {
-        checkDamage = true;
-        isAttacking = false; // Attack animation finished
+        checkDamage = true; // Attack animation finished so check if Player deals damage in Enemy
+        isAttacking = false; // Attack animation finished so let PLayer to be free to do another attack
         AnimIsIdle(); // Reset animation to Idle
     }
 
@@ -545,12 +551,13 @@ public class PlayerSystem : MonoBehaviour
     {
         //Debug.Log("Player started Intro anim");
 
-        playerAnimator.Play("isIntro");
+        gameObject.transform.position = initialPosition; // Move Player to start position because a new round started
+        playerAnimator.Play("isIntro"); // Play Intro animation because a new round started
     }
 
     public void StartVictoryAnimation()
     {
-        ResetAllAnimations();
+        ResetAllAnimations(); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
 
         //Debug.Log("Player Victory was activated");
 
@@ -559,7 +566,7 @@ public class PlayerSystem : MonoBehaviour
 
     public void StartDrawAnimation()
     {
-        ResetAllAnimations();
+        ResetAllAnimations(); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
 
         //Debug.Log("Player Draw was activated");
 
@@ -568,7 +575,7 @@ public class PlayerSystem : MonoBehaviour
 
     public void StartDefeatAnimation()
     {
-        ResetAllAnimations();
+        ResetAllAnimations(); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
 
         //Debug.Log("Player Defeat was activated");
 
