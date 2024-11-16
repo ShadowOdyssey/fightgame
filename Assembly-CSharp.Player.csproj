@@ -76,7 +76,6 @@
     <Compile Include="Assets\Scripts\Old\CharacterViewing.cs" />
     <Compile Include="Assets\Scripts\Old\OrionMovement.cs" />
     <Compile Include="Assets\Scripts\Old\MainMenu.cs" />
-    <Compile Include="Assets\Scripts\Old\StartScene.cs" />
     <Compile Include="Assets\Scripts\Old\selena vs.cs" />
     <Compile Include="Assets\Scripts\Old\MarcusMovement.cs" />
     <Compile Include="Assets\Scripts\Old\ComboKickController.cs" />
@@ -85,6 +84,7 @@
     <Compile Include="Assets\Scripts\Old\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Old\FemMovement.cs" />
     <Compile Include="Assets\Scripts\Old\OverviewStory.cs" />
+    <Compile Include="Assets\Scripts\Fixed\StartScene.cs" />
     <Compile Include="Assets\Scripts\Old\TouchJoystick.cs" />
     <Compile Include="Assets\Scripts\Old\InvisibleBarrier.cs" />
     <Compile Include="Assets\Scripts\Old\ArcadeMode.cs" />

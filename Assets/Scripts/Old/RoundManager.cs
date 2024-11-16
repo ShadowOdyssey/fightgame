@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,9 @@ public class RoundManager : MonoBehaviour
     public HealthBar opponentHealthBar;       // Enemy's HealthBar component
 
     public Text roundText;
+
+    public TextMeshProUGUI playerNameText;
+    public TextMeshProUGUI enemyNameText;
 
     public int playerTotalCombo = 0;
     public int enemyTotalCombo = 0;
@@ -31,7 +35,6 @@ public class RoundManager : MonoBehaviour
     private int currentRound = 1;
     private int playerHealth = 0;
     private int opponentHealth = 0;
-    private float comboTimeLimit = 3f;
     private float playerComboTime = 0f;
     private float enemyComboTime = 0f;
 
@@ -45,6 +48,13 @@ public class RoundManager : MonoBehaviour
 
     private void Start()
     {
+        if (PlayerPrefs.GetString("playerName") != "")
+        {
+            playerNameText.text = PlayerPrefs.GetString("playerName").ToUpper();
+        }
+
+        enemyNameText.text = "MARCUS";
+
         // Set both characters' initial health to max health
         playerHealth = maxHealth;
         opponentHealth = maxHealth;
@@ -67,7 +77,7 @@ public class RoundManager : MonoBehaviour
         {
             playerComboTime = playerComboTime + Time.deltaTime;
 
-            if (playerComboTime > comboTimeLimit)
+            if (playerComboTime > 3f)
             {
                 PlayerFinishedCombo();
                 //DisablePlayerComboOnScreen(); // Disable current Player combo on screen
@@ -78,7 +88,7 @@ public class RoundManager : MonoBehaviour
         {
             enemyComboTime = enemyComboTime + Time.deltaTime;
 
-            if (enemyComboTime > comboTimeLimit)
+            if (enemyComboTime > 3f)
             {
                 EnemyFinishedCombo();
                 //DisableEnemyComboOnScreen(); // Disable current Enemy combo on screen
@@ -275,16 +285,15 @@ public class RoundManager : MonoBehaviour
         if (playerTotalCombo < 3)
         {
             isPlayerCombo = false;
-            playerComboTime = 0f;
-            playerTotalCombo = 0;
         }
         else
         {
             UpdatePlayerComboOnScreen();
             isPlayerCombo = false;
-            playerComboTime = 0f;
-            playerTotalCombo = 0;
         }
+
+        playerComboTime = 0f;
+        playerTotalCombo = 0;
     }
 
     public void EnemyFinishedCombo()
@@ -292,16 +301,15 @@ public class RoundManager : MonoBehaviour
         if (enemyTotalCombo < 3)
         {
             isEnemyCombo = false;
-            enemyTotalCombo = 0;
-            enemyComboTime = 0f;
         }
         else
         {
             UpdateEnemyComboOnScreen();
             isEnemyCombo = false;
-            enemyComboTime = 0f;
-            enemyTotalCombo = 0;
         }
+
+        enemyTotalCombo = 0;
+        enemyComboTime = 0f;
     }
 
     public void ApplyDamageToPlayer(int damage)
