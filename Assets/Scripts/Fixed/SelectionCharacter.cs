@@ -218,6 +218,8 @@ public class SelectionCharacter : MonoBehaviour
 
        if (showVsPanel) // Only load the scene if the VS panel is still active
       {
+
+        StopAllCoroutines();
         SceneManager.LoadScene("FightScene");
       }
     }
