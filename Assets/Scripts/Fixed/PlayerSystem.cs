@@ -160,14 +160,14 @@ public class PlayerSystem : MonoBehaviour
         {
             damageTime = damageTime + Time.deltaTime;
 
-            if (enemySystem.distanceToTarget < attackRange && damageTime > 0f)
+            if (enemySystem.distanceToTarget <= attackRange && damageTime >= 0f)
             {
                 checkDamage = false;
                 enemySystem.TakeDamage(20);
                 damageTime = 0f;
             }
 
-            if (damageTime > 1f)
+            if (damageTime > 0.5f)
             {
                 checkDamage = false;
                 damageTime = 0f;
@@ -305,7 +305,7 @@ public class PlayerSystem : MonoBehaviour
     {
         if (isHit == false)
         {
-            Debug.Log("Player got a hit and got " + damageAmmount + " of damage!");
+            //Debug.Log("Player got a hit and got " + damageAmmount + " of damage!");
 
             roundSystem.ApplyDamageToPlayer(damageAmmount); // Inform RoundManager that Player got damage by Enemy
             
@@ -443,6 +443,8 @@ public class PlayerSystem : MonoBehaviour
     {
         if (playerAnimator.GetBool("isHit") == false)
         {
+            Debug.Log("Hit Animation was activated");
+
             playerAnimator.SetBool("isHit", true); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
@@ -460,13 +462,13 @@ public class PlayerSystem : MonoBehaviour
 
     private void AnimIsAttack1()
     {
-        Debug.Log("Attack 1 button was activated");
+        //Debug.Log("Attack 1 button was activated");
 
         if (isCooldown1 == false) // Check if skill is in cooldown
         {
             if (playerAnimator.GetBool("isAttack1") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             {
-                Debug.Log("Attack 1 Animation was activated");
+                //Debug.Log("Attack 1 Animation was activated");
 
                 cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
                 playerAnimator.SetBool("isAttack1", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
@@ -478,20 +480,20 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 isCooldown1= true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
-                Invoke(nameof(CheckAttackStuck), 1.5f);
+                Invoke(nameof(CheckAttack1Stuck), 1f);
             }
         }
     }
 
     private void AnimIsAttack2()
     {
-        Debug.Log("Attack 2 button was activated");
+        //Debug.Log("Attack 2 button was activated");
 
         if (isCooldown2 == false) // Check if skill is in cooldown
         {
             if (playerAnimator.GetBool("isAttack2") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             {
-                Debug.Log("Attack 2 Animation was activated");
+                //Debug.Log("Attack 2 Animation was activated");
 
                 cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
                 playerAnimator.SetBool("isAttack2", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
@@ -503,20 +505,20 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
-                Invoke(nameof(CheckAttackStuck), 1.5f);
+                Invoke(nameof(CheckAttack2Stuck), 1f);
             }
         }
     }
 
     private void AnimIsAttack3()
     {
-        Debug.Log("Attack 3 button was activated");
+        //Debug.Log("Attack 3 button was activated");
 
         if (isCooldown3 == false) // Check if skill is in cooldown
         {
             if (playerAnimator.GetBool("isAttack3") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             {
-                Debug.Log("Attack 3 Animation was activated");
+                //Debug.Log("Attack 3 Animation was activated");
 
                 cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
                 playerAnimator.SetBool("isAttack3", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
@@ -528,21 +530,45 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 isCooldown3 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
-                Invoke(nameof(CheckAttackStuck), 1.5f);
+                Invoke(nameof(CheckAttack3Stuck), 1f);
             }
         }
     }
 
-    private void CheckAttackStuck()
+    private void CheckAttack1Stuck()
     {
         if (isAttacking == true) // Sometimes Animator dont triggers correctly in the end of the frame so we make sure it will be triggered
         {
-            Debug.Log("Attack Stuck was checked");
-
+            //Debug.Log("Attack 1 Stuck was checked");
+            checkDamage = true; // Attack animation finished so check if Player deals damage in Enemy
             isAttacking = false; // Attack animation finished
             AnimIsIdle(); // Reset animation to Idle
         }
     }
+
+    private void CheckAttack2Stuck()
+    {
+        if (isAttacking == true) // Sometimes Animator dont triggers correctly in the end of the frame so we make sure it will be triggered
+        {
+            //Debug.Log("Attack 2 Stuck was checked");
+            checkDamage = true; // Attack animation finished so check if Player deals damage in Enemy
+            isAttacking = false; // Attack animation finished
+            AnimIsIdle(); // Reset animation to Idle
+        }
+    }
+
+
+    private void CheckAttack3Stuck()
+    {
+        if (isAttacking == true) // Sometimes Animator dont triggers correctly in the end of the frame so we make sure it will be triggered
+        {
+            //Debug.Log("Attack 3 Stuck was checked");
+            checkDamage = true; // Attack animation finished so check if Player deals damage in Enemy
+            isAttacking = false; // Attack animation finished
+            AnimIsIdle(); // Reset animation to Idle
+        }
+    }
+
 
     public void CheckHitStuck() // It shows zero references but is activated by the last frame of Hit animation
     {
@@ -629,8 +655,16 @@ public class PlayerSystem : MonoBehaviour
 
     public void AttackAnimFinished() // It shows zero references but is activated by the last frame of any Attack animation
     {
-        checkDamage = true; // Attack animation finished so check if Player deals damage in Enemy
-        isAttacking = false; // Attack animation finished so let PLayer to be free to do another attack
+        if (checkDamage == false)
+        {
+            checkDamage = true; // Attack animation finished so check if Player deals damage in Enemy
+        }
+
+        if (isAttacking == true)
+        {
+            isAttacking = false; // Attack animation finished so let PLayer to be free to do another attack
+        }
+
         AnimIsIdle(); // Reset animation to Idle
     }
 
