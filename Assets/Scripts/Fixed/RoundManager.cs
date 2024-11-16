@@ -12,6 +12,8 @@ public class RoundManager : MonoBehaviour
     public PlayerSystem playerSystem;
     public EnemySystem enemySystem;
 
+    public GameObject roundTextBackground;
+
     public GameObject playerWonRound1;
     public GameObject playerWonRound2;
     public GameObject enemyWonRound1;
@@ -38,8 +40,8 @@ public class RoundManager : MonoBehaviour
     public GameObject enemyCharacter7;
     public GameObject enemyCharacter8;
 
-    public Text roundText;
-
+    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI roundText;
     public TextMeshProUGUI playerNameText;
     public TextMeshProUGUI enemyNameText;
 
@@ -61,7 +63,6 @@ public class RoundManager : MonoBehaviour
     private readonly int opponentDamagePerSecond = 1; // Example damage per second for opponent
     private readonly float damageInterval = 1f; // How often to deal damage
 
-    private Text timerText;
     private int combatStage = 0;
     private int timesPlayerWon = 0;
     private int timesEnemyWon = 0;
@@ -75,7 +76,9 @@ public class RoundManager : MonoBehaviour
 
     private void Awake()
     {
-        // Round Manager should load the correct light based in the current arena
+        StopAllCoroutines(); // Stop all coroutines from old scenes
+
+        // *** IMPORTANT *** Round Manager should load the correct light based in the current arena - Remember to do it *** IMPORTANT *** 
 
         PlayerPrefs.SetInt("playerCharacterSelected", 2); // Select a player character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("enemyCharacterSelected", 1); // Select an enemy character - Just for Debug it will be removed later
@@ -86,8 +89,6 @@ public class RoundManager : MonoBehaviour
         {
             currentPlayerCharacter = PlayerPrefs.GetInt("playerCharacterSelected");
         }
-
-        StopAllCoroutines(); // Stop all coroutines from old scenes
     }
 
     private void Start()
@@ -176,10 +177,6 @@ public class RoundManager : MonoBehaviour
         playerHealthBar.SetMaxHealth(maxHealth);
         opponentHealthBar.SetMaxHealth(maxHealth);
 
-        // Set up the Round text UI and timer UI
-        SetupRoundTextUI();
-        SetupTimerUI();
-
         // Start displaying round information
         ResetHealth();
     }
@@ -190,7 +187,7 @@ public class RoundManager : MonoBehaviour
         {
             //Debug.Log("Round started, show current round");
             DrawRoundText("ROUND " + currentRound);
-            timerText.text = "Time: " + roundTime.ToString() + "s";
+            timerText.text = roundTime.ToString();
             roundStarted = true;
             roundOver = true;
             wasDetermined = false;
@@ -203,16 +200,16 @@ public class RoundManager : MonoBehaviour
         {
             decreaseTime = decreaseTime + Time.deltaTime;
 
-            if (decreaseTime > 1f)
+            if (decreaseTime > 1f && roundTime > 0)
             {
                 roundTime = roundTime - 1;
-                timerText.text = "Time: " + roundTime.ToString() + "s";
+                timerText.text = roundTime.ToString();
                 ApplyDamageToOpponent(opponentDamagePerSecond);
                 ApplyDamageToPlayer(playerDamagePerSecond);
                 decreaseTime = 0f;
             }
 
-            if (roundTime < 0f)
+            if (roundTime <= 0f)
             {
                 //Debug.Log("Time Over! Check for winner!");
 
@@ -284,46 +281,6 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-    private void SetupRoundTextUI()
-    {
-        GameObject canvasGO = new GameObject("RoundCanvas");
-        Canvas canvas = canvasGO.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvasGO.AddComponent<CanvasScaler>();
-        canvasGO.AddComponent<GraphicRaycaster>();
-
-        GameObject roundTextGO = new GameObject("RoundText");
-        roundTextGO.transform.SetParent(canvasGO.transform);
-        roundText = roundTextGO.AddComponent<Text>();
-
-        roundText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        roundText.fontSize = 60;
-        roundText.alignment = TextAnchor.MiddleCenter;
-        roundText.color = new Color(1.0f, 0.84f, 0.0f);
-        roundText.text = "Round " + currentRound;
-
-        RectTransform rectTransform = roundText.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(500, 150);
-        rectTransform.anchoredPosition = new Vector2(0, 200);
-    }
-
-    private void SetupTimerUI()
-    {
-        GameObject timerTextGO = new GameObject("TimerText");
-        timerTextGO.transform.SetParent(roundText.transform.parent);
-        timerText = timerTextGO.AddComponent<Text>();
-
-        timerText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        timerText.fontSize = 40;
-        timerText.alignment = TextAnchor.MiddleCenter;
-        timerText.color = Color.red; // Set text color to red
-        timerText.fontStyle = FontStyle.Bold; // Set font style to bold
-
-        RectTransform timerRect = timerText.GetComponent<RectTransform>();
-        timerRect.sizeDelta = new Vector2(200, 100);
-        timerRect.anchoredPosition = new Vector2(0, 480); // Adjusted position for upper middle of the screen
-    }
-
     private void StartRound()
     {
         //Debug.Log("Characters can fight now!");
@@ -375,7 +332,7 @@ public class RoundManager : MonoBehaviour
                     timesPlayerWon = 2;
                 }
 
-                DrawRoundText(playerNameText.text + " WINS ROUND " + currentRound + "!");
+                DrawRoundText(playerNameText.text + " WINS ROUND " + currentRound);
             }
             else if (opponentHealth > playerHealth)
             {
@@ -395,7 +352,7 @@ public class RoundManager : MonoBehaviour
                     timesEnemyWon = 2;
                 }
 
-                DrawRoundText(enemyNameText.text + " WINS ROUND " + currentRound + "!");
+                DrawRoundText(enemyNameText.text + " WINS ROUND " + currentRound);
             }
             else
             {
@@ -404,7 +361,7 @@ public class RoundManager : MonoBehaviour
                 playerSystem.StartDrawAnimation();
                 enemySystem.StartDrawAnimation();
 
-                DrawRoundText("ROUND " + currentRound + " DRAW!");
+                DrawRoundText("ROUND " + currentRound + " DRAW");
             }
 
             wasDetermined = true;
@@ -506,14 +463,14 @@ public class RoundManager : MonoBehaviour
 
     private void DisableRoundText()
     {
-        roundText.gameObject.SetActive(false);
+        roundTextBackground.SetActive(false);
         StartRound();
     }
 
     private void DrawRoundText(string message)
     {
         roundText.text = message;
-        roundText.gameObject.SetActive(true);
+        roundTextBackground.SetActive(true);
     }
 
     private void StartRoundAgain()
