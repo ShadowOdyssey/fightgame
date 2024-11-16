@@ -77,9 +77,9 @@ public class RoundManager : MonoBehaviour
     {
         // Round Manager should load the correct light based in the current arena
 
-        PlayerPrefs.SetInt("playerCharacterSelected", 1); // Select Gabriella as player
-        PlayerPrefs.SetInt("enemyCharacterSelected", 2); // Select Marcus as opponent
-        PlayerPrefs.SetInt("stageSelected", 1); // Load Village Arena
+        PlayerPrefs.SetInt("playerCharacterSelected", 1); // Select a player character - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("enemyCharacterSelected", 2); // Select an enemy character - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("stageSelected", 1); // Select an arena - Just for Debug it will be removed later
 
 
         if (PlayerPrefs.GetInt("stageSelected") != 0)
