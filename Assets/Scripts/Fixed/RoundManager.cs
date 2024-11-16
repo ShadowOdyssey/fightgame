@@ -80,7 +80,7 @@ public class RoundManager : MonoBehaviour
 
         // *** IMPORTANT *** Round Manager should load the correct light based in the current arena - Remember to do it *** IMPORTANT *** 
 
-        PlayerPrefs.SetInt("playerCharacterSelected", 2); // Select a player character - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("playerCharacterSelected", 3); // Select a player character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("enemyCharacterSelected", 1); // Select an enemy character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("stageSelected", 1); // Select an arena - Just for Debug it will be removed later
 
@@ -144,7 +144,7 @@ public class RoundManager : MonoBehaviour
         {
             case 1: playerCharacter1.SetActive(true); playerSystem = GameObject.Find("GabriellaPlayer").GetComponent<PlayerSystem>(); break;
             case 2: playerCharacter2.SetActive(true); playerSystem = GameObject.Find("MarcusPlayer").GetComponent<PlayerSystem>(); break;
-            case 3: playerCharacter3.SetActive(true); playerSystem = GameObject.Find("SelenaPLayer").GetComponent<PlayerSystem>(); break;
+            case 3: playerCharacter3.SetActive(true); playerSystem = GameObject.Find("SelenaPlayer").GetComponent<PlayerSystem>(); break;
             case 4: playerCharacter4.SetActive(true); playerSystem = GameObject.Find("BryanPlayer").GetComponent<PlayerSystem>(); break;
             case 5: playerCharacter5.SetActive(true); playerSystem = GameObject.Find("NunPlayer").GetComponent<PlayerSystem>(); break;
             case 6: playerCharacter6.SetActive(true); playerSystem = GameObject.Find("OliverPlayer").GetComponent<PlayerSystem>(); break;

@@ -662,7 +662,7 @@ public class PlayerSystem : MonoBehaviour
 
     #region Called when animation frames reach last frame
 
-    public void LastFramHit() // It shows zero references but is activated by the last frame of Hit animation
+    public void LastFrameHit() // It shows zero references but is activated by the last frame of Hit animation
     {
         isHit = false; // Hit animation finished
         AnimIsIdle(); // Reset animation to Idle
