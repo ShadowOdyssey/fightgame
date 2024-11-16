@@ -334,8 +334,8 @@ public class EnemySystem : MonoBehaviour
 
         if (checkDamage == true && distanceToTarget < attackRange) // Only apply damage if player is really inside attack area
         {
-            playerSystem.TakeHit(15);
             checkDamage = false;
+            playerSystem.TakeHit(15);
         }
 
         #endregion

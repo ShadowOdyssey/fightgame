@@ -162,15 +162,15 @@ public class PlayerSystem : MonoBehaviour
 
             if (enemySystem.distanceToTarget < attackRange && damageTime > 0f)
             {
+                checkDamage = false;
                 enemySystem.TakeDamage(20);
                 damageTime = 0f;
-                checkDamage = false;
             }
 
             if (damageTime > 1f)
             {
-                damageTime = 0f;
                 checkDamage = false;
+                damageTime = 0f;
             }
         }
 
@@ -450,7 +450,7 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            Invoke(nameof(IsHitAnimationFinished), 1f);
+            Invoke(nameof(CheckHitStuck), 1f);
         }
     }
 
@@ -460,10 +460,14 @@ public class PlayerSystem : MonoBehaviour
 
     private void AnimIsAttack1()
     {
+        Debug.Log("Attack 1 button was activated");
+
         if (isCooldown1 == false) // Check if skill is in cooldown
         {
             if (playerAnimator.GetBool("isAttack1") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             {
+                Debug.Log("Attack 1 Animation was activated");
+
                 cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
                 playerAnimator.SetBool("isAttack1", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
                 playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
@@ -474,17 +478,21 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 isCooldown1= true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
-                Invoke(nameof(CheckStuck), 1.5f);
+                Invoke(nameof(CheckAttackStuck), 1.5f);
             }
         }
     }
 
     private void AnimIsAttack2()
     {
+        Debug.Log("Attack 2 button was activated");
+
         if (isCooldown2 == false) // Check if skill is in cooldown
         {
             if (playerAnimator.GetBool("isAttack2") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             {
+                Debug.Log("Attack 2 Animation was activated");
+
                 cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
                 playerAnimator.SetBool("isAttack2", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
@@ -495,17 +503,21 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
-                Invoke(nameof(CheckStuck), 1.5f);
+                Invoke(nameof(CheckAttackStuck), 1.5f);
             }
         }
     }
 
     private void AnimIsAttack3()
     {
+        Debug.Log("Attack 3 button was activated");
+
         if (isCooldown3 == false) // Check if skill is in cooldown
         {
             if (playerAnimator.GetBool("isAttack3") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             {
+                Debug.Log("Attack 3 Animation was activated");
+
                 cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
                 playerAnimator.SetBool("isAttack3", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
@@ -516,16 +528,29 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 isCooldown3 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
-                Invoke(nameof(CheckStuck), 1.5f);
+                Invoke(nameof(CheckAttackStuck), 1.5f);
             }
         }
     }
 
-    private void CheckStuck()
+    private void CheckAttackStuck()
     {
         if (isAttacking == true) // Sometimes Animator dont triggers correctly in the end of the frame so we make sure it will be triggered
         {
+            Debug.Log("Attack Stuck was checked");
+
             isAttacking = false; // Attack animation finished
+            AnimIsIdle(); // Reset animation to Idle
+        }
+    }
+
+    public void CheckHitStuck() // It shows zero references but is activated by the last frame of Hit animation
+    {
+        if (isHit == true)
+        {
+            Debug.Log("Hit Stuck was checked");
+
+            isHit = false; // Hit animation finished
             AnimIsIdle(); // Reset animation to Idle
         }
     }
@@ -567,6 +592,7 @@ public class PlayerSystem : MonoBehaviour
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
             //Debug.Log("Player activated Attack 1");
+
             AnimIsAttack1();
         }
     }
@@ -576,6 +602,7 @@ public class PlayerSystem : MonoBehaviour
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
             //Debug.Log("Player activated Attack 2");
+
             AnimIsAttack2();
         }
     }
@@ -585,6 +612,7 @@ public class PlayerSystem : MonoBehaviour
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
             //Debug.Log("Player activated Attack 3");
+
             AnimIsAttack3();
         }
     }
