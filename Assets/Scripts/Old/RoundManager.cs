@@ -8,6 +8,11 @@ public class RoundManager : MonoBehaviour
     public HealthBar playerHealthBar;         // Player's HealthBar component
     public HealthBar opponentHealthBar;       // Enemy's HealthBar component
 
+    public GameObject playerWonRound1;
+    public GameObject playerWonRound2;
+    public GameObject enemyWonRound1;
+    public GameObject enemyWonRound2;
+
     public Text roundText;
 
     public TextMeshProUGUI playerNameText;
@@ -32,11 +37,15 @@ public class RoundManager : MonoBehaviour
     private readonly float damageInterval = 1f; // How often to deal damage
 
     private Text timerText;
+    private int combatStage = 0;
     private int currentRound = 1;
+    private int timesPlayerWon = 0;
+    private int timesEnemyWon = 0;
     private int playerHealth = 0;
     private int opponentHealth = 0;
     private float playerComboTime = 0f;
     private float enemyComboTime = 0f;
+    private bool isMultiplayer = false;
 
     private void Awake()
     {
@@ -48,12 +57,39 @@ public class RoundManager : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.GetString("playerName") != "")
+        if (PlayerPrefs.GetString("playerName") != "") // Load player name to show in the screen
         {
             playerNameText.text = PlayerPrefs.GetString("playerName").ToUpper();
         }
 
-        enemyNameText.text = "MARCUS";
+        if (PlayerPrefs.GetString("isMultiplayer") != "yes") // Check if is multiplayer game to the loaded scene
+        {
+            isMultiplayer = false;
+            combatStage = PlayerPrefs.GetInt("combatStage"); // Game is not multiplayer so load the current stage in Singleplay
+        }
+        else
+        {
+            isMultiplayer = true; // Game is multiplayer, so dont load stage number from Singleplay
+        }
+
+        if (isMultiplayer == false) // If game is Singleplay load the correct enemy name based in the current stage
+        {
+            switch (combatStage)
+            {
+                default: enemyNameText.text = "MARCUS"; break; // Just for debug, this line will be removed soon
+                case 1: enemyNameText.text = "MARCUS"; break; // Player is in the Stage 1 of Singleplay
+                case 2: enemyNameText.text = "SELENA"; break; // Player is in the Stage 2 of Singleplay
+                case 3: enemyNameText.text = "BRYAN"; break; // Player is in the Stage 3 of Singleplay
+                case 4: enemyNameText.text = "NUN"; break; // Player is in the Stage 4 of Singleplay
+                case 5: enemyNameText.text = "OLIVER"; break; // Player is in the Stage 5 of Singleplay
+                case 6: enemyNameText.text = "ORION"; break; // Player is in the Stage 6 of Singleplay
+                case 7: enemyNameText.text = "ARIA"; break; // Player is in the Stage 7 of Singleplay
+            }
+        }
+        else
+        {
+            // Wait for server to give the name of the opponent
+        }
 
         // Set both characters' initial health to max health
         playerHealth = maxHealth;
@@ -140,18 +176,25 @@ public class RoundManager : MonoBehaviour
     {
         while (currentRound <= 3)
         {
-            DrawRoundText("Round " + currentRound);
-            yield return new WaitForSeconds(textDisplayDuration);
-            roundText.gameObject.SetActive(false);
+            if (timesPlayerWon < 2 && timesPlayerWon <= timesEnemyWon)
+            {
+                DrawRoundText("Round " + currentRound);
+                yield return new WaitForSeconds(textDisplayDuration);
+                roundText.gameObject.SetActive(false);
 
-            // Reset health for both players
-            ResetHealth();
+                // Reset health for both players
+                ResetHealth();
 
-            StartRound();
+                StartRound();
 
-            // Start the countdown and decrease health over time
-            yield return StartCoroutine(RoundCountdown());
-            currentRound++;
+                // Start the countdown and decrease health over time
+                yield return StartCoroutine(RoundCountdown());
+                currentRound = currentRound + 1;
+            }
+            else
+            {
+                currentRound = currentRound + 3;
+            }
         }
 
         DrawRoundText("Fight Over!");
@@ -246,6 +289,17 @@ public class RoundManager : MonoBehaviour
                 playerSystem.StartVictoryAnimation();
                 enemySystem.StartDefeatAnimation();
 
+                if (playerWonRound1.activeInHierarchy == false)
+                {
+                    playerWonRound1.SetActive(true);
+                    timesPlayerWon = 1;
+                }
+                else
+                {
+                    playerWonRound2.SetActive(true);
+                    timesPlayerWon = 2;
+                }
+
                 DrawRoundText("Player Wins Round " + currentRound + "!");
             }
             else if (opponentHealth > playerHealth)
@@ -254,6 +308,17 @@ public class RoundManager : MonoBehaviour
 
                 playerSystem.StartDefeatAnimation();
                 enemySystem.StartVictoryAnimation();
+
+                if (enemyWonRound1.activeInHierarchy == false)
+                {
+                    enemyWonRound1.SetActive(true);
+                    timesEnemyWon = 1;
+                }
+                else
+                {
+                    enemyWonRound2.SetActive(true);
+                    timesEnemyWon = 2;
+                }
 
                 DrawRoundText("Enemy Wins Round " + currentRound + "!");
             }
