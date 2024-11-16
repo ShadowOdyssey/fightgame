@@ -18,10 +18,10 @@ public class RoundManager : MonoBehaviour
     public TextMeshProUGUI playerNameText;
     public TextMeshProUGUI enemyNameText;
 
+    public int currentRound = 1;
     public int playerTotalCombo = 0;
     public int enemyTotalCombo = 0;
-    public float textDisplayDuration = 2f;
-    public float roundTime = 0f;  // 3-minute timer for each round
+    public int roundTime = 180;  // 3-minute timer for each round
     public bool roundStarted = false;
     public bool roundOver = false;
     public bool wasDetermined = false;
@@ -38,14 +38,15 @@ public class RoundManager : MonoBehaviour
 
     private Text timerText;
     private int combatStage = 0;
-    private int currentRound = 1;
     private int timesPlayerWon = 0;
     private int timesEnemyWon = 0;
     private int playerHealth = 0;
     private int opponentHealth = 0;
     private float playerComboTime = 0f;
     private float enemyComboTime = 0f;
+    private float decreaseTime = 0f;
     private bool isMultiplayer = false;
+    private bool canDecrease = false;
 
     private void Awake()
     {
@@ -104,11 +105,86 @@ public class RoundManager : MonoBehaviour
         SetupTimerUI();
 
         // Start displaying round information
-        StartCoroutine(DisplayRoundText());
+        ResetHealth();
     }
 
     private void Update()
     {
+        if (roundStarted == false)
+        {
+            //Debug.Log("Round started, show current round");
+            DrawRoundText("ROUND " + currentRound);
+            timerText.text = "Time: " + roundTime.ToString() + "s";
+            roundStarted = true;
+            roundOver = true;
+            wasDetermined = false;
+            decreaseTime = 0f;
+            ResetHealth();
+            Invoke(nameof(DisableRoundText), 6f);
+        }
+
+        if (canDecrease == true)
+        {
+            decreaseTime = decreaseTime + Time.deltaTime;
+
+            if (decreaseTime > 1f)
+            {
+                roundTime = roundTime - 1;
+                timerText.text = "Time: " + roundTime.ToString() + "s";
+                ApplyDamageToOpponent(opponentDamagePerSecond);
+                ApplyDamageToPlayer(playerDamagePerSecond);
+                decreaseTime = 0f;
+            }
+
+            if (roundTime < 0f)
+            {
+                //Debug.Log("Time Over! Check for winner!");
+
+                roundTime = 0;
+                roundOver = true;
+                DetermineRoundWinner();
+            }
+        }
+
+        if (playerHealthBar.slider.value <= 0f && roundOver == false || opponentHealthBar.slider.value <= 0f && roundOver == false)
+        {
+            //Debug.Log("Character died! Round Over! Check for winner!");
+
+            roundOver = true;
+            DetermineRoundWinner();
+        }
+
+        if (wasDetermined == true)
+        {
+            if (timesPlayerWon == 1 && timesEnemyWon == 0 || timesEnemyWon == 1 && timesPlayerWon == 0)
+            {
+                currentRound = 2;
+                Invoke(nameof(StartRoundAgain), 6f);
+            }
+
+            if (timesPlayerWon == 1 && timesEnemyWon == 1)
+            {
+                currentRound = 3;
+                Invoke(nameof(StartRoundAgain), 6f);
+            }
+
+            if (timesPlayerWon == 2 || timesEnemyWon == 2)
+            {
+
+                if (timesPlayerWon == 2)
+                {
+                    DrawRoundText("FIGHT OVER! " + playerNameText.text + " WINS");
+                }
+
+                if (timesEnemyWon == 2)
+                {
+                    DrawRoundText("FIGHT OVER! " + enemyNameText.text + " WINS");
+                }
+
+                Invoke(nameof(FightEnded), 15f);
+            }
+        }
+
         if (isPlayerCombo == true)
         {
             playerComboTime = playerComboTime + Time.deltaTime;
@@ -172,40 +248,18 @@ public class RoundManager : MonoBehaviour
         timerRect.anchoredPosition = new Vector2(0, 480); // Adjusted position for upper middle of the screen
     }
 
-    IEnumerator DisplayRoundText()
-    {
-        while (currentRound <= 3)
-        {
-            if (timesPlayerWon < 2 && timesPlayerWon <= timesEnemyWon)
-            {
-                DrawRoundText("Round " + currentRound);
-                yield return new WaitForSeconds(textDisplayDuration);
-                roundText.gameObject.SetActive(false);
-
-                // Reset health for both players
-                ResetHealth();
-
-                StartRound();
-
-                // Start the countdown and decrease health over time
-                yield return StartCoroutine(RoundCountdown());
-                currentRound = currentRound + 1;
-            }
-            else
-            {
-                currentRound = currentRound + 3;
-            }
-        }
-
-        DrawRoundText("Fight Over!");
-        Invoke(nameof(FightEnded), 15f);
-    }
-
     private void StartRound()
     {
+        //Debug.Log("Characters can fight now!");
+
         roundText.text = "";
-        roundOver = false;
-        roundTime = 180f; // Reset timer for each round
+
+        if (roundOver == true)
+        {
+            roundOver = false;
+        }
+
+        roundTime = 180; // Reset timer for each round
                         
         //Debug.Log("Round " + currentRound + " started: Health reset.");
 
@@ -215,76 +269,21 @@ public class RoundManager : MonoBehaviour
         }
 
         // Start automatically decreasing health over the duration of the round
-        StartCoroutine(DecreaseHealthOverTime());
-    }
-
-    IEnumerator DecreaseHealthOverTime()
-    {
-        while (roundOver == false)
-        {
-            ApplyDamageToOpponent(opponentDamagePerSecond);
-            ApplyDamageToPlayer(playerDamagePerSecond);
-
-            yield return new WaitForSeconds(damageInterval);
-        }
-    }
-
-    IEnumerator RoundCountdown()
-    {
-        while (roundTime > 0f && roundOver == false)
-        {
-            //Debug.Log("Counting round time");
-
-            if (roundStarted == false)
-            {
-                roundStarted = true;
-            }
-
-            roundTime -= Time.deltaTime;
-            UpdateTimerDisplay();
-            yield return null;
-
-            // Check if either player's health is zero
-            if (playerHealth <= 0f || opponentHealth <= 0f)
-            {
-                roundOver = true;
-                DetermineRoundWinner();
-            }
-        }
-
-        if (roundTime <= 0f && roundOver == false)
-        {
-            roundTime = 0f;
-            UpdateTimerDisplay();
-            DetermineRoundWinner();
-            roundOver = true;
-        }
-
-        yield return new WaitForSeconds(1);
-    }
-
-    private void UpdateTimerDisplay()
-    {
-        timerText.text = "Time: " + Mathf.CeilToInt(roundTime) + "s";
-    }
-
-    void DrawRoundText(string message)
-    {
-        roundText.text = message;
-        roundText.gameObject.SetActive(true);
+        canDecrease = true;
     }
 
     private void DetermineRoundWinner()
     {
-        Debug.Log("Determining winner");
-
         if (wasDetermined == false)
         {
+            //Debug.Log("Determining winner");
+
+            canDecrease = false;
 
             // Determine the winner of the round based on remaining health
             if (playerHealth > opponentHealth)
             {
-                Debug.Log("Player Won");
+                //Debug.Log("Player Won");
 
                 playerSystem.StartVictoryAnimation();
                 enemySystem.StartDefeatAnimation();
@@ -300,11 +299,11 @@ public class RoundManager : MonoBehaviour
                     timesPlayerWon = 2;
                 }
 
-                DrawRoundText("Player Wins Round " + currentRound + "!");
+                DrawRoundText(playerNameText.text + " WINS ROUND " + currentRound + "!");
             }
             else if (opponentHealth > playerHealth)
             {
-                Debug.Log("Enemy Won");
+                //Debug.Log("Enemy Won");
 
                 playerSystem.StartDefeatAnimation();
                 enemySystem.StartVictoryAnimation();
@@ -320,16 +319,16 @@ public class RoundManager : MonoBehaviour
                     timesEnemyWon = 2;
                 }
 
-                DrawRoundText("Enemy Wins Round " + currentRound + "!");
+                DrawRoundText(enemyNameText.text + " WINS ROUND " + currentRound + "!");
             }
             else
             {
-                Debug.Log("Nobody Won");
+                //Debug.Log("Nobody Won");
 
                 playerSystem.StartDrawAnimation();
                 enemySystem.StartDrawAnimation();
 
-                DrawRoundText("Round " + currentRound + " Draw!");
+                DrawRoundText("ROUND " + currentRound + " DRAW!");
             }
 
             wasDetermined = true;
@@ -381,14 +380,12 @@ public class RoundManager : MonoBehaviour
     {
         playerHealth -= damage;
         playerHealthBar.SetHealth(playerHealth);
-        if (playerHealth <= 0) roundOver = true;
     }
 
     public void ApplyDamageToOpponent(int damage)
     {
         opponentHealth -= damage;
         opponentHealthBar.SetHealth(opponentHealth);
-        if (opponentHealth <= 0) roundOver = true;
     }
 
     public void PlayerStartCombo()
@@ -431,6 +428,23 @@ public class RoundManager : MonoBehaviour
         }
     }
 
+    private void DisableRoundText()
+    {
+        roundText.gameObject.SetActive(false);
+        StartRound();
+    }
+
+    private void DrawRoundText(string message)
+    {
+        roundText.text = message;
+        roundText.gameObject.SetActive(true);
+    }
+
+    private void StartRoundAgain()
+    {
+        roundStarted = false;
+    }
+
     private void UpdatePlayerComboOnScreen()
     {
         // Show current Player combo in the screen
@@ -444,20 +458,5 @@ public class RoundManager : MonoBehaviour
     private void FightEnded()
     {
         Debug.Log("Fight ended! Return to scene of character selecting an opponent or go to main menu if Player lost the battle");
-    }
-
-    private void RestartRound()
-    {
-        roundOver = false;
-    }
-
-    private void OnDisable()
-    {
-        StopAllCoroutines();
-    }
-
-    private void OnDestroy()
-    {
-        StopAllCoroutines();
     }
 }

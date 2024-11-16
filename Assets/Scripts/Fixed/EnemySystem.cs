@@ -51,6 +51,8 @@ public class EnemySystem : MonoBehaviour
     private float attackCooldown2 = 9f;
     [Tooltip("Attack Cooldown 3 determines the cooldown when Attack 3 was used")]
     private float attackCooldown3 = 15f;
+    [Tooltip("Enabled when rounds starts, it will be triggered automatically")]
+    private bool introAnimated = false;
     [Tooltip("Move Success Random determines if AI decided to change movement when enabled and the action is based in enemy difficulty level")]
     private bool moveSuccessRandom = false;
     [Tooltip("Attack Success Random determines if AI decided to change attack action when enabled and the action is based in enemy difficulty level")]
@@ -116,16 +118,21 @@ public class EnemySystem : MonoBehaviour
     {
         #region Animate Intro while round dont start
 
-        if (roundSystem.roundText.text == "Round 1" && enemyAnimator.GetBool("isIntro") == false)
+        if (roundSystem.currentRound == 1 && introAnimated == false)
         {
-            enemyAnimator.SetBool("isIntro", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             StartIntroAnimation(); // Round 1 started so activate Intro animation
         }
 
-        if (roundSystem.roundText.text == "Round 2" && enemyAnimator.GetBool("isIntro") == false ||
-            roundSystem.roundText.text == "Round 3" && enemyAnimator.GetBool("isIntro") == false)
+        if (roundSystem.currentRound == 2 && introAnimated == true)
         {
-            enemyAnimator.SetBool("isIntro", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            introAnimated = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
+        }
+
+        if (roundSystem.currentRound == 3 && introAnimated == false)
+        {
+            introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
         }
 
@@ -135,9 +142,8 @@ public class EnemySystem : MonoBehaviour
 
         if (canFight == false && roundSystem.roundStarted == true && moveSuccessRandom == false && roundSystem.roundOver == false) // Only can execute commands in FixedUpdate if round started, but...
         {
-            Debug.Log("Round Started");
+            //Debug.Log("Round Started");
 
-            enemyAnimator.SetBool("isIntro", false); // Reset Intro animation to use it in the next round
             canRandomize = true; // Round started, so activate randomizer
             canFight = true; // Round started, so can fight
         }
@@ -384,11 +390,6 @@ public class EnemySystem : MonoBehaviour
 
         if (canFight == true && roundSystem.roundOver == false) // Prevent further actions if round not started yet
         {
-            if (enemyAnimator.GetBool("isIntro") == true)
-            {
-                enemyAnimator.SetBool("isIntro", false); // Reset Intro animation to use it in the next round
-            }
-
             if (wasResetTriggers == true)
             {
                 wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
@@ -711,7 +712,12 @@ public class EnemySystem : MonoBehaviour
     private void StartIntroAnimation()
     {
         //Debug.Log("Enemy started Intro anim");
-        gameObject.transform.position = initialPosition; // Move Enemy to initial position because a new round started
+
+        if (roundSystem.currentRound != 1)
+        {
+            gameObject.transform.position = initialPosition; // Move Enemy to initial position because a new round started
+        }
+
         enemyAnimator.Play("isIntro"); // Call directly Intro animation and it goes automatically to Idle animation when Intro animation to finish
     }
 

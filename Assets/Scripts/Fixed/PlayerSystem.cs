@@ -54,6 +54,8 @@ public class PlayerSystem : MonoBehaviour
     private int moveDirection = 0;
     [Tooltip("Check if Player applied damage in a certain ammount of time, if Enemy not to be inside range when time is over so Player dont dealed damage to Enemy")]
     private float damageTime = 0f;
+    [Tooltip("Enabled when rounds starts, it will be triggered automatically")]
+    private bool introAnimated = false;
     [Tooltip("If enabled means player is moving forward, it means forward button is being held")]
     private bool isMovingForward = false;
     [Tooltip("If enabled means player is moving backward, it means backward button is being held")]
@@ -123,16 +125,21 @@ public class PlayerSystem : MonoBehaviour
     {
         #region Animate Intro while round dont start
 
-        if (roundSystem.roundText.text == "Round 1" && playerAnimator.GetBool("isIntro") == false)
+        if (roundSystem.currentRound == 1 && introAnimated == false)
         {
-            playerAnimator.SetBool("isIntro", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             StartIntroAnimation(); // Round 1 started so activate Intro Animation
         }
 
-        if (roundSystem.roundText.text == "Round 2" && playerAnimator.GetBool("isIntro") == false ||
-            roundSystem.roundText.text == "Round 3" && playerAnimator.GetBool("isIntro") == false)
+        if (roundSystem.currentRound == 2 && introAnimated == true)
         {
-            playerAnimator.SetBool("isIntro", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            introAnimated = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
+        }
+
+        if (roundSystem.currentRound == 3 && introAnimated == false)
+        {
+            introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
         }
 
@@ -177,11 +184,6 @@ public class PlayerSystem : MonoBehaviour
         // Ensure movement only happens when buttons are held and not during attacks
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false) // Check if round started so Player can move and if Player is not attacking
         {
-            if (playerAnimator.GetBool("isIntro") == true)
-            {
-                playerAnimator.SetBool("isIntro", false); // Reset Intro animation to use it in the next round
-            }
-
             if (wasResetTriggers == true)
             {
                 wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
@@ -448,6 +450,7 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            Invoke(nameof(IsHitAnimationFinished), 1f);
         }
     }
 
@@ -637,8 +640,13 @@ public class PlayerSystem : MonoBehaviour
     private void StartIntroAnimation()
     {
         //Debug.Log("Player started Intro anim");
-        cameraSystem.ResetCamera();
-        gameObject.transform.position = initialPosition; // Move Player to start position because a new round started
+
+        if (roundSystem.currentRound != 1)
+        {
+            cameraSystem.ResetCamera();
+            gameObject.transform.position = initialPosition; // Move Player to start position because a new round started
+        }
+
         playerAnimator.Play("isIntro"); // Play Intro animation because a new round started
     }
 
