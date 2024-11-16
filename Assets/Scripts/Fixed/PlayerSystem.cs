@@ -458,7 +458,7 @@ public class PlayerSystem : MonoBehaviour
     {
         if (playerAnimator.GetBool("isHit") == false)
         {
-            Debug.Log("Hit Animation was activated");
+            //Debug.Log("Hit Animation was activated");
 
             playerAnimator.SetBool("isHit", true); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
