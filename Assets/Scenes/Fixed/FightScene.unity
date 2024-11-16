@@ -8094,7 +8094,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 1182155158}
   hitEffect: {fileID: 806010340}
   actualAttack: 1
-  enemyDifficulty: 3
+  enemyDifficulty: 1
   attackRange: 13
   moveSpeed: 3
   distanceToTarget: 0
@@ -17516,7 +17516,7 @@ MonoBehaviour:
   actualAttack: 1
   enemyDifficulty: 0
   attackRange: 13
-  moveSpeed: 4
+  moveSpeed: 5
   distanceToTarget: 0
 --- !u!4 &430539335894559987
 Transform:
@@ -48643,7 +48643,7 @@ MonoBehaviour:
   buttonAttack3: {fileID: 436174685}
   hitEffect: {fileID: 2134959967}
   attackRange: 15
-  moveSpeed: 0.6
+  moveSpeed: 0.4
   stepSize: 0.1
 --- !u!65 &5428761219676516486
 BoxCollider:
@@ -60343,7 +60343,7 @@ MonoBehaviour:
   buttonAttack3: {fileID: 436174685}
   hitEffect: {fileID: 1259917030062582435}
   attackRange: 15
-  moveSpeed: 0.7
+  moveSpeed: 1
   stepSize: 0.1
 --- !u!1 &6393998585534457971
 GameObject:
