@@ -530,8 +530,8 @@ MonoBehaviour:
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
   hitEffect: {fileID: 1335381995}
-  attackRange: 15
-  moveSpeed: 0.8
+  attackRange: 13
+  moveSpeed: 0.7
   stepSize: 0.1
 --- !u!65 &144931115
 BoxCollider:
@@ -552,8 +552,8 @@ BoxCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 204.6894, y: 175.04303, z: 368.2269}
-  m_Center: {x: 3.7135222, y: 87.021515, z: 10.545169}
+  m_Size: {x: 204.6894, y: 175.04303, z: 308.2784}
+  m_Center: {x: 3.7135222, y: 87.021515, z: 10.44036}
 --- !u!54 &144931116
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -579,7 +579,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 86
+  m_Constraints: 118
   m_CollisionDetection: 0
 --- !u!1 &172700616
 GameObject:
@@ -841,7 +841,7 @@ MonoBehaviour:
   hitEffect: {fileID: 719282227}
   actualAttack: 1
   enemyDifficulty: 0
-  attackRange: 12
+  attackRange: 13
   moveSpeed: 4
   distanceToTarget: 0
 --- !u!1 &278071661
@@ -26922,6 +26922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 543450653475558576}
   - component: {fileID: 5866666021781278410}
+  - component: {fileID: 5866666021781278411}
   - component: {fileID: 228756885}
   m_Layer: 6
   m_Name: MarcusEnemy
@@ -32625,6 +32626,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!54 &5866666021781278411
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149287554570}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 20
+  m_AngularDrag: 20
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 118
+  m_CollisionDetection: 0
 --- !u!4 &5882957278153651433
 Transform:
   m_ObjectHideFlags: 0

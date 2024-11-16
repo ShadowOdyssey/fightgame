@@ -36076,7 +36076,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.6
-    functionName: HitAnimFinished
+    functionName: LastFrameBlock
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

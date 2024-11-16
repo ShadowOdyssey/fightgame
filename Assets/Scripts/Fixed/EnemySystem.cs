@@ -773,7 +773,7 @@ public class EnemySystem : MonoBehaviour
 
     #region Last animations frame operations
 
-    public void CharacterFinishedAttack() // Called in the final frame of attack animation
+    public void LastFrameAttack() // Called in the final frame of attack animation
     {
         attackSuccessRandom = false; // Reset to allow another attack randomization after cooldown
         isAttacking = false; // Reset to allow another attack after cooldown
@@ -783,7 +783,7 @@ public class EnemySystem : MonoBehaviour
         StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet
     }
 
-    public void HitAnimFinished()
+    public void LastFrameBlock()
     {
         EnemyIsIdle(); // Start Idle animation after opponent to get a hit
     }
@@ -935,7 +935,7 @@ public class EnemySystem : MonoBehaviour
         {
             if (isCooldown1 == true && isCooldown2 == true && isCooldown3 == true)
             {
-                CharacterFinishedAttack(); // If all skills are in cooldown, cancel the attack
+                LastFrameAttack(); // If all skills are in cooldown, cancel the attack
             }
 
             if (isCooldown3 == true && isCooldown1 == false && isCooldown2 == true ||
