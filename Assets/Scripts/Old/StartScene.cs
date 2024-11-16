@@ -13,26 +13,66 @@ public class StartScene : MonoBehaviour
     private bool settingsOpen = false;
     private bool isSoundOn = true; // Flag to track sound state
     private int currentSettingsBackgroundIndex = 0;
+    private string labelText = "Input your name!";
+    private string inputText = "";
 
     // Fading variables
-    private float fadeDuration = 10f; // Duration of fade in seconds
+    private readonly float fadeDuration = 10f; // Duration of fade in seconds
     private float fadeTimer = 10f;
     private bool isFading = false;
     private Color fadeColor = Color.clear;
 
-    void Start()
+    private void Start()
     {
         Cursor.visible = true;
-        // settingsPanel.SetActive(false); // Removed settingsPanel reference
+
+        Debug.Log(PlayerPrefs.GetString("playerName"));
+
+        if (PlayerPrefs.GetString("playerName") != "")
+        {
+            inputText = PlayerPrefs.GetString("playerName");
+            labelText = "Welcome Back " + PlayerPrefs.GetString("playerName");
+        }
     }
 
-    void OnGUI()
+    private void Update()
+    {
+        // Automatically cycle through the settings background images
+        if (settingsBackgroundImages.Length > 1 && !settingsOpen)
+        {
+            float interval = 5.0f; // Change image every 5 seconds
+            if (Time.time > interval)
+            {
+                currentSettingsBackgroundIndex = (currentSettingsBackgroundIndex + 1) % settingsBackgroundImages.Length;
+                isFading = true;
+                fadeColor = Color.clear;
+                interval = Time.time + 5.0f;
+            }
+        }
+    }
+
+    private void OnGUI()
     {
         float buttonWidth = Screen.width * 0.3f; // Width for the play button
         float buttonHeight = Screen.height * 0.15f; // Height for the play button
 
         // Draw background image for the whole scene
         GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), settingsBackgroundImages[currentSettingsBackgroundIndex]);
+
+        // Draw Input Field
+        GUIStyle inputStyle = new GUIStyle(GUI.skin.textField);
+        inputStyle.fontSize = 60; // Adjust the font size as needed
+        inputStyle.normal.textColor = Color.black; // Set text color to black
+        inputStyle.normal.background = MakeTex(2, 2, Color.white); // Set background color to white
+
+        GUIStyle labelStyle = new GUIStyle(GUI.skin.label);
+        labelStyle.fontSize = 60; // Adjust the font size as needed
+
+        Rect inputFieldRect = new Rect(700, 400, Screen.width * 0.4f, Screen.height * 0.06f);
+        inputText = GUI.TextField(inputFieldRect, inputText, inputStyle);
+        Rect labelFieldRect = new Rect(1000, 300, Screen.width * 0.4f, Screen.height * 0.06f);
+        GUI.Label(labelFieldRect, labelText, labelStyle);
+        
 
         // Exit button
         float exitButtonWidth = Screen.width * 0.08f; // Smaller exit button width
@@ -57,11 +97,20 @@ public class StartScene : MonoBehaviour
         }
 
         // Centered Play button with further right adjustment
-        float playButtonOffsetX = 100f; // Increased value to move the button further to the right
-        Rect playButtonRect = new Rect((Screen.width - buttonWidth) / 2 + playButtonOffsetX, (Screen.height - buttonHeight) / 2, buttonWidth, buttonHeight);
+        Rect playButtonRect = new Rect(1100, 500, Screen.width * 0.8f, Screen.height * 0.1f);
         if (GUI.Button(playButtonRect, _playButtonImage, GUIStyle.none))
         {
-            StartButtonClicked();
+            if (inputText == "")
+            {
+                labelText = "Please input a name!";
+            }
+            
+            if (inputText != "")
+            {
+                PlayerPrefs.SetString("playerName", inputText);
+                labelText = "Loading...";
+                Invoke(nameof(StartButtonClicked), 5f); // Load Main Menu after 5 seconds to give time to persist data correctly
+            }
         }
 
         // Draw settings panel when settingsOpen is true
@@ -92,7 +141,20 @@ public class StartScene : MonoBehaviour
         }
     }
 
-    void DrawSettingsPanel()
+    private static Texture2D MakeTex(int width, int height, Color col)
+    {
+        Color[] pix = new Color[width * height];
+        for (int i = 0; i < pix.Length; ++i)
+        {
+            pix[i] = col;
+        }
+        Texture2D result = new Texture2D(width, height);
+        result.SetPixels(pix);
+        result.Apply();
+        return result;
+    }
+
+    private void DrawSettingsPanel()
     {
         float panelWidth = Screen.width * 0.7f; // Increased panel width
         float panelHeight = Screen.height * 0.8f; // Increased panel height
@@ -125,7 +187,7 @@ public class StartScene : MonoBehaviour
         GUILayout.EndArea();
     }
 
-    void ToggleSound()
+    private void ToggleSound()
     {
         isSoundOn = !isSoundOn;
         // Implement logic to toggle sound on and off
@@ -141,36 +203,20 @@ public class StartScene : MonoBehaviour
         }
     }
 
-    void StartButtonClicked()
+    private void StartButtonClicked()
     {
         // Load the next scene after clicking the Start button
         SceneManager.LoadScene("MainMenu");
     }
 
-    void ExitButtonClicked()
+    private void ExitButtonClicked()
     {
         SceneManager.LoadScene("OverviewStory");
     }
 
-    void DisplayButtonClicked()
+    private void DisplayButtonClicked()
     {
         // Load the 1BattleGroundSelection scene when the Display button is clicked
         SceneManager.LoadScene("1BattleGroundSelection");
-    }
-
-    void Update()
-    {
-        // Automatically cycle through the settings background images
-        if (settingsBackgroundImages.Length > 1 && !settingsOpen)
-        {
-            float interval = 5.0f; // Change image every 5 seconds
-            if (Time.time > interval)
-            {
-                currentSettingsBackgroundIndex = (currentSettingsBackgroundIndex + 1) % settingsBackgroundImages.Length;
-                isFading = true;
-                fadeColor = Color.clear;
-                interval = Time.time + 5.0f;
-            }
-        }
     }
 }
