@@ -77,30 +77,14 @@ public class RoundManager : MonoBehaviour
     {
         // Round Manager should load the correct light based in the current arena
 
-        PlayerPrefs.SetInt("playerCharacterSelected", 1); // Select a player character - Just for Debug it will be removed later
-        PlayerPrefs.SetInt("enemyCharacterSelected", 2); // Select an enemy character - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("playerCharacterSelected", 2); // Select a player character - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("enemyCharacterSelected", 1); // Select an enemy character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("stageSelected", 1); // Select an arena - Just for Debug it will be removed later
 
-
-        if (PlayerPrefs.GetInt("stageSelected") != 0)
-        {
-            currentStage = PlayerPrefs.GetInt("stageSelected");
-
-            switch (currentStage)
-            {
-                case 1: arena1.SetActive(true); break;
-                case 2: arena2.SetActive(true); break;
-            }
-        }
 
         if (PlayerPrefs.GetInt("playerCharacterSelected") != 0)
         {
             currentPlayerCharacter = PlayerPrefs.GetInt("playerCharacterSelected");
-        }
-
-        if (PlayerPrefs.GetInt("enemyCharacterSelected") != 0)
-        {
-            currentEnemyCharacter = PlayerPrefs.GetInt("enemyCharacterSelected");
         }
 
         StopAllCoroutines(); // Stop all coroutines from old scenes
@@ -108,7 +92,54 @@ public class RoundManager : MonoBehaviour
 
     private void Start()
     {
-        switch (currentPlayerCharacter) // 1 = Gabriella 2 = Marcus 3 = Selena 4 = Bryan 5 = Nun 6 = Oliver 7 = Orion and 8 = Aria
+        if (PlayerPrefs.GetString("isMultiplayer") != "yes") // Check if is multiplayer game to the loaded scene
+        {
+            isMultiplayer = false;
+        }
+        else
+        {
+            isMultiplayer = true; // Game is multiplayer, so dont load stage number from Singleplay
+        }
+
+        if (isMultiplayer == true) // If game is Singleplay load the correct enemy name based in the current stage
+        {
+            // Wait for server to give the name of the opponent and the selected character in Lobby
+            //enemyNameText.text = MultiplayerEnemyName().ToUpper();
+            //currentEnemyCharacter = MultiplayerEnemyCharacter();
+            //currentStage = MultiplayerStage();
+        }
+        else
+        {
+            if (PlayerPrefs.GetInt("stageSelected") != 0)
+            {
+                currentStage = PlayerPrefs.GetInt("stageSelected");
+            }
+
+            if (PlayerPrefs.GetInt("enemyCharacterSelected") != 0)
+            {
+                currentEnemyCharacter = PlayerPrefs.GetInt("enemyCharacterSelected");
+            }
+
+            switch (currentEnemyCharacter) // Load Singleplay Enemy name
+            {
+                case 1: enemyNameText.text = "GABRIELLA"; break;
+                case 2: enemyNameText.text = "MARCUS"; break;
+                case 3: enemyNameText.text = "SELENA"; break;
+                case 4: enemyNameText.text = "BRYAN"; break;
+                case 5: enemyNameText.text = "NUN"; break;
+                case 6: enemyNameText.text = "OLIVER"; break;
+                case 7: enemyNameText.text = "ORION"; break;
+                case 8: enemyNameText.text = "ARIA"; break;
+            }
+        }
+
+        switch (currentStage) // Loading stage
+        {
+            case 1: arena1.SetActive(true); break;
+            case 2: arena2.SetActive(true); break;
+        }
+
+        switch (currentPlayerCharacter) // Loading Player character
         {
             case 1: playerCharacter1.SetActive(true); playerSystem = GameObject.Find("GabriellaPlayer").GetComponent<PlayerSystem>(); break;
             case 2: playerCharacter2.SetActive(true); playerSystem = GameObject.Find("MarcusPlayer").GetComponent<PlayerSystem>(); break;
@@ -120,7 +151,7 @@ public class RoundManager : MonoBehaviour
             case 8: playerCharacter8.SetActive(true); playerSystem = GameObject.Find("AriaPlayer").GetComponent<PlayerSystem>(); break;
         }
 
-        switch (currentEnemyCharacter) // 1 = Gabriella 2 = Marcus 3 = Selena 4 = Bryan 5 = Nun 6 = Oliver 7 = Orion and 8 = Aria
+        switch (currentEnemyCharacter) // Loading Enemy character
         {
             case 1: enemyCharacter1.SetActive(true); enemySystem = GameObject.Find("GabriellaEnemy").GetComponent<EnemySystem>(); break;
             case 2: enemyCharacter2.SetActive(true); enemySystem = GameObject.Find("MarcusEnemy").GetComponent<EnemySystem>(); break;
@@ -135,35 +166,6 @@ public class RoundManager : MonoBehaviour
         if (PlayerPrefs.GetString("playerName") != "") // Load player name to show in the screen
         {
             playerNameText.text = PlayerPrefs.GetString("playerName").ToUpper();
-        }
-
-        if (PlayerPrefs.GetString("isMultiplayer") != "yes") // Check if is multiplayer game to the loaded scene
-        {
-            isMultiplayer = false;
-            combatStage = PlayerPrefs.GetInt("combatStage"); // Game is not multiplayer so load the current stage in Singleplay
-        }
-        else
-        {
-            isMultiplayer = true; // Game is multiplayer, so dont load stage number from Singleplay
-        }
-
-        if (isMultiplayer == false) // If game is Singleplay load the correct enemy name based in the current stage
-        {
-            switch (combatStage)
-            {
-                default: enemyNameText.text = "MARCUS"; break; // Just for debug, this line will be removed soon
-                case 1: enemyNameText.text = "MARCUS"; break; // Player is in the Stage 1 of Singleplay
-                case 2: enemyNameText.text = "SELENA"; break; // Player is in the Stage 2 of Singleplay
-                case 3: enemyNameText.text = "BRYAN"; break; // Player is in the Stage 3 of Singleplay
-                case 4: enemyNameText.text = "NUN"; break; // Player is in the Stage 4 of Singleplay
-                case 5: enemyNameText.text = "OLIVER"; break; // Player is in the Stage 5 of Singleplay
-                case 6: enemyNameText.text = "ORION"; break; // Player is in the Stage 6 of Singleplay
-                case 7: enemyNameText.text = "ARIA"; break; // Player is in the Stage 7 of Singleplay
-            }
-        }
-        else
-        {
-            // Wait for server to give the name of the opponent
         }
 
         // Set both characters' initial health to max health
