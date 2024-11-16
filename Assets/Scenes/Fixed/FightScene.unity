@@ -503,7 +503,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: b1c19f6546b2df14897f9da5c07cc514, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -552,7 +552,7 @@ BoxCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 204.6894, y: 175.04303, z: 308.2784}
+  m_Size: {x: 140, y: 140, z: 250}
   m_Center: {x: 3.7135222, y: 87.021515, z: 10.44036}
 --- !u!54 &144931116
 Rigidbody:
@@ -13175,8 +13175,8 @@ BoxCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12.68851, y: 14.280178, z: 27.809574}
-  m_Center: {x: 0.15984438, y: 6.640089, z: -0.38481522}
+  m_Size: {x: 14, y: 14, z: 25}
+  m_Center: {x: 0.1598444, y: 6.640089, z: 0.30785272}
 --- !u!54 &1311155267
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13202,7 +13202,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 86
+  m_Constraints: 118
   m_CollisionDetection: 0
 --- !u!1 &1335381995
 GameObject:
@@ -13501,7 +13501,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.9433962, b: 0.9254712, a: 1}
+      maxColor: {r: 1, g: 0.24696925, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -26922,7 +26922,6 @@ GameObject:
   m_Component:
   - component: {fileID: 543450653475558576}
   - component: {fileID: 5866666021781278410}
-  - component: {fileID: 5866666021781278411}
   - component: {fileID: 228756885}
   m_Layer: 6
   m_Name: MarcusEnemy
@@ -27176,7 +27175,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: b080791586516324083c12a2e4399bff, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -32044,7 +32043,7 @@ BoxCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12.68851, y: 14.280178, z: 27.809574}
+  m_Size: {x: 14, y: 14, z: 25}
   m_Center: {x: 0.15984438, y: 6.640089, z: -0.38481522}
 --- !u!54 &5530298619424945356
 Rigidbody:
@@ -32071,7 +32070,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 86
+  m_Constraints: 118
   m_CollisionDetection: 0
 --- !u!4 &5586887059286182348
 Transform:
@@ -32618,7 +32617,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: cc569294897c54b4f91a4a66204b6d1a, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -32626,33 +32625,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!54 &5866666021781278411
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149287554570}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 20
-  m_AngularDrag: 20
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ImplicitCom: 0
-  m_ImplicitTensor: 0
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 118
-  m_CollisionDetection: 0
 --- !u!4 &5882957278153651433
 Transform:
   m_ObjectHideFlags: 0
