@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class CooldownSystem : MonoBehaviour
 {
+    public RoundManager roundSystem;
+
     public Image cooldown1Image;
     public Image cooldown2Image;
     public Image cooldown3Image;
@@ -17,13 +19,10 @@ public class CooldownSystem : MonoBehaviour
     private bool isCooldown2 = false;
     private bool isCooldown3 = false;
 
-    private void Awake()
-    {
-        playerSystem = GameObject.Find("Gabriella").GetComponent<PlayerSystem>();
-    }
-
     private void Start()
     {
+        playerSystem = roundSystem.playerSystem; // Load it after Round Manager to load it
+
         cooldown1Image.fillAmount = 0f;
         cooldown2Image.fillAmount = 0f;
         cooldown3Image.fillAmount = 0f;

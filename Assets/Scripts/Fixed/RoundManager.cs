@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,16 +9,43 @@ public class RoundManager : MonoBehaviour
     public HealthBar playerHealthBar;         // Player's HealthBar component
     public HealthBar opponentHealthBar;       // Enemy's HealthBar component
 
+    public PlayerSystem playerSystem;
+    public EnemySystem enemySystem;
+
     public GameObject playerWonRound1;
     public GameObject playerWonRound2;
     public GameObject enemyWonRound1;
     public GameObject enemyWonRound2;
+
+    public GameObject arena1;
+    public GameObject arena2;
+
+    public GameObject playerCharacter1;
+    public GameObject playerCharacter2;
+    public GameObject playerCharacter3;
+    public GameObject playerCharacter4;
+    public GameObject playerCharacter5;
+    public GameObject playerCharacter6;
+    public GameObject playerCharacter7;
+    public GameObject playerCharacter8;
+
+    public GameObject enemyCharacter1;
+    public GameObject enemyCharacter2;
+    public GameObject enemyCharacter3;
+    public GameObject enemyCharacter4;
+    public GameObject enemyCharacter5;
+    public GameObject enemyCharacter6;
+    public GameObject enemyCharacter7;
+    public GameObject enemyCharacter8;
 
     public Text roundText;
 
     public TextMeshProUGUI playerNameText;
     public TextMeshProUGUI enemyNameText;
 
+    public int currentStage = 0;
+    public int currentPlayerCharacter = 0;
+    public int currentEnemyCharacter = 0;
     public int currentRound = 1;
     public int playerTotalCombo = 0;
     public int enemyTotalCombo = 0;
@@ -27,9 +55,6 @@ public class RoundManager : MonoBehaviour
     public bool wasDetermined = false;
     public bool isPlayerCombo = false;
     public bool isEnemyCombo = false;
-
-    private PlayerSystem playerSystem;
-    private EnemySystem enemySystem;
 
     private readonly int maxHealth = 100;
     private readonly int playerDamagePerSecond = 2; // Example damage per second for player
@@ -50,14 +75,58 @@ public class RoundManager : MonoBehaviour
 
     private void Awake()
     {
-        StopAllCoroutines(); // Stop all coroutines from old scenes
+        // Round Manager should load the correct light based in the current arena
 
-        playerSystem = GameObject.Find("Gabriella").GetComponent<PlayerSystem>();
-        enemySystem = GameObject.Find("Marcus").GetComponent<EnemySystem>();
+        if (PlayerPrefs.GetInt("stageSelected") != 0)
+        {
+            currentStage = PlayerPrefs.GetInt("stageSelected");
+
+            switch (currentStage)
+            {
+                case 1: arena1.SetActive(true); break;
+                case 2: arena2.SetActive(true); break;
+            }
+        }
+
+        if (PlayerPrefs.GetInt("playerCharacterSelected") != 0)
+        {
+            currentPlayerCharacter = PlayerPrefs.GetInt("playerCharacterSelected");
+        }
+
+        if (PlayerPrefs.GetInt("enemyCharacterSelected") != 0)
+        {
+            currentEnemyCharacter = PlayerPrefs.GetInt("enemyCharacterSelected");
+        }
+
+        StopAllCoroutines(); // Stop all coroutines from old scenes
     }
 
     private void Start()
     {
+        switch (currentPlayerCharacter) // 1 = Gabriella 2 = Marcus 3 = Selena 4 = Bryan 5 = Nun 6 = Oliver 7 = Orion and 8 = Aria
+        {
+            case 1: playerCharacter1.SetActive(true); playerSystem = GameObject.Find("GabriellaPlayer").GetComponent<PlayerSystem>(); break;
+            case 2: playerCharacter2.SetActive(true); playerSystem = GameObject.Find("MarcusPlayer").GetComponent<PlayerSystem>(); break;
+            case 3: playerCharacter3.SetActive(true); playerSystem = GameObject.Find("SelenaPLayer").GetComponent<PlayerSystem>(); break;
+            case 4: playerCharacter4.SetActive(true); playerSystem = GameObject.Find("BryanPlayer").GetComponent<PlayerSystem>(); break;
+            case 5: playerCharacter5.SetActive(true); playerSystem = GameObject.Find("NunPlayer").GetComponent<PlayerSystem>(); break;
+            case 6: playerCharacter6.SetActive(true); playerSystem = GameObject.Find("OliverPlayer").GetComponent<PlayerSystem>(); break;
+            case 7: playerCharacter7.SetActive(true); playerSystem = GameObject.Find("OrionPlayer").GetComponent<PlayerSystem>(); break;
+            case 8: playerCharacter8.SetActive(true); playerSystem = GameObject.Find("AriaPlayer").GetComponent<PlayerSystem>(); break;
+        }
+
+        switch (currentEnemyCharacter) // 1 = Gabriella 2 = Marcus 3 = Selena 4 = Bryan 5 = Nun 6 = Oliver 7 = Orion and 8 = Aria
+        {
+            case 1: enemyCharacter1.SetActive(true); enemySystem = GameObject.Find("GabriellaEnemy").GetComponent<EnemySystem>(); break;
+            case 2: enemyCharacter2.SetActive(true); enemySystem = GameObject.Find("MarcusEnemy").GetComponent<EnemySystem>(); break;
+            case 3: enemyCharacter3.SetActive(true); enemySystem = GameObject.Find("SelenaEnemy").GetComponent<EnemySystem>(); break;
+            case 4: enemyCharacter4.SetActive(true); enemySystem = GameObject.Find("BryanEnemy").GetComponent<EnemySystem>(); break;
+            case 5: enemyCharacter5.SetActive(true); enemySystem = GameObject.Find("NunEnemy").GetComponent<EnemySystem>(); break;
+            case 6: enemyCharacter6.SetActive(true); enemySystem = GameObject.Find("OliverEnemy").GetComponent<EnemySystem>(); break;
+            case 7: enemyCharacter7.SetActive(true); enemySystem = GameObject.Find("OrionEnemy").GetComponent<EnemySystem>(); break;
+            case 8: enemyCharacter8.SetActive(true); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); break;
+        }
+
         if (PlayerPrefs.GetString("playerName") != "") // Load player name to show in the screen
         {
             playerNameText.text = PlayerPrefs.GetString("playerName").ToUpper();

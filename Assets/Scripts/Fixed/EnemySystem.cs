@@ -94,10 +94,10 @@ public class EnemySystem : MonoBehaviour
     {
         // When multiplayer to be done we need to look for the right components, the other components declared dont need to be found, just attached in Inspector
 
-        roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
-        playerBody = GameObject.Find("Gabriella").GetComponent<Transform>();
-        playerSystem = GameObject.Find("Gabriella").GetComponent<PlayerSystem>();
+        playerBody = null;
+        playerSystem = null;
 
+        roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
         initialPosition = gameObject.transform.position; // Store the initial position to use it when a new round to start, so can move Enemy always to initial position
     }
 
@@ -107,6 +107,15 @@ public class EnemySystem : MonoBehaviour
 
     private void Start()
     {
+        switch (roundSystem.currentPlayerCharacter)
+        {
+            case 1: playerBody = GameObject.Find("GabriellaPlayer").GetComponent<Transform>(); break;
+            case 2: playerBody = GameObject.Find("MarcusPlayer").GetComponent<Transform>(); break;
+            case 3: playerBody = GameObject.Find("SelenaPlayer").GetComponent<Transform>(); break;
+            case 4: playerBody = GameObject.Find("BryanPlayer").GetComponent<Transform>(); break;
+        }
+
+        playerSystem = roundSystem.playerSystem;
         distanceToTarget = Vector3.Distance(transform.position, playerBody.position); // Get initial position from Player to get the first distance measure only once
     }
 

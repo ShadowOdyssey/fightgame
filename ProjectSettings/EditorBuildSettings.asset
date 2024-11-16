@@ -36,7 +36,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ArcadeMode.unity
     guid: 12fd85e940c98b04b9b6438c740da66a
   - enabled: 1
-    path: Assets/Scenes/SelectionCharacter.unity
+    path: Assets/Scenes/Fixed/SelectionCharacter.unity
     guid: 8b44d6a4c04064a4faa5ac6e5aba0f41
   - enabled: 1
     path: Assets/Scenes/Fixed/FightScene.unity

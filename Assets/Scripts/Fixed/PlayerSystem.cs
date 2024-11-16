@@ -85,11 +85,15 @@ public class PlayerSystem : MonoBehaviour
     {
         // When multiplayer to be done we need to look for the right components, the other components declared dont need to be found, just attached in Inspector
 
+        cameraSystem = null;
+        roundSystem = null;
+        cooldownSystem = null;
+        enemySystem = null;
+        enemyBody = null;
+
         cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
         roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
         cooldownSystem = GameObject.Find("RoundManager").GetComponent<CooldownSystem>();
-        enemySystem = GameObject.Find("Marcus").GetComponent<EnemySystem>();
-        enemyBody = GameObject.Find("Marcus").GetComponent<Transform>();
 
         initialPosition = transform.position;
 
@@ -114,6 +118,17 @@ public class PlayerSystem : MonoBehaviour
         if (buttonAttack3 != null)
         {
             buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
+        }
+    }
+
+    private void Start()
+    {
+        switch (roundSystem.currentEnemyCharacter)
+        {
+            case 1: enemyBody = GameObject.Find("GabriellaEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("GabriellaEnemy").GetComponent<EnemySystem>(); break;
+            case 2: enemyBody = GameObject.Find("MarcusEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("MarcusEnemy").GetComponent<EnemySystem>(); break;
+            case 3: enemyBody = GameObject.Find("SelenaEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("SelenaEnemy").GetComponent<EnemySystem>(); break;
+            case 4: enemyBody = GameObject.Find("BryanEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("BryanEnemy").GetComponent<EnemySystem>(); break;
         }
     }
 

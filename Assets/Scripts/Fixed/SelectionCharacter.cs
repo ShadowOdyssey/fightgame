@@ -183,6 +183,10 @@ public class SelectionCharacter : MonoBehaviour
 
                 if (characterNames[currentIndex] == "Gabriella")
                 {
+                    PlayerPrefs.SetInt("playerCharacterSelected", 1); // Select Gabriella as player
+                    PlayerPrefs.SetInt("enemyCharacterSelected", 2); // Select Marcus as opponent
+                    PlayerPrefs.SetInt("stageSelected", 1); // Load Village Arena
+
                     ShowVsPanel();
                 }
             }
