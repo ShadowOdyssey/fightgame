@@ -60,7 +60,6 @@
     <Analyzer Include="C:\Trabalho\Editor\2022.3.20f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Opponents\Opponent(ofMarcus)\OpponentMovementofMarcus.cs" />
     <Compile Include="Assets\Scripts\Fixed\CameraSystem.cs" />
     <Compile Include="Assets\Scripts\Old\FightingSingle.cs" />
     <Compile Include="Assets\Scripts\Old\ComboPunchController.cs" />
