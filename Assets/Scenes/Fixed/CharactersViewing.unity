@@ -248,7 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: {fileID: 2800000, guid: f4aed94b8fb23c5439148d54096fb7c9, type: 3}
   characterImages:
-  - {fileID: 2800000, guid: ae06b88bc41a19d448c4782d20016693, type: 3}
+  - {fileID: 2800000, guid: 8a60264b5ff73dd4c97c9970a4a01bb8, type: 3}
   - {fileID: 2800000, guid: 77407b97904ecb94d8a05371234af7ff, type: 3}
   - {fileID: 2800000, guid: 7542d3d5f85387447bede68091bd6733, type: 3}
   - {fileID: 2800000, guid: 4eb0a995ec0d7984393a584b70175b20, type: 3}

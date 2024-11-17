@@ -2423,7 +2423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 448668107}
   m_Layer: 6
-  m_Name: Opponent
+  m_Name: Enemy
   m_TagString: Opponent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
