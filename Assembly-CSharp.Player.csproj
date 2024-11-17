@@ -78,7 +78,6 @@
     <Compile Include="Assets\Scripts\Old\selena vs.cs" />
     <Compile Include="Assets\Scripts\Old\MarcusMovement.cs" />
     <Compile Include="Assets\Scripts\Old\ComboKickController.cs" />
-    <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Old\Battleground2.cs" />
     <Compile Include="Assets\Scripts\Old\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Old\FemMovement.cs" />
