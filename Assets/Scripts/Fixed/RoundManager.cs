@@ -6,22 +6,17 @@ using UnityEngine.UI;
 
 public class RoundManager : MonoBehaviour
 {
+    [Header("Scripts Setup")]
     public HealthBar playerHealthBar;         // Player's HealthBar component
     public HealthBar opponentHealthBar;       // Enemy's HealthBar component
-
     public PlayerSystem playerSystem;
     public EnemySystem enemySystem;
 
-    public GameObject roundTextBackground;
-
-    public GameObject playerWonRound1;
-    public GameObject playerWonRound2;
-    public GameObject enemyWonRound1;
-    public GameObject enemyWonRound2;
-
+    [Header("Arena Battlegrounds")]
     public GameObject arena1;
     public GameObject arena2;
 
+    [Header("Player Characters")]
     public GameObject playerCharacter1;
     public GameObject playerCharacter2;
     public GameObject playerCharacter3;
@@ -31,6 +26,7 @@ public class RoundManager : MonoBehaviour
     public GameObject playerCharacter7;
     public GameObject playerCharacter8;
 
+    [Header("Enemy Characters")]
     public GameObject enemyCharacter1;
     public GameObject enemyCharacter2;
     public GameObject enemyCharacter3;
@@ -40,11 +36,20 @@ public class RoundManager : MonoBehaviour
     public GameObject enemyCharacter7;
     public GameObject enemyCharacter8;
 
+    [Header("Round UI Setup")]
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI roundText;
     public TextMeshProUGUI playerNameText;
     public TextMeshProUGUI enemyNameText;
+    public GameObject roundTextBackground;
 
+    [Header("Win UI Setup")]
+    public GameObject playerWonRound1;
+    public GameObject playerWonRound2;
+    public GameObject enemyWonRound1;
+    public GameObject enemyWonRound2;
+
+    [Header("Monitor")]
     public int currentStage = 0;
     public int currentPlayerCharacter = 0;
     public int currentEnemyCharacter = 0;
@@ -80,7 +85,7 @@ public class RoundManager : MonoBehaviour
 
         // *** IMPORTANT *** Round Manager should load the correct light based in the current arena - Remember to do it *** IMPORTANT *** 
 
-        PlayerPrefs.SetInt("playerCharacterSelected", 2); // Select a player character - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("playerCharacterSelected", 5); // Select a player character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("enemyCharacterSelected", 2); // Select an enemy character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("stageSelected", 1); // Select an arena - Just for Debug it will be removed later
 
