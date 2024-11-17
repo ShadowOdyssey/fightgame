@@ -7,78 +7,133 @@ using UnityEngine.UI;
 public class RoundManager : MonoBehaviour
 {
     [Header("Scripts Setup")]
-    public HealthBar playerHealthBar;         // Player's HealthBar component
-    public HealthBar opponentHealthBar;       // Enemy's HealthBar component
+    [Tooltip("Player Health Bar script should be attached here from Player Life Bar object inside UI game object in hierarchy")]
+    public HealthBar playerHealthBar;
+    [Tooltip("Enemy Health Bar script should be attached here from Enemy Life Bar object inside UI game object in hierarchy")]
+    public HealthBar opponentHealthBar;
+    [Tooltip("PlayerSystem will be loaded automatically when scene to start, so attach nothing here!")]
     public PlayerSystem playerSystem;
+    [Tooltip("EnemySystem will be loaded automatically when scene to start, so attach nothing here!")]
     public EnemySystem enemySystem;
 
     [Header("Arena Battlegrounds")]
+    [Tooltip("Attach here Arena 1 object inside Battlegrounds object in hierarchy")]
     public GameObject arena1;
+    [Tooltip("Attach here Arena 2 object inside Battlegrounds object in hierarchy")]
     public GameObject arena2;
+    [Tooltip("Attach here Arena 3 object inside Battlegrounds object in hierarchy")]
     public GameObject arena3;
+    [Tooltip("Attach here Arena 4 object inside Battlegrounds object in hierarchy")]
     public GameObject arena4;
 
     [Header("Player Characters")]
+    [Tooltip("Attach here GabriellaPlayer object inside Player object in hierarchy")]
     public GameObject playerCharacter1;
+    [Tooltip("Attach here MarcusPlayer object inside Player object in hierarchy")]
     public GameObject playerCharacter2;
+    [Tooltip("Attach here SelenaPlayer object inside Player object in hierarchy")]
     public GameObject playerCharacter3;
+    [Tooltip("Attach here BryanPlayer object inside Player object in hierarchy")]
     public GameObject playerCharacter4;
+    [Tooltip("Attach here NunPlayer object inside Player object in hierarchy")]
     public GameObject playerCharacter5;
+    [Tooltip("Attach here OliverPlayer object inside Player object in hierarchy")]
     public GameObject playerCharacter6;
+    [Tooltip("Attach here OrionPlayer object inside Player object in hierarchy")]
     public GameObject playerCharacter7;
+    [Tooltip("Attach here AriaPlayer object inside Player object in hierarchy")]
     public GameObject playerCharacter8;
 
     [Header("Enemy Characters")]
+    [Tooltip("Attach here GabriellaEnemy object inside Enemy object in hierarchy")]
     public GameObject enemyCharacter1;
+    [Tooltip("Attach here MarcusEnemy object inside Enemy object in hierarchy")]
     public GameObject enemyCharacter2;
+    [Tooltip("Attach here SelenaEnemy object inside Enemy object in hierarchy")]
     public GameObject enemyCharacter3;
+    [Tooltip("Attach here BryanEnemy object inside Enemy object in hierarchy")]
     public GameObject enemyCharacter4;
+    [Tooltip("Attach here NunEnemy object inside Enemy object in hierarchy")]
     public GameObject enemyCharacter5;
+    [Tooltip("Attach here OliverEnemy object inside Enemy object in hierarchy")]
     public GameObject enemyCharacter6;
+    [Tooltip("Attach here OrionEnemy object inside Enemy object in hierarchy")]
     public GameObject enemyCharacter7;
+    [Tooltip("Attach here AriaEnemy object inside Enemy object in hierarchy")]
     public GameObject enemyCharacter8;
 
     [Header("Round UI Setup")]
-    public TextMeshProUGUI timerText;
+    [Tooltip("Attach here Actual Time object inside UI object in hierarchy")]
+    public TextMeshProUGUI actualTime;
+    [Tooltip("Attach here Round Text object inside RoundText Background inside UI object in hierarchy")]
     public TextMeshProUGUI roundText;
+    [Tooltip("Attach here Player Name object inside Player Life Bar inside UI object in hierarchy")]
     public TextMeshProUGUI playerNameText;
+    [Tooltip("Attach here Enemy Name object inside Enemy Life Bar inside UI object in hierarchy")]
     public TextMeshProUGUI enemyNameText;
+    [Tooltip("Attach here RoundText Background object inside UI object in hierarchy")]
     public GameObject roundTextBackground;
 
     [Header("Win UI Setup")]
+    [Tooltip("Attach here Round 1 Win Player object inside Player Life Bar inside UI object in hierarchy")]
     public GameObject playerWonRound1;
+    [Tooltip("Attach here Round 2 Win Player object inside Player Life Bar inside UI object in hierarchy")]
     public GameObject playerWonRound2;
+    [Tooltip("Attach here Round 1 Win Enemy object inside Enemy Life Bar inside UI object in hierarchy")]
     public GameObject enemyWonRound1;
+    [Tooltip("Attach here Round 2 Win Enemy object inside Enemy Life Bar inside UI object in hierarchy")]
     public GameObject enemyWonRound2;
 
-    [Header("Monitor")]
+    [Header("Round Setup")]
+    [Tooltip("3 minutes time for each round is the standard value, change it to a desired time per round")]
+    public int roundTime = 180;
+    [Tooltip("Setup the quantity of damage round will deal on Player per second")]
+    private readonly int playerDamagePerSecond = 2;
+    [Tooltip("Setup the quantity of damage round will deal on Enemy per second")]
+    private readonly int opponentDamagePerSecond = 1;
+
+    [Header("Monitor - Dont change values")]
+    [Tooltip("Current Stage loaded in the selection")]
     public int currentStage = 0;
+    [Tooltip("Current Player character loaded in the selection")]
     public int currentPlayerCharacter = 0;
+    [Tooltip("Current Enemy character loaded in the selection")]
     public int currentEnemyCharacter = 0;
+    [Tooltip("Current round player is playing")]
     public int currentRound = 1;
+    [Tooltip("Current combo hit sequence Player is doing")]
     public int playerTotalCombo = 0;
+    [Tooltip("Current combo hit sequence Enemy is doing")]
     public int enemyTotalCombo = 0;
-    public int roundTime = 180;  // 3-minute timer for each round
+    [Tooltip("Trigger to check if round started or not")]
     public bool roundStarted = false;
+    [Tooltip("Trigger to check if round finished or not")]
     public bool roundOver = false;
+    [Tooltip("Trigger to check who won the round")]
     public bool wasDetermined = false;
+    [Tooltip("Trigger to check if Player is doing a combo or not")]
     public bool isPlayerCombo = false;
+    [Tooltip("Trigger to check if Enemy is doing a combo or not")]
     public bool isEnemyCombo = false;
-
+    [Tooltip("Max health allowed to Player and Enemy")]
     private readonly int maxHealth = 100;
-    private readonly int playerDamagePerSecond = 2; // Example damage per second for player
-    private readonly int opponentDamagePerSecond = 1; // Example damage per second for opponent
-    private readonly float damageInterval = 1f; // How often to deal damage
-
-    private int combatStage = 0;
+    [Tooltip("Round will check how many rounds has Player won")]
     private int timesPlayerWon = 0;
+    [Tooltip("Round will check how many rounds has Enemy won")]
     private int timesEnemyWon = 0;
+    [Tooltip("Current health of Player")]
     private int playerHealth = 0;
+    [Tooltip("Current health of Enemy")]
     private int opponentHealth = 0;
+    [Tooltip("Current combo timer for Player. When it reachs zero deactivate Player combo")]
     private float playerComboTime = 0f;
+    [Tooltip("Current combo timer for Enemy. When it reachs zero deactivate Enemy combo")]
     private float enemyComboTime = 0f;
+    [Tooltip("Time counter for round mechanics to work")]
     private float decreaseTime = 0f;
+    [Tooltip("When enabled so Multiplayer system will be loaded in the scene, if disabled so load Singleplay system in the scene")]
     private bool isMultiplayer = false;
+    [Tooltip("Trigger to start events and round mechanics in the current round")]
     private bool canDecrease = false;
 
     private void Awake()
@@ -89,7 +144,7 @@ public class RoundManager : MonoBehaviour
 
         PlayerPrefs.SetInt("playerCharacterSelected", 1); // Select a player character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("enemyCharacterSelected", 2); // Select an enemy character - Just for Debug it will be removed later
-        PlayerPrefs.SetInt("stageSelected", 2); // Select an arena - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("stageSelected", 1); // Select an arena - Just for Debug it will be removed later
 
 
         if (PlayerPrefs.GetInt("playerCharacterSelected") != 0)
@@ -196,7 +251,7 @@ public class RoundManager : MonoBehaviour
         {
             //Debug.Log("Round started, show current round");
             DrawRoundText("ROUND " + currentRound);
-            timerText.text = roundTime.ToString();
+            actualTime.text = roundTime.ToString();
             roundStarted = true;
             roundOver = true;
             wasDetermined = false;
@@ -212,7 +267,7 @@ public class RoundManager : MonoBehaviour
             if (decreaseTime > 1f && roundTime > 0)
             {
                 roundTime = roundTime - 1;
-                timerText.text = roundTime.ToString();
+                actualTime.text = roundTime.ToString();
                 ApplyDamageToOpponent(opponentDamagePerSecond);
                 ApplyDamageToPlayer(playerDamagePerSecond);
                 decreaseTime = 0f;
