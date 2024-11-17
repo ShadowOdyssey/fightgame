@@ -67,8 +67,8 @@
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Runtime\VisualScripting.Flow\Framework\Logic\NotEqual.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Runtime\VisualScripting.Flow\Framework\Events\Input\InputSystem\OnInputSystemEvent.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Runtime\VisualScripting.Flow\Framework\Events\Lifecycle\Update.cs" />
-    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Runtime\VisualScripting.Flow\UnitCategoryConverter.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Runtime\VisualScripting.Flow\Ports\IUnitValuePort.cs" />
+    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Runtime\VisualScripting.Flow\UnitCategoryConverter.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Runtime\VisualScripting.Flow\Framework\Events\Input\OnMouseDown.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Runtime\VisualScripting.Flow\Framework\Events\CustomEvent.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Runtime\VisualScripting.Flow\Framework\Events\Animation\BoltNamedAnimationEvent.cs" />
