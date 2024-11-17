@@ -11,9 +11,9 @@ public class RoundManager : MonoBehaviour
     public HealthBar playerHealthBar;
     [Tooltip("Enemy Health Bar script should be attached here from Enemy Life Bar object inside UI game object in hierarchy")]
     public HealthBar opponentHealthBar;
-    [Tooltip("PlayerSystem will be loaded automatically when scene to start, so attach nothing here!")]
+    [Tooltip("PlayerSystem will be loaded automatically when scene to start, so attach nothing here! Make sure characters and arenas area all disabled!")]
     public PlayerSystem playerSystem;
-    [Tooltip("EnemySystem will be loaded automatically when scene to start, so attach nothing here!")]
+    [Tooltip("EnemySystem will be loaded automatically when scene to start, so attach nothing here! Make sure characters and arenas area all disabled!")]
     public EnemySystem enemySystem;
 
     [Header("Arena Battlegrounds")]
@@ -88,9 +88,9 @@ public class RoundManager : MonoBehaviour
     [Tooltip("3 minutes time for each round is the standard value, change it to a desired time per round")]
     public int roundTime = 180;
     [Tooltip("Setup the quantity of damage round will deal on Player per second")]
-    private readonly int playerDamagePerSecond = 2;
+    public int playerDamagePerSecond = 2;
     [Tooltip("Setup the quantity of damage round will deal on Enemy per second")]
-    private readonly int opponentDamagePerSecond = 1;
+    public int opponentDamagePerSecond = 1;
 
     [Header("Monitor - Dont change values")]
     [Tooltip("Current Stage loaded in the selection")]
