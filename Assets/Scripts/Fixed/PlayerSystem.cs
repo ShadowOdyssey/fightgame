@@ -637,7 +637,8 @@ public class PlayerSystem : MonoBehaviour
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
             //Debug.Log("Player activated Attack 1");
-
+            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter);
+            // roundSystem.audioSystem.PlayAttack1(1, roundSyste.currentPlayerCharacter);
             AnimIsAttack1();
         }
     }
@@ -647,7 +648,8 @@ public class PlayerSystem : MonoBehaviour
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
             //Debug.Log("Player activated Attack 2");
-
+            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter);
+            // roundSystem.audioSystem.PlayAttack2(1, roundSyste.currentPlayerCharacter);
             AnimIsAttack2();
         }
     }
@@ -657,7 +659,8 @@ public class PlayerSystem : MonoBehaviour
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
             //Debug.Log("Player activated Attack 3");
-
+            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter);
+            // roundSystem.audioSystem.PlayAttack3(1, roundSyste.currentPlayerCharacter);
             AnimIsAttack3();
         }
     }
@@ -727,6 +730,8 @@ public class PlayerSystem : MonoBehaviour
             cameraSystem.ResetCamera();
             gameObject.transform.position = initialPosition; // Move Player to start position because a new round started
         }
+
+        roundSystem.audioSystem.PlayIntro(1, roundSystem.currentPlayerCharacter);
 
         playerAnimator.Play("isIntro"); // Play Intro animation because a new round started
     }

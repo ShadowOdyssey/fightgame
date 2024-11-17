@@ -745,6 +745,8 @@ public class EnemySystem : MonoBehaviour
             gameObject.transform.position = initialPosition; // Move Enemy to initial position because a new round started
         }
 
+        roundSystem.audioSystem.PlayIntro(2, roundSystem.currentEnemyCharacter);
+
         enemyAnimator.Play("isIntro"); // Call directly Intro animation and it goes automatically to Idle animation when Intro animation to finish
     }
 

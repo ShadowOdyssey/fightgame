@@ -5,6 +5,8 @@ using TMPro;
 public class RoundManager : MonoBehaviour
 {
     [Header("Scripts Setup")]
+    [Tooltip("Audio System script should be attached here from Audio System game object in hierarchy")]
+    public AudioSystem audioSystem;
     [Tooltip("Player Health Bar script should be attached here from Player Life Bar object inside UI game object in hierarchy")]
     public HealthBar playerHealthBar;
     [Tooltip("Enemy Health Bar script should be attached here from Enemy Life Bar object inside UI game object in hierarchy")]
@@ -173,9 +175,9 @@ public class RoundManager : MonoBehaviour
         StopAllCoroutines(); // Stop all coroutines from old scenes
 
         // DEBUG ONLY - WILL BE REMOVED LATER
-        PlayerPrefs.SetInt("playerCharacterSelected", 6); // Select a player character - Just for Debug it will be removed later
-        PlayerPrefs.SetInt("enemyCharacterSelected", 6); // Select an enemy character - Just for Debug it will be removed later
-        PlayerPrefs.SetInt("stageSelected", 4); // Select an arena - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("playerCharacterSelected", 1); // Select a player character - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("enemyCharacterSelected", 2); // Select an enemy character - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("stageSelected", 1); // Select an arena - Just for Debug it will be removed later
 
 
         if (PlayerPrefs.GetInt("playerCharacterSelected") != 0)
@@ -229,10 +231,10 @@ public class RoundManager : MonoBehaviour
 
         switch (currentStage) // Loading stage
         {
-            case 1: arena1.SetActive(true); sceneLight.color = arena1Color; break;
-            case 2: arena2.SetActive(true); sceneLight.color = arena2Color; break;
-            case 3: arena3.SetActive(true); sceneLight.color = arena3Color; break;
-            case 4: arena4.SetActive(true); sceneLight.color = arena4Color; break;
+            case 1: arena1.SetActive(true); sceneLight.color = arena1Color; audioSystem.PlayMusic(2); break;
+            case 2: arena2.SetActive(true); sceneLight.color = arena2Color; audioSystem.PlayMusic(3); break;
+            case 3: arena3.SetActive(true); sceneLight.color = arena3Color; audioSystem.PlayMusic(4); break;
+            case 4: arena4.SetActive(true); sceneLight.color = arena4Color; audioSystem.PlayMusic(5); break;
         }
 
         switch (currentPlayerCharacter) // Loading Player character
