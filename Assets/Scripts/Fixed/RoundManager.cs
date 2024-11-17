@@ -1,8 +1,6 @@
-using System.Collections;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class RoundManager : MonoBehaviour
 {
@@ -73,6 +71,28 @@ public class RoundManager : MonoBehaviour
     public TextMeshProUGUI enemyNameText;
     [Tooltip("Attach here RoundText Background object inside UI object in hierarchy")]
     public GameObject roundTextBackground;
+
+    [Header("Profile UI Setup")]
+    [Tooltip("Attach here Player Profile object inside Player Life Bar inside UI object in hierarchy")]
+    public Image playerProfile;
+    [Tooltip("Attach here Enemy Profile object inside Enemy Life Bar inside UI object in hierarchy")]
+    public Image enemyProfile;
+    [Tooltip("Attach here Gabriella´s Profile 1 Image inside Background inside UI object in hierarchy")]
+    public Image imageProfile1;
+    [Tooltip("Attach here Marcus´s Profile 2 Image inside Background inside UI object in hierarchy")]
+    public Image imageProfile2;
+    [Tooltip("Attach here Selena´s Profile 3 Image inside Background inside UI object in hierarchy")]
+    public Image imageProfile3;
+    [Tooltip("Attach here Bryan´s Profile 4 Image inside Background inside UI object in hierarchy")]
+    public Image imageProfile4;
+    [Tooltip("Attach here Nun´s Profile 5 Image inside Background inside UI object in hierarchy")]
+    public Image imageProfile5;
+    [Tooltip("Attach here Oliver´s Profile 6 Image inside Background inside UI object in hierarchy")]
+    public Image imageProfile6;
+    [Tooltip("Attach here Orion´s Profile 7 Image inside Background inside UI object in hierarchy")]
+    public Image imageProfile7;
+    [Tooltip("Attach here Aria´s Profile 8 Image inside Background inside UI object in hierarchy")]
+    public Image imageProfile8;
 
     [Header("Win UI Setup")]
     [Tooltip("Attach here Round 1 Win Player object inside Player Life Bar inside UI object in hierarchy")]
@@ -153,7 +173,7 @@ public class RoundManager : MonoBehaviour
         StopAllCoroutines(); // Stop all coroutines from old scenes
 
         // DEBUG ONLY - WILL BE REMOVED LATER
-        PlayerPrefs.SetInt("playerCharacterSelected", 1); // Select a player character - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("playerCharacterSelected", 2); // Select a player character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("enemyCharacterSelected", 2); // Select an enemy character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("stageSelected", 1); // Select an arena - Just for Debug it will be removed later
 
@@ -217,26 +237,26 @@ public class RoundManager : MonoBehaviour
 
         switch (currentPlayerCharacter) // Loading Player character
         {
-            case 1: playerCharacter1.SetActive(true); playerSystem = GameObject.Find("GabriellaPlayer").GetComponent<PlayerSystem>(); break;
-            case 2: playerCharacter2.SetActive(true); playerSystem = GameObject.Find("MarcusPlayer").GetComponent<PlayerSystem>(); break;
-            case 3: playerCharacter3.SetActive(true); playerSystem = GameObject.Find("SelenaPlayer").GetComponent<PlayerSystem>(); break;
-            case 4: playerCharacter4.SetActive(true); playerSystem = GameObject.Find("BryanPlayer").GetComponent<PlayerSystem>(); break;
-            case 5: playerCharacter5.SetActive(true); playerSystem = GameObject.Find("NunPlayer").GetComponent<PlayerSystem>(); break;
-            case 6: playerCharacter6.SetActive(true); playerSystem = GameObject.Find("OliverPlayer").GetComponent<PlayerSystem>(); break;
-            case 7: playerCharacter7.SetActive(true); playerSystem = GameObject.Find("OrionPlayer").GetComponent<PlayerSystem>(); break;
-            case 8: playerCharacter8.SetActive(true); playerSystem = GameObject.Find("AriaPlayer").GetComponent<PlayerSystem>(); break;
+            case 1: playerCharacter1.SetActive(true); playerSystem = GameObject.Find("GabriellaPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile1.sprite; break;
+            case 2: playerCharacter2.SetActive(true); playerSystem = GameObject.Find("MarcusPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile2.sprite; break;
+            case 3: playerCharacter3.SetActive(true); playerSystem = GameObject.Find("SelenaPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile3.sprite; break;
+            case 4: playerCharacter4.SetActive(true); playerSystem = GameObject.Find("BryanPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile4.sprite; break;
+            case 5: playerCharacter5.SetActive(true); playerSystem = GameObject.Find("NunPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile5.sprite; break;
+            case 6: playerCharacter6.SetActive(true); playerSystem = GameObject.Find("OliverPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile6.sprite; break;
+            case 7: playerCharacter7.SetActive(true); playerSystem = GameObject.Find("OrionPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile7.sprite; break;
+            case 8: playerCharacter8.SetActive(true); playerSystem = GameObject.Find("AriaPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile8.sprite; break;
         }
 
         switch (currentEnemyCharacter) // Loading Enemy character
         {
-            case 1: enemyCharacter1.SetActive(true); enemySystem = GameObject.Find("GabriellaEnemy").GetComponent<EnemySystem>(); break;
-            case 2: enemyCharacter2.SetActive(true); enemySystem = GameObject.Find("MarcusEnemy").GetComponent<EnemySystem>(); break;
-            case 3: enemyCharacter3.SetActive(true); enemySystem = GameObject.Find("SelenaEnemy").GetComponent<EnemySystem>(); break;
-            case 4: enemyCharacter4.SetActive(true); enemySystem = GameObject.Find("BryanEnemy").GetComponent<EnemySystem>(); break;
-            case 5: enemyCharacter5.SetActive(true); enemySystem = GameObject.Find("NunEnemy").GetComponent<EnemySystem>(); break;
-            case 6: enemyCharacter6.SetActive(true); enemySystem = GameObject.Find("OliverEnemy").GetComponent<EnemySystem>(); break;
-            case 7: enemyCharacter7.SetActive(true); enemySystem = GameObject.Find("OrionEnemy").GetComponent<EnemySystem>(); break;
-            case 8: enemyCharacter8.SetActive(true); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); break;
+            case 1: enemyCharacter1.SetActive(true); enemySystem = GameObject.Find("GabriellaEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile1.sprite; break;
+            case 2: enemyCharacter2.SetActive(true); enemySystem = GameObject.Find("MarcusEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile2.sprite; break;
+            case 3: enemyCharacter3.SetActive(true); enemySystem = GameObject.Find("SelenaEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile3.sprite; break;
+            case 4: enemyCharacter4.SetActive(true); enemySystem = GameObject.Find("BryanEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile4.sprite; break;
+            case 5: enemyCharacter5.SetActive(true); enemySystem = GameObject.Find("NunEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile5.sprite; break;
+            case 6: enemyCharacter6.SetActive(true); enemySystem = GameObject.Find("OliverEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile6.sprite; break;
+            case 7: enemyCharacter7.SetActive(true); enemySystem = GameObject.Find("OrionEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile7.sprite; break;
+            case 8: enemyCharacter8.SetActive(true); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile8.sprite; break;
         }
 
         if (PlayerPrefs.GetString("playerName") != "") // Load player name to show in the screen
