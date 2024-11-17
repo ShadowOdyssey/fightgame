@@ -92,6 +92,18 @@ public class RoundManager : MonoBehaviour
     [Tooltip("Setup the quantity of damage round will deal on Enemy per second")]
     public int opponentDamagePerSecond = 1;
 
+    [Header("Round Setup")]
+    [Tooltip("Attach here Directional Light in hiearchy")]
+    public Light sceneLight;
+    [Tooltip("Choice a color to use in Light when Arena 1 to be loaded")]
+    public Color arena1Color;
+    [Tooltip("Choice a color to use in Light when Arena 2 to be loaded")]
+    public Color arena2Color;
+    [Tooltip("Choice a color to use in Light when Arena 3 to be loaded")]
+    public Color arena3Color;
+    [Tooltip("Choice a color to use in Light when Arena 4 to be loaded")]
+    public Color arena4Color;
+
     [Header("Monitor - Dont change values")]
     [Tooltip("Current Stage loaded in the selection")]
     public int currentStage = 0;
