@@ -51,6 +51,8 @@ public class EnemySystem : MonoBehaviour
     private float attackCooldown2 = 9f;
     [Tooltip("Attack Cooldown 3 determines the cooldown when Attack 3 was used")]
     private float attackCooldown3 = 15f;
+    [Tooltip("Check if Enemy applied damage in a certain ammount of time, if Player not to be inside range when time is over so Enemy dont dealed damage to Player")]
+    private float damageTime = 0f;
     [Tooltip("Enabled when rounds starts, it will be triggered automatically")]
     private bool introAnimated = false;
     [Tooltip("Move Success Random determines if AI decided to change movement when enabled and the action is based in enemy difficulty level")]
@@ -345,10 +347,22 @@ public class EnemySystem : MonoBehaviour
 
         #region Check if Enemy dealed damage to player
 
-        if (checkDamage == true && distanceToTarget < attackRange) // Only apply damage if player is really inside attack area
+        if (checkDamage == true)
         {
-            checkDamage = false;
-            playerSystem.TakeHit(15);
+            damageTime = damageTime + Time.deltaTime;
+
+            if (distanceToTarget <= attackRange && damageTime > 0f)
+            {
+                checkDamage = false;
+                damageTime = 0f;
+                playerSystem.TakeHit(20);
+            }
+
+            if (damageTime > 0.2f)
+            {
+                checkDamage = false;
+                damageTime = 0f;
+            }
         }
 
         #endregion

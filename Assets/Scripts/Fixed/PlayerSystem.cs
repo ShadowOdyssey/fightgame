@@ -179,14 +179,14 @@ public class PlayerSystem : MonoBehaviour
         {
             damageTime = damageTime + Time.deltaTime;
 
-            if (enemySystem.distanceToTarget <= attackRange && damageTime >= 0f)
+            if (enemySystem.distanceToTarget <= attackRange && damageTime > 0f)
             {
                 checkDamage = false;
-                enemySystem.TakeDamage(20);
                 damageTime = 0f;
+                enemySystem.TakeDamage(20);
             }
 
-            if (damageTime > 0.5f)
+            if (damageTime > 0.2f)
             {
                 checkDamage = false;
                 damageTime = 0f;
