@@ -15,6 +15,8 @@ public class RoundManager : MonoBehaviour
     [Header("Arena Battlegrounds")]
     public GameObject arena1;
     public GameObject arena2;
+    public GameObject arena3;
+    public GameObject arena4;
 
     [Header("Player Characters")]
     public GameObject playerCharacter1;
@@ -85,9 +87,9 @@ public class RoundManager : MonoBehaviour
 
         // *** IMPORTANT *** Round Manager should load the correct light based in the current arena - Remember to do it *** IMPORTANT *** 
 
-        PlayerPrefs.SetInt("playerCharacterSelected", 5); // Select a player character - Just for Debug it will be removed later
-        PlayerPrefs.SetInt("enemyCharacterSelected", 5); // Select an enemy character - Just for Debug it will be removed later
-        PlayerPrefs.SetInt("stageSelected", 1); // Select an arena - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("playerCharacterSelected", 1); // Select a player character - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("enemyCharacterSelected", 2); // Select an enemy character - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("stageSelected", 2); // Select an arena - Just for Debug it will be removed later
 
 
         if (PlayerPrefs.GetInt("playerCharacterSelected") != 0)
@@ -143,6 +145,8 @@ public class RoundManager : MonoBehaviour
         {
             case 1: arena1.SetActive(true); break;
             case 2: arena2.SetActive(true); break;
+            case 3: arena3.SetActive(true); break;
+            case 4: arena4.SetActive(true); break;
         }
 
         switch (currentPlayerCharacter) // Loading Player character
