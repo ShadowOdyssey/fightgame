@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections; // Add this line to resolve the IEnumerator error
+using System.Collections;
 
 public class SelectionCharacter : MonoBehaviour
 {
     public Texture2D background;
     public Texture2D[] characterImages;
-    public AudioClip introClip;
+    public AudioClip[] heroIntroClips; // Array for hero-specific intro sounds
     public Texture2D lockIcon;
 
     // New textures for the panel display
@@ -23,7 +23,7 @@ public class SelectionCharacter : MonoBehaviour
 
     private int currentIndex = 0;
     private AudioSource audioSource;
-    private bool hasPlayedIntro = false;
+    private int lastPlayedIndex = -1; // To track which hero's intro was last played
 
     // Locking mechanism
     private readonly bool[] isUnlocked = { true, false, false, false, false, false, false, false }; // Only Gabriella is unlocked by default
@@ -37,49 +37,71 @@ public class SelectionCharacter : MonoBehaviour
     private int currentCountdown;
     private Coroutine countdownCoroutine; // Store the reference to the countdown coroutine
 
-
     private void Start()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = introClip;
-        PlayIntroSound();
+        PlayHeroIntro(); // Play the first character's intro at start
     }
 
     void OnGUI()
+{
+    if (background != null)
     {
-        if (background != null)
-        {
-            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), background, ScaleMode.StretchToFill);
-        }
-
-        DrawBackButton();
-        DrawCharacter();
-        DrawHeroDetails();
-        DrawNavigationButtons();
-        DrawActionButtons();
-
-        if (showLockedMessage)
-        {
-            DrawLockedMessage();
-        }
-
-        if (showVsPanel)
-        {
-            DrawVsPanel();
-            DrawCountdown();
-        }
+        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), background, ScaleMode.StretchToFill);
     }
+
+    DrawSelectHeroText(); // Call the function to display the "Select a Hero" text
+    DrawBackButton();
+    DrawCharacter();
+    DrawHeroDetails();
+    DrawNavigationButtons();
+    DrawActionButtons();
+
+    if (showLockedMessage)
+    {
+        DrawLockedMessage();
+    }
+
+    if (showVsPanel)
+    {
+        DrawVsPanel();
+        DrawCountdown();
+    }
+}
+
+void DrawSelectHeroText()
+{
+    float textWidth = 600f;
+    float textHeight = 150f;
+    float textX = (Screen.width - textWidth) / 2;  // Centers the text horizontally
+    float textY = 50f;  // Positions the text near the top
+
+    GUIStyle selectHeroStyle = new GUIStyle(GUI.skin.label)
+    {
+        fontSize = 60, // Increased the font size for better visibility
+        fontStyle = FontStyle.Bold,
+        normal = { textColor = Color.white },
+        alignment = TextAnchor.MiddleCenter, // Centers the text horizontally
+    };
+
+    // Adding a text shadow effect for better contrast and readability
+    selectHeroStyle.normal.textColor = Color.white;
+    GUI.Label(new Rect(textX + 5, textY + 5, textWidth, textHeight), "Select a Hero", selectHeroStyle); // Shadow
+    selectHeroStyle.normal.textColor = Color.green;
+    GUI.Label(new Rect(textX, textY, textWidth, textHeight), "Select a Hero", selectHeroStyle); // Main text
+}
+
 
     void DrawBackButton()
     {
-        float buttonWidth = 120f; // Increased width
-        float buttonHeight = 50f; // Increased height
+        float buttonWidth = 120f;
+        float buttonHeight = 50f;
         float buttonX = 20f;
         float buttonY = 20f;
 
         GUIStyle backButtonStyle = new GUIStyle(GUI.skin.button)
         {
-            fontSize = 28, // Increased font size
+            fontSize = 28,
             normal = { textColor = Color.white, background = MakeTexture(1, 1, Color.black) }
         };
 
@@ -93,8 +115,8 @@ public class SelectionCharacter : MonoBehaviour
     {
         if (characterImages.Length > 0)
         {
-            float charWidth = Screen.width * 0.5f; // Increased width
-            float charHeight = Screen.height * 0.75f; // Increased height
+            float charWidth = Screen.width * 0.5f;
+            float charHeight = Screen.height * 0.75f;
             float charX = (Screen.width - charWidth) / 2;
             float charY = (Screen.height - charHeight) / 2 - 50;
 
@@ -102,7 +124,7 @@ public class SelectionCharacter : MonoBehaviour
 
             if (!isUnlocked[currentIndex] && lockIcon != null)
             {
-                float lockIconSize = 100f; // Increased lock icon size
+                float lockIconSize = 100f;
                 GUI.DrawTexture(new Rect(charX + (charWidth / 2) - (lockIconSize / 2), charY + (charHeight / 2) - (lockIconSize / 2), lockIconSize, lockIconSize), lockIcon, ScaleMode.ScaleToFit);
             }
         }
@@ -110,13 +132,13 @@ public class SelectionCharacter : MonoBehaviour
 
     void DrawHeroDetails()
     {
-        float panelX = Screen.width * 0.1f; // Increased margin
-        float panelY = Screen.height * 0.25f; // Adjusted panel position
-        float labelWidth = 600f; // Increased label width
-        float labelHeight = 100f; // Increased label height
+        float panelX = Screen.width * 0.1f;
+        float panelY = Screen.height * 0.25f;
+        float labelWidth = 600f;
+        float labelHeight = 100f;
 
-        float totalStatsHeight = CalculateStatsHeight() + 200; // Adjusted height for spacing
-        float totalStatsWidth = CalculateStatsWidth() + 120; // Adjusted width for spacing
+        float totalStatsHeight = CalculateStatsHeight() + 200;
+        float totalStatsWidth = CalculateStatsWidth() + 120;
 
         GUIStyle blackBackgroundStyle = new GUIStyle(GUI.skin.box)
         {
@@ -126,7 +148,7 @@ public class SelectionCharacter : MonoBehaviour
 
         GUIStyle nameStyle = new GUIStyle(GUI.skin.label)
         {
-            fontSize = 50, // Increased font size
+            fontSize = 50,
             fontStyle = FontStyle.Bold,
             normal = { textColor = Color.white }
         };
@@ -134,20 +156,20 @@ public class SelectionCharacter : MonoBehaviour
 
         if (isUnlocked[currentIndex])
         {
-            DrawStatBars(panelX, panelY + 70); // Adjusted for spacing
+            DrawStatBars(panelX, panelY + 70);
         }
     }
 
     void DrawNavigationButtons()
     {
-        float buttonSize = 80f; // Increased button size
+        float buttonSize = 80f;
         float panelWidth = Screen.width * 0.35f;
         float panelX = (Screen.width - panelWidth) / 2;
         float panelY = (Screen.height - (Screen.height * 0.5f)) / 2;
 
         GUIStyle navigationButtonStyle = new GUIStyle(GUI.skin.button)
         {
-            fontSize = 40, // Increased font size
+            fontSize = 40,
             normal = { textColor = Color.white, background = MakeTexture(1, 1, Color.black) }
         };
 
@@ -164,14 +186,14 @@ public class SelectionCharacter : MonoBehaviour
 
     void DrawActionButtons()
     {
-        float buttonWidth = 250f; // Increased button width
-        float buttonHeight = 60f; // Increased button height
+        float buttonWidth = 250f;
+        float buttonHeight = 60f;
         float buttonX = (Screen.width - buttonWidth) / 2;
         float buttonY = Screen.height - buttonHeight - 30;
 
         GUIStyle selectButtonStyle = new GUIStyle(GUI.skin.button)
         {
-            fontSize = 50, // Increased font size for the select button
+            fontSize = 50,
             normal = { textColor = Color.white, background = MakeTexture(1, 1, Color.black) }
         };
 
@@ -192,8 +214,8 @@ public class SelectionCharacter : MonoBehaviour
             }
             else
             {
-                showLockedMessage = true; // Show the lock message
-                lockedMessageTimer = 3f; // Set timer to 3 seconds
+                showLockedMessage = true;
+                lockedMessageTimer = 3f;
             }
         }
     }
@@ -201,202 +223,172 @@ public class SelectionCharacter : MonoBehaviour
     void ShowVsPanel()
     {
         showVsPanel = true;
-        currentCountdown = countdownDuration; // Initialize countdown
+        currentCountdown = countdownDuration;
         StartCoroutine(CountdownAndLoadScene());
     }
 
-    // Coroutine for countdown and scene load
-    
-
     IEnumerator CountdownAndLoadScene()
-   {
-       while (currentCountdown > 0)
-      {
-          yield return new WaitForSeconds(1f);
-         currentCountdown--;
-      }
-
-       if (showVsPanel) // Only load the scene if the VS panel is still active
-      {
-
-        StopAllCoroutines();
-        SceneManager.LoadScene("FightScene");
-      }
-    }
-
-
-   
-    void DrawVsPanel()
-{
-    float panelWidth = 2100f; // Increased panel width
-    float panelHeight = 1200f; // Increased panel height
-    float panelX = (Screen.width - panelWidth) / 2;
-    float panelY = (Screen.height - panelHeight) / 2;
-
-    GUIStyle blackBackgroundStyle = new GUIStyle(GUI.skin.box)
     {
-        normal = { background = MakeTexture(1, 1, new Color(0, 0, 0, 0.8f)) }
-    };
-    GUI.Box(new Rect(panelX, panelY, panelWidth, panelHeight), GUIContent.none, blackBackgroundStyle);
-
-    float characterTextureWidth = 1000f; // Width for character textures
-    float characterTextureHeight = 1000f; // Height for character textures
-
-    float vsIconWidth = 600f; // Adjusted width for VS icon
-    float vsIconHeight = 600f; // Adjusted height for VS icon
-
-    float gabriellaX = panelX + 50f;
-    float iconX = panelX + (panelWidth / 2) - (vsIconWidth / 2);
-    float marcusX = panelX + panelWidth - characterTextureWidth - 50f;
-
-    GUI.DrawTexture(new Rect(gabriellaX, panelY + (panelHeight - characterTextureHeight) / 2, characterTextureWidth, characterTextureHeight), gabriellaTexture, ScaleMode.ScaleToFit);
-    GUI.DrawTexture(new Rect(iconX, panelY + (panelHeight - vsIconHeight) / 2, vsIconWidth, vsIconHeight), vsIcon, ScaleMode.ScaleToFit);
-    GUI.DrawTexture(new Rect(marcusX, panelY + (panelHeight - characterTextureHeight) / 2, characterTextureWidth, characterTextureHeight), marcusTexture, ScaleMode.ScaleToFit);
-
-    DrawCancelButton(panelX, panelY, panelWidth); // Pass panelWidth as an argument
-}
-
-void DrawCancelButton(float panelX, float panelY, float panelWidth)
-{
-    float buttonSize = 80f; // Size of the cancel button
-    float buttonX = panelX + panelWidth - buttonSize - 20f; // Position to the top right of the panel
-    float buttonY = panelY + 20f; // Position from the top of the panel
-
-    GUIStyle cancelButtonStyle = new GUIStyle(GUI.skin.button)
-    {
-        fontSize = 32, // Font size for the button
-        normal = { textColor = Color.white, background = MakeTexture(1, 1, Color.red) } // Red background for visibility
-    };
-
-    if (GUI.Button(new Rect(buttonX, buttonY, buttonSize, buttonSize), "X", cancelButtonStyle))
-    {
-        CancelSelection(); // Call the method to handle the cancel action
-    }
-}
-
-
-
-    void CancelSelection()
-    {
-      if (countdownCoroutine != null)
-     {
-        StopCoroutine(countdownCoroutine); // Stop the countdown coroutine
-        countdownCoroutine = null;
-     }
-       showVsPanel = false; // Close the VS panel
-    }
-
-
-
-
-    void DrawCountdown()
-    {
-        float countdownWidth = 150f;
-        float countdownHeight = 100f;
-        float countdownX = (Screen.width - countdownWidth) / 2;
-        float countdownY = Screen.height * 0.85f;
-
-        GUIStyle countdownStyle = new GUIStyle(GUI.skin.label)
+        while (currentCountdown > 0)
         {
-            fontSize = 100, // Large font size for countdown
-            fontStyle = FontStyle.Bold,
-            alignment = TextAnchor.MiddleCenter,
-            normal = { textColor = Color.white }
-        };
-        GUI.Label(new Rect(countdownX, countdownY, countdownWidth, countdownHeight), currentCountdown.ToString(), countdownStyle);
-    }
+            yield return new WaitForSeconds(1f);
+            currentCountdown--;
+        }
 
-    void PlayIntroSound()
-    {
-        if (!hasPlayedIntro)
+        if (showVsPanel)
         {
-            audioSource.Play();
-            hasPlayedIntro = true;
+            SceneManager.LoadScene("FightScene");
         }
     }
 
-    void ShowPreviousCharacter()
+    void DrawVsPanel()
     {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : characterImages.Length - 1;
+        float panelWidth = 2100f;
+        float panelHeight = 1200f;
+        float panelX = (Screen.width - panelWidth) / 2;
+        float panelY = (Screen.height - panelHeight) / 2;
+
+        GUIStyle blackBackgroundStyle = new GUIStyle(GUI.skin.box)
+        {
+            normal = { background = MakeTexture(1, 1, new Color(0, 0, 0, 0.8f)) }
+        };
+        GUI.Box(new Rect(panelX, panelY, panelWidth, panelHeight), GUIContent.none, blackBackgroundStyle);
+
+        float characterTextureWidth = 1000f;
+        float characterTextureHeight = 1000f;
+
+        float vsIconWidth = 600f;
+        float vsIconHeight = 600f;
+
+        float gabriellaX = panelX + 50f;
+        float iconX = panelX + (panelWidth / 2) - (vsIconWidth / 2);
+        float marcusX = panelX + panelWidth - characterTextureWidth - 50f;
+
+        GUI.DrawTexture(new Rect(gabriellaX, panelY + (panelHeight / 2) - (characterTextureHeight / 2), characterTextureWidth, characterTextureHeight), gabriellaTexture, ScaleMode.ScaleToFit);
+        GUI.DrawTexture(new Rect(iconX, panelY + (panelHeight / 2) - (vsIconHeight / 2), vsIconWidth, vsIconHeight), vsIcon, ScaleMode.ScaleToFit);
+        GUI.DrawTexture(new Rect(marcusX, panelY + (panelHeight / 2) - (characterTextureHeight / 2), characterTextureWidth, characterTextureHeight), marcusTexture, ScaleMode.ScaleToFit);
+    }
+
+    void DrawCountdown()
+    {
+        float labelWidth = 400f;
+        float labelHeight = 200f;
+        float labelX = (Screen.width - labelWidth) / 2;
+        float labelY = Screen.height - labelHeight - 50;
+
+        GUIStyle countdownStyle = new GUIStyle(GUI.skin.label)
+        {
+            fontSize = 100,
+            fontStyle = FontStyle.Bold,
+            normal = { textColor = Color.white }
+        };
+
+        GUI.Label(new Rect(labelX, labelY, labelWidth, labelHeight), currentCountdown.ToString(), countdownStyle);
     }
 
     void ShowNextCharacter()
     {
         currentIndex = (currentIndex + 1) % characterImages.Length;
+        PlayHeroIntro();
     }
 
-    Texture2D MakeTexture(int width, int height, Color col)
+    void ShowPreviousCharacter()
     {
-        Color[] pix = new Color[width * height];
-        for (int i = 0; i < pix.Length; i++)
-            pix[i] = col;
-        Texture2D result = new Texture2D(width, height);
-        result.SetPixels(pix);
-        result.Apply();
-        return result;
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : characterImages.Length - 1;
+        PlayHeroIntro();
+    }
+
+    void PlayHeroIntro()
+    {
+        if (heroIntroClips.Length > currentIndex && heroIntroClips[currentIndex] != null && currentIndex != lastPlayedIndex)
+        {
+            audioSource.Stop(); // Stop any currently playing sound
+            audioSource.clip = heroIntroClips[currentIndex];
+            audioSource.Play();
+            lastPlayedIndex = currentIndex;
+        }
     }
 
     void DrawLockedMessage()
     {
-        float messageWidth = 800f; // Increased message width
-        float messageHeight = 200f; // Increased message height
+        if (lockedMessageTimer > 0)
+        {
+            lockedMessageTimer -= Time.deltaTime;
+        }
+        else
+        {
+            showLockedMessage = false;
+        }
+
+        float messageWidth = 500f;
+        float messageHeight = 150f;
         float messageX = (Screen.width - messageWidth) / 2;
-        float messageY = Screen.height * 0.75f;
+        float messageY = Screen.height - messageHeight - 100;
 
         GUIStyle lockedMessageStyle = new GUIStyle(GUI.skin.box)
         {
-            fontSize = 40, // Larger font size
+            fontSize = 30,
             fontStyle = FontStyle.Bold,
-            alignment = TextAnchor.MiddleCenter,
-            normal = { textColor = Color.white, background = MakeTexture(1, 1, Color.red) }
+            normal = { textColor = Color.white, background = MakeTexture(1, 1, new Color(0, 0, 0, 0.8f)) }
         };
 
-        GUI.Box(new Rect(messageX, messageY, messageWidth, messageHeight), "Defeat to Unlock!", lockedMessageStyle);
-
-        lockedMessageTimer -= Time.deltaTime;
-        if (lockedMessageTimer <= 1f)
-        {
-            showLockedMessage = false; // Hide message after timer runs out
-        }
+        GUI.Box(new Rect(messageX, messageY, messageWidth, messageHeight), "Character is Locked!", lockedMessageStyle);
     }
 
     void DrawStatBars(float x, float y)
     {
-        GUIStyle labelStyle = new GUIStyle(GUI.skin.label)
-        {
-            fontSize = 30, // Increased font size for stats
-            normal = { textColor = Color.white }
-        };
-
-        GUI.Label(new Rect(x, y, 200, 50), "Durability:", labelStyle);
-        DrawStatBar(x + 220, y, durabilityStats[currentIndex]);
-
-        GUI.Label(new Rect(x, y + 60, 200, 50), "Offense:", labelStyle);
-        DrawStatBar(x + 220, y + 60, offenseStats[currentIndex]);
-
-        GUI.Label(new Rect(x, y + 120, 200, 50), "Control Effect:", labelStyle);
-        DrawStatBar(x + 220, y + 120, controlEffectStats[currentIndex]);
-
-        GUI.Label(new Rect(x, y + 180, 200, 50), "Difficulty:", labelStyle);
-        DrawStatBar(x + 220, y + 180, difficultyStats[currentIndex]);
+        DrawStatBar("Durability", durabilityStats[currentIndex], x, y);
+        DrawStatBar("Offense", offenseStats[currentIndex], x, y + 50);
+        DrawStatBar("Control Effect", controlEffectStats[currentIndex], x, y + 100);
+        DrawStatBar("Difficulty", difficultyStats[currentIndex], x, y + 150);
     }
 
-    void DrawStatBar(float x, float y, int stat)
+    void DrawStatBar(string label, int value, float x, float y)
     {
-        GUIStyle barStyle = new GUIStyle(GUI.skin.box)
+        float barWidth = 400f;
+        float barHeight = 20f;
+        float labelWidth = 150f;
+
+        GUIStyle statLabelStyle = new GUIStyle(GUI.skin.label)
+        {
+            fontSize = 30,
+            normal = { textColor = Color.white }
+        };
+        GUI.Label(new Rect(x, y, labelWidth, barHeight), label, statLabelStyle);
+
+        GUIStyle filledBarStyle = new GUIStyle(GUI.skin.box)
         {
             normal = { background = MakeTexture(1, 1, Color.green) }
         };
-        GUI.Box(new Rect(x, y, stat * 30, 40), GUIContent.none, barStyle);
+        GUI.Box(new Rect(x + labelWidth, y + 10, (barWidth / 10) * value, barHeight), GUIContent.none, filledBarStyle);
+
+        GUIStyle emptyBarStyle = new GUIStyle(GUI.skin.box)
+        {
+            normal = { background = MakeTexture(1, 1, Color.gray) }
+        };
+        GUI.Box(new Rect(x + labelWidth + ((barWidth / 10) * value), y + 10, barWidth - ((barWidth / 10) * value), barHeight), GUIContent.none, emptyBarStyle);
     }
 
     float CalculateStatsHeight()
     {
-        return 4 * 40 + 3 * 10; // Total height for stats and spacing
+        return (50 * 4);
     }
 
     float CalculateStatsWidth()
     {
-        return 200 + 300; // Label width + bar width
+        return 500;
+    }
+
+    private Texture2D MakeTexture(int width, int height, Color color)
+    {
+        Color[] pixels = new Color[width * height];
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            pixels[i] = color;
+        }
+        Texture2D texture = new Texture2D(width, height);
+        texture.SetPixels(pixels);
+        texture.Apply();
+        return texture;
     }
 }
