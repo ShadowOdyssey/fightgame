@@ -30,30 +30,13 @@ public class AudioSystem : MonoBehaviour
 
     private int actualSourceIndex = 0;
     private bool checkIntro = false;
-    private bool increaseVolume = false;
+    private bool increaseMusicVolume = false;
     private float volumeInteraction = -20f;
 
     private void Update()
     {
-        if (checkIntro == true && playerAudio.isPlaying == false || checkIntro == true && enemyAudio.isPlaying == false)
-        {
-            increaseVolume = true;
-            checkIntro = false;
-        }
-
-        if (increaseVolume == true)
-        {
-            volumeInteraction = volumeInteraction + Time.deltaTime;
-
-            generalAudio.SetFloat("MusicVolume", volumeInteraction);
-
-            if (volumeInteraction > -15f)
-            {
-                increaseVolume = false;
-                generalAudio.SetFloat("MusicVolume", -15f);
-                volumeInteraction = 0f;
-            }
-        }
+        CheckForIncreaseMusicVolume();
+        IncreaseMusicVolume();
     }
 
     public void PlayMusic(int musicIndex)
@@ -104,6 +87,23 @@ public class AudioSystem : MonoBehaviour
         }
     }
 
+    private void IncreaseMusicVolume()
+    {
+        if (increaseMusicVolume == true)
+        {
+            volumeInteraction = volumeInteraction + Time.deltaTime;
+
+            generalAudio.SetFloat("MusicVolume", volumeInteraction);
+
+            if (volumeInteraction > -15f)
+            {
+                increaseMusicVolume = false;
+                generalAudio.SetFloat("MusicVolume", -15f);
+                volumeInteraction = 0f;
+            }
+        }
+    }
+
     private void CheckNoLoop()
     {
         if (actualSourceIndex == 1)
@@ -125,6 +125,15 @@ public class AudioSystem : MonoBehaviour
         else
         {
             enemyAudio.Play();
+        }
+    }
+
+    private void CheckForIncreaseMusicVolume()
+    {
+        if (checkIntro == true && playerAudio.isPlaying == false || checkIntro == true && enemyAudio.isPlaying == false)
+        {
+            increaseMusicVolume = true;
+            checkIntro = false;
         }
     }
 }
