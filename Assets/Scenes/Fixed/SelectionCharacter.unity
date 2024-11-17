@@ -249,6 +249,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1550383883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1550383885}
+  - component: {fileID: 1550383884}
+  m_Layer: 0
+  m_Name: Scene Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1550383884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550383883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bddff357a2002f64bb42f30e34321adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  background: {fileID: 2800000, guid: 62936c96d74822c468250b5ecab92402, type: 3}
+  characterImages:
+  - {fileID: 2800000, guid: a0b94828c26244c4a99571abf7c4eedf, type: 3}
+  - {fileID: 2800000, guid: 4eb0a995ec0d7984393a584b70175b20, type: 3}
+  - {fileID: 2800000, guid: 8a60264b5ff73dd4c97c9970a4a01bb8, type: 3}
+  - {fileID: 2800000, guid: 36003cce3fce66547a79660e20a1a4e7, type: 3}
+  - {fileID: 2800000, guid: bc48440c7fdd82847a85c7d176eba1c5, type: 3}
+  - {fileID: 2800000, guid: bc48440c7fdd82847a85c7d176eba1c5, type: 3}
+  - {fileID: 2800000, guid: 7542d3d5f85387447bede68091bd6733, type: 3}
+  - {fileID: 2800000, guid: 77407b97904ecb94d8a05371234af7ff, type: 3}
+  heroIntroClips: []
+  lockIcon: {fileID: 2800000, guid: 78c14f1fd558a2d4c8920e3f4043c521, type: 3}
+  gabriellaTexture: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
+  vsIcon: {fileID: 2800000, guid: d38dcc2de26d53844bf1f0cb626d536e, type: 3}
+  marcusTexture: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
+--- !u!4 &1550383885
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550383883}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.654599, y: 12.092921, z: -4.4888806}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1847986120
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +447,6 @@ GameObject:
   - component: {fileID: 2061942205}
   - component: {fileID: 2061942204}
   - component: {fileID: 2061942203}
-  - component: {fileID: 2061942206}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -470,37 +528,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2061942206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061942202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bddff357a2002f64bb42f30e34321adc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  background: {fileID: 2800000, guid: 62936c96d74822c468250b5ecab92402, type: 3}
-  characterImages:
-  - {fileID: 2800000, guid: a0b94828c26244c4a99571abf7c4eedf, type: 3}
-  - {fileID: 2800000, guid: 4eb0a995ec0d7984393a584b70175b20, type: 3}
-  - {fileID: 2800000, guid: ae06b88bc41a19d448c4782d20016693, type: 3}
-  - {fileID: 2800000, guid: 36003cce3fce66547a79660e20a1a4e7, type: 3}
-  - {fileID: 2800000, guid: bc48440c7fdd82847a85c7d176eba1c5, type: 3}
-  - {fileID: 2800000, guid: bc48440c7fdd82847a85c7d176eba1c5, type: 3}
-  - {fileID: 2800000, guid: 7542d3d5f85387447bede68091bd6733, type: 3}
-  - {fileID: 2800000, guid: 77407b97904ecb94d8a05371234af7ff, type: 3}
-  introClip: {fileID: 8300000, guid: 6f74d506c6d6d024b87b495422770fdb, type: 3}
-  lockIcon: {fileID: 2800000, guid: 78c14f1fd558a2d4c8920e3f4043c521, type: 3}
-  gabriellaTexture: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
-  vsIcon: {fileID: 2800000, guid: d38dcc2de26d53844bf1f0cb626d536e, type: 3}
-  marcusTexture: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2061942205}
   - {fileID: 1425256496}
+  - {fileID: 1550383885}
   - {fileID: 515910808}
