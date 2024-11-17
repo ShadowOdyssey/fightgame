@@ -1218,10 +1218,10 @@ MonoBehaviour:
   playerDamagePerSecond: 2
   opponentDamagePerSecond: 1
   sceneLight: {fileID: 1496494905}
-  arena1Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 0}
-  arena2Color: {r: 0, g: 0, b: 0, a: 0}
-  arena3Color: {r: 0, g: 0, b: 0, a: 0}
-  arena4Color: {r: 0, g: 0, b: 0, a: 0}
+  arena1Color: {r: 0.9764706, g: 1, b: 0.7254902, a: 1}
+  arena2Color: {r: 0.20784314, g: 0, b: 1, a: 1}
+  arena3Color: {r: 0.3882353, g: 0, b: 1, a: 1}
+  arena4Color: {r: 1, g: 0.57254905, b: 0, a: 1}
   currentStage: 0
   currentPlayerCharacter: 0
   currentEnemyCharacter: 0
@@ -16051,7 +16051,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30

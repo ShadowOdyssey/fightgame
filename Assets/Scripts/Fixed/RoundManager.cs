@@ -156,7 +156,7 @@ public class RoundManager : MonoBehaviour
 
         PlayerPrefs.SetInt("playerCharacterSelected", 1); // Select a player character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("enemyCharacterSelected", 2); // Select an enemy character - Just for Debug it will be removed later
-        PlayerPrefs.SetInt("stageSelected", 1); // Select an arena - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("stageSelected", 4); // Select an arena - Just for Debug it will be removed later
 
 
         if (PlayerPrefs.GetInt("playerCharacterSelected") != 0)
@@ -210,10 +210,10 @@ public class RoundManager : MonoBehaviour
 
         switch (currentStage) // Loading stage
         {
-            case 1: arena1.SetActive(true); break;
-            case 2: arena2.SetActive(true); break;
-            case 3: arena3.SetActive(true); break;
-            case 4: arena4.SetActive(true); break;
+            case 1: arena1.SetActive(true); sceneLight.color = arena1Color; break;
+            case 2: arena2.SetActive(true); sceneLight.color = arena2Color; break;
+            case 3: arena3.SetActive(true); sceneLight.color = arena3Color; break;
+            case 4: arena4.SetActive(true); sceneLight.color = arena4Color; break;
         }
 
         switch (currentPlayerCharacter) // Loading Player character
