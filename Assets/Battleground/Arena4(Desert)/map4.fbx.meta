@@ -3,12 +3,132 @@ guid: 304a9fb6b56c84f46ac65783086124e8
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 18a0ff228c25f62479c9e1db196914ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rock bg
+    second: {fileID: 2100000, guid: b32740920cb75bf4e90cadc091b92462, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rock_cave-removebg-preview
+    second: {fileID: 2100000, guid: 57ff2914bc156944dadd8e779fa9aabb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rock_solid-removebg-preview
+    second: {fileID: 2100000, guid: 208acdf6d4a94ea48a009f6dcae28ab5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rock_solid_1-removebg-preview
+    second: {fileID: 2100000, guid: 92b44301f4d804c44ac557d4afc1501d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rocks-removebg-preview
+    second: {fileID: 2100000, guid: 59d1cb1614e88a942b2c415c0041f1ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sm2-removebg-preview
+    second: {fileID: 2100000, guid: fc4b5ed6f6647124380c32fe2c94ee81, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sm3-removebg-preview
+    second: {fileID: 2100000, guid: 76084724141a8194f9989c3219f438f3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: smol_r1-removebg-preview
+    second: {fileID: 2100000, guid: 115123d013d9c3b4396a37523dfd5bf5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: smol_rocks-removebg-preview
+    second: {fileID: 2100000, guid: 15472dae71cbe3046b47270417e74d20, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sn2-removebg-preview
+    second: {fileID: 2100000, guid: 36329bec5c5033b4d8a403e841b0371b, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Asphalt026C_1K-JPG_NormalGL
+    second: {fileID: 2800000, guid: 927789767750ed7429f34345f8849634, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Asphalt026C_1K-JPG_Roughness
+    second: {fileID: 2800000, guid: 869361cf23221ea46a2619b0a3a7ce6f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Ground071_1K-JPG_Color
+    second: {fileID: 2800000, guid: 919d2b934a5f5a549b02ea1dcb277736, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: rock bg
+    second: {fileID: 2800000, guid: 8be0f05efefdf8747aa5d132a7d21c31, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: rock_cave-removebg-preview
+    second: {fileID: 2800000, guid: 8086a52c93cc14a4e974a8d52d69ffda, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: rock_solid-removebg-preview
+    second: {fileID: 2800000, guid: d232e4c5ebfdca04d8acbbe7c7fc9a55, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: rock_solid_1-removebg-preview
+    second: {fileID: 2800000, guid: 839b6494d12ebd04e9eb260cd915cd32, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: rocks-removebg-preview
+    second: {fileID: 2800000, guid: 5a2af995c3aface4892551afafb09f56, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: sm2-removebg-preview
+    second: {fileID: 2800000, guid: 70e61dde44be3bb449447cfd3098789a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: sm3-removebg-preview
+    second: {fileID: 2800000, guid: 9aef49f68f2d1834ca6abe0f15841cee, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: smol_r1-removebg-preview
+    second: {fileID: 2800000, guid: 33cb4f27faa99d2468c46aa04b2ceb55, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: smol_rocks-removebg-preview
+    second: {fileID: 2800000, guid: 92195a4c6b75d3344a4234afc99e5224, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: sn2-removebg-preview
+    second: {fileID: 2800000, guid: 706f683a31cfc1f469f9c4041cd4624b, type: 3}
   materials:
     materialImportMode: 2
     materialName: 1
     materialSearch: 0
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -42,9 +162,9 @@ ModelImporter:
     sortHierarchyByName: 1
     importPhysicalCameras: 1
     importVisibility: 1
-    importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
@@ -97,11 +217,11 @@ ModelImporter:
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
-  importBlendShapeDeformPercent: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

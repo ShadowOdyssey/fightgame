@@ -155,7 +155,7 @@ public class RoundManager : MonoBehaviour
         // DEBUG ONLY - WILL BE REMOVED LATER
         PlayerPrefs.SetInt("playerCharacterSelected", 1); // Select a player character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("enemyCharacterSelected", 2); // Select an enemy character - Just for Debug it will be removed later
-        PlayerPrefs.SetInt("stageSelected", 1); // Select an arena - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("stageSelected", 4); // Select an arena - Just for Debug it will be removed later
 
 
         if (PlayerPrefs.GetInt("playerCharacterSelected") != 0)
