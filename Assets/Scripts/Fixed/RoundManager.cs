@@ -86,7 +86,7 @@ public class RoundManager : MonoBehaviour
         // *** IMPORTANT *** Round Manager should load the correct light based in the current arena - Remember to do it *** IMPORTANT *** 
 
         PlayerPrefs.SetInt("playerCharacterSelected", 5); // Select a player character - Just for Debug it will be removed later
-        PlayerPrefs.SetInt("enemyCharacterSelected", 2); // Select an enemy character - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("enemyCharacterSelected", 5); // Select an enemy character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("stageSelected", 1); // Select an arena - Just for Debug it will be removed later
 
 

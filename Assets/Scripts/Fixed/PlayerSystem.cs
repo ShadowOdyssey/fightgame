@@ -129,6 +129,7 @@ public class PlayerSystem : MonoBehaviour
             case 2: enemyBody = GameObject.Find("MarcusEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("MarcusEnemy").GetComponent<EnemySystem>(); break;
             case 3: enemyBody = GameObject.Find("SelenaEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("SelenaEnemy").GetComponent<EnemySystem>(); break;
             case 4: enemyBody = GameObject.Find("BryanEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("BryanEnemy").GetComponent<EnemySystem>(); break;
+            case 5: enemyBody = GameObject.Find("NunEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("NunEnemy").GetComponent<EnemySystem>(); break;
         }
     }
 
