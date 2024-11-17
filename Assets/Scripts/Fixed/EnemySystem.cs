@@ -779,12 +779,15 @@ public class EnemySystem : MonoBehaviour
 
     public void LastFrameAttack() // Called in the final frame of attack animation
     {
-        attackSuccessRandom = false; // Reset to allow another attack randomization after cooldown
-        isAttacking = false; // Reset to allow another attack after cooldown
-        checkDamage = true; // Check damage from last attack
-        isWalking = true; // AI can move if player to get far from punch area
-        canFight = true; // AI can follow player if is outside range
-        StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet
+        if (checkDamage == false)
+        {
+            attackSuccessRandom = false; // Reset to allow another attack randomization after cooldown
+            isAttacking = false; // Reset to allow another attack after cooldown
+            checkDamage = true; // Check damage from last attack
+            isWalking = true; // AI can move if player to get far from punch area
+            canFight = true; // AI can follow player if is outside range
+            StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet            
+        }
     }
 
     public void LastFrameBlock()
