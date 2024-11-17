@@ -152,7 +152,7 @@ AudioMixerController:
   - guid: 0bd21e14463d8df4dae3cea23235c452
     name: EnemyVolume
   - guid: 105cf06c62fb03549992d169ab32c9ee
-    name: EnemyEffects Volume
+    name: EnemyEffectsVolume
   - guid: 0a835ba0910865c4ea5263d6bbc5ff78
     name: GeneralAudio
   - guid: 1b70db8ca36b394479b2081da3b8d6ba
@@ -160,7 +160,7 @@ AudioMixerController:
   - guid: 709e7efa9bfd811408169fddeb037a1a
     name: PlayerVolume
   - guid: 6514254354181c643a52d29683f1d6fe
-    name: PlayerEffects Volume
+    name: PlayerEffectsVolume
   - guid: b6b784b8a9eb5ba4691633fe025ed579
     name: UIVolume
   m_AudioMixerGroupViews:
