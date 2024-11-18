@@ -5,6 +5,10 @@ using TMPro;
 
 public class RoundManager : MonoBehaviour
 {
+    #region Variables
+
+    #region Scene Setup
+
     [Header("Scripts Setup")]
     [Tooltip("Audio System script should be attached here from Audio System game object in hierarchy")]
     public AudioSystem audioSystem;
@@ -26,6 +30,10 @@ public class RoundManager : MonoBehaviour
     public GameObject arena3;
     [Tooltip("Attach here Arena 4 object inside Battlegrounds object in hierarchy")]
     public GameObject arena4;
+
+    #endregion
+
+    #region Characters Setup
 
     [Header("Player Characters")]
     [Tooltip("Attach here GabriellaPlayer object inside Player object in hierarchy")]
@@ -63,6 +71,10 @@ public class RoundManager : MonoBehaviour
     [Tooltip("Attach here AriaEnemy object inside Enemy object in hierarchy")]
     public GameObject enemyCharacter8;
 
+    #endregion
+
+    #region UI Setup
+
     [Header("Round UI Setup")]
     [Tooltip("Attach here Actual Time object inside UI object in hierarchy")]
     public TextMeshProUGUI actualTime;
@@ -97,6 +109,10 @@ public class RoundManager : MonoBehaviour
     [Tooltip("Attach here Aria´s Profile 8 Image inside Background inside UI object in hierarchy")]
     public Image imageProfile8;
 
+    #endregion
+
+    #region Round Setup
+
     [Header("Win UI Setup")]
     [Tooltip("Attach here Round 1 Win Player object inside Player Life Bar inside UI object in hierarchy")]
     public GameObject playerWonRound1;
@@ -115,7 +131,11 @@ public class RoundManager : MonoBehaviour
     [Tooltip("Setup the quantity of damage round will deal on Enemy per second")]
     public int opponentDamagePerSecond = 1;
 
-    [Header("Round Setup")]
+    #endregion
+
+    #region Arena Setup
+
+    [Header("Arena Setup")]
     [Tooltip("Attach here Directional Light in hiearchy")]
     public Light sceneLight;
     [Tooltip("Choice a color to use in Light when Arena 1 to be loaded")]
@@ -126,6 +146,10 @@ public class RoundManager : MonoBehaviour
     public Color arena3Color;
     [Tooltip("Choice a color to use in Light when Arena 4 to be loaded")]
     public Color arena4Color;
+
+    #endregion
+
+    #region Hidden Variables
 
     [Header("Monitor - Dont change values")]
     [Tooltip("Current Stage loaded in the selection")]
@@ -171,17 +195,56 @@ public class RoundManager : MonoBehaviour
     [Tooltip("Trigger to start events and round mechanics in the current round")]
     private bool canDecrease = false;
 
+    #endregion
+
+    #endregion
+
+    #region Loading Data
+
     private void Awake()
     {
         StopAllCoroutines(); // Stop all coroutines from old scenes
+        LoadPlayerCharacter();
+    }
 
+    private void Start()
+    {
+        CheckForMultiplayer();
+        LoadArenaAndEnemyCharacter();
+        CheckCurrentArena();
+        CheckCurrentPlayerCharacter();
+        CheckCurrentEnemyCharacter();
+        LoadPlayerName();
+        SetupCharactersHealth();        
+    }
+
+    #endregion
+
+    #region Real Time Check Operations
+    
+    private void Update()
+    {
+        RoundStarted();
+        CountRoundTime();
+        CheckCharactersHealth();
+        CheckRoundWinner();
+        CheckPlayerCombo();
+        CheckEnemyCombo();
+    }
+
+    #endregion
+
+    #region Setup Loaded Data
+
+    private void LoadPlayerCharacter()
+    {
         if (PlayerPrefs.GetInt("playerCharacterSelected") != 0)
         {
             currentPlayerCharacter = PlayerPrefs.GetInt("playerCharacterSelected");
         }
     }
-
-    private void Start()
+    
+    private void CheckForMultiplayer()
     {
         if (PlayerPrefs.GetString("isMultiplayer") != "yes") // Check if is multiplayer game to the loaded scene
         {
@@ -191,7 +254,10 @@ public class RoundManager : MonoBehaviour
         {
             isMultiplayer = true; // Game is multiplayer, so dont load stage number from Singleplay
         }
-
+    }
+    
+    private void LoadArenaAndEnemyCharacter()
+    {
         if (isMultiplayer == true) // If game is Singleplay load the correct enemy name based in the current stage
         {
             // Wait for server to give the name of the opponent and the selected character in Lobby
@@ -223,7 +289,10 @@ public class RoundManager : MonoBehaviour
                 case 8: enemyNameText.text = "ARIA"; break;
             }
         }
+    }
 
+    private void CheckCurrentArena()
+    {
         switch (currentStage) // Loading stage
         {
             case 1: arena1.SetActive(true); sceneLight.color = arena1Color; audioSystem.PlayMusic(2); break;
@@ -231,7 +300,10 @@ public class RoundManager : MonoBehaviour
             case 3: arena3.SetActive(true); sceneLight.color = arena3Color; audioSystem.PlayMusic(4); break;
             case 4: arena4.SetActive(true); sceneLight.color = arena4Color; audioSystem.PlayMusic(5); break;
         }
+    }
 
+    private void CheckCurrentPlayerCharacter()
+    {
         switch (currentPlayerCharacter) // Loading Player character
         {
             case 1: playerCharacter1.SetActive(true); playerSystem = GameObject.Find("GabriellaPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile1.sprite; break;
@@ -243,7 +315,10 @@ public class RoundManager : MonoBehaviour
             case 7: playerCharacter7.SetActive(true); playerSystem = GameObject.Find("OrionPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile7.sprite; break;
             case 8: playerCharacter8.SetActive(true); playerSystem = GameObject.Find("AriaPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile8.sprite; break;
         }
+    }
 
+    private void CheckCurrentEnemyCharacter()
+    {
         switch (currentEnemyCharacter) // Loading Enemy character
         {
             case 1: enemyCharacter1.SetActive(true); enemySystem = GameObject.Find("GabriellaEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile1.sprite; break;
@@ -255,12 +330,18 @@ public class RoundManager : MonoBehaviour
             case 7: enemyCharacter7.SetActive(true); enemySystem = GameObject.Find("OrionEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile7.sprite; break;
             case 8: enemyCharacter8.SetActive(true); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile8.sprite; break;
         }
+    }
 
+    private void LoadPlayerName()
+    {
         if (PlayerPrefs.GetString("playerName") != "") // Load player name to show in the screen
         {
             playerNameText.text = PlayerPrefs.GetString("playerName").ToUpper();
         }
+    }
 
+    private void SetupCharactersHealth()
+    {
         // Set both characters' initial health to max health
         playerHealth = maxHealth;
         opponentHealth = maxHealth;
@@ -273,103 +354,9 @@ public class RoundManager : MonoBehaviour
         ResetHealth();
     }
 
-    private void Update()
-    {
-        if (roundStarted == false)
-        {
-            //Debug.Log("Round started, show current round");
-            ShowRoundText("ROUND " + currentRound);
-            actualTime.text = roundTime.ToString();
-            roundStarted = true;
-            roundOver = true;
-            wasDetermined = false;
-            decreaseTime = 0f;
-            ResetHealth();
-            Invoke(nameof(DisableRoundText), 6f);
-        }
+    #endregion
 
-        if (canDecrease == true)
-        {
-            decreaseTime = decreaseTime + Time.deltaTime;
-
-            if (decreaseTime > 1f && roundTime > 0)
-            {
-                roundTime = roundTime - 1;
-                actualTime.text = roundTime.ToString();
-                ApplyDamageToOpponent(opponentDamagePerSecond);
-                ApplyDamageToPlayer(playerDamagePerSecond);
-                decreaseTime = 0f;
-            }
-
-            if (roundTime <= 0f)
-            {
-                //Debug.Log("Time Over! Check for winner!");
-
-                roundTime = 0;
-                roundOver = true;
-                DetermineRoundWinner();
-            }
-        }
-
-        if (playerHealthBar.slider.value <= 0f && roundOver == false || opponentHealthBar.slider.value <= 0f && roundOver == false)
-        {
-            //Debug.Log("Character died! Round Over! Check for winner!");
-
-            roundOver = true;
-            DetermineRoundWinner();
-        }
-
-        if (wasDetermined == true)
-        {
-            if (timesPlayerWon == 1 && timesEnemyWon == 0 || timesEnemyWon == 1 && timesPlayerWon == 0)
-            {
-                currentRound = 2;
-                Invoke(nameof(StartRoundAgain), 6f);
-            }
-
-            if (timesPlayerWon == 1 && timesEnemyWon == 1)
-            {
-                currentRound = 3;
-                Invoke(nameof(StartRoundAgain), 6f);
-            }
-
-            if (timesPlayerWon == 2 || timesEnemyWon == 2)
-            {
-
-                if (timesPlayerWon == 2)
-                {
-                    ShowRoundText("FIGHT OVER! " + playerNameText.text + " WINS");
-                }
-
-                if (timesEnemyWon == 2)
-                {
-                    ShowRoundText("FIGHT OVER! " + enemyNameText.text + " WINS");
-                }
-
-                Invoke(nameof(FightEnded), 5f);
-            }
-        }
-
-        if (isPlayerCombo == true)
-        {
-            playerComboTime = playerComboTime + Time.deltaTime;
-
-            if (playerComboTime > 3f)
-            {
-                PlayerFinishedCombo();
-            }
-        }
-
-        if (isEnemyCombo == true)
-        {
-            enemyComboTime = enemyComboTime + Time.deltaTime;
-
-            if (enemyComboTime > 3f)
-            {
-                EnemyFinishedCombo();
-            }
-        }
-    }
+    #region Real Time Methods
 
     private void StartRound()
     {
@@ -393,6 +380,59 @@ public class RoundManager : MonoBehaviour
 
         // Start automatically decreasing health over the duration of the round
         canDecrease = true;
+    }
+
+    private void RoundStarted()
+    {
+        if (roundStarted == false)
+        {
+            //Debug.Log("Round started, show current round");
+            ShowRoundText("ROUND " + currentRound);
+            actualTime.text = roundTime.ToString();
+            roundStarted = true;
+            roundOver = true;
+            wasDetermined = false;
+            decreaseTime = 0f;
+            ResetHealth();
+            Invoke(nameof(DisableRoundText), 6f);
+        }
+    }
+
+    private void CountRoundTime()
+    {
+        if (canDecrease == true)
+        {
+            decreaseTime = decreaseTime + Time.deltaTime;
+
+            if (decreaseTime > 1f && roundTime > 0)
+            {
+                roundTime = roundTime - 1;
+                actualTime.text = roundTime.ToString();
+                ApplyDamageToOpponent(opponentDamagePerSecond);
+                ApplyDamageToPlayer(playerDamagePerSecond);
+                decreaseTime = 0f;
+            }
+
+            if (roundTime <= 0f)
+            {
+                //Debug.Log("Time Over! Check for winner!");
+
+                roundTime = 0;
+                roundOver = true;
+                DetermineRoundWinner();
+            }
+        }
+    }
+
+    private void CheckCharactersHealth()
+    {
+        if (playerHealthBar.slider.value <= 0f && roundOver == false || opponentHealthBar.slider.value <= 0f && roundOver == false)
+        {
+            //Debug.Log("Character died! Round Over! Check for winner!");
+
+            roundOver = true;
+            DetermineRoundWinner();
+        }
     }
 
     private void DetermineRoundWinner()
@@ -458,6 +498,70 @@ public class RoundManager : MonoBehaviour
         }
     }
 
+    private void CheckRoundWinner()
+    {
+        if (wasDetermined == true)
+        {
+            if (timesPlayerWon == 1 && timesEnemyWon == 0 || timesEnemyWon == 1 && timesPlayerWon == 0)
+            {
+                currentRound = 2;
+                Invoke(nameof(StartRoundAgain), 6f);
+            }
+
+            if (timesPlayerWon == 1 && timesEnemyWon == 1)
+            {
+                currentRound = 3;
+                Invoke(nameof(StartRoundAgain), 6f);
+            }
+
+            if (timesPlayerWon == 2 || timesEnemyWon == 2)
+            {
+
+                if (timesPlayerWon == 2)
+                {
+                    ShowRoundText("FIGHT OVER! " + playerNameText.text + " WINS");
+                }
+
+                if (timesEnemyWon == 2)
+                {
+                    ShowRoundText("FIGHT OVER! " + enemyNameText.text + " WINS");
+                }
+
+                Invoke(nameof(FightEnded), 5f);
+            }
+        }
+    }
+
+    private void CheckPlayerCombo()
+    {
+        if (isPlayerCombo == true)
+        {
+            playerComboTime = playerComboTime + Time.deltaTime;
+
+            if (playerComboTime > 3f)
+            {
+                PlayerFinishedCombo();
+            }
+        }
+    }
+
+    private void CheckEnemyCombo()
+    {
+        if (isEnemyCombo == true)
+        {
+            enemyComboTime = enemyComboTime + Time.deltaTime;
+
+            if (enemyComboTime > 3f)
+            {
+                EnemyFinishedCombo();
+            }
+        }
+    }
+
+    #endregion
+
+    #region Health Operations
+
     private void ResetHealth()
     {
         playerHealth = maxHealth;
@@ -466,6 +570,22 @@ public class RoundManager : MonoBehaviour
         playerHealthBar.SetMaxHealth(maxHealth);
         opponentHealthBar.SetMaxHealth(maxHealth);
     }
+
+    public void ApplyDamageToPlayer(int damage)
+    {
+        playerHealth -= damage;
+        playerHealthBar.SetHealth(playerHealth);
+    }
+
+    public void ApplyDamageToOpponent(int damage)
+    {
+        opponentHealth -= damage;
+        opponentHealthBar.SetHealth(opponentHealth);
+    }
+
+    #endregion
+
+    #region Combo Operations
 
     public void PlayerFinishedCombo()
     {
@@ -498,19 +618,7 @@ public class RoundManager : MonoBehaviour
         enemyTotalCombo = 0;
         enemyComboTime = 0f;
     }
-
-    public void ApplyDamageToPlayer(int damage)
-    {
-        playerHealth -= damage;
-        playerHealthBar.SetHealth(playerHealth);
-    }
-
-    public void ApplyDamageToOpponent(int damage)
-    {
-        opponentHealth -= damage;
-        opponentHealthBar.SetHealth(opponentHealth);
-    }
-
+    
     public void PlayerStartCombo()
     {
         if (isPlayerCombo == false)
@@ -549,23 +657,6 @@ public class RoundManager : MonoBehaviour
             UpdateEnemyComboOnScreen();
             enemyComboTime = 0f;
         }
-    }
-
-    private void DisableRoundText()
-    {
-        roundTextBackground.SetActive(false);
-        StartRound();
-    }
-
-    private void ShowRoundText(string message)
-    {
-        roundText.text = message;
-        roundTextBackground.SetActive(true);
-    }
-
-    private void StartRoundAgain()
-    {
-        roundStarted = false;
     }
 
     private void UpdatePlayerComboOnScreen()
@@ -610,6 +701,31 @@ public class RoundManager : MonoBehaviour
         }
 
         // In all combos gameObjects need to have a script there to disable it after 5 seconds using the last frame of combo animation to trigger the method to disable combo on screen
+    }
+
+    #endregion
+
+    #region UI Operations
+
+    private void DisableRoundText()
+    {
+        roundTextBackground.SetActive(false);
+        StartRound();
+    }
+
+    private void ShowRoundText(string message)
+    {
+        roundText.text = message;
+        roundTextBackground.SetActive(true);
+    }
+
+    #endregion
+
+    #region Round Operations
+
+    private void StartRoundAgain()
+    {
+        roundStarted = false;
     }
 
     private void FightEnded()
@@ -658,4 +774,6 @@ public class RoundManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    #endregion
 }
