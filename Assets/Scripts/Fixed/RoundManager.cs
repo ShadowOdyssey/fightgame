@@ -203,6 +203,10 @@ public class RoundManager : MonoBehaviour
 
     private void Awake()
     {
+        // Just for Debug purposes, it will be removed later
+        PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to current fight
+        PlayerPrefs.SetInt("enemyCharacter", 0); // Reset the value to make it disponible to current fight
+
         StopAllCoroutines(); // Stop all coroutines from old scenes
         LoadPlayerCharacter();
     }

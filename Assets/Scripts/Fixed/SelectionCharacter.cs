@@ -47,6 +47,7 @@ public class SelectionCharacter : MonoBehaviour
 
     private void Awake() // Always loads components in Awake in the main script of the scene
     {
+        StopAllCoroutines(); // Stop all coroutines from old scenes
         audioSource = gameObject.AddComponent<AudioSource>();
     }
 
@@ -114,10 +115,20 @@ public class SelectionCharacter : MonoBehaviour
 
     private void CheckIfPlayerWonLastBattle()
     {
+        if (PlayerPrefs.GetString("playerUnlockedNewCharacter") != "")
+        {
+            Debug.Log("Has player unlocked new character? " + PlayerPrefs.GetString("playerUnlockedNewCharacter"));
+            Debug.Log("Last enemy player fought: " + PlayerPrefs.GetInt("enemyCharacter"));
+        }
+        else
+        {
+            Debug.Log("Player is selecting character for first time!");
+        }
+
         if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "yes") // Check if player won the last fight
         {
             // PLayer Won
-            switch (PlayerPrefs.GetInt("enemyCharacter"))
+            switch (PlayerPrefs.GetInt("enemyCharacter")) // Current enemy character from last battle will determine the progress of the player
             {
                 default: UnlockCharacter(true, false, false, false, false, false, false, false); break; // Only Gabriella unlocked by default
                 case 2: UnlockCharacter(true, true, false, false, false, false, false, false); break; // Player won against Marcus
@@ -133,7 +144,7 @@ public class SelectionCharacter : MonoBehaviour
         if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "no") // Check if player lost the last fight
         {
             // Player Lost
-            switch (PlayerPrefs.GetInt("enemyCharacter"))
+            switch (PlayerPrefs.GetInt("enemyCharacter")) // Current enemy character from last battle determines the not progress of the player
             {
                 default: UnlockCharacter(true, false, false, false, false, false, false, false); break; // Only Gabriella unlocked by default
                 case 2: UnlockCharacter(true, false, false, false, false, false, false, false); break; // Player lost against Marcus
@@ -143,6 +154,11 @@ public class SelectionCharacter : MonoBehaviour
                 case 6: UnlockCharacter(true, true, true, true, true, false, false, false); break; // Player lost against Oliver
                 case 7: UnlockCharacter(true, true, true, true, true, true, false, false); break; // Player lost against Orion
                 case 8: UnlockCharacter(true, true, true, true, true, true, true, false); break; // Player lost against Aria
+            }
+
+            if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "" || PlayerPrefs.GetInt("enemyCharacter") == 0) // Check if player is selecting character for first time
+            {
+                UnlockCharacter(true, false, false, false, false, false, false, false);
             }
 
             PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to another fight
