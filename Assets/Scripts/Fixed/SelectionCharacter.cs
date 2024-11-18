@@ -48,6 +48,11 @@ public class SelectionCharacter : MonoBehaviour
     private void Awake() // Always loads components in Awake in the main script of the scene
     {
         StopAllCoroutines(); // Stop all coroutines from old scenes
+
+        // Just for Debug purposes, it will be removed later
+        PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to next fight
+        PlayerPrefs.SetInt("enemyCharacter", 0); // Reset the value to make it disponible to next fight
+
         audioSource = gameObject.AddComponent<AudioSource>();
     }
 
@@ -315,18 +320,19 @@ public class SelectionCharacter : MonoBehaviour
 
         if (GUI.Button(new Rect(buttonX, buttonY, buttonWidth, buttonHeight), "Select", selectButtonStyle))
         {
-            if (isUnlocked[currentIndex])
+            if (isUnlocked[currentIndex] == true)
             {
                 Debug.Log("Character Selected: " + characterNames[currentIndex]);
 
-                if (characterNames[currentIndex] == "Gabriella")
-                {
-                    PlayerPrefs.SetInt("playerCharacterSelected", 3); // Select Gabriella as player
-                    PlayerPrefs.SetInt("enemyCharacterSelected", 8); // Select Marcus as opponent
-                    PlayerPrefs.SetInt("stageSelected", 4); // Load Village Arena
+                SelectedGabriella();
+                SelectedMarcus();
+                SelectedSelena();
+                SelectedBryan();
+                SelectedNun();
+                SelectedOliver();
+                SelectedOrion();
 
-                    ShowVsPanel();
-                }
+                ShowVsPanel();
             }
             else
             {
@@ -485,6 +491,199 @@ public class SelectionCharacter : MonoBehaviour
         texture.SetPixels(pixels);
         texture.Apply();
         return texture;
+    }
+
+    #endregion
+
+    #region Next Fight Operations
+
+    private void SetupNextFight(int playerCharacter, int enemyCharacter, int selectedArena)
+    {
+        PlayerPrefs.SetInt("playerCharacterSelected", playerCharacter); // Load selected Player character
+        PlayerPrefs.SetInt("enemyCharacterSelected", enemyCharacter); // Load selected Enemy character
+        PlayerPrefs.SetInt("stageSelected", selectedArena); // Load selected Arena battleground
+    }
+
+    private void SelectedGabriella()
+    {
+        if (characterNames[currentIndex] == "Gabriella")
+        {
+            if (isUnlocked[0] == true && isUnlocked[1] == false && isUnlocked[2] == false && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(1, 2, 1); // Gabriella vs Marcus
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == false && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(1, 3, 1); // Gabriella vs Selena
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(1, 4, 1); // Gabriella vs Bryan
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(1, 5, 1); // Gabriella vs Nun
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(1, 6, 1); // Gabriella vs Oliver
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(1, 7, 1); // Gabriella vs Orion
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
+            {
+                SetupNextFight(1, 8, 1); // Gabriella vs Aria
+            }
+        }
+    }
+
+    private void SelectedMarcus()
+    {
+        if (characterNames[currentIndex] == "Marcus")
+        {
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == false && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(2, 3, 1); // Marcus vs Selena
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(2, 4, 1); // Marcus vs Bryan
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(2, 5, 1); // Marcus vs Nun
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(2, 6, 1); // Marcus vs Oliver
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(2, 7, 1); // Marcus vs Orion
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
+            {
+                SetupNextFight(2, 8, 1); // Marcus vs Aria
+            }
+        }
+    }
+
+    private void SelectedSelena()
+    {
+        if (characterNames[currentIndex] == "Selena")
+        {
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(3, 4, 1); // Selena vs Bryan
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(3, 5, 1); // Selena vs Nun
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(3, 6, 1); // Selena vs Oliver
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(3, 7, 1); // Selena vs Orion
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
+            {
+                SetupNextFight(3, 8, 1); // Selena vs Aria
+            }
+        }
+    }
+
+    private void SelectedBryan()
+    {
+        if (characterNames[currentIndex] == "Bryan")
+        {
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(4, 5, 1); // Bryan vs Nun
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(4, 6, 1); // Bryan vs Oliver
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(4, 7, 1); // Bryan vs Orion
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
+            {
+                SetupNextFight(4, 8, 1); // Bryan vs Aria
+            }
+        }
+    }
+
+    private void SelectedNun()
+    {
+        if (characterNames[currentIndex] == "Nun")
+        {
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(5, 6, 1); // Nun vs Oliver
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(5, 7, 1); // Nun vs Orion
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
+            {
+                SetupNextFight(5, 8, 1); // Nun vs Aria
+            }
+        }
+    }
+
+    private void SelectedOliver()
+    {
+        if (characterNames[currentIndex] == "Oliver")
+        {
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
+            {
+                SetupNextFight(6, 7, 1); // Oliver vs Orion
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
+            {
+                SetupNextFight(6, 8, 1); // Oliver vs Aria
+            }
+        }
+    }
+
+    private void SelectedOrion()
+    {
+        if (characterNames[currentIndex] == "Orion")
+        {
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
+            {
+                SetupNextFight(7, 8, 1); // Orion vs Aria
+            }
+        }
     }
 
     #endregion
