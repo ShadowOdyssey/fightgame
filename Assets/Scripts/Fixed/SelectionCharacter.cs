@@ -23,30 +23,32 @@ public class SelectionCharacter : MonoBehaviour
 
     #region Hidden Variables
 
-    private readonly string[] characterNames = { "Gabriella", "Marcus", "Selena", "Bryan", "Nun", "Oliver", "Orion", "Aria" };
-
+    private AudioSource audioSource;
+    private Coroutine countdownCoroutine; // Store the reference to the countdown coroutine
     private readonly int[] durabilityStats = { 7, 5, 9, 6, 8, 6, 8, 10 };
     private readonly int[] offenseStats = { 8, 9, 7, 6, 6, 9, 7, 10 };
     private readonly int[] controlEffectStats = { 6, 4, 8, 5, 7, 5, 9, 10 };
     private readonly int[] difficultyStats = { 4, 6, 8, 3, 5, 4, 5, 10 };
-
+    private readonly int countdownDuration = 5; // Countdown duration in seconds
+    private readonly string[] characterNames = { "Gabriella", "Marcus", "Selena", "Bryan", "Nun", "Oliver", "Orion", "Aria" };
     private int currentIndex = 0;
-    private AudioSource audioSource;
     private int lastPlayedIndex = -1; // To track which hero's intro was last played
-
-    // Locking mechanism
+    private int currentCountdown;
     private bool[] isUnlocked = { true, false, false, false, false, false, false, false }; // Only Gabriella is unlocked by default
-
     private bool showLockedMessage = false; // Indicates if the locked character message should be shown
+    private bool showVsPanel = false;
     private float lockedMessageTimer = 0f; // Timer to control how long the message appears
 
-    // New variables for the VS panel display with countdown
-    private bool showVsPanel = false;
-    private readonly int countdownDuration = 5; // Countdown duration in seconds
-    private int currentCountdown;
-    private Coroutine countdownCoroutine; // Store the reference to the countdown coroutine
+    #endregion
 
     #endregion
+
+    #region Loading Components
+
+    private void Awake() // Always loads components in Awake in the main script of the scene
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
 
     #endregion
 
@@ -54,7 +56,7 @@ public class SelectionCharacter : MonoBehaviour
 
     private void Start()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
+        CheckIfPlayerWonLastBattle(); // Check if player is returning to Selection Character scene after to battle some IA
         PlayHeroIntro(); // Play the first character's intro at start
     }
 
@@ -109,6 +111,46 @@ public class SelectionCharacter : MonoBehaviour
     #endregion
 
     #region Setup Data Loaded
+
+    private void CheckIfPlayerWonLastBattle()
+    {
+        if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "yes") // Check if player won the last fight
+        {
+            PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to another fight
+
+            // PLayer Won
+            switch (PlayerPrefs.GetInt("enemyCharacter"))
+            {
+                case 1: break; // Player won against Marcus
+                case 2: break; // Player won against Selena
+                case 3: break; // Player won against Bryan
+                case 4: break; // Player won against Nun
+                case 5: break; // Player won against Oliver
+                case 6: break; // Player won against Orion
+                case 7: break; // Player won against Aria
+                case 8: break; // Player won against Aria
+            }
+        }
+
+        if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "no") // Check if player lost the last fight
+        {
+            PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to another fight
+
+            // Player Lost
+
+            switch (PlayerPrefs.GetInt("enemyCharacter"))
+            {
+                case 1: break; // Player lost against Marcus
+                case 2: break; // Player lost against Selena
+                case 3: break; // Player lost against Bryan
+                case 4: break; // Player lost against Nun
+                case 5: break; // Player lost against Oliver
+                case 6: break; // Player lost against Orion
+                case 7: break; // Player lost against Aria
+                case 8: break; // Player lost against Aria            }
+            }
+        }
+    }
 
     private void PlayHeroIntro()
     {
