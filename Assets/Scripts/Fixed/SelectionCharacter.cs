@@ -33,6 +33,8 @@ public class SelectionCharacter : MonoBehaviour
     private readonly bool[] isUnlocked = { true, false, false, false, false, false, false, false }; // Only Gabriella is unlocked by default
     private readonly string[] characterNames = { "Gabriella", "Marcus", "Selena", "Bryan", "Nun", "Oliver", "Orion", "Aria" };
     private int currentIndex = 0;
+    private int randomizeCharacter = 0;
+    private int randomizeArena = 0;
     private int lastPlayedIndex = -1; // To track which hero's intro was last played
     private int currentCountdown;
     private bool showLockedMessage = false; // Indicates if the locked character message should be shown
@@ -62,7 +64,7 @@ public class SelectionCharacter : MonoBehaviour
 
     private void Start()
     {
-        CheckIfPlayerWonLastBattle(); // Check if player is returning to Selection Character scene after to battle some IA
+        CheckPlayerReturn(); // Check if player is returning to Selection Character scene after to battle some IA
         PlayHeroIntro(); // Play the first character's intro at start
     }
 
@@ -118,9 +120,9 @@ public class SelectionCharacter : MonoBehaviour
 
     #region Setup Data Loaded
 
-    private void CheckIfPlayerWonLastBattle()
+    private void CheckPlayerReturn()
     {
-        if (PlayerPrefs.GetString("playerUnlockedNewCharacter") != "")
+        if (PlayerPrefs.GetString("playerUnlockedNewCharacter") != "") // Just for debug, it will be removed later
         {
             Debug.Log("Has player unlocked new character? " + PlayerPrefs.GetString("playerUnlockedNewCharacter"));
             Debug.Log("Last enemy player fought: " + PlayerPrefs.GetInt("enemyCharacter"));
@@ -130,6 +132,37 @@ public class SelectionCharacter : MonoBehaviour
             Debug.Log("Player is selecting character for first time!");
         }
 
+        if (PlayerPrefs.GetString("playerFinishedGame") == "no")
+        {
+            CheckIfPlayerWon();
+            CheckIfPlayerLost();
+            CheckIfPlayerFinishedGame();
+        }
+
+        if (PlayerPrefs.GetString("playerFinishedGame") == "yes")
+        {
+            UnlockCharacter(true, true, true, true, true, true, true, true);
+        }
+    }
+
+    private void PlayHeroIntro()
+    {
+        if (heroIntroClips.Length > currentIndex && heroIntroClips[currentIndex] != null && currentIndex != lastPlayedIndex)
+        {
+            audioSource.Stop(); // Stop any currently playing sound
+            audioSource.clip = heroIntroClips[currentIndex];
+            audioSource.Play();
+            lastPlayedIndex = currentIndex;
+        }
+    }
+
+    private void UnlockCharacter(bool gabriella, bool marcus, bool selena, bool bryan, bool nun, bool oliver, bool orion, bool aria)
+    {
+        isUnlocked[0] = gabriella; isUnlocked[1] = marcus; isUnlocked[2] = selena; isUnlocked[3] = bryan; isUnlocked[4] = nun; isUnlocked[5] = oliver; isUnlocked[6] = orion; isUnlocked[0] = aria;
+    }
+
+    private void CheckIfPlayerWon()
+    {
         if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "yes") // Check if player won the last fight
         {
             // PLayer Won
@@ -145,7 +178,10 @@ public class SelectionCharacter : MonoBehaviour
                 case 8: UnlockCharacter(true, true, true, true, true, true, true, true); break; // Player won against Aria
             }
         }
+    }
 
+    private void CheckIfPlayerLost()
+    {
         if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "no") // Check if player lost the last fight
         {
             // Player Lost
@@ -171,20 +207,16 @@ public class SelectionCharacter : MonoBehaviour
         }
     }
 
-    private void PlayHeroIntro()
+    private void CheckIfPlayerFinishedGame()
     {
-        if (heroIntroClips.Length > currentIndex && heroIntroClips[currentIndex] != null && currentIndex != lastPlayedIndex)
+        if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
         {
-            audioSource.Stop(); // Stop any currently playing sound
-            audioSource.clip = heroIntroClips[currentIndex];
-            audioSource.Play();
-            lastPlayedIndex = currentIndex;
+            PlayerPrefs.SetString("playerFinishedGame", "yes");
         }
-    }
-
-    private void UnlockCharacter(bool gabriella, bool marcus, bool selena, bool bryan, bool nun, bool oliver, bool orion, bool aria)
-    {
-        isUnlocked[0] = gabriella; isUnlocked[1] = marcus; isUnlocked[2] = selena; isUnlocked[3] = bryan; isUnlocked[4] = nun; isUnlocked[5] = oliver; isUnlocked[6] = orion; isUnlocked[0] = aria;
+        else
+        {
+            PlayerPrefs.SetString("playerFinishedGame", "`no");
+        }
     }
 
     #endregion
@@ -331,6 +363,7 @@ public class SelectionCharacter : MonoBehaviour
                 SelectedNun();
                 SelectedOliver();
                 SelectedOrion();
+                SelectedAria();
 
                 ShowVsPanel();
             }
@@ -542,6 +575,27 @@ public class SelectionCharacter : MonoBehaviour
             {
                 SetupNextFight(1, 8, 1); // Gabriella vs Aria
             }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
+            {
+                randomizeCharacter = Random.Range(1, 9); // Randomize next Enemy character
+                randomizeArena = Random.Range(1, 5);
+
+                if (randomizeCharacter == 9)
+                {
+                    randomizeCharacter = Random.Range(1, 8); // Randomize again to let it more unpredictible
+                }
+
+                if (randomizeArena == 5)
+                {
+                    randomizeArena = Random.Range(1, 4); // Randomize again to let it more unpredictible
+                }
+
+                SetupNextFight(1, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Gabriella
+
+                randomizeCharacter = 0; // Reset values to be used in the next fight
+                randomizeArena = 0; // Reset values to be used in the next fight
+            }
         }
     }
 
@@ -578,6 +632,27 @@ public class SelectionCharacter : MonoBehaviour
             {
                 SetupNextFight(2, 8, 1); // Marcus vs Aria
             }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
+            {
+                randomizeCharacter = Random.Range(1, 9); // Randomize next Enemy character
+                randomizeArena = Random.Range(1, 5);
+
+                if (randomizeCharacter == 9)
+                {
+                    randomizeCharacter = Random.Range(1, 8); // Randomize again to let it more unpredictible
+                }
+
+                if (randomizeArena == 5)
+                {
+                    randomizeArena = Random.Range(1, 4); // Randomize again to let it more unpredictible
+                }
+
+                SetupNextFight(2, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Marcus
+
+                randomizeCharacter = 0; // Reset values to be used in the next fight
+                randomizeArena = 0; // Reset values to be used in the next fight
+            }
         }
     }
 
@@ -609,6 +684,27 @@ public class SelectionCharacter : MonoBehaviour
             {
                 SetupNextFight(3, 8, 1); // Selena vs Aria
             }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
+            {
+                randomizeCharacter = Random.Range(1, 9); // Randomize next Enemy character
+                randomizeArena = Random.Range(1, 5);
+
+                if (randomizeCharacter == 9)
+                {
+                    randomizeCharacter = Random.Range(1, 8); // Randomize again to let it more unpredictible
+                }
+
+                if (randomizeArena == 5)
+                {
+                    randomizeArena = Random.Range(1, 4); // Randomize again to let it more unpredictible
+                }
+
+                SetupNextFight(3, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Selena
+
+                randomizeCharacter = 0; // Reset values to be used in the next fight
+                randomizeArena = 0; // Reset values to be used in the next fight
+            }
         }
     }
 
@@ -635,6 +731,27 @@ public class SelectionCharacter : MonoBehaviour
             {
                 SetupNextFight(4, 8, 1); // Bryan vs Aria
             }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
+            {
+                randomizeCharacter = Random.Range(1, 9); // Randomize next Enemy character
+                randomizeArena = Random.Range(1, 5);
+
+                if (randomizeCharacter == 9)
+                {
+                    randomizeCharacter = Random.Range(1, 8); // Randomize again to let it more unpredictible
+                }
+
+                if (randomizeArena == 5)
+                {
+                    randomizeArena = Random.Range(1, 4); // Randomize again to let it more unpredictible
+                }
+
+                SetupNextFight(4, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Bryan
+
+                randomizeCharacter = 0; // Reset values to be used in the next fight
+                randomizeArena = 0; // Reset values to be used in the next fight
+            }
         }
     }
 
@@ -656,6 +773,27 @@ public class SelectionCharacter : MonoBehaviour
             {
                 SetupNextFight(5, 8, 1); // Nun vs Aria
             }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
+            {
+                randomizeCharacter = Random.Range(1, 9); // Randomize next Enemy character
+                randomizeArena = Random.Range(1, 5);
+
+                if (randomizeCharacter == 9)
+                {
+                    randomizeCharacter = Random.Range(1, 8); // Randomize again to let it more unpredictible
+                }
+
+                if (randomizeArena == 5)
+                {
+                    randomizeArena = Random.Range(1, 4); // Randomize again to let it more unpredictible
+                }
+
+                SetupNextFight(5, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Nun
+
+                randomizeCharacter = 0; // Reset values to be used in the next fight
+                randomizeArena = 0; // Reset values to be used in the next fight
+            }
         }
     }
 
@@ -672,6 +810,27 @@ public class SelectionCharacter : MonoBehaviour
             {
                 SetupNextFight(6, 8, 1); // Oliver vs Aria
             }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
+            {
+                randomizeCharacter = Random.Range(1, 9); // Randomize next Enemy character
+                randomizeArena = Random.Range(1, 5);
+
+                if (randomizeCharacter == 9)
+                {
+                    randomizeCharacter = Random.Range(1, 8); // Randomize again to let it more unpredictible
+                }
+
+                if (randomizeArena == 5)
+                {
+                    randomizeArena = Random.Range(1, 4); // Randomize again to let it more unpredictible
+                }
+
+                SetupNextFight(6, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Oliver
+
+                randomizeCharacter = 0; // Reset values to be used in the next fight
+                randomizeArena = 0; // Reset values to be used in the next fight
+            }
         }
     }
 
@@ -682,6 +841,54 @@ public class SelectionCharacter : MonoBehaviour
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
                 SetupNextFight(7, 8, 1); // Orion vs Aria
+            }
+
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
+            {
+                randomizeCharacter = Random.Range(1, 9); // Randomize next Enemy character
+                randomizeArena = Random.Range(1, 5);
+
+                if (randomizeCharacter == 9)
+                {
+                    randomizeCharacter = Random.Range(1, 8); // Randomize again to let it more unpredictible
+                }
+
+                if (randomizeArena == 5)
+                {
+                    randomizeArena = Random.Range(1, 4); // Randomize again to let it more unpredictible
+                }
+
+                SetupNextFight(7, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Orion
+
+                randomizeCharacter = 0; // Reset values to be used in the next fight
+                randomizeArena = 0; // Reset values to be used in the next fight
+            }
+        }
+    }
+
+    private void SelectedAria()
+    {
+        if (characterNames[currentIndex] == "Aria")
+        {
+            if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
+            {
+                randomizeCharacter = Random.Range(1, 9); // Randomize next Enemy character
+                randomizeArena = Random.Range(1, 5);
+
+                if (randomizeCharacter == 9)
+                {
+                    randomizeCharacter = Random.Range(1, 8); // Randomize again to let it more unpredictible
+                }
+
+                if (randomizeArena == 5)
+                {
+                    randomizeArena = Random.Range(1, 4); // Randomize again to let it more unpredictible
+                }
+
+                SetupNextFight(8, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Aria
+
+                randomizeCharacter = 0; // Reset values to be used in the next fight
+                randomizeArena = 0; // Reset values to be used in the next fight
             }
         }
     }

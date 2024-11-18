@@ -736,10 +736,17 @@ public class RoundManager : MonoBehaviour
         {
             if (isMultiplayer == false)
             {
-                //Debug.Log("Player Won! Lets return at character selection with a character unblocked or show final video if player defeated last enemy!");
-                PlayerPrefs.SetString("playerUnlockedNewCharacter", "yes"); // Lets inform the another scene that Player was successfull to defeat last enemy
-                PlayerPrefs.SetInt("enemyCharacter", currentEnemyCharacter); // Lets inform the another scene about the current enemy character in the scene
-                Invoke(nameof(ReturnToSelection), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
+                if (PlayerPrefs.GetString("playerFinishedGame") == "no")
+                {
+                    //Debug.Log("Player Won! Lets return at character selection with a character unblocked or show final video if player defeated last enemy!");
+                    PlayerPrefs.SetString("playerUnlockedNewCharacter", "yes"); // Lets inform the another scene that Player was successfull to defeat last enemy
+                    PlayerPrefs.SetInt("enemyCharacter", currentEnemyCharacter); // Lets inform the another scene about the current enemy character in the scene
+                    Invoke(nameof(ReturnToSelection), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
+                }
+                else
+                {
+                    Invoke(nameof(ReturnToSelection), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
+                }
             }
             else
             {
@@ -752,10 +759,17 @@ public class RoundManager : MonoBehaviour
         {
             if (isMultiplayer == false)
             {
-                //Debug.Log("Player lost! Return to character selection or load a defeat animation that loads main menu again in the end, it can be a video");
-                PlayerPrefs.SetString("playerUnlockedNewCharacter", "no"); // Lets inform the another scene that Player was not successfull to defeat last enemy
-                PlayerPrefs.SetInt("enemyCharacter", currentEnemyCharacter); // Lets inform the another scene about the current enemy character in the scene
-                Invoke(nameof(ReturnToMenu), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
+                if (PlayerPrefs.GetString("playerFinishedGame") == "no")
+                {
+                    //Debug.Log("Player lost! Return to character selection or load a defeat animation that loads main menu again in the end, it can be a video");
+                    PlayerPrefs.SetString("playerUnlockedNewCharacter", "no"); // Lets inform the another scene that Player was not successfull to defeat last enemy
+                    PlayerPrefs.SetInt("enemyCharacter", currentEnemyCharacter); // Lets inform the another scene about the current enemy character in the scene
+                    Invoke(nameof(ReturnToMenu), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
+                }
+                else
+                {
+                    Invoke(nameof(ReturnToMenu), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
+                }
             }
             else
             {
