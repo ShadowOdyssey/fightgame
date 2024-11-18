@@ -731,7 +731,7 @@ public class PlayerSystem : MonoBehaviour
             gameObject.transform.position = initialPosition; // Move Player to start position because a new round started
         }
 
-        roundSystem.audioSystem.PlayIntro(1, roundSystem.currentPlayerCharacter);
+        roundSystem.audioSystem.PlayIntro(1, roundSystem.currentPlayerCharacter); // Start Intro sound
 
         playerAnimator.Play("isIntro"); // Play Intro animation because a new round started
     }

@@ -37753,7 +37753,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 1443079219}
   hitEffect: {fileID: 222634076}
   actualAttack: 1
-  enemyDifficulty: 2
+  enemyDifficulty: 3
   attackRange: 13
   moveSpeed: 4
   distanceToTarget: 0
