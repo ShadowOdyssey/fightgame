@@ -4,6 +4,11 @@ using System.Collections;
 
 public class SelectionCharacter : MonoBehaviour
 {
+    #region Variables
+
+    #region Scene Setup
+
+    [Header("Scene Setup")]
     public Texture2D background;
     public Texture2D[] characterImages;
     public AudioClip[] heroIntroClips; // Array for hero-specific intro sounds
@@ -13,6 +18,10 @@ public class SelectionCharacter : MonoBehaviour
     public Texture2D gabriellaTexture;
     public Texture2D vsIcon;
     public Texture2D marcusTexture;
+
+    #endregion
+
+    #region Hidden Variables
 
     private readonly string[] characterNames = { "Gabriella", "Marcus", "Selena", "Bryan", "Nun", "Oliver", "Orion", "Aria" };
 
@@ -26,7 +35,7 @@ public class SelectionCharacter : MonoBehaviour
     private int lastPlayedIndex = -1; // To track which hero's intro was last played
 
     // Locking mechanism
-    private readonly bool[] isUnlocked = { true, false, false, false, false, false, false, false }; // Only Gabriella is unlocked by default
+    private bool[] isUnlocked = { true, false, false, false, false, false, false, false }; // Only Gabriella is unlocked by default
 
     private bool showLockedMessage = false; // Indicates if the locked character message should be shown
     private float lockedMessageTimer = 0f; // Timer to control how long the message appears
@@ -37,62 +46,108 @@ public class SelectionCharacter : MonoBehaviour
     private int currentCountdown;
     private Coroutine countdownCoroutine; // Store the reference to the countdown coroutine
 
+    #endregion
+
+    #endregion
+
+    #region Loading Data
+
     private void Start()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
         PlayHeroIntro(); // Play the first character's intro at start
     }
 
-    void OnGUI()
-{
-    if (background != null)
+    #endregion
+
+    #region Load GUI
+
+    private void OnGUI()
     {
-        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), background, ScaleMode.StretchToFill);
+        if (background != null)
+        {
+            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), background, ScaleMode.StretchToFill);
+        }
+
+        DrawSelectHeroText(); // Call the function to display the "Select a Hero" text
+        DrawBackButton();
+        DrawCharacter();
+        DrawHeroDetails();
+        DrawNavigationButtons();
+        DrawActionButtons();
+
+        if (showLockedMessage)
+        {
+            DrawLockedMessage();
+        }
+
+        if (showVsPanel)
+        {
+            DrawVsPanel();
+            DrawCountdown();
+        }
     }
 
-    DrawSelectHeroText(); // Call the function to display the "Select a Hero" text
-    DrawBackButton();
-    DrawCharacter();
-    DrawHeroDetails();
-    DrawNavigationButtons();
-    DrawActionButtons();
+    #endregion
 
-    if (showLockedMessage)
+    #region Coroutines always first after core system
+
+    IEnumerator CountdownAndLoadScene()
     {
-        DrawLockedMessage();
+        while (currentCountdown > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            currentCountdown--;
+        }
+
+        if (showVsPanel)
+        {
+            SceneManager.LoadScene("FightScene");
+        }
     }
 
-    if (showVsPanel)
+    #endregion
+
+    #region Setup Data Loaded
+
+    private void PlayHeroIntro()
     {
-        DrawVsPanel();
-        DrawCountdown();
+        if (heroIntroClips.Length > currentIndex && heroIntroClips[currentIndex] != null && currentIndex != lastPlayedIndex)
+        {
+            audioSource.Stop(); // Stop any currently playing sound
+            audioSource.clip = heroIntroClips[currentIndex];
+            audioSource.Play();
+            lastPlayedIndex = currentIndex;
+        }
     }
-}
 
-void DrawSelectHeroText()
-{
-    float textWidth = 600f;
-    float textHeight = 150f;
-    float textX = (Screen.width - textWidth) / 2;  // Centers the text horizontally
-    float textY = 50f;  // Positions the text near the top
+    #endregion
 
-    GUIStyle selectHeroStyle = new GUIStyle(GUI.skin.label)
+    #region Setup GUI Loaded
+
+    private void DrawSelectHeroText()
     {
-        fontSize = 60, // Increased the font size for better visibility
-        fontStyle = FontStyle.Bold,
-        normal = { textColor = Color.white },
-        alignment = TextAnchor.MiddleCenter, // Centers the text horizontally
-    };
+        float textWidth = 600f;
+        float textHeight = 150f;
+        float textX = (Screen.width - textWidth) / 2;  // Centers the text horizontally
+        float textY = 50f;  // Positions the text near the top
 
-    // Adding a text shadow effect for better contrast and readability
-    selectHeroStyle.normal.textColor = Color.white;
-    GUI.Label(new Rect(textX + 5, textY + 5, textWidth, textHeight), "Select a Hero", selectHeroStyle); // Shadow
-    selectHeroStyle.normal.textColor = Color.green;
-    GUI.Label(new Rect(textX, textY, textWidth, textHeight), "Select a Hero", selectHeroStyle); // Main text
-}
+        GUIStyle selectHeroStyle = new GUIStyle(GUI.skin.label)
+        {
+            fontSize = 60, // Increased the font size for better visibility
+            fontStyle = FontStyle.Bold,
+            normal = { textColor = Color.white },
+            alignment = TextAnchor.MiddleCenter, // Centers the text horizontally
+        };
 
+        // Adding a text shadow effect for better contrast and readability
+        selectHeroStyle.normal.textColor = Color.white;
+        GUI.Label(new Rect(textX + 5, textY + 5, textWidth, textHeight), "Select a Hero", selectHeroStyle); // Shadow
+        selectHeroStyle.normal.textColor = Color.green;
+        GUI.Label(new Rect(textX, textY, textWidth, textHeight), "Select a Hero", selectHeroStyle); // Main text
+    }
 
-    void DrawBackButton()
+    private void DrawBackButton()
     {
         float buttonWidth = 120f;
         float buttonHeight = 50f;
@@ -111,7 +166,7 @@ void DrawSelectHeroText()
         }
     }
 
-    void DrawCharacter()
+    private void DrawCharacter()
     {
         if (characterImages.Length > 0)
         {
@@ -130,7 +185,7 @@ void DrawSelectHeroText()
         }
     }
 
-    void DrawHeroDetails()
+    private void DrawHeroDetails()
     {
         float panelX = Screen.width * 0.1f;
         float panelY = Screen.height * 0.25f;
@@ -160,7 +215,7 @@ void DrawSelectHeroText()
         }
     }
 
-    void DrawNavigationButtons()
+    private void DrawNavigationButtons()
     {
         float buttonSize = 80f;
         float panelWidth = Screen.width * 0.35f;
@@ -184,7 +239,7 @@ void DrawSelectHeroText()
         }
     }
 
-    void DrawActionButtons()
+    private void DrawActionButtons()
     {
         float buttonWidth = 250f;
         float buttonHeight = 60f;
@@ -220,28 +275,14 @@ void DrawSelectHeroText()
         }
     }
 
-    void ShowVsPanel()
+    private void ShowVsPanel()
     {
         showVsPanel = true;
         currentCountdown = countdownDuration;
         StartCoroutine(CountdownAndLoadScene());
     }
 
-    IEnumerator CountdownAndLoadScene()
-    {
-        while (currentCountdown > 0)
-        {
-            yield return new WaitForSeconds(1f);
-            currentCountdown--;
-        }
-
-        if (showVsPanel)
-        {
-            SceneManager.LoadScene("FightScene");
-        }
-    }
-
-    void DrawVsPanel()
+    private void DrawVsPanel()
     {
         float panelWidth = 2100f;
         float panelHeight = 1200f;
@@ -269,7 +310,7 @@ void DrawSelectHeroText()
         GUI.DrawTexture(new Rect(marcusX, panelY + (panelHeight / 2) - (characterTextureHeight / 2), characterTextureWidth, characterTextureHeight), marcusTexture, ScaleMode.ScaleToFit);
     }
 
-    void DrawCountdown()
+    private void DrawCountdown()
     {
         float labelWidth = 400f;
         float labelHeight = 200f;
@@ -286,30 +327,23 @@ void DrawSelectHeroText()
         GUI.Label(new Rect(labelX, labelY, labelWidth, labelHeight), currentCountdown.ToString(), countdownStyle);
     }
 
-    void ShowNextCharacter()
-    {
-        currentIndex = (currentIndex + 1) % characterImages.Length;
-        PlayHeroIntro();
-    }
+    #endregion
 
-    void ShowPreviousCharacter()
+    #region GUI Operations
+
+    private void ShowPreviousCharacter()
     {
         currentIndex = (currentIndex > 0) ? currentIndex - 1 : characterImages.Length - 1;
         PlayHeroIntro();
     }
 
-    void PlayHeroIntro()
+    private void ShowNextCharacter()
     {
-        if (heroIntroClips.Length > currentIndex && heroIntroClips[currentIndex] != null && currentIndex != lastPlayedIndex)
-        {
-            audioSource.Stop(); // Stop any currently playing sound
-            audioSource.clip = heroIntroClips[currentIndex];
-            audioSource.Play();
-            lastPlayedIndex = currentIndex;
-        }
+        currentIndex = (currentIndex + 1) % characterImages.Length;
+        PlayHeroIntro();
     }
 
-    void DrawLockedMessage()
+    private void DrawLockedMessage()
     {
         if (lockedMessageTimer > 0)
         {
@@ -335,7 +369,7 @@ void DrawSelectHeroText()
         GUI.Box(new Rect(messageX, messageY, messageWidth, messageHeight), "Character is Locked!", lockedMessageStyle);
     }
 
-    void DrawStatBars(float x, float y)
+    private void DrawStatBars(float x, float y)
     {
         DrawStatBar("Durability", durabilityStats[currentIndex], x, y);
         DrawStatBar("Offense", offenseStats[currentIndex], x, y + 50);
@@ -343,7 +377,7 @@ void DrawSelectHeroText()
         DrawStatBar("Difficulty", difficultyStats[currentIndex], x, y + 150);
     }
 
-    void DrawStatBar(string label, int value, float x, float y)
+    private void DrawStatBar(string label, int value, float x, float y)
     {
         float barWidth = 400f;
         float barHeight = 20f;
@@ -369,12 +403,12 @@ void DrawSelectHeroText()
         GUI.Box(new Rect(x + labelWidth + ((barWidth / 10) * value), y + 10, barWidth - ((barWidth / 10) * value), barHeight), GUIContent.none, emptyBarStyle);
     }
 
-    float CalculateStatsHeight()
+    private float CalculateStatsHeight()
     {
         return (50 * 4);
     }
 
-    float CalculateStatsWidth()
+    private float CalculateStatsWidth()
     {
         return 500;
     }
@@ -391,4 +425,6 @@ void DrawSelectHeroText()
         texture.Apply();
         return texture;
     }
+
+    #endregion
 }
