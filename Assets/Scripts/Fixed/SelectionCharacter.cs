@@ -116,8 +116,6 @@ public class SelectionCharacter : MonoBehaviour
     {
         if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "yes") // Check if player won the last fight
         {
-            PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to another fight
-
             // PLayer Won
             switch (PlayerPrefs.GetInt("enemyCharacter"))
             {
@@ -134,10 +132,7 @@ public class SelectionCharacter : MonoBehaviour
 
         if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "no") // Check if player lost the last fight
         {
-            PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to another fight
-
             // Player Lost
-
             switch (PlayerPrefs.GetInt("enemyCharacter"))
             {
                 case 1: break; // Player lost against Marcus
@@ -150,6 +145,9 @@ public class SelectionCharacter : MonoBehaviour
                 case 8: break; // Player lost against Aria            }
             }
         }
+
+        PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to another fight
+        PlayerPrefs.SetInt("enemyCharacter", 0); // Reset the value to make it disponible to another fight
     }
 
     private void PlayHeroIntro()
