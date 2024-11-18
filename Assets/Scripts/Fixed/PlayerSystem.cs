@@ -430,6 +430,7 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            //roundSystem.audioSystem.MoveRight(1, roundSystem.currentPlayerCharacter); // Start character Move Right sound in Player Audio only after animation has started - Optional
         }
     }
 
@@ -451,6 +452,7 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            //roundSystem.audioSystem.MoveLeft(1, roundSystem.currentPlayerCharacter); // Start character Move Left sound in Player Audio only after animation has started - Optional
         }
     }
 
@@ -471,6 +473,7 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            //roundSystem.audioSystem.Hit(1, roundSystem.currentPlayerCharacter); // Start character Hit sound in Player Audio only after animation has started
             Invoke(nameof(CheckHitStuck), 1f);
         }
     }
@@ -499,6 +502,7 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 isCooldown1= true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
+                //roundSystem.audioSystem.Attack1(1, roundSystem.currentPlayerCharacter); // Start character Attack 1 sound in Player Audio only after animation has started
                 Invoke(nameof(CheckAttack1Stuck), 1f);
             }
         }
@@ -524,6 +528,7 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
+                //roundSystem.audioSystem.Attack2(1, roundSystem.currentPlayerCharacter); // Start character Attack 2 sound in Player Audio only after animation has started
                 Invoke(nameof(CheckAttack2Stuck), 1f);
             }
         }
@@ -549,6 +554,7 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
                 isCooldown3 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
+                //roundSystem.audioSystem.Attack3(1, roundSystem.currentPlayerCharacter); // Start character Attack 3 sound in Player Audio only after animation has started
                 Invoke(nameof(CheckAttack3Stuck), 1f);
             }
         }
@@ -576,7 +582,6 @@ public class PlayerSystem : MonoBehaviour
         }
     }
 
-
     private void CheckAttack3Stuck()
     {
         if (isAttacking == true) // Sometimes Animator dont triggers correctly in the end of the frame so we make sure it will be triggered
@@ -588,12 +593,11 @@ public class PlayerSystem : MonoBehaviour
         }
     }
 
-
     public void CheckHitStuck() // It shows zero references but is activated by the last frame of Hit animation
     {
         if (isHit == true)
         {
-            Debug.Log("Hit Stuck was checked");
+            //Debug.Log("Hit Stuck was checked");
 
             isHit = false; // Hit animation finished
             AnimIsIdle(); // Reset animation to Idle
@@ -637,8 +641,7 @@ public class PlayerSystem : MonoBehaviour
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
             //Debug.Log("Player activated Attack 1");
-            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter);
-            // roundSystem.audioSystem.PlayAttack1(1, roundSyste.currentPlayerCharacter);
+            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
             AnimIsAttack1();
         }
     }
@@ -648,8 +651,7 @@ public class PlayerSystem : MonoBehaviour
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
             //Debug.Log("Player activated Attack 2");
-            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter);
-            // roundSystem.audioSystem.PlayAttack2(1, roundSyste.currentPlayerCharacter);
+            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
             AnimIsAttack2();
         }
     }
@@ -659,8 +661,7 @@ public class PlayerSystem : MonoBehaviour
         if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
         {
             //Debug.Log("Player activated Attack 3");
-            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter);
-            // roundSystem.audioSystem.PlayAttack3(1, roundSyste.currentPlayerCharacter);
+            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
             AnimIsAttack3();
         }
     }
@@ -731,9 +732,8 @@ public class PlayerSystem : MonoBehaviour
             gameObject.transform.position = initialPosition; // Move Player to start position because a new round started
         }
 
-        roundSystem.audioSystem.PlayIntro(1, roundSystem.currentPlayerCharacter); // Start Intro sound
-
         playerAnimator.Play("isIntro"); // Play Intro animation because a new round started
+        roundSystem.audioSystem.PlayIntro(1, roundSystem.currentPlayerCharacter); // Start character Intro sound in Player Audio only after animation has started
     }
 
     public void StartVictoryAnimation()
@@ -741,8 +741,8 @@ public class PlayerSystem : MonoBehaviour
         ResetAllAnimations(); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
 
         //Debug.Log("Player Victory was activated");
-
         playerAnimator.Play("isVictory");
+        //roundSystem.audioSystem.PlayVictory(1, roundSystem.currentPlayerCharacter); // Start character Victory sound in Player Audio only after animation has started
     }
 
     public void StartDrawAnimation()
@@ -750,8 +750,8 @@ public class PlayerSystem : MonoBehaviour
         ResetAllAnimations(); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
 
         //Debug.Log("Player Draw was activated");
-
         playerAnimator.Play("isDefeat");
+        //roundSystem.audioSystem.PlayDraw(1, roundSystem.currentPlayerCharacter); // Start character Draw sound in Player Audio only after animation has started
     }
 
     public void StartDefeatAnimation()
@@ -759,8 +759,8 @@ public class PlayerSystem : MonoBehaviour
         ResetAllAnimations(); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
 
         //Debug.Log("Player Defeat was activated");
-
         playerAnimator.Play("isDefeat");
+        //roundSystem.audioSystem.PlayDefeat(1, roundSystem.currentPlayerCharacter); // Start character Defeat sound in Player Audio only after animation has started
     }
 
     #endregion

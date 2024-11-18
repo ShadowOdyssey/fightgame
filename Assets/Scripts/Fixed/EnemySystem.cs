@@ -644,6 +644,7 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            //roundSystem.audioSystem.MoveLeft(2, roundSystem.currentEnemyCharacter); // Start character Move Left sound in Enemy Audio only after animation has started - Optional
             isWalking = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
 
@@ -657,6 +658,7 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            //roundSystem.audioSystem.MoveRight(2, roundSystem.currentEnemyCharacter); // Start character Move Right sound in Enemy Audio only after animation has started - Optional
             isWalking = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
     }
@@ -672,6 +674,7 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            //roundSystem.audioSystem.Idle(2, roundSystem.currentEnemyCharacter); // Start character Idle sound in Enemy Audio only after animation has started - Optional
             isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
     }
@@ -687,6 +690,7 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            //roundSystem.audioSystem.Attack1(2, roundSystem.currentEnemyCharacter); // Start character Attack 1 sound in Enemy Audio only after animation has started
             isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
     }
@@ -702,6 +706,7 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            //roundSystem.audioSystem.Attack2(2, roundSystem.currentEnemyCharacter); // Start character Attack 2 sound in Enemy Audio only after animation has started
             isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
     }
@@ -717,6 +722,7 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            //roundSystem.audioSystem.Attack3(2, roundSystem.currentEnemyCharacter); // Start character Attack 3 sound in Enemy Audio only after animation has started
             isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
     }
@@ -732,6 +738,7 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            //roundSystem.audioSystem.Hit(2, roundSystem.currentEnemyCharacter); // Start character Hit sound in Enemy Audio only after animation has started
             isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
     }
@@ -745,9 +752,8 @@ public class EnemySystem : MonoBehaviour
             gameObject.transform.position = initialPosition; // Move Enemy to initial position because a new round started
         }
 
-        roundSystem.audioSystem.PlayIntro(2, roundSystem.currentEnemyCharacter);
-
         enemyAnimator.Play("isIntro"); // Call directly Intro animation and it goes automatically to Idle animation when Intro animation to finish
+        roundSystem.audioSystem.PlayIntro(2, roundSystem.currentEnemyCharacter); // Start character Intro sound in Enemy Audio only after animation has started
     }
 
     public void StartVictoryAnimation()
@@ -757,6 +763,7 @@ public class EnemySystem : MonoBehaviour
         //Debug.Log("Enemy Victory was activated");
 
         enemyAnimator.Play("isVictory"); // Call directly Victory animation and repeat it till another round start or to finish the fight
+        // roundSystem.audioSystem.PlayVictory(2, roundSystem.currentEnemyCharacter); // Start character Victory sound in Enemy Audio only after animation has started
     }
 
     public void StartDrawAnimation()
@@ -766,6 +773,7 @@ public class EnemySystem : MonoBehaviour
         //Debug.Log("Enemy Draw was activated");
 
         enemyAnimator.Play("isDefeat"); // Call directly Draw animation and repeat it till another round start or to finish the fight
+        // roundSystem.audioSystem.PlayDraw(2, roundSystem.currentEnemyCharacter); // Start character Draw sound in Enemy Audio only after animation has started
     }
 
     public void StartDefeatAnimation()
@@ -775,18 +783,21 @@ public class EnemySystem : MonoBehaviour
         //Debug.Log("Enemy Defeat was activated");
 
         enemyAnimator.Play("isDefeat"); // Call directly Defeat animation and repeat it till another round start or to finish the fight
+        // roundSystem.audioSystem.PlayDefeat(2, roundSystem.currentEnemyCharacter); // Start character Defeat sound in Enemy Audio only after animation has started
     }
 
     private void StartStunnedAnimation()
     {
         ResetAllAnimations();
         enemyAnimator.Play("isStunned");
+        // roundSystem.audioSystem.PlayStunned(2, roundSystem.currentEnemyCharacter); // Start character Stunned sound in Enemy Audio only after animation has started
     }
 
     private void StartHurtAnimation()
     {
         ResetAllAnimations();
         enemyAnimator.Play("isHurt");
+        // roundSystem.audioSystem.PlayHurt(2, roundSystem.currentEnemyCharacter); // Start character Hurt sound in Enemy Audio only after animation has started
     }
 
     #endregion
