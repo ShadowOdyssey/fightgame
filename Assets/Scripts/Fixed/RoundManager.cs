@@ -174,12 +174,6 @@ public class RoundManager : MonoBehaviour
     {
         StopAllCoroutines(); // Stop all coroutines from old scenes
 
-        // DEBUG ONLY - WILL BE REMOVED LATER
-        PlayerPrefs.SetInt("playerCharacterSelected", 1); // Select a player character - Just for Debug it will be removed later
-        PlayerPrefs.SetInt("enemyCharacterSelected", 8); // Select an enemy character - Just for Debug it will be removed later
-        PlayerPrefs.SetInt("stageSelected", 1); // Select an arena - Just for Debug it will be removed later
-
-
         if (PlayerPrefs.GetInt("playerCharacterSelected") != 0)
         {
             currentPlayerCharacter = PlayerPrefs.GetInt("playerCharacterSelected");
@@ -283,7 +277,7 @@ public class RoundManager : MonoBehaviour
         if (roundStarted == false)
         {
             //Debug.Log("Round started, show current round");
-            DrawRoundText("ROUND " + currentRound);
+            ShowRoundText("ROUND " + currentRound);
             actualTime.text = roundTime.ToString();
             roundStarted = true;
             roundOver = true;
@@ -343,12 +337,12 @@ public class RoundManager : MonoBehaviour
 
                 if (timesPlayerWon == 2)
                 {
-                    DrawRoundText("FIGHT OVER! " + playerNameText.text + " WINS");
+                    ShowRoundText("FIGHT OVER! " + playerNameText.text + " WINS");
                 }
 
                 if (timesEnemyWon == 2)
                 {
-                    DrawRoundText("FIGHT OVER! " + enemyNameText.text + " WINS");
+                    ShowRoundText("FIGHT OVER! " + enemyNameText.text + " WINS");
                 }
 
                 Invoke(nameof(FightEnded), 15f);
@@ -362,7 +356,6 @@ public class RoundManager : MonoBehaviour
             if (playerComboTime > 3f)
             {
                 PlayerFinishedCombo();
-                //DisablePlayerComboOnScreen(); // Disable current Player combo on screen
             }
         }
 
@@ -373,7 +366,6 @@ public class RoundManager : MonoBehaviour
             if (enemyComboTime > 3f)
             {
                 EnemyFinishedCombo();
-                //DisableEnemyComboOnScreen(); // Disable current Enemy combo on screen
             }
         }
     }
@@ -429,7 +421,7 @@ public class RoundManager : MonoBehaviour
                     timesPlayerWon = 2;
                 }
 
-                DrawRoundText(playerNameText.text + " WINS ROUND " + currentRound);
+                ShowRoundText(playerNameText.text + " WINS ROUND " + currentRound);
             }
             else if (opponentHealth > playerHealth)
             {
@@ -449,7 +441,7 @@ public class RoundManager : MonoBehaviour
                     timesEnemyWon = 2;
                 }
 
-                DrawRoundText(enemyNameText.text + " WINS ROUND " + currentRound);
+                ShowRoundText(enemyNameText.text + " WINS ROUND " + currentRound);
             }
             else
             {
@@ -458,7 +450,7 @@ public class RoundManager : MonoBehaviour
                 playerSystem.StartDrawAnimation();
                 enemySystem.StartDrawAnimation();
 
-                DrawRoundText("ROUND " + currentRound + " DRAW");
+                ShowRoundText("ROUND " + currentRound + " DRAW");
             }
 
             wasDetermined = true;
@@ -482,10 +474,10 @@ public class RoundManager : MonoBehaviour
         }
         else
         {
-            UpdatePlayerComboOnScreen();
             isPlayerCombo = false;
         }
 
+        UpdatePlayerComboOnScreen();
         playerComboTime = 0f;
         playerTotalCombo = 0;
     }
@@ -498,10 +490,10 @@ public class RoundManager : MonoBehaviour
         }
         else
         {
-            UpdateEnemyComboOnScreen();
             isEnemyCombo = false;
         }
 
+        UpdateEnemyComboOnScreen();
         enemyTotalCombo = 0;
         enemyComboTime = 0f;
     }
@@ -564,7 +556,7 @@ public class RoundManager : MonoBehaviour
         StartRound();
     }
 
-    private void DrawRoundText(string message)
+    private void ShowRoundText(string message)
     {
         roundText.text = message;
         roundTextBackground.SetActive(true);
@@ -577,16 +569,60 @@ public class RoundManager : MonoBehaviour
 
     private void UpdatePlayerComboOnScreen()
     {
-        // Show current Player combo in the screen
+        // Show current Player combo in the screen using an animated gameObject that have Animator on it, just enable and disable it using SetActive() to make it to work
+
+        if (playerTotalCombo == 1)
+        {
+            // playerComboAnim1.SetActive(true);
+        }
+
+        if (playerTotalCombo == 2)
+        {
+            // playerComboAnim2.SetActive(true);
+        }
+
+        if (playerTotalCombo == 3)
+        {
+            // playerComboAnim3.SetActive(true);
+        }
+
+        // In all combos gameObjects need to have a script there to disable it after 5 seconds using the last frame of combo animation to trigger the method to disable combo on screen
     }
 
     private void UpdateEnemyComboOnScreen()
     {
-        // Show current Enemy combo in the screen
+        // Show current Player combo in the screen using an animated gameObject that have Animator on it, just enable and disable it using SetActive() to make it to work
+
+        if (enemyTotalCombo == 1)
+        {
+            // enemyComboAnim1.SetActive(true);
+        }
+
+        if (enemyTotalCombo == 2)
+        {
+            // enemyComboAnim2.SetActive(true);
+        }
+
+        if (enemyTotalCombo == 3)
+        {
+            // enemyComboAnim3.SetActive(true);
+        }
+
+        // In all combos gameObjects need to have a script there to disable it after 5 seconds using the last frame of combo animation to trigger the method to disable combo on screen
     }
 
     private void FightEnded()
     {
-        Debug.Log("Fight ended! Return to scene of character selecting an opponent or go to main menu if Player lost the battle");
+        //Debug.Log("Fight ended! Return to scene of character selecting an opponent or go to main menu if Player lost the battle");
+
+        if (playerWonRound2 == true)
+        {
+            //Debug.Log("Player Won! Lets return at character selection with a character unblocked or show final video because player defeated last enemy!");
+        }
+
+        if (enemyWonRound2 == true)
+        {
+            //Debug.Log("Player lost! Return to character selection or load a defeat animation that loads main menu again in the end, it can be a video");
+        }
     }
 }
