@@ -175,7 +175,7 @@ public class RoundManager : MonoBehaviour
         StopAllCoroutines(); // Stop all coroutines from old scenes
 
         // DEBUG ONLY - WILL BE REMOVED LATER
-        PlayerPrefs.SetInt("playerCharacterSelected", 8); // Select a player character - Just for Debug it will be removed later
+        PlayerPrefs.SetInt("playerCharacterSelected", 1); // Select a player character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("enemyCharacterSelected", 8); // Select an enemy character - Just for Debug it will be removed later
         PlayerPrefs.SetInt("stageSelected", 1); // Select an arena - Just for Debug it will be removed later
 

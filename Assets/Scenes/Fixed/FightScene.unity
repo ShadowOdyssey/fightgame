@@ -5427,15 +5427,83 @@ MonoBehaviour:
   gameMusic: {fileID: 1926296278}
   playerAudio: {fileID: 210332892}
   enemyAudio: {fileID: 2035104855}
+  minMusicVolume: -20
+  maxMusicVolume: -15
+  minPlayerVolume: -10
+  maxPlayerVolume: 0
+  minEnemyVolume: -10
+  maxEnemyVolume: 0
+  uiButtonClicked: {fileID: 0}
+  uiButtonCooldown: {fileID: 0}
+  uiButtonConfirm: {fileID: 0}
+  uiButtonCancel: {fileID: 0}
+  uiNotificationFromServer: {fileID: 0}
   mainMusic: {fileID: 8300000, guid: 51413e93cc339f04f9652ef5205ce8fe, type: 3}
   arena1Music: {fileID: 8300000, guid: 9197f4b7b25505440886e467303d14e2, type: 3}
-  arena2Music: {fileID: 0}
-  arena3Music: {fileID: 0}
-  arena4Music: {fileID: 0}
+  arena2Music: {fileID: 8300000, guid: 9197f4b7b25505440886e467303d14e2, type: 3}
+  arena3Music: {fileID: 8300000, guid: 9197f4b7b25505440886e467303d14e2, type: 3}
+  arena4Music: {fileID: 8300000, guid: 9197f4b7b25505440886e467303d14e2, type: 3}
+  roundSoundStart: {fileID: 0}
+  roundSoundWon: {fileID: 0}
+  roundSoundDraw: {fileID: 0}
+  roundSoundTimeOut: {fileID: 0}
+  roundSoundMenu: {fileID: 0}
   gabriellaIntro: {fileID: 8300000, guid: 4c4aee8399ff18343bdd1dfcbed5309e, type: 3}
   marcusIntro: {fileID: 8300000, guid: 1860afe5cb45dc94c93d3e3f380b32d1, type: 3}
+  selenaIntro: {fileID: 8300000, guid: 6d5e993e885c55047b75023be6b3a2b7, type: 3}
+  bryanIntro: {fileID: 8300000, guid: f6f8b03441dd99543895e0e07a711c5f, type: 3}
+  nunIntro: {fileID: 8300000, guid: f653697583a496142ab59abaded4bffb, type: 3}
+  oliverIntro: {fileID: 8300000, guid: c58b3d08c18756543901d5e3eb9a0aa8, type: 3}
+  orionIntro: {fileID: 8300000, guid: e3a29873d178100489aa1abce1f8d654, type: 3}
+  ariaIntro: {fileID: 8300000, guid: 421a3383a731ac04da7ed314ef3fa3e9, type: 3}
+  gabriellaAttack1: {fileID: 0}
+  marcusAttack1: {fileID: 0}
+  selenaAttack1: {fileID: 0}
+  bryanAttack1: {fileID: 0}
+  nunAttack1: {fileID: 0}
+  oliverAttack1: {fileID: 0}
+  orionAttack1: {fileID: 0}
+  ariaAttack1: {fileID: 0}
+  gabriellaAttack2: {fileID: 0}
+  marcusAttack2: {fileID: 0}
+  selenaAttack2: {fileID: 0}
+  bryanAttack2: {fileID: 0}
+  nunAttack2: {fileID: 0}
+  oliverAttack2: {fileID: 0}
+  orionAttack2: {fileID: 0}
+  ariaAttack2: {fileID: 0}
+  gabriellaAttack3: {fileID: 0}
+  marcusAttack3: {fileID: 0}
+  selenaAttack3: {fileID: 0}
+  bryanAttack3: {fileID: 0}
+  nunAttack3: {fileID: 0}
+  oliverAttack3: {fileID: 0}
+  orionAttack3: {fileID: 0}
+  ariaAttack3: {fileID: 0}
+  gabriellaHit: {fileID: 0}
+  marcusHit: {fileID: 0}
+  selenaHit: {fileID: 0}
+  bryanHit: {fileID: 0}
+  nunHit: {fileID: 0}
+  oliverHit: {fileID: 0}
+  orionHit: {fileID: 0}
+  ariaHit: {fileID: 0}
+  gabriellaDefeat: {fileID: 0}
+  marcusDefeat: {fileID: 0}
+  selenaDefeat: {fileID: 0}
+  bryanDefeat: {fileID: 0}
+  nunDefeat: {fileID: 0}
+  oliverDefeat: {fileID: 0}
+  orionDefeat: {fileID: 0}
+  ariaDefeat: {fileID: 0}
   gabriellaVictory: {fileID: 0}
   marcusVictory: {fileID: 0}
+  selenaVictory: {fileID: 0}
+  bryanVictory: {fileID: 0}
+  nunVictory: {fileID: 0}
+  oliverVictory: {fileID: 0}
+  orionVictory: {fileID: 0}
+  ariaVictory: {fileID: 0}
 --- !u!1 &55189692
 GameObject:
   m_ObjectHideFlags: 0
