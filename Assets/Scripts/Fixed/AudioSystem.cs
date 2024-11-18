@@ -48,15 +48,17 @@ public class AudioSystem : MonoBehaviour
     #region Round Setup
 
     [Header("Round Sound")]
-    public AudioClip roundSoundStart;
+    public AudioClip roundSound1;
+    public AudioClip roundSound2;
+    public AudioClip roundSound3;
     public AudioClip roundSoundWon;
-    public AudioClip roundSoundDraw;
-    public AudioClip roundSoundTimeOut;
-    public AudioClip roundSoundMenu;
+    public AudioClip roundSoundDefeat;
 
     #endregion
 
     #region Characters Setup
+
+    #region Intro Sound
 
     [Header("Intro Sounds")]
     public AudioClip gabriellaIntro;
@@ -68,6 +70,10 @@ public class AudioSystem : MonoBehaviour
     public AudioClip orionIntro;
     public AudioClip ariaIntro;
 
+    #endregion
+
+    #region Attack Sound
+
     [Header("Attack 1 Sounds")]
     public AudioClip gabriellaAttack1;
     public AudioClip marcusAttack1;
@@ -77,6 +83,7 @@ public class AudioSystem : MonoBehaviour
     public AudioClip oliverAttack1;
     public AudioClip orionAttack1;
     public AudioClip ariaAttack1;
+
 
     [Header("Attack 2 Sounds")]
     public AudioClip gabriellaAttack2;
@@ -98,6 +105,10 @@ public class AudioSystem : MonoBehaviour
     public AudioClip orionAttack3;
     public AudioClip ariaAttack3;
 
+    #endregion
+
+    #region Hit Sound
+
     [Header("Hit Sounds")]
     public AudioClip gabriellaHit;
     public AudioClip marcusHit;
@@ -107,6 +118,24 @@ public class AudioSystem : MonoBehaviour
     public AudioClip oliverHit;
     public AudioClip orionHit;
     public AudioClip ariaHit;
+
+    #endregion
+
+    #region Block Sound
+
+    [Header("Block Sounds")]
+    public AudioClip gabriellaBlock;
+    public AudioClip marcusBlock;
+    public AudioClip selenaBlock;
+    public AudioClip bryanBlock;
+    public AudioClip nunBlock;
+    public AudioClip oliverBlock;
+    public AudioClip orionBlock;
+    public AudioClip ariaBlock;
+
+    #endregion
+
+    #region Defeat Sound
 
     [Header("Defeat Sounds")]
     public AudioClip gabriellaDefeat;
@@ -118,6 +147,10 @@ public class AudioSystem : MonoBehaviour
     public AudioClip orionDefeat;
     public AudioClip ariaDefeat;
 
+    #endregion
+
+    #region Victory Sound
+
     [Header("Victory Sounds")]
     public AudioClip gabriellaVictory;
     public AudioClip marcusVictory;
@@ -127,6 +160,8 @@ public class AudioSystem : MonoBehaviour
     public AudioClip oliverVictory;
     public AudioClip orionVictory;
     public AudioClip ariaVictory;
+
+    #endregion
 
     #endregion
 

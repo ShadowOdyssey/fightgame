@@ -5443,11 +5443,11 @@ MonoBehaviour:
   arena2Music: {fileID: 8300000, guid: 9197f4b7b25505440886e467303d14e2, type: 3}
   arena3Music: {fileID: 8300000, guid: 9197f4b7b25505440886e467303d14e2, type: 3}
   arena4Music: {fileID: 8300000, guid: 9197f4b7b25505440886e467303d14e2, type: 3}
-  roundSoundStart: {fileID: 0}
+  roundSound1: {fileID: 8300000, guid: cbfd076e4d250454ead26a3ae1eedbe6, type: 3}
+  roundSound2: {fileID: 8300000, guid: 5a6fbacbe7b244748b4b88018dd80fbf, type: 3}
+  roundSound3: {fileID: 8300000, guid: 5acfefa9868c85c43a72161dae13a4ac, type: 3}
   roundSoundWon: {fileID: 0}
-  roundSoundDraw: {fileID: 0}
-  roundSoundTimeOut: {fileID: 0}
-  roundSoundMenu: {fileID: 0}
+  roundSoundDefeat: {fileID: 0}
   gabriellaIntro: {fileID: 8300000, guid: 4c4aee8399ff18343bdd1dfcbed5309e, type: 3}
   marcusIntro: {fileID: 8300000, guid: 1860afe5cb45dc94c93d3e3f380b32d1, type: 3}
   selenaIntro: {fileID: 8300000, guid: 6d5e993e885c55047b75023be6b3a2b7, type: 3}
@@ -5457,12 +5457,12 @@ MonoBehaviour:
   orionIntro: {fileID: 8300000, guid: e3a29873d178100489aa1abce1f8d654, type: 3}
   ariaIntro: {fileID: 8300000, guid: 421a3383a731ac04da7ed314ef3fa3e9, type: 3}
   gabriellaAttack1: {fileID: 0}
-  marcusAttack1: {fileID: 0}
+  marcusAttack1: {fileID: 8300000, guid: 90ee7cc1b61b4cb4098a7a1966cc545b, type: 3}
   selenaAttack1: {fileID: 0}
-  bryanAttack1: {fileID: 0}
+  bryanAttack1: {fileID: 8300000, guid: e1245726bcaace74bbe3b94841728c45, type: 3}
   nunAttack1: {fileID: 0}
-  oliverAttack1: {fileID: 0}
-  orionAttack1: {fileID: 0}
+  oliverAttack1: {fileID: 8300000, guid: d66d51055f180d1408def60dad86f5d1, type: 3}
+  orionAttack1: {fileID: 8300000, guid: f898a22b46eb0d9408d183c3a7d156d2, type: 3}
   ariaAttack1: {fileID: 0}
   gabriellaAttack2: {fileID: 0}
   marcusAttack2: {fileID: 0}
@@ -5481,13 +5481,21 @@ MonoBehaviour:
   orionAttack3: {fileID: 0}
   ariaAttack3: {fileID: 0}
   gabriellaHit: {fileID: 0}
-  marcusHit: {fileID: 0}
-  selenaHit: {fileID: 0}
-  bryanHit: {fileID: 0}
-  nunHit: {fileID: 0}
-  oliverHit: {fileID: 0}
-  orionHit: {fileID: 0}
+  marcusHit: {fileID: 8300000, guid: e22e5a88438f3384088f062dca172ce8, type: 3}
+  selenaHit: {fileID: 8300000, guid: c0e8566e4e7053045b718977ba48f43e, type: 3}
+  bryanHit: {fileID: 8300000, guid: eb11d69ae3a50aa478be881628cfaf3a, type: 3}
+  nunHit: {fileID: 8300000, guid: cb6871cb0488d0543a384904c7b9b3bd, type: 3}
+  oliverHit: {fileID: 8300000, guid: 408e148e50e98ac4a9104ac113f61e7a, type: 3}
+  orionHit: {fileID: 8300000, guid: d06ba091fb020cd4fa293ce92d07e334, type: 3}
   ariaHit: {fileID: 0}
+  gabriellaBlock: {fileID: 0}
+  marcusBlock: {fileID: 8300000, guid: fcca15ec1ced63b408355646a0e151cd, type: 3}
+  selenaBlock: {fileID: 8300000, guid: 1a551f7edea0f5745b3c8c2f3a966539, type: 3}
+  bryanBlock: {fileID: 8300000, guid: bd4d427440c1abf428583ba5030fca39, type: 3}
+  nunBlock: {fileID: 8300000, guid: 2cdb62b38f7fe084ea8137625c87c759, type: 3}
+  oliverBlock: {fileID: 8300000, guid: 153fc24c98bf8e84ab0ac96048af96db, type: 3}
+  orionBlock: {fileID: 8300000, guid: f86d2e7069f56f340944b9cdce2896b6, type: 3}
+  ariaBlock: {fileID: 0}
   gabriellaDefeat: {fileID: 0}
   marcusDefeat: {fileID: 0}
   selenaDefeat: {fileID: 0}

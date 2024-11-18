@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Fixed/StartScene.unity
     guid: bcf65c03da3734a4188f2d2da1bbab5e
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/Scenes/Fixed/MainMenu.unity
     guid: ea58d724020003b439c74ca1e87d44dc
   - enabled: 1
     path: Assets/Scenes/OverviewStory.unity

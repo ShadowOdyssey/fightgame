@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class RoundManager : MonoBehaviour
@@ -345,7 +346,7 @@ public class RoundManager : MonoBehaviour
                     ShowRoundText("FIGHT OVER! " + enemyNameText.text + " WINS");
                 }
 
-                Invoke(nameof(FightEnded), 15f);
+                Invoke(nameof(FightEnded), 5f);
             }
         }
 
@@ -617,12 +618,44 @@ public class RoundManager : MonoBehaviour
 
         if (playerWonRound2 == true)
         {
-            //Debug.Log("Player Won! Lets return at character selection with a character unblocked or show final video because player defeated last enemy!");
+            if (isMultiplayer == false)
+            {
+                //Debug.Log("Player Won! Lets return at character selection with a character unblocked or show final video if player defeated last enemy!");
+                PlayerPrefs.SetString("playerUnlockedNewCharacter", "yes"); // Lets inform the another scene that Player was successfull to defeat last enemy
+                PlayerPrefs.SetInt("enemyCharacter", currentEnemyCharacter); // Lets inform the another scene about the current enemy character in the scene
+                Invoke(nameof(ReturnToSelection), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
+            }
+            else
+            {
+                // Inform server about round result
+                // Lets return to Lobby with 1 victory to Player score and 1 loss to Enemy score
+            }
         }
 
         if (enemyWonRound2 == true)
         {
-            //Debug.Log("Player lost! Return to character selection or load a defeat animation that loads main menu again in the end, it can be a video");
+            if (isMultiplayer == false)
+            {
+                //Debug.Log("Player lost! Return to character selection or load a defeat animation that loads main menu again in the end, it can be a video");
+                PlayerPrefs.SetString("playerUnlockedNewCharacter", "no"); // Lets inform the another scene that Player was not successfull to defeat last enemy
+                PlayerPrefs.SetInt("enemyCharacter", currentEnemyCharacter); // Lets inform the another scene about the current enemy character in the scene
+                Invoke(nameof(ReturnToMenu), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
+            }
+            else
+            {
+                // Inform server about round result
+                // Lets return to Lobby with 1 loss to Player score and 1 victory to Enemy score
+            }
         }
+    }
+
+    private void ReturnToSelection()
+    {
+        SceneManager.LoadScene("SelectionCharacter");
+    }
+
+    private void ReturnToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
