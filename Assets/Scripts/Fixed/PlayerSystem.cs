@@ -327,7 +327,8 @@ public class PlayerSystem : MonoBehaviour
             //Debug.Log("Player got a hit and got " + damageAmmount + " of damage!");
 
             roundSystem.ApplyDamageToPlayer(damageAmmount); // Inform RoundManager that Player got damage by Enemy
-            
+            // roundSystem.audioSystem.PlayerDamage(roundSystem.currentPLayerCharacter); // Start character Damage sound in another Audio Source different from what Enemy will use to play his Damage sound, only after damage has applied, create a new Audio Source for it
+
             if (roundSystem.playerHealthBar.slider.value <= 0)
             {
                 if (roundSystem.enemyTotalCombo != 0)
@@ -359,6 +360,7 @@ public class PlayerSystem : MonoBehaviour
 
                 AnimIsHit(); // Start Hit animation in Player
                 hitEffect.SetActive(true); // Activate Hit Effect in the body of Player
+                // roundSystem.audioSystem.PlayerEffect(roundSystem.currentPLayerCharacter); // Start character Effect sound in another Audio Source different from what Enemy will use to play his Effect sound, only after effect is enabled, create a new Audio Source for it
                 Invoke(nameof(DisableEffect), 1f); // Deactivate Hit Effect after 1 second
             }
 
