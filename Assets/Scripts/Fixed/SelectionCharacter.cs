@@ -30,11 +30,11 @@ public class SelectionCharacter : MonoBehaviour
     private readonly int[] controlEffectStats = { 6, 4, 8, 5, 7, 5, 9, 10 };
     private readonly int[] difficultyStats = { 4, 6, 8, 3, 5, 4, 5, 10 };
     private readonly int countdownDuration = 5; // Countdown duration in seconds
+    private readonly bool[] isUnlocked = { true, false, false, false, false, false, false, false }; // Only Gabriella is unlocked by default
     private readonly string[] characterNames = { "Gabriella", "Marcus", "Selena", "Bryan", "Nun", "Oliver", "Orion", "Aria" };
     private int currentIndex = 0;
     private int lastPlayedIndex = -1; // To track which hero's intro was last played
     private int currentCountdown;
-    private bool[] isUnlocked = { true, false, false, false, false, false, false, false }; // Only Gabriella is unlocked by default
     private bool showLockedMessage = false; // Indicates if the locked character message should be shown
     private bool showVsPanel = false;
     private float lockedMessageTimer = 0f; // Timer to control how long the message appears
@@ -92,7 +92,7 @@ public class SelectionCharacter : MonoBehaviour
 
     #endregion
 
-    #region Coroutines always first after core system
+    #region Coroutines should be always first method after core system methods
 
     IEnumerator CountdownAndLoadScene()
     {
@@ -119,41 +119,14 @@ public class SelectionCharacter : MonoBehaviour
             // PLayer Won
             switch (PlayerPrefs.GetInt("enemyCharacter"))
             {
-                default:
-                    isUnlocked[0] = true; isUnlocked[1] = false; isUnlocked[2] = false; isUnlocked[3] = false; isUnlocked[4] = false; isUnlocked[5] = false; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player won against Gabriella
-
-                case 1:
-                    isUnlocked[0] = true; isUnlocked[1] = false; isUnlocked[2] = false; isUnlocked[3] = false; isUnlocked[4] = false; isUnlocked[5] = false; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player won against Gabriella
-
-                case 2:
-                    isUnlocked[0] = true; isUnlocked[1] = true; isUnlocked[2] = false; isUnlocked[3] = false; isUnlocked[4] = false; isUnlocked[5] = false; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player won against Marcus
-
-                case 3:
-                    isUnlocked[0] = true; isUnlocked[1] = true; isUnlocked[2] = true; isUnlocked[3] = false; isUnlocked[4] = false; isUnlocked[5] = false; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player won against Selena
-
-                case 4:
-                    isUnlocked[0] = true; isUnlocked[1] = true; isUnlocked[2] = true; isUnlocked[3] = true; isUnlocked[4] = false; isUnlocked[5] = false; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player won against Bryan
-
-                case 5:
-                    isUnlocked[0] = true; isUnlocked[1] = true; isUnlocked[2] = true; isUnlocked[3] = true; isUnlocked[4] = true; isUnlocked[5] = false; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player won against Nun
-
-                case 6:
-                    isUnlocked[0] = true; isUnlocked[1] = true; isUnlocked[2] = true; isUnlocked[3] = true; isUnlocked[4] = true; isUnlocked[5] = true; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player won against Oliver
-
-                case 7:
-                    isUnlocked[0] = true; isUnlocked[1] = true; isUnlocked[2] = true; isUnlocked[3] = true; isUnlocked[4] = true; isUnlocked[5] = true; isUnlocked[6] = true; isUnlocked[0] = false;
-                    break; // Player won against Orion
-
-                case 8:
-                    isUnlocked[0] = true; isUnlocked[1] = true; isUnlocked[2] = true; isUnlocked[3] = true; isUnlocked[4] = true; isUnlocked[5] = true; isUnlocked[6] = true; isUnlocked[0] = true;
-                    break; // Player won against Aria
+                default: UnlockCharacter(true, false, false, false, false, false, false, false); break; // Only Gabriella unlocked by default
+                case 2: UnlockCharacter(true, true, false, false, false, false, false, false); break; // Player won against Marcus
+                case 3: UnlockCharacter(true, true, true, false, false, false, false, false); break; // Player won against Selena
+                case 4: UnlockCharacter(true, true, true, true, false, false, false, false); break; // Player won against Bryan
+                case 5: UnlockCharacter(true, true, true, true, true, false, false, false); break; // Player won against Nun
+                case 6: UnlockCharacter(true, true, true, true, true, true, false, false); break; // Player won against Oliver
+                case 7: UnlockCharacter(true, true, true, true, true, true, true, false); break; // Player won against Orion
+                case 8: UnlockCharacter(true, true, true, true, true, true, true, true); break; // Player won against Aria
             }
         }
 
@@ -162,41 +135,14 @@ public class SelectionCharacter : MonoBehaviour
             // Player Lost
             switch (PlayerPrefs.GetInt("enemyCharacter"))
             {
-                default:
-                    isUnlocked[0] = true; isUnlocked[1] = false; isUnlocked[2] = false; isUnlocked[3] = false; isUnlocked[4] = false; isUnlocked[5] = false; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player lost against Gabriella
-
-                case 1:
-                    isUnlocked[0] = true; isUnlocked[1] = false; isUnlocked[2] = false; isUnlocked[3] = false; isUnlocked[4] = false; isUnlocked[5] = false; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player lost against Gabriella
-
-                case 2:
-                    isUnlocked[0] = true; isUnlocked[1] = false; isUnlocked[2] = false; isUnlocked[3] = false; isUnlocked[4] = false; isUnlocked[5] = false; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player lost against Marcus
-
-                case 3:
-                    isUnlocked[0] = true; isUnlocked[1] = true; isUnlocked[2] = false; isUnlocked[3] = false; isUnlocked[4] = false; isUnlocked[5] = false; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player lost against Selena
-
-                case 4:
-                    isUnlocked[0] = true; isUnlocked[1] = true; isUnlocked[2] = true; isUnlocked[3] = false; isUnlocked[4] = false; isUnlocked[5] = false; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player lost against Bryan
-
-                case 5:
-                    isUnlocked[0] = true; isUnlocked[1] = true; isUnlocked[2] = true; isUnlocked[3] = true; isUnlocked[4] = false; isUnlocked[5] = false; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player lost against Nun
-
-                case 6:
-                    isUnlocked[0] = true; isUnlocked[1] = true; isUnlocked[2] = true; isUnlocked[3] = true; isUnlocked[4] = true; isUnlocked[5] = false; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player lost against Oliver
-
-                case 7:
-                    isUnlocked[0] = true; isUnlocked[1] = true; isUnlocked[2] = true; isUnlocked[3] = true; isUnlocked[4] = true; isUnlocked[5] = true; isUnlocked[6] = false; isUnlocked[0] = false;
-                    break; // Player lost against Orion
-
-                case 8:
-                    isUnlocked[0] = true; isUnlocked[1] = true; isUnlocked[2] = true; isUnlocked[3] = true; isUnlocked[4] = true; isUnlocked[5] = true; isUnlocked[6] = true; isUnlocked[0] = false;
-                    break; // Player lost against Aria
+                default: UnlockCharacter(true, false, false, false, false, false, false, false); break; // Only Gabriella unlocked by default
+                case 2: UnlockCharacter(true, false, false, false, false, false, false, false); break; // Player lost against Marcus
+                case 3: UnlockCharacter(true, true, false, false, false, false, false, false); break; // Player lost against Selena
+                case 4: UnlockCharacter(true, true, true, false, false, false, false, false); break; // Player lost against Bryan
+                case 5: UnlockCharacter(true, true, true, true, false, false, false, false); break; // Player lost against Nun
+                case 6: UnlockCharacter(true, true, true, true, true, false, false, false); break; // Player lost against Oliver
+                case 7: UnlockCharacter(true, true, true, true, true, true, false, false); break; // Player lost against Orion
+                case 8: UnlockCharacter(true, true, true, true, true, true, true, false); break; // Player lost against Aria
             }
 
             PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to another fight
@@ -213,6 +159,11 @@ public class SelectionCharacter : MonoBehaviour
             audioSource.Play();
             lastPlayedIndex = currentIndex;
         }
+    }
+
+    private void UnlockCharacter(bool gabriella, bool marcus, bool selena, bool bryan, bool nun, bool oliver, bool orion, bool aria)
+    {
+        isUnlocked[0] = gabriella; isUnlocked[1] = marcus; isUnlocked[2] = selena; isUnlocked[3] = bryan; isUnlocked[4] = nun; isUnlocked[5] = oliver; isUnlocked[6] = orion; isUnlocked[0] = aria;
     }
 
     #endregion
