@@ -109,6 +109,20 @@ public class RoundManager : MonoBehaviour
     [Tooltip("Attach here Aria´s Profile 8 Image inside Background inside UI object in hierarchy")]
     public Image imageProfile8;
 
+    [Header("Combo UI Setup")]
+    [Tooltip("Attach here Player Combo 1 object inside UI object in hierarchy")]
+    public GameObject playerCombo1;
+    [Tooltip("Attach here Player Combo 2 object inside UI object in hierarchy")]
+    public GameObject playerCombo2;
+    [Tooltip("Attach here Player Combo 3 object inside UI object in hierarchy")]
+    public GameObject playerCombo3;
+    [Tooltip("Attach here Enemy Combo 1 object inside UI object in hierarchy")]
+    public GameObject enemyCombo1;
+    [Tooltip("Attach here Enemy Combo 2 object inside UI object in hierarchy")]
+    public GameObject enemyCombo2;
+    [Tooltip("Attach here Enemy Combo 3 object inside UI object in hierarchy")]
+    public GameObject enemyCombo3;
+
     #endregion
 
     #region Round Setup
@@ -669,20 +683,20 @@ public class RoundManager : MonoBehaviour
 
         if (playerTotalCombo == 1)
         {
-            // playerComboAnim1.SetActive(true);
+            playerCombo1.SetActive(true);
         }
 
         if (playerTotalCombo == 2)
         {
-            // playerComboAnim2.SetActive(true);
+            playerCombo2.SetActive(true);
         }
 
         if (playerTotalCombo == 3)
         {
-            // playerComboAnim3.SetActive(true);
+            playerCombo3.SetActive(true);
         }
 
-        // In all combos gameObjects need to have a script there to disable it after 5 seconds using the last frame of combo animation to trigger the method to disable combo on screen
+        // In all combos gameObjects will be disabled in the last frame of it´s animations
     }
 
     private void UpdateEnemyComboOnScreen()
@@ -691,20 +705,20 @@ public class RoundManager : MonoBehaviour
 
         if (enemyTotalCombo == 1)
         {
-            // enemyComboAnim1.SetActive(true);
+            enemyCombo1.SetActive(true);
         }
 
         if (enemyTotalCombo == 2)
         {
-            // enemyComboAnim2.SetActive(true);
+            enemyCombo2.SetActive(true);
         }
 
         if (enemyTotalCombo == 3)
         {
-            // enemyComboAnim3.SetActive(true);
+            enemyCombo3.SetActive(true);
         }
 
-        // In all combos gameObjects need to have a script there to disable it after 5 seconds using the last frame of combo animation to trigger the method to disable combo on screen
+        // In all combos gameObjects will be disabled in the last frame of it´s animations
     }
 
     #endregion

@@ -37,7 +37,7 @@ public class MainMenu : MonoBehaviour
         audioSource.Play();
     }
 
-    void OnGUI()
+    private void OnGUI()
     {
         float buttonWidth = Screen.width * 0.2f;
         float buttonHeight = Screen.height * 0.1f;
