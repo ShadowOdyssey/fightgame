@@ -204,7 +204,9 @@ public class RoundManager : MonoBehaviour
     private float enemyComboTime = 0f;
     [Tooltip("Time counter for round mechanics to work")]
     private float decreaseTime = 0f;
-    [Tooltip("When enabled so Multiplayer system will be loaded in the scene, if disabled so load Singleplay system in the scene")]
+    [Tooltip("When enabled so Trainning system will be loaded in the scene, if disabled so load Singleplay system or Multiplayer system in the scene")]
+    public bool isTrainingMode = false;
+    [Tooltip("When enabled so Multiplayer system will be loaded in the scene, if disabled so load Singleplay system or Training system in the scene")]
     private bool isMultiplayer = false;
     [Tooltip("Trigger to start events and round mechanics in the current round")]
     private bool canDecrease = false;
@@ -225,7 +227,7 @@ public class RoundManager : MonoBehaviour
 
     private void Start()
     {
-        CheckForMultiplayer();
+        CheckForMultiplayerOrTrainningMode();
         LoadArenaAndEnemyCharacter();
         CheckCurrentArena();
         CheckCurrentPlayerCharacter();
@@ -241,9 +243,14 @@ public class RoundManager : MonoBehaviour
     private void Update()
     {
         RoundStarted();
-        CountRoundTime();
-        CheckCharactersHealth();
-        CheckRoundWinner();
+
+        if (isTrainingMode == false)
+        {
+            CountRoundTime();
+            CheckCharactersHealth();
+            CheckRoundWinner();
+        }
+
         CheckPlayerCombo();
         CheckEnemyCombo();
     }
@@ -262,11 +269,20 @@ public class RoundManager : MonoBehaviour
         }
     }
     
-    private void CheckForMultiplayer()
+    private void CheckForMultiplayerOrTrainningMode()
     {
         if (PlayerPrefs.GetString("isMultiplayer") != "yes") // Check if is multiplayer game to the loaded scene
         {
             isMultiplayer = false;
+
+            if (PlayerPrefs.GetString("isTraining") == "yes")
+            {
+                isTrainingMode = true;
+            }
+            else
+            {
+                isTrainingMode = false;
+            }
         }
         else
         {
@@ -407,7 +423,16 @@ public class RoundManager : MonoBehaviour
         if (roundStarted == false)
         {
             //Debug.Log("Round started, show current round");
-            ShowRoundText("ROUND " + currentRound);
+
+            if (isTrainingMode == false)
+            {
+                ShowRoundText("ROUND " + currentRound);
+            }
+            else
+            {
+                ShowRoundText("TRAINING MODE");
+            }
+
             actualTime.text = roundTime.ToString();
             roundStarted = true;
             roundOver = true;

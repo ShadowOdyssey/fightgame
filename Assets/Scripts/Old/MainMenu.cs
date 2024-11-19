@@ -72,6 +72,7 @@ public class MainMenu : MonoBehaviour
         Rect playButtonRect = new Rect(centerX, panelY, buttonWidth, buttonHeight);
         if (GUI.Button(playButtonRect, GUIContent.none, GUIStyle.none))
         {
+            PlayerPrefs.SetString("isTraining", "no");
             SceneManager.LoadScene("SelectionCharacter");
         }
         GUI.DrawTexture(playButtonRect, playButton, ScaleMode.ScaleToFit);
@@ -88,7 +89,8 @@ public class MainMenu : MonoBehaviour
         Rect trainingModeButtonRect = new Rect(centerX, characterButtonRect.yMax + buttonGap, buttonWidth, buttonHeight);
         if (GUI.Button(trainingModeButtonRect, GUIContent.none, GUIStyle.none))
         {
-            LoadScene("TrainingMode");
+            PlayerPrefs.SetString("isTraining", "yes");
+            LoadScene("SelectionCharacter");
         }
         GUI.DrawTexture(trainingModeButtonRect, trainingModeButton, ScaleMode.ScaleToFit);
 

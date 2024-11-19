@@ -156,7 +156,7 @@ public class SelectionCharacter : MonoBehaviour
 
     private void CheckIfPlayerFinishedGame()
     {
-        if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, true, true")
+        if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, true, true" || PlayerPrefs.GetString("isTraining") == "yes")
         {
             PlayerPrefs.SetString("playerFinishedGame", "yes");
 
@@ -321,7 +321,7 @@ public class SelectionCharacter : MonoBehaviour
             UnlockCharacter(true, true, true, true, true, true, true, false);
         }
 
-        if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, true, true")
+        if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, true, true" || PlayerPrefs.GetString("isTraining") == "yes")
         {
             //Debug.Log("Player have unlocked Aria before");
 
