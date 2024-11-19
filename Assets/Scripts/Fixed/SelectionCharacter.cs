@@ -715,32 +715,32 @@ public class SelectionCharacter : MonoBehaviour
         {
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == false && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 3, 1); // Marcus vs Selena
+                SetupNextFight(2, 3, 2); // Marcus vs Selena
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 4, 2); // Marcus vs Bryan
+                SetupNextFight(2, 4, 3); // Marcus vs Bryan
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 5, 3); // Marcus vs Nun
+                SetupNextFight(2, 5, 4); // Marcus vs Nun
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 6, 4); // Marcus vs Oliver
+                SetupNextFight(2, 6, 1); // Marcus vs Oliver
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 7, 1); // Marcus vs Orion
+                SetupNextFight(2, 7, 2); // Marcus vs Orion
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 8, 2); // Marcus vs Aria
+                SetupNextFight(2, 8, 3); // Marcus vs Aria
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
@@ -772,27 +772,27 @@ public class SelectionCharacter : MonoBehaviour
         {
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(3, 4, 1); // Selena vs Bryan
+                SetupNextFight(3, 4, 3); // Selena vs Bryan
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(3, 5, 2); // Selena vs Nun
+                SetupNextFight(3, 5, 4); // Selena vs Nun
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(3, 6, 3); // Selena vs Oliver
+                SetupNextFight(3, 6, 1); // Selena vs Oliver
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(3, 7, 4); // Selena vs Orion
+                SetupNextFight(3, 7, 2); // Selena vs Orion
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(3, 8, 1); // Selena vs Aria
+                SetupNextFight(3, 8, 2); // Selena vs Aria
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
@@ -824,22 +824,22 @@ public class SelectionCharacter : MonoBehaviour
         {
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(4, 5, 1); // Bryan vs Nun
+                SetupNextFight(4, 5, 4); // Bryan vs Nun
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(4, 6, 2); // Bryan vs Oliver
+                SetupNextFight(4, 6, 1); // Bryan vs Oliver
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(4, 7, 3); // Bryan vs Orion
+                SetupNextFight(4, 7, 2); // Bryan vs Orion
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(4, 8, 4); // Bryan vs Aria
+                SetupNextFight(4, 8, 1); // Bryan vs Aria
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
@@ -881,7 +881,7 @@ public class SelectionCharacter : MonoBehaviour
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(5, 8, 3); // Nun vs Aria
+                SetupNextFight(5, 8, 2); // Nun vs Aria
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
@@ -913,12 +913,12 @@ public class SelectionCharacter : MonoBehaviour
         {
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(6, 7, 1); // Oliver vs Orion
+                SetupNextFight(6, 7, 2); // Oliver vs Orion
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(6, 8, 4); // Oliver vs Aria
+                SetupNextFight(6, 8, 3); // Oliver vs Aria
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
@@ -950,7 +950,7 @@ public class SelectionCharacter : MonoBehaviour
         {
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(7, 8, 2); // Orion vs Aria
+                SetupNextFight(7, 8, 4); // Orion vs Aria
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
