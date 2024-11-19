@@ -15,6 +15,13 @@ public class LobbyPlayerSystem : MonoBehaviour
 
     private void Start()
     {
+        actualProfile = Random.Range(1, 9); // Just for debug
+
+        if (actualProfile == 9)
+        {
+            actualProfile = Random.Range(1, 8); // Just for debug
+        }
+
         lobbySystem = GameObject.Find("Lobby Manager").GetComponent<LobbyManager>();
         LoadProfile();
     }
