@@ -88,7 +88,7 @@ public class CharacterViewing : MonoBehaviour
 
         GUIStyle nameStyle = new GUIStyle(GUI.skin.label)
         {
-            fontSize = 60,
+            fontSize = 50,
             fontStyle = FontStyle.Bold,
             alignment = TextAnchor.MiddleCenter,
             normal = { textColor = Color.yellow }
