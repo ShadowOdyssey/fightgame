@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\Old\ArcadeMode.cs" />
     <Compile Include="Assets\Scripts\Fixed\Scene Management.cs" />
     <Compile Include="Assets\Scripts\Fixed\PlayerSystem.cs" />
+    <Compile Include="Assets\Scripts\Fixed\ComboSystem.cs" />
     <Compile Include="Assets\Scripts\Old\SplashScene.cs" />
     <Compile Include="Assets\Scripts\Fixed\EnemySystem.cs" />
     <Compile Include="Assets\Scripts\Old\SettingsBattle.cs" />
