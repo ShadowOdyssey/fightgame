@@ -7859,6 +7859,7 @@ MonoBehaviour:
   infoHit: {fileID: 1130086753}
   infoDefense: {fileID: 974143187}
   actualInfoIndex: 0
+  resetStats: 0
 --- !u!1 &222634076
 GameObject:
   m_ObjectHideFlags: 0

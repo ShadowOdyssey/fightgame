@@ -16,14 +16,19 @@ public class TrainingSystem : MonoBehaviour
 
     public int actualInfoIndex = 0;
 
+    public bool resetStats = false;
+
     private void Start()
     {
-        PlayerPrefs.SetString("tutorialComplete", ""); // Debug only
-        Invoke(nameof(StartInfo), 5f); // Debug only
-
-        if (roundSystem.isTrainingMode == true && PlayerPrefs.GetString("tutorialComplete") != "yes")
+        if (resetStats == true)
         {
-            //Invoke(nameof(StartInfo), 5f);
+            PlayerPrefs.SetString("tutorialComplete", ""); // Debug only
+            Invoke(nameof(StartInfo), 5f); // Debug only
+        }
+
+        if (roundSystem.isTrainingMode == true && PlayerPrefs.GetString("tutorialComplete") != "yes" && resetStats == false)
+        {
+            Invoke(nameof(StartInfo), 5f);
         }
     }
 
