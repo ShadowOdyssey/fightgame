@@ -277,6 +277,8 @@ public class RoundManager : MonoBehaviour
             if (PlayerPrefs.GetInt("enemyCharacterSelected") != 0)
             {
                 currentEnemyCharacter = PlayerPrefs.GetInt("enemyCharacterSelected");
+                
+                Debug.Log("Enemy selected character: " + currentEnemyCharacter);
             }
 
             switch (currentEnemyCharacter) // Load Singleplay Enemy name
@@ -734,10 +736,10 @@ public class RoundManager : MonoBehaviour
     {
         //Debug.Log("Fight ended! Return to scene of character selecting an opponent or go to main menu if Player lost the battle");
 
-        Debug.Log("Player finished the game before? " + PlayerPrefs.GetString("playerFinishedGame"));
-
         if (timesPlayerWon == 2)
         {
+            Debug.Log("Player finished the game before? " + PlayerPrefs.GetString("playerFinishedGame"));
+
             if (isMultiplayer == false)
             {
                 if (PlayerPrefs.GetString("playerFinishedGame") == "no")
@@ -769,6 +771,8 @@ public class RoundManager : MonoBehaviour
 
         if (timesEnemyWon == 2)
         {
+            Debug.Log("Player finished the game before? " + PlayerPrefs.GetString("playerFinishedGame"));
+
             if (isMultiplayer == false)
             {
                 if (PlayerPrefs.GetString("playerFinishedGame") == "no")

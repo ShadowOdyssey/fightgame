@@ -291,9 +291,23 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 77407b97904ecb94d8a05371234af7ff, type: 3}
   heroIntroClips: []
   lockIcon: {fileID: 2800000, guid: 78c14f1fd558a2d4c8920e3f4043c521, type: 3}
-  gabriellaTexture: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
   vsIcon: {fileID: 2800000, guid: d38dcc2de26d53844bf1f0cb626d536e, type: 3}
-  marcusTexture: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
+  gabriellaPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
+  marcusPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
+  selenaPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
+  bryanPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
+  nunPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
+  oliverPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
+  orionPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
+  ariaPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
+  gabriellaEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
+  marcusEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
+  selenaEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
+  bryanEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
+  nunEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
+  oliverEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
+  orionEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
+  ariaEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
 --- !u!4 &1550383885
 Transform:
   m_ObjectHideFlags: 0
