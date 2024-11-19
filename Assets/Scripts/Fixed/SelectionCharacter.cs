@@ -166,7 +166,8 @@ public class SelectionCharacter : MonoBehaviour
 
     private void UnlockCharacter(bool gabriella, bool marcus, bool selena, bool bryan, bool nun, bool oliver, bool orion, bool aria)
     {
-        isUnlocked[0] = gabriella; isUnlocked[1] = marcus; isUnlocked[2] = selena; isUnlocked[3] = bryan; isUnlocked[4] = nun; isUnlocked[5] = oliver; isUnlocked[6] = orion; isUnlocked[0] = aria;
+        bool[] newUnlocked = { gabriella, marcus, selena, bryan, nun, oliver, orion, aria};
+        isUnlocked = newUnlocked;
     }
 
     private void CheckIfPlayerWon()
@@ -219,6 +220,8 @@ public class SelectionCharacter : MonoBehaviour
             Debug.Log("Load default value of unlocked characters because player have no progress saved before!");
 
             UnlockCharacter(true, false, false, false, false, false, false, false);
+
+            Debug.Log(isUnlocked[0].ToString() + isUnlocked[1].ToString() + isUnlocked[2].ToString() + isUnlocked[3].ToString() + isUnlocked[4].ToString() + isUnlocked[5].ToString() + isUnlocked[6].ToString() + isUnlocked[7].ToString());
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, false, false, false, false, false, false, false")
