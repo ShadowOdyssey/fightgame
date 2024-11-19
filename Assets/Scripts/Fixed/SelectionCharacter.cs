@@ -156,7 +156,7 @@ public class SelectionCharacter : MonoBehaviour
 
     private void CheckIfPlayerFinishedGame()
     {
-        if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
+        if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, true, true")
         {
             PlayerPrefs.SetString("playerFinishedGame", "yes");
 
@@ -326,6 +326,7 @@ public class SelectionCharacter : MonoBehaviour
             //Debug.Log("Player have unlocked Aria before");
 
             UnlockCharacter(true, true, true, true, true, true, true, true);
+            PlayerPrefs.SetString("playerFinishedGame", "yes");
         }
 
         //Debug.Log(isUnlocked[0].ToString() + isUnlocked[1].ToString() + isUnlocked[2].ToString() + isUnlocked[3].ToString() + isUnlocked[4].ToString() + isUnlocked[5].ToString() + isUnlocked[6].ToString() + isUnlocked[7].ToString());
@@ -344,7 +345,7 @@ public class SelectionCharacter : MonoBehaviour
             case 5: PlayerPrefs.SetString("currentProgress", "true, true, true, true, true, false, false, false"); break;
             case 6: PlayerPrefs.SetString("currentProgress", "true, true, true, true, true, true, false, false"); break;
             case 7: PlayerPrefs.SetString("currentProgress", "true, true, true, true, true, true, true, false"); break;
-            case 8: PlayerPrefs.SetString("currentProgress", "true, true, true, true, true, true, true, true"); break;
+            case 8: PlayerPrefs.SetString("currentProgress", "true, true, true, true, true, true, true, true"); PlayerPrefs.SetString("playerFinishedGame", "yes"); break;
         }
     }
 
