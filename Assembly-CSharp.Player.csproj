@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Fixed\CameraSystem.cs" />
     <Compile Include="Assets\Scripts\Old\FightingSingle.cs" />
+    <Compile Include="Assets\Scripts\Fixed\LobbyManager.cs" />
     <Compile Include="Assets\Scripts\Old\ComboPunchController.cs" />
     <Compile Include="Assets\Scripts\Old\TrainingModeMenu.cs" />
     <Compile Include="Assets\Scripts\Old\Sample1.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\Scripts\Old\selena vs.cs" />
     <Compile Include="Assets\Scripts\Old\MarcusMovement.cs" />
     <Compile Include="Assets\Scripts\Old\ComboKickController.cs" />
+    <Compile Include="Assets\Scripts\Fixed\LobbyAudioSystem.cs" />
     <Compile Include="Assets\Scripts\Old\Battleground2.cs" />
     <Compile Include="Assets\Scripts\Old\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Old\FemMovement.cs" />
