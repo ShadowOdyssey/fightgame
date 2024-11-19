@@ -18,12 +18,13 @@ public class TrainingSystem : MonoBehaviour
 
     private void Start()
     {
-        if (roundSystem.isTrainingMode == true)
-        {
-            Invoke(nameof(StartInfo), 5f);
-        }
+        PlayerPrefs.SetString("tutorialComplete", ""); // Debug only
+        Invoke(nameof(StartInfo), 5f); // Debug only
 
-        Invoke(nameof(StartInfo), 5f);
+        if (roundSystem.isTrainingMode == true && PlayerPrefs.GetString("tutorialComplete") != "yes")
+        {
+            //Invoke(nameof(StartInfo), 5f);
+        }
     }
 
     public void SelectInfo()
@@ -100,6 +101,7 @@ public class TrainingSystem : MonoBehaviour
     {
         actualInfoIndex = 8;
         roundSystem.ShowRoundText("TUTORIAL COMPLETED");
+        PlayerPrefs.SetString("tutorialComplete", "yes");
         Invoke(nameof(CloseRoundText), 5f);
     }
 

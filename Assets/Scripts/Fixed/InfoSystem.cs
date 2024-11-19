@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InfoSystem : MonoBehaviour
 {
+    public RoundManager roundSystem;
+
     private float disableTimer = 3f;
     private bool canDisable = false;
 
@@ -24,6 +26,7 @@ public class InfoSystem : MonoBehaviour
                 disableTimer = 0f;
                 canDisable = false;
                 Time.timeScale = 1f;
+                roundSystem.playerSystem.completedTutorial = false;
                 gameObject.SetActive(false);
             }
         }

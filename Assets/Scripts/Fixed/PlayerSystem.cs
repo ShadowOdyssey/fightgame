@@ -43,7 +43,7 @@ public class PlayerSystem : MonoBehaviour
     [Tooltip("Actual Round System from RoundManager object in the current scene, it will be loaded when scene to awake")]
     private RoundManager roundSystem;
     [Tooltip("Actual Training System from RoundManager object in the current scene, it will be loaded when scene to awake")]
-    private TrainingSystem trainingSystem;
+    public TrainingSystem trainingSystem;
     [Tooltip("Actual Cooldown System from RoundManager object in the current scene, it will be loaded when scene to awake")]
     private CooldownSystem cooldownSystem;
     [Tooltip("Actual Enemy System from selected enemy by IA or multiplayer, it will be loaded when scene to awake")]
@@ -74,6 +74,8 @@ public class PlayerSystem : MonoBehaviour
     private bool isHit = false;
     [Tooltip("If enabled means player dealed a damage to an opponent")]
     private bool checkDamage = false;
+    [Tooltip("If enabled means player completed a tutorial stage in Training Mode")]
+    public bool completedTutorial = false;
     [Tooltip("If enabled means player triggers will be reseted on each end of round")]
     private bool wasResetTriggers = false;
 
@@ -439,7 +441,7 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             //roundSystem.audioSystem.MoveRight(1, roundSystem.currentPlayerCharacter); // Start character Move Right sound in Player Audio only after animation has started - Optional
-            if (trainingSystem.actualInfoIndex == 1) { trainingSystem.SelectInfo(); }
+            if (trainingSystem.actualInfoIndex == 1 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
         }
     }
 
@@ -462,7 +464,7 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             //roundSystem.audioSystem.MoveLeft(1, roundSystem.currentPlayerCharacter); // Start character Move Left sound in Player Audio only after animation has started - Optional
-            if (trainingSystem.actualInfoIndex == 2) { trainingSystem.SelectInfo(); }
+            if (trainingSystem.actualInfoIndex == 2 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
         }
     }
 
@@ -484,7 +486,7 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
             //roundSystem.audioSystem.Hit(1, roundSystem.currentPlayerCharacter); // Start character Hit sound in Player Audio only after animation has started
-            if (trainingSystem.actualInfoIndex == 6) { trainingSystem.SelectInfo(); }
+            if (trainingSystem.actualInfoIndex == 6 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
             Invoke(nameof(CheckHitStuck), 1f);
         }
     }
@@ -514,7 +516,7 @@ public class PlayerSystem : MonoBehaviour
                 isCooldown1= true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
                 //roundSystem.audioSystem.Attack1(1, roundSystem.currentPlayerCharacter); // Start character Attack 1 sound in Player Audio only after animation has started
-                if (trainingSystem.actualInfoIndex == 3) { trainingSystem.SelectInfo(); }
+                if (trainingSystem.actualInfoIndex == 3 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
                 Invoke(nameof(CheckAttack1Stuck), 1f);
             }
         }
@@ -541,7 +543,7 @@ public class PlayerSystem : MonoBehaviour
                 isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
                 //roundSystem.audioSystem.Attack2(1, roundSystem.currentPlayerCharacter); // Start character Attack 2 sound in Player Audio only after animation has started
-                if (trainingSystem.actualInfoIndex == 4) { trainingSystem.SelectInfo(); }
+                if (trainingSystem.actualInfoIndex == 4 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
                 Invoke(nameof(CheckAttack2Stuck), 1f);
             }
         }
@@ -568,7 +570,7 @@ public class PlayerSystem : MonoBehaviour
                 isCooldown3 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
                 //roundSystem.audioSystem.Attack3(1, roundSystem.currentPlayerCharacter); // Start character Attack 3 sound in Player Audio only after animation has started
-                if (trainingSystem.actualInfoIndex == 5) { trainingSystem.SelectInfo(); }
+                if (trainingSystem.actualInfoIndex == 5 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
                 Invoke(nameof(CheckAttack3Stuck), 1f);
             }
         }
