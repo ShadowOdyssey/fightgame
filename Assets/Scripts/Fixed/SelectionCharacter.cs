@@ -212,48 +212,68 @@ public class SelectionCharacter : MonoBehaviour
 
     private void LoadProgress()
     {
-        if (PlayerPrefs.GetString("currentProgress") == "") // Check if player is selecting character for first time
+        Debug.Log("Loading current player progress");
+
+        if (PlayerPrefs.GetString("currentProgress") == "")
         {
+            Debug.Log("Load default value of unlocked characters because player have no progress saved before!");
+
             UnlockCharacter(true, false, false, false, false, false, false, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, false, false, false, false, false, false, false")
         {
+            Debug.Log("Player have unlocked Gabriella by default");
+
             UnlockCharacter(true, false, false, false, false, false, false, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, false, false, false, false, false, false")
         {
+            Debug.Log("Player have unlocked Marcus befora");
+
             UnlockCharacter(true, true, false, false, false, false, false, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, true, false, false, false, false, false")
         {
+            Debug.Log("Player have unlocked Selena befora");
+
             UnlockCharacter(true, true, true, false, false, false, false, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, false, false, false, false")
         {
+            Debug.Log("Player have unlocked Bryan befora");
+
             UnlockCharacter(true, true, true, true, false, false, false, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, false, false, false")
         {
+            Debug.Log("Player have unlocked Nun befora");
+
             UnlockCharacter(true, true, true, true, true, false, false, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, false, false")
         {
+            Debug.Log("Player have unlocked Oliver befora");
+
             UnlockCharacter(true, true, true, true, true, true, false, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, true, false")
         {
+            Debug.Log("Player have unlocked Orion befora");
+
             UnlockCharacter(true, true, true, true, true, true, true, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, true, true")
         {
+            Debug.Log("Player have unlocked Aria befora");
+
             UnlockCharacter(true, true, true, true, true, true, true, true);
         }
     }
@@ -341,7 +361,7 @@ public class SelectionCharacter : MonoBehaviour
 
             GUI.DrawTexture(new Rect(charX, charY, charWidth, charHeight), characterImages[currentIndex], ScaleMode.ScaleToFit);
 
-            if (!isUnlocked[currentIndex] && lockIcon != null)
+            if (isUnlocked[currentIndex] == false && lockIcon != null)
             {
                 float lockIconSize = 100f;
                 GUI.DrawTexture(new Rect(charX + (charWidth / 2) - (lockIconSize / 2), charY + (charHeight / 2) - (lockIconSize / 2), lockIconSize, lockIconSize), lockIcon, ScaleMode.ScaleToFit);
@@ -373,7 +393,7 @@ public class SelectionCharacter : MonoBehaviour
         };
         GUI.Label(new Rect(panelX, panelY, labelWidth, labelHeight), characterNames[currentIndex], nameStyle);
 
-        if (isUnlocked[currentIndex])
+        if (isUnlocked[currentIndex] == true)
         {
             DrawStatBars(panelX, panelY + 70);
         }
