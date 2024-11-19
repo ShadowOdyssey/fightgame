@@ -289,7 +289,15 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 8f9d2f551a2e1ce498f38806c1efb380, type: 3}
   - {fileID: 2800000, guid: 7542d3d5f85387447bede68091bd6733, type: 3}
   - {fileID: 2800000, guid: 77407b97904ecb94d8a05371234af7ff, type: 3}
-  heroIntroClips: []
+  heroIntroClips:
+  - {fileID: 8300000, guid: 4c4aee8399ff18343bdd1dfcbed5309e, type: 3}
+  - {fileID: 8300000, guid: 1860afe5cb45dc94c93d3e3f380b32d1, type: 3}
+  - {fileID: 8300000, guid: 6d5e993e885c55047b75023be6b3a2b7, type: 3}
+  - {fileID: 8300000, guid: f6f8b03441dd99543895e0e07a711c5f, type: 3}
+  - {fileID: 8300000, guid: f653697583a496142ab59abaded4bffb, type: 3}
+  - {fileID: 8300000, guid: c58b3d08c18756543901d5e3eb9a0aa8, type: 3}
+  - {fileID: 8300000, guid: e3a29873d178100489aa1abce1f8d654, type: 3}
+  - {fileID: 8300000, guid: 421a3383a731ac04da7ed314ef3fa3e9, type: 3}
   lockIcon: {fileID: 2800000, guid: 78c14f1fd558a2d4c8920e3f4043c521, type: 3}
   vsIcon: {fileID: 2800000, guid: d38dcc2de26d53844bf1f0cb626d536e, type: 3}
   gabriellaPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
