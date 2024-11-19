@@ -300,22 +300,22 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 421a3383a731ac04da7ed314ef3fa3e9, type: 3}
   lockIcon: {fileID: 2800000, guid: 78c14f1fd558a2d4c8920e3f4043c521, type: 3}
   vsIcon: {fileID: 2800000, guid: d38dcc2de26d53844bf1f0cb626d536e, type: 3}
-  gabriellaPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
-  marcusPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
-  selenaPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
-  bryanPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
-  nunPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
-  oliverPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
-  orionPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
-  ariaPlayer: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
-  gabriellaEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
-  marcusEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
-  selenaEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
-  bryanEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
-  nunEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
-  oliverEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
-  orionEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
-  ariaEnemy: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
+  gabriellaPlayer: {fileID: 2800000, guid: d3648bbf094590c42b34f5cb63f44e49, type: 3}
+  marcusPlayer: {fileID: 2800000, guid: a932ab1a6bf7b3842a0137d624c46888, type: 3}
+  selenaPlayer: {fileID: 2800000, guid: e274b52c1c4fe124293a63dda1d96bb9, type: 3}
+  bryanPlayer: {fileID: 2800000, guid: 6b1f61841f72f31409a072980151c50d, type: 3}
+  nunPlayer: {fileID: 2800000, guid: f21ba903e914fe54fa45f7f78bcd8a19, type: 3}
+  oliverPlayer: {fileID: 2800000, guid: f25a19f7552cd5b4cb4bd967afc5e565, type: 3}
+  orionPlayer: {fileID: 2800000, guid: c5e26a9ca18eb8d43a99038f532be510, type: 3}
+  ariaPlayer: {fileID: 2800000, guid: 1ddd228c02af85144b9f7d307df24b4b, type: 3}
+  gabriellaEnemy: {fileID: 2800000, guid: e78e38c1385f4f24d8e1d2fcdf2ea023, type: 3}
+  marcusEnemy: {fileID: 2800000, guid: 95a28dbb21460034fb4eb35c2c77a0b0, type: 3}
+  selenaEnemy: {fileID: 2800000, guid: fbf04f2a20447c44ca7df0db07906f06, type: 3}
+  bryanEnemy: {fileID: 2800000, guid: 273ab4c14ced6234794e705c577d808c, type: 3}
+  nunEnemy: {fileID: 2800000, guid: 0c92b270e86f32747a9cc3711d57af90, type: 3}
+  oliverEnemy: {fileID: 2800000, guid: d25312ff3f439394db38072b77ee225a, type: 3}
+  orionEnemy: {fileID: 2800000, guid: f8f2213541ab3ea418685d3b9c25fe39, type: 3}
+  ariaEnemy: {fileID: 2800000, guid: 62de27965e571334185b0c8a26de0288, type: 3}
 --- !u!4 &1550383885
 Transform:
   m_ObjectHideFlags: 0

@@ -270,8 +270,6 @@ public class SelectionCharacter : MonoBehaviour
             //Debug.Log("Load default value of unlocked characters because player have no progress saved before!");
 
             UnlockCharacter(true, false, false, false, false, false, false, false);
-
-            Debug.Log(isUnlocked[0].ToString() + isUnlocked[1].ToString() + isUnlocked[2].ToString() + isUnlocked[3].ToString() + isUnlocked[4].ToString() + isUnlocked[5].ToString() + isUnlocked[6].ToString() + isUnlocked[7].ToString());
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, false, false, false, false, false, false, false")
@@ -329,6 +327,8 @@ public class SelectionCharacter : MonoBehaviour
 
             UnlockCharacter(true, true, true, true, true, true, true, true);
         }
+
+        //Debug.Log(isUnlocked[0].ToString() + isUnlocked[1].ToString() + isUnlocked[2].ToString() + isUnlocked[3].ToString() + isUnlocked[4].ToString() + isUnlocked[5].ToString() + isUnlocked[6].ToString() + isUnlocked[7].ToString());
     }
 
     private void SaveProgress(int progressIndex)
