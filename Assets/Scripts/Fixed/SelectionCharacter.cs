@@ -54,6 +54,7 @@ public class SelectionCharacter : MonoBehaviour
         // Just for Debug purposes, it will be removed later
         PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to next fight
         PlayerPrefs.SetInt("enemyCharacter", 0); // Reset the value to make it disponible to next fight
+        PlayerPrefs.SetString("currentProgress", ""); // Reset the value to make it disponible to next fight
 
         audioSource = gameObject.AddComponent<AudioSource>();
     }
@@ -86,12 +87,12 @@ public class SelectionCharacter : MonoBehaviour
         DrawNavigationButtons();
         DrawActionButtons();
 
-        if (showLockedMessage)
+        if (showLockedMessage == true)
         {
             DrawLockedMessage();
         }
 
-        if (showVsPanel)
+        if (showVsPanel == true)
         {
             DrawVsPanel();
             DrawCountdown();
@@ -110,7 +111,7 @@ public class SelectionCharacter : MonoBehaviour
             currentCountdown--;
         }
 
-        if (showVsPanel)
+        if (showVsPanel == true)
         {
             SceneManager.LoadScene("FightScene");
         }
@@ -127,21 +128,24 @@ public class SelectionCharacter : MonoBehaviour
             Debug.Log("Has player unlocked new character? " + PlayerPrefs.GetString("playerUnlockedNewCharacter"));
             Debug.Log("Last enemy player fought: " + PlayerPrefs.GetInt("enemyCharacter"));
         }
+
+        if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "")
+        {
+            LoadProgress();
+        }
         else
         {
-            Debug.Log("Player is selecting character for first time!");
-        }
+            if (PlayerPrefs.GetString("playerFinishedGame") == "no")
+            {
+                CheckIfPlayerWon();
+                CheckIfPlayerLost();
+                CheckIfPlayerFinishedGame();
+            }
 
-        if (PlayerPrefs.GetString("playerFinishedGame") == "no")
-        {
-            CheckIfPlayerWon();
-            CheckIfPlayerLost();
-            CheckIfPlayerFinishedGame();
-        }
-
-        if (PlayerPrefs.GetString("playerFinishedGame") == "yes")
-        {
-            UnlockCharacter(true, true, true, true, true, true, true, true);
+            if (PlayerPrefs.GetString("playerFinishedGame") == "yes")
+            {
+                UnlockCharacter(true, true, true, true, true, true, true, true);
+            }
         }
     }
 
@@ -168,14 +172,14 @@ public class SelectionCharacter : MonoBehaviour
             // PLayer Won
             switch (PlayerPrefs.GetInt("enemyCharacter")) // Current enemy character from last battle will determine the progress of the player
             {
-                default: UnlockCharacter(true, false, false, false, false, false, false, false); break; // Only Gabriella unlocked by default
-                case 2: UnlockCharacter(true, true, false, false, false, false, false, false); break; // Player won against Marcus
-                case 3: UnlockCharacter(true, true, true, false, false, false, false, false); break; // Player won against Selena
-                case 4: UnlockCharacter(true, true, true, true, false, false, false, false); break; // Player won against Bryan
-                case 5: UnlockCharacter(true, true, true, true, true, false, false, false); break; // Player won against Nun
-                case 6: UnlockCharacter(true, true, true, true, true, true, false, false); break; // Player won against Oliver
-                case 7: UnlockCharacter(true, true, true, true, true, true, true, false); break; // Player won against Orion
-                case 8: UnlockCharacter(true, true, true, true, true, true, true, true); break; // Player won against Aria
+                default: UnlockCharacter(true, false, false, false, false, false, false, false); SaveProgress(1); break; // Only Gabriella unlocked by default
+                case 2: UnlockCharacter(true, true, false, false, false, false, false, false); SaveProgress(2); break; // Player won against Marcus
+                case 3: UnlockCharacter(true, true, true, false, false, false, false, false); SaveProgress(3); break; // Player won against Selena
+                case 4: UnlockCharacter(true, true, true, true, false, false, false, false); SaveProgress(4); break; // Player won against Bryan
+                case 5: UnlockCharacter(true, true, true, true, true, false, false, false); SaveProgress(5); break; // Player won against Nun
+                case 6: UnlockCharacter(true, true, true, true, true, true, false, false); SaveProgress(6); break; // Player won against Oliver
+                case 7: UnlockCharacter(true, true, true, true, true, true, true, false); SaveProgress(7); break; // Player won against Orion
+                case 8: UnlockCharacter(true, true, true, true, true, true, true, true); SaveProgress(8); break; // Player won against Aria
             }
         }
     }
@@ -187,23 +191,81 @@ public class SelectionCharacter : MonoBehaviour
             // Player Lost
             switch (PlayerPrefs.GetInt("enemyCharacter")) // Current enemy character from last battle determines the not progress of the player
             {
-                default: UnlockCharacter(true, false, false, false, false, false, false, false); break; // Only Gabriella unlocked by default
-                case 2: UnlockCharacter(true, false, false, false, false, false, false, false); break; // Player lost against Marcus
-                case 3: UnlockCharacter(true, true, false, false, false, false, false, false); break; // Player lost against Selena
-                case 4: UnlockCharacter(true, true, true, false, false, false, false, false); break; // Player lost against Bryan
-                case 5: UnlockCharacter(true, true, true, true, false, false, false, false); break; // Player lost against Nun
-                case 6: UnlockCharacter(true, true, true, true, true, false, false, false); break; // Player lost against Oliver
-                case 7: UnlockCharacter(true, true, true, true, true, true, false, false); break; // Player lost against Orion
-                case 8: UnlockCharacter(true, true, true, true, true, true, true, false); break; // Player lost against Aria
-            }
-
-            if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "" || PlayerPrefs.GetInt("enemyCharacter") == 0) // Check if player is selecting character for first time
-            {
-                UnlockCharacter(true, false, false, false, false, false, false, false);
+                default: UnlockCharacter(true, false, false, false, false, false, false, false); SaveProgress(1); break; // Only Gabriella unlocked by default
+                case 2: UnlockCharacter(true, false, false, false, false, false, false, false); SaveProgress(1); break; // Player lost against Marcus
+                case 3: UnlockCharacter(true, true, false, false, false, false, false, false); SaveProgress(2); break; // Player lost against Selena
+                case 4: UnlockCharacter(true, true, true, false, false, false, false, false); SaveProgress(3); break; // Player lost against Bryan
+                case 5: UnlockCharacter(true, true, true, true, false, false, false, false); SaveProgress(4); break; // Player lost against Nun
+                case 6: UnlockCharacter(true, true, true, true, true, false, false, false); SaveProgress(5); break; // Player lost against Oliver
+                case 7: UnlockCharacter(true, true, true, true, true, true, false, false); SaveProgress(6); break; // Player lost against Orion
+                case 8: UnlockCharacter(true, true, true, true, true, true, true, false); SaveProgress(7); break; // Player lost against Aria
             }
 
             PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to another fight
             PlayerPrefs.SetInt("enemyCharacter", 0); // Reset the value to make it disponible to another fight
+        }
+    }
+
+    private void LoadProgress()
+    {
+        if (PlayerPrefs.GetString("currentProgress") == "") // Check if player is selecting character for first time
+        {
+            UnlockCharacter(true, false, false, false, false, false, false, false);
+        }
+
+        if (PlayerPrefs.GetString("currentProgress") == "true, false, false, false, false, false, false, false")
+        {
+            UnlockCharacter(true, false, false, false, false, false, false, false);
+        }
+
+        if (PlayerPrefs.GetString("currentProgress") == "true, true, false, false, false, false, false, false")
+        {
+            UnlockCharacter(true, true, false, false, false, false, false, false);
+        }
+
+        if (PlayerPrefs.GetString("currentProgress") == "true, true, true, false, false, false, false, false")
+        {
+            UnlockCharacter(true, true, true, false, false, false, false, false);
+        }
+
+        if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, false, false, false, false")
+        {
+            UnlockCharacter(true, true, true, true, false, false, false, false);
+        }
+
+        if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, false, false, false")
+        {
+            UnlockCharacter(true, true, true, true, true, false, false, false);
+        }
+
+        if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, false, false")
+        {
+            UnlockCharacter(true, true, true, true, true, true, false, false);
+        }
+
+        if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, true, false")
+        {
+            UnlockCharacter(true, true, true, true, true, true, true, false);
+        }
+
+        if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, true, true")
+        {
+            UnlockCharacter(true, true, true, true, true, true, true, true);
+        }
+    }
+
+    private void SaveProgress(int progressIndex)
+    {
+        switch (progressIndex)
+        {
+            case 1: PlayerPrefs.SetString("currentProgress", "true, false, false, false, false, false, false, false"); break;
+            case 2: PlayerPrefs.SetString("currentProgress", "true, true, false, false, false, false, false, false"); break;
+            case 3: PlayerPrefs.SetString("currentProgress", "true, true, true, false, false, false, false, false"); break;
+            case 4: PlayerPrefs.SetString("currentProgress", "true, true, true, true, false, false, false, false"); break;
+            case 5: PlayerPrefs.SetString("currentProgress", "true, true, true, true, true, false, false, false"); break;
+            case 6: PlayerPrefs.SetString("currentProgress", "true, true, true, true, true, true, false, false"); break;
+            case 7: PlayerPrefs.SetString("currentProgress", "true, true, true, true, true, true, true, false"); break;
+            case 8: PlayerPrefs.SetString("currentProgress", "true, true, true, true, true, true, true, true"); break;
         }
     }
 
@@ -548,17 +610,17 @@ public class SelectionCharacter : MonoBehaviour
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == false && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(1, 3, 1); // Gabriella vs Selena
+                SetupNextFight(1, 3, 2); // Gabriella vs Selena
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(1, 4, 1); // Gabriella vs Bryan
+                SetupNextFight(1, 4, 3); // Gabriella vs Bryan
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(1, 5, 1); // Gabriella vs Nun
+                SetupNextFight(1, 5, 4); // Gabriella vs Nun
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
@@ -568,12 +630,12 @@ public class SelectionCharacter : MonoBehaviour
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(1, 7, 1); // Gabriella vs Orion
+                SetupNextFight(1, 7, 2); // Gabriella vs Orion
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(1, 8, 1); // Gabriella vs Aria
+                SetupNextFight(1, 8, 4); // Gabriella vs Aria
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
@@ -610,17 +672,17 @@ public class SelectionCharacter : MonoBehaviour
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 4, 1); // Marcus vs Bryan
+                SetupNextFight(2, 4, 2); // Marcus vs Bryan
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 5, 1); // Marcus vs Nun
+                SetupNextFight(2, 5, 3); // Marcus vs Nun
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 6, 1); // Marcus vs Oliver
+                SetupNextFight(2, 6, 4); // Marcus vs Oliver
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
@@ -630,7 +692,7 @@ public class SelectionCharacter : MonoBehaviour
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 8, 1); // Marcus vs Aria
+                SetupNextFight(2, 8, 2); // Marcus vs Aria
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
@@ -667,17 +729,17 @@ public class SelectionCharacter : MonoBehaviour
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(3, 5, 1); // Selena vs Nun
+                SetupNextFight(3, 5, 2); // Selena vs Nun
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(3, 6, 1); // Selena vs Oliver
+                SetupNextFight(3, 6, 3); // Selena vs Oliver
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(3, 7, 1); // Selena vs Orion
+                SetupNextFight(3, 7, 4); // Selena vs Orion
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
@@ -719,17 +781,17 @@ public class SelectionCharacter : MonoBehaviour
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(4, 6, 1); // Bryan vs Oliver
+                SetupNextFight(4, 6, 2); // Bryan vs Oliver
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(4, 7, 1); // Bryan vs Orion
+                SetupNextFight(4, 7, 3); // Bryan vs Orion
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(4, 8, 1); // Bryan vs Aria
+                SetupNextFight(4, 8, 4); // Bryan vs Aria
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
@@ -766,12 +828,12 @@ public class SelectionCharacter : MonoBehaviour
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(5, 7, 1); // Nun vs Orion
+                SetupNextFight(5, 7, 2); // Nun vs Orion
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(5, 8, 1); // Nun vs Aria
+                SetupNextFight(5, 8, 3); // Nun vs Aria
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
@@ -808,7 +870,7 @@ public class SelectionCharacter : MonoBehaviour
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(6, 8, 1); // Oliver vs Aria
+                SetupNextFight(6, 8, 4); // Oliver vs Aria
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
@@ -840,7 +902,7 @@ public class SelectionCharacter : MonoBehaviour
         {
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(7, 8, 1); // Orion vs Aria
+                SetupNextFight(7, 8, 2); // Orion vs Aria
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == true)
