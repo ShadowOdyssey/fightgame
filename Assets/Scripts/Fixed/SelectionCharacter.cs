@@ -30,13 +30,13 @@ public class SelectionCharacter : MonoBehaviour
     private readonly int[] controlEffectStats = { 6, 4, 8, 5, 7, 5, 9, 10 };
     private readonly int[] difficultyStats = { 4, 6, 8, 3, 5, 4, 5, 10 };
     private readonly int countdownDuration = 5; // Countdown duration in seconds
-    private readonly bool[] isUnlocked = { true, false, false, false, false, false, false, false }; // Only Gabriella is unlocked by default
     private readonly string[] characterNames = { "Gabriella", "Marcus", "Selena", "Bryan", "Nun", "Oliver", "Orion", "Aria" };
     private int currentIndex = 0;
     private int randomizeCharacter = 0;
     private int randomizeArena = 0;
     private int lastPlayedIndex = -1; // To track which hero's intro was last played
     private int currentCountdown;
+    private bool[] isUnlocked = { true, false, false, false, false, false, false, false }; // Only Gabriella is unlocked by default
     private bool showLockedMessage = false; // Indicates if the locked character message should be shown
     private bool showVsPanel = false;
     private float lockedMessageTimer = 0f; // Timer to control how long the message appears
@@ -131,10 +131,14 @@ public class SelectionCharacter : MonoBehaviour
 
         if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "")
         {
+            Debug.Log("Player was open game now so lets load the last progress if he player it before");
+
             LoadProgress();
         }
         else
         {
+            Debug.Log("Player returned from a battle, so lets apply the result from the last fight");
+
             if (PlayerPrefs.GetString("playerFinishedGame") == "no")
             {
                 CheckIfPlayerWon();
