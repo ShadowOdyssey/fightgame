@@ -241,6 +241,8 @@ public class RoundManager : MonoBehaviour
         if (PlayerPrefs.GetInt("playerCharacterSelected") != 0)
         {
             currentPlayerCharacter = PlayerPrefs.GetInt("playerCharacterSelected");
+
+            Debug.Log("Player selected character: " + currentPlayerCharacter);
         }
     }
     
@@ -732,19 +734,27 @@ public class RoundManager : MonoBehaviour
     {
         //Debug.Log("Fight ended! Return to scene of character selecting an opponent or go to main menu if Player lost the battle");
 
-        if (playerWonRound2 == true)
+        Debug.Log("Player finished the game before? " + PlayerPrefs.GetString("playerFinishedGame"));
+
+        if (timesPlayerWon == 2)
         {
             if (isMultiplayer == false)
             {
                 if (PlayerPrefs.GetString("playerFinishedGame") == "no")
                 {
-                    //Debug.Log("Player Won! Lets return at character selection with a character unblocked or show final video if player defeated last enemy!");
+                    Debug.Log("Player Won! Lets return at character selection with a character unblocked or show final video if player defeated last enemy!");
+
                     PlayerPrefs.SetString("playerUnlockedNewCharacter", "yes"); // Lets inform the another scene that Player was successfull to defeat last enemy
                     PlayerPrefs.SetInt("enemyCharacter", currentEnemyCharacter); // Lets inform the another scene about the current enemy character in the scene
+
+                    Debug.Log("Player Unlocked New Character value is: " + PlayerPrefs.GetString("playerUnlockedNewCharacter"));
+
                     Invoke(nameof(ReturnToSelection), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
                 }
                 else
                 {
+                    Debug.Log("Player won and already finished the game, return to selection character scene");
+
                     Invoke(nameof(ReturnToSelection), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
                 }
             }
@@ -753,21 +763,26 @@ public class RoundManager : MonoBehaviour
                 // Inform server about round result
                 // Lets return to Lobby with 1 victory to Player score and 1 loss to Enemy score
             }
+
+            timesPlayerWon = 0;
         }
 
-        if (enemyWonRound2 == true)
+        if (timesEnemyWon == 2)
         {
             if (isMultiplayer == false)
             {
                 if (PlayerPrefs.GetString("playerFinishedGame") == "no")
                 {
-                    //Debug.Log("Player lost! Return to character selection or load a defeat animation that loads main menu again in the end, it can be a video");
+                    Debug.Log("Player lost! Return to character selection or load a defeat animation that loads main menu again in the end, it can be a video");
+
                     PlayerPrefs.SetString("playerUnlockedNewCharacter", "no"); // Lets inform the another scene that Player was not successfull to defeat last enemy
                     PlayerPrefs.SetInt("enemyCharacter", currentEnemyCharacter); // Lets inform the another scene about the current enemy character in the scene
                     Invoke(nameof(ReturnToMenu), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
                 }
                 else
                 {
+                    Debug.Log("Player lost but already finished the game");
+
                     Invoke(nameof(ReturnToMenu), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
                 }
             }
@@ -776,6 +791,8 @@ public class RoundManager : MonoBehaviour
                 // Inform server about round result
                 // Lets return to Lobby with 1 loss to Player score and 1 victory to Enemy score
             }
+
+            timesEnemyWon = 0;
         }
     }
 

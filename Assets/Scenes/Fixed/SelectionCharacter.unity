@@ -278,6 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bddff357a2002f64bb42f30e34321adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resetStats: 0
   background: {fileID: 2800000, guid: 62936c96d74822c468250b5ecab92402, type: 3}
   characterImages:
   - {fileID: 2800000, guid: a0b94828c26244c4a99571abf7c4eedf, type: 3}
@@ -293,11 +294,6 @@ MonoBehaviour:
   gabriellaTexture: {fileID: 2800000, guid: 7206d58019149b747aba8c6bae81dd28, type: 3}
   vsIcon: {fileID: 2800000, guid: d38dcc2de26d53844bf1f0cb626d536e, type: 3}
   marcusTexture: {fileID: 2800000, guid: 7df2c466f96ce9c41b0d5ade02382604, type: 3}
-  arenaImages:
-  - {fileID: 2800000, guid: b7f64b28f362aae47a5475f56e45d97d, type: 3}
-  - {fileID: 2800000, guid: 0508d24811d244e459ac2c65d6c59c4c, type: 3}
-  - {fileID: 2800000, guid: 62936c96d74822c468250b5ecab92402, type: 3}
-  - {fileID: 2800000, guid: a670ce7a30767cf4d97e44546826a266, type: 3}
 --- !u!4 &1550383885
 Transform:
   m_ObjectHideFlags: 0

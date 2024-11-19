@@ -8,6 +8,9 @@ public class SelectionCharacter : MonoBehaviour
 
     #region Scene Setup
 
+    [Header("Debug Menu")]
+    public bool resetStats = false;
+
     [Header("Scene Setup")]
     public Texture2D background;
     public Texture2D[] characterImages;
@@ -51,10 +54,19 @@ public class SelectionCharacter : MonoBehaviour
     {
         StopAllCoroutines(); // Stop all coroutines from old scenes
 
-        // Just for Debug purposes, it will be removed later
-        PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to next fight
-        PlayerPrefs.SetInt("enemyCharacter", 0); // Reset the value to make it disponible to next fight
-        PlayerPrefs.SetString("currentProgress", ""); // Reset the value to make it disponible to next fight
+        if (resetStats == true)
+        {
+            // Just for Debug purposes, it will be removed later - Use this 3 lines to reset the progress stats from Player
+            PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to next fight
+            PlayerPrefs.SetInt("enemyCharacter", 0); // Reset the value to make it disponible to next fight
+            PlayerPrefs.SetString("currentProgress", ""); // Reset the value to make it disponible to next fight
+            PlayerPrefs.SetString("playerFinishedGame", ""); // Reset the value to make it disponible to next fight
+        }
+
+        if (PlayerPrefs.GetString("playerFinishedGame") == "")
+        {
+            PlayerPrefs.SetString("playerFinishedGame", "no");
+        }
 
         audioSource = gameObject.AddComponent<AudioSource>();
     }
@@ -127,16 +139,7 @@ public class SelectionCharacter : MonoBehaviour
         {
             Debug.Log("Has player unlocked new character? " + PlayerPrefs.GetString("playerUnlockedNewCharacter"));
             Debug.Log("Last enemy player fought: " + PlayerPrefs.GetInt("enemyCharacter"));
-        }
 
-        if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "")
-        {
-            Debug.Log("Player was open game now so lets load the last progress if he player it before");
-
-            LoadProgress();
-        }
-        else
-        {
             Debug.Log("Player returned from a battle, so lets apply the result from the last fight");
 
             if (PlayerPrefs.GetString("playerFinishedGame") == "no")
@@ -150,6 +153,14 @@ public class SelectionCharacter : MonoBehaviour
             {
                 UnlockCharacter(true, true, true, true, true, true, true, true);
             }
+
+            PlayerPrefs.SetString("playerUnlockedNewCharacter", "");
+        }
+        else
+        {
+            Debug.Log("Player was open game now so lets load the last progress if Player played the game before");
+
+            LoadProgress();
         }
     }
 
@@ -172,8 +183,12 @@ public class SelectionCharacter : MonoBehaviour
 
     private void CheckIfPlayerWon()
     {
+        Debug.Log("Checking if player won last battle...");
+
         if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "yes") // Check if player won the last fight
         {
+            Debug.Log("Player unlocked new character because won last battle and advanced in progress also");
+
             // PLayer Won
             switch (PlayerPrefs.GetInt("enemyCharacter")) // Current enemy character from last battle will determine the progress of the player
             {
@@ -191,8 +206,12 @@ public class SelectionCharacter : MonoBehaviour
 
     private void CheckIfPlayerLost()
     {
+        Debug.Log("Checking if player lost last battle...");
+
         if (PlayerPrefs.GetString("playerUnlockedNewCharacter") == "no") // Check if player lost the last fight
         {
+            Debug.Log("Player lost last battle, so dont unlock a new character based in the last progress");
+
             // Player Lost
             switch (PlayerPrefs.GetInt("enemyCharacter")) // Current enemy character from last battle determines the not progress of the player
             {
@@ -233,49 +252,49 @@ public class SelectionCharacter : MonoBehaviour
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, false, false, false, false, false, false")
         {
-            Debug.Log("Player have unlocked Marcus befora");
+            Debug.Log("Player have unlocked Marcus before");
 
             UnlockCharacter(true, true, false, false, false, false, false, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, true, false, false, false, false, false")
         {
-            Debug.Log("Player have unlocked Selena befora");
+            Debug.Log("Player have unlocked Selena before");
 
             UnlockCharacter(true, true, true, false, false, false, false, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, false, false, false, false")
         {
-            Debug.Log("Player have unlocked Bryan befora");
+            Debug.Log("Player have unlocked Bryan before");
 
             UnlockCharacter(true, true, true, true, false, false, false, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, false, false, false")
         {
-            Debug.Log("Player have unlocked Nun befora");
+            Debug.Log("Player have unlocked Nun before");
 
             UnlockCharacter(true, true, true, true, true, false, false, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, false, false")
         {
-            Debug.Log("Player have unlocked Oliver befora");
+            Debug.Log("Player have unlocked Oliver before");
 
             UnlockCharacter(true, true, true, true, true, true, false, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, true, false")
         {
-            Debug.Log("Player have unlocked Orion befora");
+            Debug.Log("Player have unlocked Orion before");
 
             UnlockCharacter(true, true, true, true, true, true, true, false);
         }
 
         if (PlayerPrefs.GetString("currentProgress") == "true, true, true, true, true, true, true, true")
         {
-            Debug.Log("Player have unlocked Aria befora");
+            Debug.Log("Player have unlocked Aria before");
 
             UnlockCharacter(true, true, true, true, true, true, true, true);
         }
@@ -283,6 +302,8 @@ public class SelectionCharacter : MonoBehaviour
 
     private void SaveProgress(int progressIndex)
     {
+        Debug.Log("Updating progress! Actual progress is: " + progressIndex);
+
         switch (progressIndex)
         {
             case 1: PlayerPrefs.SetString("currentProgress", "true, false, false, false, false, false, false, false"); break;
