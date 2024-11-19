@@ -42,6 +42,9 @@ public class CharacterViewing : MonoBehaviour
     {
         // Get or add an AudioSource component
         audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.loop = false;
+        audioSource.clip = selectSound;
+        audioSource.Play();
     }
 
     void OnGUI()
@@ -144,11 +147,10 @@ public class CharacterViewing : MonoBehaviour
         else if (currentIndex >= characterImages.Length)
             currentIndex = 0;
 
-        audioSource.PlayOneShot(selectSound);
-
         if (heroVoiceClips[currentIndex] != null)
         {
-            audioSource.PlayOneShot(heroVoiceClips[currentIndex]);
+            audioSource.clip = heroVoiceClips[currentIndex];
+            audioSource.Play();
         }
     }
 }
