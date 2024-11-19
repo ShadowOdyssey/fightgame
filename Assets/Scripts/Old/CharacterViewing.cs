@@ -9,7 +9,6 @@ public class CharacterViewing : MonoBehaviour
     public Texture2D buttonRightImage; // Texture for the right button
     public Texture2D buttonExitImage; // Texture for the exit button
 
-    public AudioClip selectSound; // Sound clip to play for button presses
     public AudioClip[] heroVoiceClips; // Array of voice clips for each hero
     private AudioSource audioSource; // AudioSource component
 
@@ -43,8 +42,7 @@ public class CharacterViewing : MonoBehaviour
         // Get or add an AudioSource component
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.loop = false;
-        audioSource.clip = selectSound;
-        audioSource.Play();
+        // No selectSound playback here
     }
 
     void OnGUI()
@@ -52,6 +50,7 @@ public class CharacterViewing : MonoBehaviour
         DrawBackground();
         DrawCharacterPanel();
         DrawHeroDetails();
+        DrawStatsPanel(); // New panel for stats bars
         DrawNavigationButtons();
         DrawExitButton();
     }
@@ -68,9 +67,9 @@ public class CharacterViewing : MonoBehaviour
     {
         if (characterImages.Length > 0)
         {
-            float imageWidth = Screen.width * 0.4f;
+            float imageWidth = Screen.width * 0.5f;
             float imageHeight = Screen.height * 0.8f;
-            float imageX = Screen.width * 0.05f; 
+            float imageX = Screen.width * 0.06f; 
             float imageY = Screen.height * 0.1f;
 
             GUI.DrawTexture(new Rect(imageX, imageY, imageWidth, imageHeight), characterImages[currentIndex], ScaleMode.ScaleToFit);
@@ -97,34 +96,57 @@ public class CharacterViewing : MonoBehaviour
 
         GUIStyle storyStyle = new GUIStyle(GUI.skin.label)
         {
-            fontSize = 30,
+            fontSize = 40,
             wordWrap = true,
             alignment = TextAnchor.UpperLeft,
             normal = { textColor = Color.white }
         };
 
-        float storyHeight = 400;
+        float storyHeight = 600;
         GUI.Label(new Rect(detailsX + 20, detailsY + 70, detailsWidth - 40, storyHeight), characterStories[currentIndex], storyStyle);
+    }
 
+    void DrawStatsPanel()
+    {
+        float statsWidth = Screen.width * 0.2f;
+        float statsHeight = Screen.height * 0.3f;
+        float statsX = Screen.width * 0.01f;
+        float statsY = Screen.height * 0.1f;
+
+        GUI.Box(new Rect(statsX, statsY, statsWidth, statsHeight), "");
+
+        float padding = 40;
         GUIStyle statsStyle = new GUIStyle(GUI.skin.label)
         {
-            fontSize = 24,
-            normal = { textColor = Color.green }
+            fontSize = 25,
+            normal = { textColor = Color.white } 
         };
 
-        GUI.Label(new Rect(detailsX + 20, detailsY + 480, detailsWidth - 40, 30), "Strength: " + strengthStats[currentIndex], statsStyle);
-        GUI.Label(new Rect(detailsX + 20, detailsY + 510, detailsWidth - 40, 30), "Agility: " + agilityStats[currentIndex], statsStyle);
-        GUI.Label(new Rect(detailsX + 20, detailsY + 540, detailsWidth - 40, 30), "Durability: " + durabilityStats[currentIndex], statsStyle);
+        float barWidth = statsWidth - padding * 2;
+        float barHeight = 20;
+
+        DrawStatBar(new Rect(statsX + padding, statsY + 60, barWidth, barHeight), strengthStats[currentIndex], "Strength");
+        DrawStatBar(new Rect(statsX + padding, statsY + 130, barWidth, barHeight), agilityStats[currentIndex], "Agility");
+        DrawStatBar(new Rect(statsX + padding, statsY + 200, barWidth, barHeight), durabilityStats[currentIndex], "Durability");
+    }
+
+    void DrawStatBar(Rect position, int statValue, string statName)
+    {
+        GUI.Label(new Rect(position.x, position.y - 50, position.width, 40), statName, new GUIStyle(GUI.skin.label) { fontSize = 30, normal = { textColor = Color.green } });
+
+        float statPercentage = statValue / 100f; // Assuming max stat value is 100
+        GUI.Box(position, ""); // Box for background
+        GUI.DrawTexture(new Rect(position.x, position.y, position.width * statPercentage, position.height), Texture2D.whiteTexture); // Green fill for stats
     }
 
     void DrawNavigationButtons()
     {
-        if (GUI.Button(new Rect(Screen.width * 0.1f, Screen.height * 0.9f, 100, 50), buttonLeftImage))
+        if (GUI.Button(new Rect(Screen.width * 0.2f, Screen.height * 0.9f, 100, 50), buttonLeftImage))
         {
             NavigateToHero(-1);
         }
 
-        if (GUI.Button(new Rect(Screen.width * 0.3f, Screen.height * 0.9f, 100, 50), buttonRightImage))
+        if (GUI.Button(new Rect(Screen.width * 0.4f, Screen.height * 0.9f, 100, 50), buttonRightImage))
         {
             NavigateToHero(1);
         }
@@ -141,13 +163,10 @@ public class CharacterViewing : MonoBehaviour
     void NavigateToHero(int direction)
     {
         currentIndex += direction;
+        if (currentIndex < 0) currentIndex = characterImages.Length - 1;
+        if (currentIndex >= characterImages.Length) currentIndex = 0;
 
-        if (currentIndex < 0)
-            currentIndex = characterImages.Length - 1;
-        else if (currentIndex >= characterImages.Length)
-            currentIndex = 0;
-
-        if (heroVoiceClips[currentIndex] != null)
+        if (heroVoiceClips.Length > 0 && audioSource != null)
         {
             audioSource.clip = heroVoiceClips[currentIndex];
             audioSource.Play();
