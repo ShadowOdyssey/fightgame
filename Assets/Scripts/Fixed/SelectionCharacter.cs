@@ -415,9 +415,9 @@ public class SelectionCharacter : MonoBehaviour
     private void DrawHeroDetails()
     {
         float panelX = Screen.width * 0.1f;
-        float panelY = Screen.height * 0.25f;
+        float panelY = Screen.height * 0.30f;
         float labelWidth = 600f;
-        float labelHeight = 100f;
+        float labelHeight = 200f;
 
         float totalStatsHeight = CalculateStatsHeight() + 200;
         float totalStatsWidth = CalculateStatsWidth() + 120;
@@ -724,7 +724,7 @@ public class SelectionCharacter : MonoBehaviour
     private void DrawStatBar(string label, int value, float x, float y)
     {
         float barWidth = 400f;
-        float barHeight = 20f;
+        float barHeight = 35f;
         float labelWidth = 150f;
 
         GUIStyle statLabelStyle = new GUIStyle(GUI.skin.label)
