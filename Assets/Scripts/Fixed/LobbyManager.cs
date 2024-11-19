@@ -69,7 +69,7 @@ public class LobbyManager : MonoBehaviour
 
     private void Awake()
     {
-        PlayerPrefs.SetInt("selectedMultiplayerPlayerCharacter", currentCharacterSelected);
+        PlayerPrefs.SetInt("selectedMultiplayerPlayerCharacter", 0);
     }
 
     #endregion
@@ -83,28 +83,31 @@ public class LobbyManager : MonoBehaviour
 
     #endregion
 
-    #region Selec Character Methods
+    #region Select Character Methods
 
     public void SelectButton()
     {
-        if (selectedCharacter == false && currentCharacterSelected == PlayerPrefs.GetInt("selectedMultiplayerPlayerCharacter"))
-        {
-            ShowMessage(1);
-            ButtonIsNotSelected();
-            SaveCurrentSelection();
-        }
-        else
-        {
-            ShowMessage(2);
-            ButtonIsNotSelected();
-            ResetSelection();
-        }
-
         if (currentCharacterSelected != PlayerPrefs.GetInt("selectedMultiplayerPlayerCharacter"))
         {
             ShowMessage(3);
             ButtonIsSelected();
             SaveCurrentSelection();
+        }
+        else
+        {
+            if (selectedCharacter == false)
+            {
+                ShowMessage(1);
+                ButtonIsNotSelected();
+                SaveCurrentSelection();
+            }
+
+            if (selectedCharacter == true)
+            {
+                ShowMessage(2);
+                ButtonIsNotSelected();
+                ResetSelection();
+            }
         }
     }   
 
