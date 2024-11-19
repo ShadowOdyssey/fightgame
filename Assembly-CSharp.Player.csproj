@@ -68,10 +68,10 @@
     <Compile Include="Assets\Scripts\Old\Sample1.cs" />
     <Compile Include="Assets\Scripts\Old\Joystick.cs" />
     <Compile Include="Assets\Scripts\Old\SinglePlayer.cs" />
+    <Compile Include="Assets\Scripts\Fixed\LobbyPlayerSystem.cs" />
     <Compile Include="Assets\Scripts\Old\BattleGroundSelection.cs" />
     <Compile Include="Assets\Scripts\Fixed\CooldownSystem.cs" />
     <Compile Include="Assets\Scripts\Old\HealthBar.cs" />
-    <Compile Include="Assets\Scripts\Old\CharacterViewing.cs" />
     <Compile Include="Assets\Scripts\Old\OrionMovement.cs" />
     <Compile Include="Assets\Scripts\Old\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Fixed\SelectionCharacter.cs" />
@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\Old\ComboKickController.cs" />
     <Compile Include="Assets\Scripts\Fixed\LobbyAudioSystem.cs" />
     <Compile Include="Assets\Scripts\Old\Battleground2.cs" />
+    <Compile Include="Assets\Scripts\Fixed\CharacterViewing.cs" />
     <Compile Include="Assets\Scripts\Old\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Old\FemMovement.cs" />
     <Compile Include="Assets\Scripts\Old\OverviewStory.cs" />

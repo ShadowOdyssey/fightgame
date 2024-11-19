@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Security.Permissions;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -66,7 +65,6 @@ public class LobbyManager : MonoBehaviour
     #endregion
 
     #region Load Components
-
     private void Awake()
     {
         PlayerPrefs.SetInt("selectedMultiplayerPlayerCharacter", 0);
@@ -78,12 +76,84 @@ public class LobbyManager : MonoBehaviour
 
     private void Start()
     {
-        lobbyAudioSystem.PlayIntro(currentCharacterSelected);
+        LoadDefault();
     }
 
     #endregion
 
     #region Select Character Methods
+
+    private void CheckCharacterImage()
+    {
+        switch (currentCharacterSelected)
+        {
+            case 1:
+                characterSelectedImage.sprite = gabriellaImage; characterName.text = "GABRIELLA";
+                durabilityValue.value = 7f;
+                offenseValue.value = 8f;
+                controlEffectValue.value = 6f;
+                difficultyValue.value = 4f;
+                break;
+
+            case 2:
+                characterSelectedImage.sprite = marcusImage; characterName.text = "MARCUS";
+                durabilityValue.value = 5f;
+                offenseValue.value = 9f;
+                controlEffectValue.value = 4f;
+                difficultyValue.value = 6f;
+                break;
+
+            case 3:
+                characterSelectedImage.sprite = selenaImage; characterName.text = "SELENA";
+                durabilityValue.value = 9f;
+                offenseValue.value = 7f;
+                controlEffectValue.value = 8f;
+                difficultyValue.value = 8f;
+                break;
+
+            case 4:
+                characterSelectedImage.sprite = bryanImage; characterName.text = "BRYAN";
+                durabilityValue.value = 6f;
+                offenseValue.value = 6f;
+                controlEffectValue.value = 5f;
+                difficultyValue.value = 3f;
+                break;
+
+            case 5:
+                characterSelectedImage.sprite = nunImage; characterName.text = "NUN";
+                durabilityValue.value = 8f;
+                offenseValue.value = 6f;
+                controlEffectValue.value = 7f;
+                difficultyValue.value = 5f;
+                break;
+
+            case 6:
+                characterSelectedImage.sprite = oliverImage; characterName.text = "OLIVER";
+                durabilityValue.value = 6f;
+                offenseValue.value = 9f;
+                controlEffectValue.value = 5f;
+                difficultyValue.value = 4f;
+                break;
+
+            case 7:
+                characterSelectedImage.sprite = orionImage; characterName.text = "ORION";
+                durabilityValue.value = 8f;
+                offenseValue.value = 7f;
+                controlEffectValue.value = 9f;
+                difficultyValue.value = 5f;
+                break;
+
+            case 8:
+                characterSelectedImage.sprite = ariaImage; characterName.text = "ARIA";
+                durabilityValue.value = 10f;
+                offenseValue.value = 10f;
+                controlEffectValue.value = 10f;
+                difficultyValue.value = 10f;
+                break;
+        }
+
+        lobbyAudioSystem.PlayIntro(currentCharacterSelected);
+    }
 
     public void SelectButton()
     {
@@ -110,23 +180,6 @@ public class LobbyManager : MonoBehaviour
             }
         }
     }   
-
-    private void CheckCharacterImage()
-    {
-        switch (currentCharacterSelected)
-        {
-            case 1: characterSelectedImage.sprite = gabriellaImage; characterName.text = "GABRIELLA"; break;
-            case 2: characterSelectedImage.sprite = marcusImage; characterName.text = "MARCUS"; break;
-            case 3: characterSelectedImage.sprite = selenaImage; characterName.text = "SELENA"; break;
-            case 4: characterSelectedImage.sprite = bryanImage; characterName.text = "BRYAN"; break;
-            case 5: characterSelectedImage.sprite = nunImage; characterName.text = "NUN"; break;
-            case 6: characterSelectedImage.sprite = oliverImage; characterName.text = "OLIVER"; break;
-            case 7: characterSelectedImage.sprite = orionImage; characterName.text = "ORION"; break;
-            case 8: characterSelectedImage.sprite = ariaImage; characterName.text = "ARIA"; break;
-        }
-
-        lobbyAudioSystem.PlayIntro(currentCharacterSelected);
-    }
 
     public void PreviousCharacterToSelect()
     {
@@ -194,6 +247,15 @@ public class LobbyManager : MonoBehaviour
     #endregion
 
     #region Lobby Methods
+
+    private void LoadDefault()
+    {
+        durabilityValue.value = 7f;
+        offenseValue.value = 8f;
+        controlEffectValue.value = 6f;
+        difficultyValue.value = 4f;
+        lobbyAudioSystem.PlayIntro(1);
+    }
 
     public void FightButton()
     {
