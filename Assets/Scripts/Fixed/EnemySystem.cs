@@ -358,6 +358,11 @@ public class EnemySystem : MonoBehaviour
                 playerSystem.TakeHit(20);
             }
 
+            if (distanceToTarget > attackRange && playerSystem.trainingSystem.actualInfoIndex == 7)
+            {
+                playerSystem.trainingSystem.SelectInfo();
+            }
+
             if (damageTime > 0.2f)
             {
                 checkDamage = false;

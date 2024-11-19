@@ -752,13 +752,13 @@ public class RoundManager : MonoBehaviour
 
     #region UI Operations
 
-    private void DisableRoundText()
+    public void DisableRoundText()
     {
         roundTextBackground.SetActive(false);
         StartRound();
     }
 
-    private void ShowRoundText(string message)
+    public void ShowRoundText(string message)
     {
         roundText.text = message;
         roundTextBackground.SetActive(true);
