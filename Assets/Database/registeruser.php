@@ -21,9 +21,9 @@ $status = 'online';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-$stmt = $conn->prepare("INSERT INTO lobby(name, forward, backward, attack1, attack2, attack3, hit, health, wins, profile, ready, autofight, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO lobby(name, forward, backward, attack1, attack2, attack3, hit, health, wins, profile, ready, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-$stmt->bind_param("ssssssssiisss", $name, $forward, $backward, $attack1, $attack2, $attack3, $hit, $health, $wins, $profile, $ready, $autofight, $status);
+$stmt->bind_param("ssssssssiiss", $name, $forward, $backward, $attack1, $attack2, $attack3, $hit, $health, $wins, $profile, $ready, $status);
 
 if ($stmt->execute()) {
     echo "success002";
