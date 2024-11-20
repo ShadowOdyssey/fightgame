@@ -13,7 +13,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 $sql = "UPDATE lobby SET ? = ? WHERE ? = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $collumn, $validateCollumn, $seachCollumn, $value);
+$stmt->bind_param("ssss", $collumn, $validateCollumn, $seachCollumn, $value);
 
 if ($stmt->execute()) {
     echo "success004";
