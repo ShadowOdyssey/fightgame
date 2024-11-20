@@ -11,20 +11,33 @@ public class LobbyManager : MonoBehaviour
     #region Components Setup
 
     [Header("Lobby Setup")]
+    [Tooltip("Attach here Audio System object in the hierarchy")]
     public LobbyAudioSystem lobbyAudioSystem;
+    [Tooltip("Prefab used to instantiate players in the Players On Lobby list")]
     public GameObject playerLobbyPrefab;
+    [Tooltip("Attach here Connecting object inside UI object in the hierarchy")]
     public GameObject connectingScreen;
+    [Tooltip("Adjust the time Lobby System will spend to refresh Players On Lobby list. Remember that low values cause more server calls making the server unstable. Find a moderated value to refresh Player On Lobby list!")]
+    public float timeToRefreshPlayerList = 2f;
 
     [Header("Texts Setup")]
+    [Tooltip("Attach here Server Messages object inside Character Selected object that is inside UI object in the hierarchy")]
     public TextMeshProUGUI serverMessage;
+    [Tooltip("Attach here Character Name object inside Character Selected object that is inside UI object in the hierarchy")]
     public TextMeshProUGUI characterName;
+    [Tooltip("Attach here Select Text object inside Select Character button that is inside Character Selected object that is inside UI object in the hierarchy")]
     public TextMeshProUGUI selectButtonText;
+    [Tooltip("Attach here Connecting Text object inside Connecting object that is inside Character Selected object that is inside UI object in the hierarchy")]
     public TextMeshProUGUI connectionText;
 
     [Header("Attributes Values")]
+    [Tooltip("Attach here Durability Value slider inside DURABILITY object that is inside Character Selected object that is inside UI object in the hierarchy")]
     public Slider durabilityValue;
+    [Tooltip("Attach here Offense Value slider inside OFFENSE object that is inside Character Selected object that is inside UI object in the hierarchy")]
     public Slider offenseValue;
+    [Tooltip("Attach here Control Effect Value slider inside CONTROL EFFECT object that is inside Character Selected object that is inside UI object in the hierarchy")]
     public Slider controlEffectValue;
+    [Tooltip("Attach here Difficulty Value slider inside DIFFICULTY object that is inside Character Selected object that is inside UI object in the hierarchy")]
     public Slider difficultyValue;
 
     #endregion
@@ -32,21 +45,33 @@ public class LobbyManager : MonoBehaviour
     #region Database Setup
 
     [Header("Database Setup")]
+    [Tooltip("Put the URL of the PHP file Verify User in the host server")]
     public string verifyUser = "https://queensheartgames.com/shadowodyssey/verifyuser.php";
+    [Tooltip("Put the URL of the PHP file Connect User in the host server")]
     public string connectUser = "https://queensheartgames.com/shadowodyssey/connectuser.php";
+    [Tooltip("Put the URL of the PHP file Register User in the host server")]
     public string registerUser = "https://queensheartgames.com/shadowodyssey/registeruser.php";
+    [Tooltip("Put the URL of the PHP file Update User in the host server")]
     public string updateUser = "https://queensheartgames.com/shadowodyssey/updateuser.php";
+    [Tooltip("Put the URL of the PHP file Delete User in the host server")]
     public string deleteUser = "https://queensheartgames.com/shadowodyssey/deleteuser.php";
+    [Tooltip("Put the URL of the PHP file Enter Session in the host server")]
     public string enterSession = "https://queensheartgames.com/shadowodyssey/entersession.php";
 
     [Header("Success Response Setup")]
+    [Tooltip("Setup the message when a connection is a success with the server")]
     public string success001 = "Connection success! Connected with the server! Loading Lobby..."; // Done
+    [Tooltip("Setup the message when to register a new user is a success in the database")]
     public string success002 = "New account registered with sucess! Connecting..."; // Done
+    [Tooltip("Setup the message when a user verification if exists in database is a success")]
     public string success003 = "User found in database, connecting with server..."; // DOne
 
     [Header("Error Response Setup")]
+    [Tooltip("Setup the message when a connection with the server have failed")]
     public string error001 = "Connection failed! Please try again!"; // Done
+    [Tooltip("Setup the message when a user verification if exists in database have failed")]
     public string error002 = "User dont found in the database! Registering new user..."; // Done
+    [Tooltip("Setup the message when to register a new user is a failure in the database")]
     public string error003 = "Was not possible to regirster a new user. Open a ticket to admin!"; // Done
 
     #endregion
@@ -152,6 +177,12 @@ public class LobbyManager : MonoBehaviour
             connectedSucces = false;
             StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it
             connectingScreen.SetActive(false);
+            joinedLobby = true;
+        }
+
+        if (joinedLobby == true)
+        {
+
         }
     }
 
