@@ -567,15 +567,19 @@ public class LobbyManager : MonoBehaviour
 
     #region Update user info in database
 
-    public IEnumerator UpdateUser(string urlPHP, string newValue, string desiredCollumn, string validateCollumn, string seachCollumn)
+    public IEnumerator UpdateUser(string urlPHP, string newValue, string desiredCollumn, string referenceCollumn, string validateCollumn)
     {
         // Lets use Update User to change values of a collumn to a specific player
 
+        // UPDATE lobby SET status = 'offline' WHERE id = 1; - Example use of UpdateUser();
+
+        // UPDATE table SET desiredCollumn = 'newValue' WHERE referenceCollumn = validateCollumn - Main structure of the query
+
         WWWForm form = new WWWForm();
-        form.AddField("newValue", newValue);
         form.AddField("desiredCollumn", desiredCollumn);
+        form.AddField("newValue", "'" + newValue + "'");
+        form.AddField("referenceCollumn", referenceCollumn);
         form.AddField("validateCollumn", validateCollumn);
-        form.AddField("searchCollumn", seachCollumn);
 
         UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
 

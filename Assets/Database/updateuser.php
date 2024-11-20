@@ -4,16 +4,16 @@ $username = "queen056_multiplayer";
 $password = "@Shadow123@123";
 $dbname = "queen056_shadowodyssey";
 
-$value = $_POST['newValue'];
 $collumn = $_POST['desiredCollumn'];
+$value = $_POST['newValue'];
+$referenceCollumn = $_POST['referenceCollumn'];
 $validateCollumn = $_POST['validateCollumn'];
-$searchCollumn = $_POST['searchCollumn'];
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 $sql = "UPDATE lobby SET ? = ? WHERE ? = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssss", $collumn, $validateCollumn, $seachCollumn, $value);
+$stmt->bind_param("ssss", $collumn, $value, $referenceCollumn, $validateCollumn);
 
 if ($stmt->execute()) {
     echo "success004";
