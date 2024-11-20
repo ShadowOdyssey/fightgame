@@ -663,14 +663,20 @@ public class LobbyManager : MonoBehaviour
 
     public void UpdateData(string newValue, string desiredCollumn, int validateRequest)
     {
-        StopAllCoroutines();
-        StartCoroutine(UpdateUser(updateUser, newValue, desiredCollumn, validateRequest));
+        if (gameObject.activeInHierarchy == true)
+        {
+            StopAllCoroutines();
+            StartCoroutine(UpdateUser(updateUser, newValue, desiredCollumn, validateRequest));
+        }
     }
 
     public void RequestData(string desiredData, string collumnVerification, string dataValidation)
     {
-        StopAllCoroutines();
-        StartCoroutine(VerifyData(verifyUser, desiredData, "lobby", collumnVerification, "'" + dataValidation + "'"));
+        if (gameObject.activeInHierarchy == true)
+        {
+            StopAllCoroutines();
+            StartCoroutine(VerifyData(verifyUser, desiredData, "lobby", collumnVerification, "'" + dataValidation + "'"));
+        }
     }
 
     #endregion
@@ -680,6 +686,8 @@ public class LobbyManager : MonoBehaviour
     public void LeaveLobby() // Used by Leave Lobby Button
     {
         UpdateData("offline", "status", int.Parse(currentSession));
+        connectingScreen.SetActive(true);
+        connectionText.text = "Leaving the lobby! Please wait...";
         Invoke(nameof(ReturnToMenu), 5f); // Delay MainMenu load to give enough time to register the Offline data in database before to leave Arcade Mode scene
     }
 
