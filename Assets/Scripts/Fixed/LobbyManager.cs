@@ -116,7 +116,7 @@ public class LobbyManager : MonoBehaviour
     public void Start()
     {
         LoadDefault();
-        StartCoroutine(VerifyPlayer(verifyUser, "id", "lobby", "name", "'" + actualName + "'"));
+        StartCoroutine(VerifyData(verifyUser, "id", "lobby", "name", "'" + actualName + "'"));
     }
 
     #endregion
@@ -375,8 +375,33 @@ public class LobbyManager : MonoBehaviour
 
     #region Verify if user exists in database
 
-    public IEnumerator VerifyPlayer(string urlPHP, string newSelection, string requestedTable, string requestedCollumn, string desiredSearch)
+    public IEnumerator VerifyData(string urlPHP, string newSelection, string requestedTable, string requestedCollumn, string desiredSearch)
     {
+        /* It makes the query in MySQL using ($sql = "SELECT " . newSelection . " FROM " . requestedTable . " WHERE " . requestedCollumn . " = " . desiredSearch);
+         * 
+         * With VerifyData we can make any consult and to make MySQL to return a value to PHP to inform Unity by WWW class
+         * 
+         * In the case we start a query selecting ID in the table and return ID value if in this row contains the player name.
+         * 
+         * If it return a value is because player name exist in the database, but if returns NULL the player dont exist in the database, so
+         * we register a new user automatically and try to make connection after to register a new user.
+         * 
+         * This query always will return the value we was set in newSelection, as we used ID in newSelection it returns the ID value, but
+         * we can use any collumn of the table we to wish, just need to use desiredSearch to validate the returned value.
+         * 
+         * To validate the data the desiredSearch value need to match with the value inside requestedCollumn, if it to exist in requestedCollumn so
+         * the value was validated and PHP is allowed to return the value in newSelection.
+         * 
+         * Just to remind, newSelection is a name of a collumn.
+         * 
+         * So the logic is: we want the value inside collumn ID (newSelection), but in the row of this collumn that have many collumns on it,
+         * the row should contains the value of desiredSearch in the specific requestedCollumn.
+         * 
+         * To verify player so we want the ID, but in the row of ID need to contains player name in the collumn name, if to contains it so return to us the value in ID.
+         * If not to contains it, register a new user and verify again to validate again with success.
+        */
+
+
         WWWForm form = new WWWForm();
         form.AddField("desiredSelection", newSelection);
         form.AddField("currentTable", requestedTable);
