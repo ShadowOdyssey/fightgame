@@ -90,6 +90,7 @@ public class LobbyManager : MonoBehaviour
     private bool loadedLobby = false;
     private bool notRegistered = false;
     private string actualName = "";
+    private string currentSession = "";
     private string responseFromServer = "";
 
     #endregion
@@ -400,6 +401,9 @@ public class LobbyManager : MonoBehaviour
 
             if (responseFromServer != "error002")
             {
+                // Server is returning ID from Database, lets use ID as session code to others players be able to connect with player. ID in database is using Auto Increment, so it dont generate repeated values, always unique values so we need it to diferentiate player from others. By this way we can make the others to listen and to send data to the right player. The other player have ID also, so unique values, so it makes easy to connect everybody.
+
+                currentSession = responseFromServer;
                 connectionText.text = success003;
                 verifiedSucces = true;
             }

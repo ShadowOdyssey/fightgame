@@ -6,24 +6,24 @@ $dbname = "queen056_shadowodyssey";
 
 $name = $_POST['currentName'];
 
-$moveForward = 'no';;
-$moveBackward = 'no';;
+$forward = 'no';
+$backward = 'no';
 $attack1 = 'no';
 $attack2 = 'no';
 $attack3 = 'no';
-$isHit = 'no';
-$currentHealth ='no'; 
-$totalWins = 0;
-$actualProfile = 0;
-$isReady = 'no';
-$autoFight = 'no';
+$hit = 'no';
+$health ='no'; 
+$wins = 0;
+$profile = 0;
+$ready = 'no';
+$autofight = 'no';
 $status = 'online';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-$stmt = $conn->prepare("INSERT INTO lobby(name, isMovingForward, isMovingBackward, isAttack1, isAttack2, isAttack3, isHit, currentHealth, totalWins, actualProfile, isReady, isAutoFight, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO lobby(name, forward, backward, attack1, attack2, attack3, hit, health, wins, profile, ready, autofight, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-$stmt->bind_param("ssssssssiisss", $name, $moveForward, $moveBackward, $attack1, $attack2, $attack3, $isHit, $currentHealth, $totalWins, $actualProfile, $isReady, $autoFight, $status);
+$stmt->bind_param("ssssssssiisss", $name, $forward, $backward, $attack1, $attack2, $attack3, $hit, $health, $wins, $profile, $ready, $autofight, $status);
 
 if ($stmt->execute()) {
     echo "success002";

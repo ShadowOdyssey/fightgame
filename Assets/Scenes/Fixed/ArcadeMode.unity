@@ -1127,10 +1127,23 @@ MonoBehaviour:
   serverMessage: {fileID: 1872106400}
   characterName: {fileID: 38656134}
   selectButtonText: {fileID: 1999178281}
+  connectionText: {fileID: 1170223395}
   durabilityValue: {fileID: 1973434156}
   offenseValue: {fileID: 276767104}
   controlEffectValue: {fileID: 985222224}
   difficultyValue: {fileID: 827030635}
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  connectUser: https://queensheartgames.com/shadowodyssey/connectuser.php
+  registerUser: https://queensheartgames.com/shadowodyssey/registeruser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  deleteUser: https://queensheartgames.com/shadowodyssey/deleteuser.php
+  enterSession: https://queensheartgames.com/shadowodyssey/entersession.php
+  success001: Connection success! Connected with the server!
+  success002: New account registered with sucess! Connecting...
+  success003: Lobby updated successfully!
+  error001: Connection failed! Please try again!
+  error002: User dont found in the database! Registering new user...
+  error003: Was not possible to regirster a new user. Open a ticket to admin!
   characterSelectedImage: {fileID: 1008693459}
   gabriellaImage: {fileID: 21300000, guid: fa6c26a4331276c46a5f3b7e7868e0d2, type: 3}
   marcusImage: {fileID: 21300000, guid: 4fb8644b4d7ce2248aa54339da32e54b, type: 3}

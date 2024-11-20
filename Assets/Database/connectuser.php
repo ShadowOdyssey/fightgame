@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "queen056_multiplayer";
-$password = "@Shadow1234@1234";
+$password = "@Shadow123@123";
 $dbname = "queen056_shadowodyssey";
 
 $name = $_POST['currentName'];
