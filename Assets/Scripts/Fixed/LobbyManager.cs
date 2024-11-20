@@ -56,10 +56,8 @@ public class LobbyManager : MonoBehaviour
     public string registerUser = "https://queensheartgames.com/shadowodyssey/registeruser.php";
     [Tooltip("Put the URL of the PHP file Update User in the host server")]
     public string updateUser = "https://queensheartgames.com/shadowodyssey/updateuser.php";
-    [Tooltip("Put the URL of the PHP file Delete User in the host server")]
-    public string deleteUser = "https://queensheartgames.com/shadowodyssey/deleteuser.php";
-    [Tooltip("Put the URL of the PHP file Enter Session in the host server")]
-    public string enterSession = "https://queensheartgames.com/shadowodyssey/entersession.php";
+    [Tooltip("Put the URL of the PHP file Update Player List in the host server")]
+    public string updatePlayerList = "https://queensheartgames.com/shadowodyssey/updateplayerlist.php";
 
     #endregion
 
@@ -67,13 +65,13 @@ public class LobbyManager : MonoBehaviour
 
     [Header("Success Response Setup")]
     [Tooltip("Setup the message when a connection is a success with the server")]
-    public string success001 = "Connection success! Connected with the server! Loading Lobby..."; // Done
+    public string success001 = "Connection success! Connected with the server! Loading Lobby...";
     [Tooltip("Setup the message when to register a new user is a success in the database")]
-    public string success002 = "New account registered with sucess! Connecting..."; // Done
+    public string success002 = "New account registered with sucess! Connecting...";
     [Tooltip("Setup the message when a user verification if exists in database is a success")]
-    public string success003 = "User found in database, connecting with server..."; // DOne
+    public string success003 = "User found in database, connecting with server...";
     [Tooltip("Setup the message when a user data update in database is a success")]
-    public string success004 = "User register in database changed!"; // DOne
+    public string success004 = "User register in database changed!";
 
     #endregion
 
@@ -81,15 +79,17 @@ public class LobbyManager : MonoBehaviour
 
     [Header("Error Response Setup")]
     [Tooltip("Setup the message when a connection with the server have failed")]
-    public string error001 = "Connection failed! Please try again!"; // Done
+    public string error001 = "Connection failed! Please try again!";
     [Tooltip("Setup the message when a user verification if exists in database have failed")]
-    public string error002 = "Requested user dont found in the database! Registering new user..."; // Done
+    public string error002 = "Requested user dont found in the database! Registering new user...";
     [Tooltip("Setup the message when to register a new user is a failure in the database")]
-    public string error003 = "Was not possible to regirster a new user. Open a ticket to admin!"; // Done
+    public string error003 = "Was not possible to regirster a new user. Open a ticket to admin!";
     [Tooltip("Setup the message when a data verification if exists in database have failed")]
-    public string error004 = "Requested data dont found in the database!"; // Done
+    public string error004 = "Requested data dont found in the database!";
     [Tooltip("Setup the message when a failed to change a user data in database")]
-    public string error005 = "Was not possible to apply new changes in database!"; // Done
+    public string error005 = "Was not possible to apply new changes in database!";
+    [Tooltip("Setup the message when to update Players On Lobby list has failed to load")]
+    public string error006 = "Was not possible to generate a new list, try again!";
 
     #endregion
 
@@ -188,6 +188,7 @@ public class LobbyManager : MonoBehaviour
         {
             registeredSucces = false;
             StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it
+            StartCoroutine(VerifyUser(verifyUser, "id", "lobby", "name", "'" + actualName + "'")); // Everything is ready, so lets start to connect with the server automatically
             StartCoroutine(ConnectToServer(connectUser, actualName, "online"));
         }
 
@@ -221,8 +222,8 @@ public class LobbyManager : MonoBehaviour
         if (joinedLobby == true)
         {
             joinedLobby = false;
-
-            //UpdateData("online", "status", int.Parse(currentSession)); // Just for debug purpose
+            StopAllCoroutines();
+            StartCoroutine(UpdatePlayerList());
         }
 
         #endregion
@@ -618,6 +619,43 @@ public class LobbyManager : MonoBehaviour
 
         request.Dispose();
     }
+
+    #endregion
+
+    #region Update player list
+
+    public IEnumerator UpdatePlayerList()
+    {
+        WWWForm form = new WWWForm();
+        //form.AddField("desiredSelection", newSelection);
+        //form.AddField("currentTable", requestedTable);
+        //form.AddField("currentCollumn", requestedCollumn);
+        //form.AddField("newSearch", desiredSearch);
+
+        UnityWebRequest request = UnityWebRequest.Post(updatePlayerList, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            responseFromServer = request.downloadHandler.text;
+
+            //Debug.Log("Response from server was: " + responseFromServer);
+
+            if (responseFromServer == "error006")
+            {
+                connectionText.text = error006;
+            }
+
+            if (responseFromServer != "error006")
+            {
+
+            }
+        }
+
+        request.Dispose();
+    }
+
 
     #endregion
 

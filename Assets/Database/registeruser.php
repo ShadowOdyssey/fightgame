@@ -16,7 +16,6 @@ $health ='no';
 $wins = 0;
 $profile = 0;
 $ready = 'no';
-$autofight = 'no';
 $status = 'online';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
