@@ -1,8 +1,9 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
-using System.Collections;
+using TMPro;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -221,7 +222,7 @@ public class LobbyManager : MonoBehaviour
         {
             joinedLobby = false;
 
-            UpdateData("online", "status", int.Parse(currentSession));
+            //UpdateData("online", "status", int.Parse(currentSession)); // Just for debug purpose
         }
 
         #endregion
@@ -670,6 +671,31 @@ public class LobbyManager : MonoBehaviour
     {
         StopAllCoroutines();
         StartCoroutine(VerifyData(verifyUser, desiredData, "lobby", collumnVerification, "'" + dataValidation + "'"));
+    }
+
+    #endregion
+
+    #region Register Offline Methods
+
+    public void LeaveLobby() // Used by Leave Lobby Button
+    {
+        UpdateData("offline", "status", int.Parse(currentSession));
+        Invoke(nameof(ReturnToMenu), 5f); // Delay MainMenu load to give enough time to register the Offline data in database before to leave Arcade Mode scene
+    }
+
+    private void ReturnToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void OnDestroy()
+    {
+        UpdateData("offline", "status", int.Parse(currentSession)); // For some reason Arcade Mode scene was destroyed, so inform player is offline
+    }
+
+    public void OnApplicationQuit()
+    {
+        UpdateData("offline", "status", int.Parse(currentSession)); // Player closed the game, inform database that player is offline
     }
 
     #endregion

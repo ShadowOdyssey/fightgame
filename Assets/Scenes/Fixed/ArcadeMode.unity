@@ -1124,6 +1124,7 @@ MonoBehaviour:
   playerLobbyPrefab: {fileID: 2707116089954561644, guid: fa001e07394c2d84b9b984e7ea0cdb96,
     type: 3}
   connectingScreen: {fileID: 239883574}
+  timeToRefreshPlayerList: 2
   serverMessage: {fileID: 1872106400}
   characterName: {fileID: 38656134}
   selectButtonText: {fileID: 1999178281}
@@ -1141,9 +1142,12 @@ MonoBehaviour:
   success001: Connection success! Connected with the server!
   success002: New account registered with sucess! Connecting...
   success003: Lobby updated successfully!
+  success004: User register in database changed!
   error001: Connection failed! Please try again!
   error002: User dont found in the database! Registering new user...
   error003: Was not possible to regirster a new user. Open a ticket to admin!
+  error004: Requested data dont found in the database!
+  error005: Was not possible to apply new changes in database!
   characterSelectedImage: {fileID: 1008693459}
   gabriellaImage: {fileID: 21300000, guid: fa6c26a4331276c46a5f3b7e7868e0d2, type: 3}
   marcusImage: {fileID: 21300000, guid: 4fb8644b4d7ce2248aa54339da32e54b, type: 3}
@@ -2063,7 +2067,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 414216835}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 244837803}
+        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+        m_MethodName: LeaveLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &414216835
 MonoBehaviour:
   m_ObjectHideFlags: 0
