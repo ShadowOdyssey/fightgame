@@ -33,9 +33,10 @@ public class CharacterViewing : MonoBehaviour
         "Bryan, a battle-hardened warrior from a distant war-torn land, carries the weight of countless battles on his shoulders. His rugged armor is scarred from encounters with brutal enemies, and his eyes tell the story of a survivor. Bryan's indomitable will makes him a fearsome opponent. His unmatched strength and resilience make him the cornerstone of any defensive line. Despite his rough exterior, Bryan fights for peace, hoping to one day see an end to the endless wars that have defined his life."
     };
 
-    private int[] strengthStats = { 80, 70, 95, 85, 75, 90, 100 }; // Strength stats
-    private int[] agilityStats = { 90, 60, 70, 80, 95, 60, 50 };   // Agility stats
-    private int[] durabilityStats = { 60, 85, 80, 75, 70, 90, 95 }; // Durability stats
+    private int[] durabilityStatsStats = { 80, 70, 95, 85, 75, 90, 100 }; // Strength stats
+    private int[] offenseStats = { 90, 60, 70, 80, 95, 60, 50 };   // Agility stats
+    private int[] controlStats = { 60, 85, 80, 75, 70, 90, 95 }; // Durability stats
+    private int[] difficultyStats = { 70, 75, 80, 75, 80, 90, 100 }; // Durability stats
 
     public void Start()
     {
@@ -125,9 +126,10 @@ public class CharacterViewing : MonoBehaviour
         float barWidth = statsWidth - padding * 2;
         float barHeight = 20;
 
-        DrawStatBar(new Rect(statsX + padding, statsY + 60, barWidth, barHeight), strengthStats[currentIndex], "Strength");
-        DrawStatBar(new Rect(statsX + padding, statsY + 130, barWidth, barHeight), agilityStats[currentIndex], "Agility");
-        DrawStatBar(new Rect(statsX + padding, statsY + 200, barWidth, barHeight), durabilityStats[currentIndex], "Durability");
+        DrawStatBar(new Rect(statsX + padding, statsY + 60, barWidth, barHeight), durabilityStatsStats[currentIndex], "Durability");
+        DrawStatBar(new Rect(statsX + padding, statsY + 130, barWidth, barHeight), offenseStats[currentIndex], "Offense");
+        DrawStatBar(new Rect(statsX + padding, statsY + 200, barWidth, barHeight), controlStats[currentIndex], "Control");
+         DrawStatBar(new Rect(statsX + padding, statsY + 270, barWidth, barHeight), difficultyStats[currentIndex], "Difficulty");
     }
 
     void DrawStatBar(Rect position, int statValue, string statName)
