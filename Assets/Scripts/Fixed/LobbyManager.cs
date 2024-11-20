@@ -7,6 +7,18 @@ using TMPro;
 
 public class LobbyManager : MonoBehaviour
 {
+    /* *** REMEMBER *** 
+     * 
+     * METHODS TO FINISH:
+     * 
+     * VERIFY DATA
+     * FIGHT
+     * INPUT SEND/RECEIVE
+     * WINS/LOSS
+     * PLAYER NAME SEND/RECEIVE
+     * 
+     * */
+
     #region Variables
 
     #region Components Setup
@@ -222,8 +234,7 @@ public class LobbyManager : MonoBehaviour
         if (joinedLobby == true)
         {
             joinedLobby = false;
-            StopAllCoroutines();
-            StartCoroutine(UpdatePlayerList());
+            RefreshList();
         }
 
         #endregion
@@ -644,7 +655,7 @@ public class LobbyManager : MonoBehaviour
 
             if (responseFromServer == "error006")
             {
-                connectionText.text = error006;
+                serverMessage.text = error006;
             }
 
             if (responseFromServer != "error006")
@@ -693,6 +704,16 @@ public class LobbyManager : MonoBehaviour
         }
 
         request.Dispose();
+    }
+
+    #endregion
+
+    #region Player List Methods
+
+    public void RefreshList()
+    {
+        StopAllCoroutines();
+        StartCoroutine(UpdatePlayerList());
     }
 
     #endregion
