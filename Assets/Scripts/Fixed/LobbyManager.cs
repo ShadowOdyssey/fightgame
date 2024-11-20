@@ -65,6 +65,8 @@ public class LobbyManager : MonoBehaviour
     public string success002 = "New account registered with sucess! Connecting..."; // Done
     [Tooltip("Setup the message when a user verification if exists in database is a success")]
     public string success003 = "User found in database, connecting with server..."; // DOne
+    [Tooltip("Setup the message when a user data update in database is a success")]
+    public string success004 = "User register in database changed!"; // DOne
 
     [Header("Error Response Setup")]
     [Tooltip("Setup the message when a connection with the server have failed")]
@@ -75,6 +77,8 @@ public class LobbyManager : MonoBehaviour
     public string error003 = "Was not possible to regirster a new user. Open a ticket to admin!"; // Done
     [Tooltip("Setup the message when a data verification if exists in database have failed")]
     public string error004 = "Requested data dont found in the database!"; // Done
+    [Tooltip("Setup the message when a failed to change a user data in database")]
+    public string error005 = "Was not possible to apply new changes in database!"; // Done
 
     #endregion
 
@@ -563,7 +567,39 @@ public class LobbyManager : MonoBehaviour
 
     #region Update user info in database
 
+    public IEnumerator UpdateUser(string urlPHP, string newValue, string desiredCollumn, string validateCollumn, string seachCollumn)
+    {
+        // Lets use Verify Data to request a specific data in database
 
+        WWWForm form = new WWWForm();
+        form.AddField("newValue", newValue);
+        form.AddField("desiredCollumn", desiredCollumn);
+        form.AddField("validateCollumn", validateCollumn);
+        form.AddField("searchCollumn", seachCollumn);
+
+        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            responseFromServer = request.downloadHandler.text;
+
+            //Debug.Log("Response from server was: " + responseFromServer);
+
+            if (responseFromServer == "error005")
+            {
+                connectionText.text = error005;
+            }
+
+            if (responseFromServer == "success004")
+            {
+
+            }
+        }
+
+        request.Dispose();
+    }
 
     #endregion
 
@@ -592,7 +628,6 @@ public class LobbyManager : MonoBehaviour
             if (responseFromServer == "error002")
             {
                 connectionText.text = error004;
-                notRegistered = true;
             }
 
             if (responseFromServer != "error002")
@@ -606,14 +641,14 @@ public class LobbyManager : MonoBehaviour
 
     #endregion
 
-    #endregion
-
     #region Request Data Methods
 
     public void RequestData(string desiredData, string collumnVerification, string dataValidation)
     {
         StartCoroutine(VerifyData(verifyUser, desiredData, "lobby", collumnVerification, "'" + dataValidation + "'"));
     }
+
+    #endregion
 
     #endregion
 }
