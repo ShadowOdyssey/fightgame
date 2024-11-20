@@ -6,14 +6,16 @@ $dbname = "queen056_shadowodyssey";
 
 $collumn = $_POST['desiredCollumn'];
 $value = $_POST['newValue'];
-$referenceCollumn = $_POST['referenceCollumn'];
-$validateCollumn = $_POST['validateCollumn'];
+$validateSearch = $_POST['validateSearch'];
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-$sql = "UPDATE lobby SET ? = ? WHERE ? = ?";
+// Escape the column name to prevent SQL injection
+$escaped_column = $conn->real_escape_string($collumn);
+
+$sql = "UPDATE lobby SET `$escaped_column` = ? WHERE id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssss", $collumn, $value, $referenceCollumn, $validateCollumn);
+$stmt->bind_param("si", $value, $validateSearch);
 
 if ($stmt->execute()) {
     echo "success004";
@@ -22,6 +24,5 @@ if ($stmt->execute()) {
 }
 
 $stmt->close();
-
 $conn->close();
 ?>

@@ -587,11 +587,11 @@ public class LobbyManager : MonoBehaviour
 
         // UPDATE lobby SET status = 'offline' WHERE id = 1; - Example use of UpdateUser();
 
-        // UPDATE table SET desiredCollumn = 'newValue' WHERE referenceCollumn = validateCollumn - Main structure of the query
+        // UPDATE table SET desiredCollumn = 'newValue' WHERE id = validateCollumn - Main structure of the query
 
         WWWForm form = new WWWForm();
         form.AddField("desiredCollumn", desiredCollumn);
-        form.AddField("newValue", "'" + newValue + "'");
+        form.AddField("newValue", newValue);
         form.AddField("validateSearch", validateSearch);
 
         UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
