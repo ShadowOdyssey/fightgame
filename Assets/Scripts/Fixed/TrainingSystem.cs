@@ -18,7 +18,7 @@ public class TrainingSystem : MonoBehaviour
 
     public bool resetStats = false;
 
-    private void Start()
+    public void Start()
     {
         if (resetStats == true)
         {

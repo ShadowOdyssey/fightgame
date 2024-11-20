@@ -13,7 +13,7 @@ public class AriaMovement : MonoBehaviour
 
     private Animator ariaAnimator;  // Reference to the Animator component
 
-    private void Start()
+    public void Start()
     {
         // Get the Animator component from Aria
         ariaAnimator = GetComponent<Animator>();

@@ -13,7 +13,7 @@ public class LobbyPlayerSystem : MonoBehaviour
     private LobbyManager lobbySystem;
     private int actualProfile = 0;
 
-    private void Start()
+    public void Start()
     {
         actualProfile = Random.Range(1, 9); // Just for debug
 

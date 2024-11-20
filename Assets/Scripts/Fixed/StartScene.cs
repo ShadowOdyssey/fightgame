@@ -22,7 +22,7 @@ public class StartScene : MonoBehaviour
     private bool isFading = false;
     private Color fadeColor = Color.clear;
 
-    private void Start()
+    public void Start()
     {
         Cursor.visible = true;
 

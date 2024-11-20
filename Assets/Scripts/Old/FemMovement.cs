@@ -10,7 +10,7 @@ public class FemMovement : MonoBehaviour
     private bool isMovingForward = false; // Flag for forward movement
     private bool isMovingBackward = false; // Flag for backward movement
 
-    private void Start()
+    public void Start()
     {
         // Assign listeners to the forward and backward buttons
         if (forwardButton != null)

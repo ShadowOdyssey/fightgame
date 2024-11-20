@@ -16,7 +16,7 @@ public class MarcusMovement : MonoBehaviour
 
     public GameObject hitEffectPrefab; // Prefab for Hit effect
 
-    private void Start()
+    public void Start()
     {
         // Get the Animator component from Marcus
         marcusAnimator = GetComponent<Animator>();

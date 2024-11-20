@@ -25,7 +25,7 @@ public class SelenaMovement : MonoBehaviour
     
     private Animator selenaAnimator;  // Reference to the Animator component
 
-    private void Start()
+    public void Start()
     {
         // Get the Animator component from Selena
         selenaAnimator = GetComponent<Animator>();

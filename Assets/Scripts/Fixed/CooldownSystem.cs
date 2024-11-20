@@ -19,7 +19,7 @@ public class CooldownSystem : MonoBehaviour
     private bool isCooldown2 = false;
     private bool isCooldown3 = false;
 
-    private void Start()
+    public void Start()
     {
         playerSystem = roundSystem.playerSystem; // Load it after Round Manager to load it
 

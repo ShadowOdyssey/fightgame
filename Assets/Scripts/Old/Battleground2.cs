@@ -9,7 +9,7 @@ public class Battleground2 : MonoBehaviour
 
     private bool showSettingsPanel = false;
 
-    private void Start()
+    public void Start()
     {
         Cursor.visible = true; // Ensure the cursor is visible
     }

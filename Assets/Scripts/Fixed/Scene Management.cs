@@ -8,7 +8,7 @@ public class SceneManagement : MonoBehaviour
 
     private bool canLoadScene = false; // A simple boolean to trigger the load scene when needed in Fixed Update
 
-    private void Awake() // All variables that need to be setup before scene to start should be applied in Awake()
+    public void Awake() // All variables that need to be setup before scene to start should be applied in Awake()
     {
         if (actualScene == 0) // If actual scene is SplashScreen so...
         {

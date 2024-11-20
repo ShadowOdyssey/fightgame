@@ -12,7 +12,7 @@ public class OrionMovement : MonoBehaviour
 
     private Animator orionAnimator;  // Reference to the Animator component
 
-    private void Start()
+    public void Start()
     {
         // Get the Animator component from Orion
         orionAnimator = GetComponent<Animator>();

@@ -36,7 +36,7 @@ public class ArcadeMode : MonoBehaviour
     private int selectedArenaIndex = 0; // Current selected arena index
     private bool arenaSelected = false; // Track if an arena has been selected
 
-    private void Start()
+    public void Start()
     {
         Cursor.visible = true;
         audioSource = GetComponent<AudioSource>(); // Get the AudioSource component

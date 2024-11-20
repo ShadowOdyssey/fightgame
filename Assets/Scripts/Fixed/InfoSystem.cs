@@ -7,7 +7,7 @@ public class InfoSystem : MonoBehaviour
     private float disableTimer = 3f;
     private bool canDisable = false;
 
-    private void Start()
+    public void Start()
     {
         Time.timeScale = 0.003f;
         canDisable = true;

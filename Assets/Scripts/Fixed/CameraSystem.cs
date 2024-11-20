@@ -8,7 +8,7 @@ public class CameraSystem : MonoBehaviour
     private bool canMoveLeft = false;
     private bool canMoveRight = false;
 
-    private void Start()
+    public void Start()
     {
         originalPosition = gameObject.transform.position;
     }

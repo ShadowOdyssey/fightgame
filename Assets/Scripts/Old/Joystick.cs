@@ -7,7 +7,7 @@ public class Joystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
     private RectTransform handle;
     private Vector2 inputVector;
 
-    private void Start()
+    public void Start()
     {
         background = GetComponent<RectTransform>();
         handle = transform.GetChild(0).GetComponent<RectTransform>();

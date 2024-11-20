@@ -37,7 +37,7 @@ public class CharacterViewing : MonoBehaviour
     private int[] agilityStats = { 90, 60, 70, 80, 95, 60, 50 };   // Agility stats
     private int[] durabilityStats = { 60, 85, 80, 75, 70, 90, 95 }; // Durability stats
 
-    private void Start()
+    public void Start()
     {
         // Get or add an AudioSource component
         audioSource = gameObject.AddComponent<AudioSource>();

@@ -85,7 +85,7 @@ public class PlayerSystem : MonoBehaviour
 
     #region Loading Components
 
-    private void Awake()
+    public void Awake()
     {
         // When multiplayer to be done we need to look for the right components, the other components declared dont need to be found, just attached in Inspector
 
@@ -126,7 +126,7 @@ public class PlayerSystem : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void Start()
     {
         switch (roundSystem.currentEnemyCharacter)
         {

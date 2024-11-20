@@ -219,13 +219,13 @@ public class RoundManager : MonoBehaviour
 
     #region Loading Data
 
-    private void Awake()
+    public void Awake()
     {
         StopAllCoroutines(); // Stop all coroutines from old scenes
         LoadPlayerCharacter();
     }
 
-    private void Start()
+    public void Start()
     {
         CheckForMultiplayerOrTrainningMode();
         LoadArenaAndEnemyCharacter();

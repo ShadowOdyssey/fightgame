@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private float doubleTapTime = 0.5f; // Time window for detecting double tap
     private float lastPunchTime = -1f; // To keep track of the last punch time
 
-    private void Start()
+    public void Start()
     {
         // Ensure the Rigidbody is assigned either via Inspector or code
         if (rb == null)

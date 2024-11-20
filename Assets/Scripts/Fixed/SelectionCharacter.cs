@@ -70,7 +70,7 @@ public class SelectionCharacter : MonoBehaviour
 
     #region Loading Components
 
-    private void Awake() // Always loads components in Awake in the main script of the scene
+    public void Awake() // Always loads components in Awake in the main script of the scene
     {
         StopAllCoroutines(); // Stop all coroutines from old scenes
 
@@ -95,7 +95,7 @@ public class SelectionCharacter : MonoBehaviour
 
     #region Loading Data
 
-    private void Start()
+    public void Start()
     {
         CheckIfPlayerFinishedGame();
         CheckPlayerReturn(); // Check if player is returning to Selection Character scene after to battle some IA

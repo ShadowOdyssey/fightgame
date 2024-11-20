@@ -22,7 +22,7 @@ public class LobbyAudioSystem : MonoBehaviour
     public AudioClip orionIntro;
     public AudioClip ariaIntro;
 
-    private void Start()
+    public void Start()
     {
         PlayLobbyMusic();
     }

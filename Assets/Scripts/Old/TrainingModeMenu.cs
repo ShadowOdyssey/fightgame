@@ -25,7 +25,7 @@ public class TrainingModeMenu : MonoBehaviour
     private bool showMovelistPanel = false;
     private bool showFreePracticePanel = false;
 
-    private void Start()
+    public void Start()
     {
         Cursor.visible = true;
         audioSource = gameObject.AddComponent<AudioSource>();

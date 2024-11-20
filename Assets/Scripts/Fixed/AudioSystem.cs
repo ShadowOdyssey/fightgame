@@ -192,7 +192,7 @@ public class AudioSystem : MonoBehaviour
 
     #region Loading Components
 
-    private void Start()
+    public void Start()
     {
         checkDecreaseMusic = true; // As scene starts with player and enemy intro, automatically reduce audio when starts
     }
