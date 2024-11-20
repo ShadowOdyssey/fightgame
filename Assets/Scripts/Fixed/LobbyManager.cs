@@ -140,9 +140,10 @@ public class LobbyManager : MonoBehaviour
 
     public void Start()
     {
+        connectingScreen.SetActive(true); // We make sure that Connecting Screen always will appear enabled when Lobby Manager to start
         StopAllCoroutines(); // Stop all coroutines from old scenes
-        LoadDefault();
-        StartCoroutine(VerifyData(verifyUser, "id", "lobby", "name", "'" + actualName + "'"));
+        LoadDefault(); // Load all default values before to apply new values in Select Character
+        StartCoroutine(VerifyData(verifyUser, "id", "lobby", "name", "'" + actualName + "'")); // Everything is ready, so lets start to connect with the server automatically
     }
 
     #endregion
@@ -151,12 +152,18 @@ public class LobbyManager : MonoBehaviour
 
     public void Update()
     {
+        #region User not registered, so try to register a new user in the database
+
         if (notRegistered == true)
         {
             notRegistered = false;
             StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it
             StartCoroutine(RegisterNewUser(registerUser, actualName));
         }
+
+        #endregion
+
+        #region User registration was a success in the databse
 
         if (registeredSucces == true)
         {
@@ -165,12 +172,20 @@ public class LobbyManager : MonoBehaviour
             StartCoroutine(ConnectToServer(connectUser, actualName, "online"));
         }
 
+        #endregion
+
+        #region User was verified with a success, user exist in database
+
         if (verifiedSucces == true)
         {
             verifiedSucces = false;
             StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it
             StartCoroutine(ConnectToServer(connectUser, actualName, "online"));
         }
+
+        #endregion
+
+        #region User is connected with the server with success
 
         if (connectedSucces == true)
         {
@@ -180,10 +195,16 @@ public class LobbyManager : MonoBehaviour
             joinedLobby = true;
         }
 
+        #endregion
+
+        #region Load Players On Lobby List after user to connect with success
+
         if (joinedLobby == true)
         {
 
         }
+
+        #endregion
     }
 
     #endregion
@@ -535,6 +556,12 @@ public class LobbyManager : MonoBehaviour
 
         request.Dispose();
     }
+
+    #endregion
+
+    #region Update user info in database
+
+
 
     #endregion
 
