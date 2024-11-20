@@ -115,6 +115,7 @@ public class LobbyManager : MonoBehaviour
 
     public void Start()
     {
+        StopAllCoroutines(); // Stop all coroutines from old scenes
         LoadDefault();
         StartCoroutine(VerifyData(verifyUser, "id", "lobby", "name", "'" + actualName + "'"));
     }
@@ -128,28 +129,28 @@ public class LobbyManager : MonoBehaviour
         if (notRegistered == true)
         {
             notRegistered = false;
-            StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it.
+            StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it
             StartCoroutine(RegisterNewUser(registerUser, actualName));
         }
 
         if (registeredSucces == true)
         {
             registeredSucces = false;
-            StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it.
+            StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it
             StartCoroutine(ConnectToServer(connectUser, actualName, "online"));
         }
 
         if (verifiedSucces == true)
         {
             verifiedSucces = false;
-            StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it.
+            StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it
             StartCoroutine(ConnectToServer(connectUser, actualName, "online"));
         }
 
         if (connectedSucces == true)
         {
             connectedSucces = false;
-            StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it.
+            StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it
             connectingScreen.SetActive(false);
         }
     }
