@@ -70,9 +70,11 @@ public class LobbyManager : MonoBehaviour
     [Tooltip("Setup the message when a connection with the server have failed")]
     public string error001 = "Connection failed! Please try again!"; // Done
     [Tooltip("Setup the message when a user verification if exists in database have failed")]
-    public string error002 = "User dont found in the database! Registering new user..."; // Done
+    public string error002 = "Requested user dont found in the database! Registering new user..."; // Done
     [Tooltip("Setup the message when to register a new user is a failure in the database")]
     public string error003 = "Was not possible to regirster a new user. Open a ticket to admin!"; // Done
+    [Tooltip("Setup the message when a data verification if exists in database have failed")]
+    public string error004 = "Requested data dont found in the database!"; // Done
 
     #endregion
 
@@ -143,7 +145,7 @@ public class LobbyManager : MonoBehaviour
         connectingScreen.SetActive(true); // We make sure that Connecting Screen always will appear enabled when Lobby Manager to start
         StopAllCoroutines(); // Stop all coroutines from old scenes
         LoadDefault(); // Load all default values before to apply new values in Select Character
-        StartCoroutine(VerifyData(verifyUser, "id", "lobby", "name", "'" + actualName + "'")); // Everything is ready, so lets start to connect with the server automatically
+        StartCoroutine(VerifyUser(verifyUser, "id", "lobby", "name", "'" + actualName + "'")); // Everything is ready, so lets start to connect with the server automatically
     }
 
     #endregion
@@ -163,7 +165,7 @@ public class LobbyManager : MonoBehaviour
 
         #endregion
 
-        #region User registration was a success in the databse
+        #region User registration was a success in the database
 
         if (registeredSucces == true)
         {
@@ -428,7 +430,7 @@ public class LobbyManager : MonoBehaviour
 
     #region Verify if user exists in database
 
-    public IEnumerator VerifyData(string urlPHP, string newSelection, string requestedTable, string requestedCollumn, string desiredSearch)
+    public IEnumerator VerifyUser(string urlPHP, string newSelection, string requestedTable, string requestedCollumn, string desiredSearch)
     {
         /* It makes the query in MySQL using ($sql = "SELECT " . newSelection . " FROM " . requestedTable . " WHERE " . requestedCollumn . " = " . desiredSearch);
          * 
@@ -564,6 +566,54 @@ public class LobbyManager : MonoBehaviour
 
 
     #endregion
+
+    #region Verify specific data
+
+    public IEnumerator VerifyData(string urlPHP, string newSelection, string requestedTable, string requestedCollumn, string desiredSearch)
+    {
+        // Lets use Verify Data to request a specific data in database
+
+        WWWForm form = new WWWForm();
+        form.AddField("desiredSelection", newSelection);
+        form.AddField("currentTable", requestedTable);
+        form.AddField("currentCollumn", requestedCollumn);
+        form.AddField("newSearch", desiredSearch);
+
+        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            responseFromServer = request.downloadHandler.text;
+
+            //Debug.Log("Response from server was: " + responseFromServer);
+
+            if (responseFromServer == "error002")
+            {
+                connectionText.text = error004;
+                notRegistered = true;
+            }
+
+            if (responseFromServer != "error002")
+            {
+            
+            }
+        }
+
+        request.Dispose();
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Request Data Methods
+
+    public void RequestData(string desiredData, string collumnVerification, string dataValidation)
+    {
+        StartCoroutine(VerifyData(verifyUser, desiredData, "lobby", collumnVerification, "'" + dataValidation + "'"));
+    }
 
     #endregion
 }
