@@ -6,24 +6,32 @@ public class LobbyPlayerSystem : MonoBehaviour
 {
     public Image imageProfile;
 
-    public TextMeshProUGUI playerName;
-    public TextMeshProUGUI totalWins;
+    public TextMeshProUGUI playerNameText;
+    public TextMeshProUGUI totalWinsText;
     public TextMeshProUGUI buttonFightText;
 
     private LobbyManager lobbySystem;
+    private int actualSession = 0;
     private int actualProfile = 0;
+    private int actualWins = 0;
+    private bool canFight = false;
+    private string playerName = "";
+    private string playerReady = "";
+    private string playerStatus = "";
+    private string uniqueHash = "";
 
     public void Start()
     {
-        actualProfile = Random.Range(1, 9); // Just for debug
-
-        if (actualProfile == 9)
-        {
-            actualProfile = Random.Range(1, 8); // Just for debug
-        }
-
         lobbySystem = GameObject.Find("Lobby Manager").GetComponent<LobbyManager>();
-        LoadProfile();
+
+        if (actualProfile == 0)
+        {
+            imageProfile.sprite = lobbySystem.noImage;
+        }
+        else
+        {
+            LoadProfile();
+        }
     }
 
     public void LoadProfile()
@@ -41,23 +49,63 @@ public class LobbyPlayerSystem : MonoBehaviour
         }
     }
 
-    public void UpdateName(string newName)
+    public void UpdateSession(int newSession)
     {
-        playerName.text = newName;
-    }
-
-    public void UpdateWins(string actualWins)
-    {
-        totalWins.text = actualWins;
-    }
-
-    public void UpdateStatus(string newStatus)
-    {
-        buttonFightText.text = newStatus;
+        actualSession = newSession;
     }
 
     public void UpdateProfile(int newProfile)
     {
         actualProfile = newProfile;
+        LoadProfile();
+    }
+
+    public void UpdateWins(int totalWins)
+    {
+        actualWins = totalWins;
+        totalWinsText.text = totalWins.ToString();
+    }
+
+    public void UpdateName(string newName)
+    {
+        playerName = newName;
+        playerNameText.text = playerName;
+    }
+
+    public void UpdateReady(string newReady)
+    {
+        playerReady = newReady;
+
+        if (playerReady == "no")
+        {
+            canFight = false;
+            playerReady = "LOBBY";
+            buttonFightText.color = Color.white;
+            buttonFightText.text = playerReady;
+        }
+
+        if (playerReady == "yes")
+        {
+            canFight = true;
+            playerReady = "FIGHT";
+            buttonFightText.color = Color.green;
+            buttonFightText.text = playerReady;
+        }
+    }
+
+    public void UpdateStatus(string newStatus)
+    {
+        playerStatus = newStatus;
+
+        if (playerStatus == "offline")
+        {
+            lobbySystem.RemoveUnique(uniqueHash);
+            Destroy(gameObject);
+        }
+    }
+
+    public void RegisterUnique(string newHash)
+    {
+        uniqueHash = newHash;
     }
 }

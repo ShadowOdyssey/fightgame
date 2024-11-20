@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using TMPro;
 using Unity.VisualScripting;
+using System;
+using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -15,8 +18,6 @@ public class LobbyManager : MonoBehaviour
      * VERIFY DATA
      * FIGHT
      * INPUT SEND/RECEIVE
-     * WINS/LOSS
-     * PLAYER NAME SEND/RECEIVE
      * 
      * */
 
@@ -94,7 +95,7 @@ public class LobbyManager : MonoBehaviour
 
     [Header("Error Response Setup")]
     [Tooltip("Setup the message when a connection with the server have failed")]
-    public string error001 = "Connection failed! Please try again!";
+    public string error001 = "Connection to database failed! Please try again!";
     [Tooltip("Setup the message when a user verification if exists in database have failed")]
     public string error002 = "Requested user dont found in the database! Registering new user...";
     [Tooltip("Setup the message when to register a new user is a failure in the database")]
@@ -110,10 +111,20 @@ public class LobbyManager : MonoBehaviour
 
     #endregion
 
+    #region Player List Setup
+
+    [Header("Player List Setup")]
+    public Transform spawnPlayerArea;
+
+    #endregion
+
     #region Image Setup
 
     [Header("Image Displayer")]
     public Image characterSelectedImage;
+
+    [Header("Player List Setup")]
+    public Sprite noImage;
 
     [Header("Select Images")]
     public Sprite gabriellaImage;
@@ -139,6 +150,17 @@ public class LobbyManager : MonoBehaviour
 
     #region Hidden Variables
 
+    [Header("Parse Variables")]
+    public HashSet<string> uniquePlayers = new HashSet<string>();
+    private string[] playersList = new string[0];
+    private string[] playerInfo = new string[0];
+    private string id = "";
+    private string playerName = "";
+    private string profile = "";
+    private string wins = "";
+    private string ready = "";
+    private string status = "";
+
     [Header("Monitor")]
     private int currentCharacterSelected = 1;
     private float actualRefreshTime = 0f;
@@ -158,7 +180,7 @@ public class LobbyManager : MonoBehaviour
     #endregion
 
     #region Load Components
-    
+
     public void Awake()
     {
         if (PlayerPrefs.GetString("playerName") != "")
@@ -527,6 +549,7 @@ public class LobbyManager : MonoBehaviour
             {
                 connectionText.text = error002;
                 notRegistered = true;
+                yield break; // Exit the coroutine if there's an error
             }
 
             if (responseFromServer != "error002")
@@ -563,6 +586,7 @@ public class LobbyManager : MonoBehaviour
             if (responseFromServer == "error003")
             {
                 connectionText.text = error003;
+                yield break; // Exit the coroutine if there's an error
             }
 
             if (responseFromServer == "success002")
@@ -597,6 +621,7 @@ public class LobbyManager : MonoBehaviour
             if (responseFromServer == "error001")
             {
                 connectionText.text = error001;
+                yield break; // Exit the coroutine if there's an error
             }
 
             if (responseFromServer == "success001")
@@ -639,6 +664,7 @@ public class LobbyManager : MonoBehaviour
             if (responseFromServer == "error005")
             {
                 connectionText.text = error005;
+                yield break; // Exit the coroutine if there's an error
             }
 
             if (responseFromServer == "success004")
@@ -656,12 +682,9 @@ public class LobbyManager : MonoBehaviour
 
     public IEnumerator UpdatePlayerList()
     {
-        WWWForm form = new WWWForm();
-        //form.AddField("desiredSelection", newSelection);
-        //form.AddField("currentTable", requestedTable);
-        //form.AddField("currentCollumn", requestedCollumn);
-        //form.AddField("newSearch", desiredSearch);
+        //SELECT * FROM lobby WHERE status = 'online';
 
+        WWWForm form = new WWWForm();
         UnityWebRequest request = UnityWebRequest.Post(updatePlayerList, form);
 
         yield return request.SendWebRequest();
@@ -676,21 +699,68 @@ public class LobbyManager : MonoBehaviour
             {
                 serverMessage.text = error006;
                 loadedLobby = false;
+                yield break; // Exit the coroutine if there's an error
             }
 
             if (responseFromServer != "error006")
             {
-                serverMessage.text = success005;
+                playersList = responseFromServer.Split(new[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries);
 
-                // Parse the string containing the list of players online
+                foreach (string playerString in playersList)
+                {
+                    if (uniquePlayers.Contains(playerString))
+                    {
+                        continue; // Skip to the next iteration if duplicate
+                    }
+
+                    playerInfo = playerString.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (playerInfo[0] != currentSession)
+                    {
+
+                        id = playerInfo[0];
+                        playerName = playerInfo[1];
+                        profile = playerInfo[2];
+                        wins = playerInfo[3];
+                        ready = playerInfo[4];
+                        status = playerInfo[5];
+
+                        playerLobbyPrefab.name = id + playerName;
+
+                        Instantiate(playerLobbyPrefab, spawnPlayerArea);
+
+                        GameObject actualPlayer = GameObject.Find(id + playerName + "(Clone)");
+
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().RegisterUnique(playerString);
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateSession(int.Parse(id));
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateProfile(int.Parse(profile));
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateWins(int.Parse(wins));
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateName(playerName);
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateReady(ready);
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus(status);
+
+                        playerLobbyPrefab.name = "LobbyPlayers";
+
+                        uniquePlayers.Add(playerString);
+                    }
+                }
+
+                playerInfo = new string[0];
+
+                id = "";
+                playerName = "";
+                profile = "";
+                wins = "";
+                ready = "";
+                status = "";
 
                 loadedLobby = true;
+                serverMessage.text = success005;
             }
         }
 
         request.Dispose();
     }
-
 
     #endregion
 
@@ -719,6 +789,7 @@ public class LobbyManager : MonoBehaviour
             if (responseFromServer == "error002")
             {
                 connectionText.text = error004;
+                yield break; // Exit the coroutine if there's an error
             }
 
             if (responseFromServer != "error002")
@@ -778,6 +849,11 @@ public class LobbyManager : MonoBehaviour
     private void ReturnToMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void RemoveUnique(string actualHash)
+    {
+        uniquePlayers.Remove(actualHash);
     }
 
     public void OnDestroy()
