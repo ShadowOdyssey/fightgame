@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using TMPro;
+using Unity.VisualScripting;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -140,6 +141,7 @@ public class LobbyManager : MonoBehaviour
 
     [Header("Monitor")]
     private int currentCharacterSelected = 1;
+    private float actualRefreshTime = 0f;
     private bool selectedCharacter = false;
     private bool verifiedSucces = false;
     private bool connectedSucces = false;
@@ -237,6 +239,21 @@ public class LobbyManager : MonoBehaviour
         {
             joinedLobby = false;
             RefreshList();
+        }
+
+        #endregion
+
+        #region Refresh a new list of players
+
+        if (loadedLobby == true)
+        {
+            actualRefreshTime = actualRefreshTime + Time.deltaTime;
+
+            if (actualRefreshTime > timeToRefreshPlayerList)
+            {
+                actualRefreshTime = 0f;
+                RefreshList();
+            }
         }
 
         #endregion
@@ -658,6 +675,7 @@ public class LobbyManager : MonoBehaviour
             if (responseFromServer == "error006")
             {
                 serverMessage.text = error006;
+                loadedLobby = false;
             }
 
             if (responseFromServer != "error006")
@@ -665,6 +683,8 @@ public class LobbyManager : MonoBehaviour
                 serverMessage.text = success005;
 
                 // Parse the string containing the list of players online
+
+                loadedLobby = true;
             }
         }
 
@@ -748,6 +768,7 @@ public class LobbyManager : MonoBehaviour
 
     public void LeaveLobby() // Used by Leave Lobby Button
     {
+        loadedLobby = false;
         UpdateData("offline", "status", int.Parse(currentSession));
         connectingScreen.SetActive(true);
         connectionText.text = "Leaving the lobby! Please wait...";
@@ -761,11 +782,13 @@ public class LobbyManager : MonoBehaviour
 
     public void OnDestroy()
     {
+        loadedLobby = false;
         UpdateData("offline", "status", int.Parse(currentSession)); // For some reason Arcade Mode scene was destroyed, so inform player is offline
     }
 
     public void OnApplicationQuit()
     {
+        loadedLobby = false;
         UpdateData("offline", "status", int.Parse(currentSession)); // Player closed the game, inform database that player is offline
     }
 
