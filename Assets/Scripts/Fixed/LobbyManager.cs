@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using System;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
+using System.Linq;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -152,6 +153,7 @@ public class LobbyManager : MonoBehaviour
 
     [Header("Parse Variables")]
     public HashSet<string> uniquePlayers = new HashSet<string>();
+    public string[] oldList = new string[0];
     private string[] playersList = new string[0];
     private string[] playerInfo = new string[0];
     private string id = "";
@@ -171,6 +173,7 @@ public class LobbyManager : MonoBehaviour
     private bool joinedLobby = false;
     private bool loadedLobby = false;
     private bool notRegistered = false;
+    private bool firstRegister = false;
     private string actualName = "";
     private string currentSession = "";
     private string responseFromServer = "";
@@ -704,19 +707,57 @@ public class LobbyManager : MonoBehaviour
 
             if (responseFromServer != "error006")
             {
-                playersList = responseFromServer.Split(new[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries);
+                if (firstRegister == false)
+                {
+                    playersList = responseFromServer.Split(new[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries);
+                    oldList = playersList.ToArray();
+                    firstRegister = true;
+                }
+                else
+                {
+                    playersList = responseFromServer.Split(new[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (string previousPlayer in oldList)
+                    {
+                        playerInfo = previousPlayer.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (playersList.Contains(previousPlayer) == false && playerInfo[0] != currentSession)
+                        {
+                            GameObject updatePlayer = GameObject.Find(playerInfo[0] + playerInfo[1] + "(Clone)");
+
+                            //Debug.Log("Trying to find: " + updatePlayer.name + " because the player is not online anymore");
+
+                            if (updatePlayer != null)
+                            {
+                                //Debug.Log("Found: " + updatePlayer.name + " and trying to update it as offline to remove from lobby list!");
+
+                                updatePlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus("offline");
+                            }
+
+                            uniquePlayers.Remove(previousPlayer);
+                        }
+                    }
+
+                    oldList = playersList.ToArray();
+                }
 
                 foreach (string playerString in playersList)
                 {
-                    if (uniquePlayers.Contains(playerString))
-                    {
-                        continue; // Skip to the next iteration if duplicate
-                    }
-
                     playerInfo = playerString.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
                     if (playerInfo[0] != currentSession)
                     {
+                        if (uniquePlayers.Contains(playerString))
+                        {
+                            GameObject updatePlayer = GameObject.Find(playerInfo[0] + playerInfo[1] + "(Clone)");
+
+                            if (updatePlayer != null)
+                            {
+                                updatePlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus(playerInfo[5]);
+                            }
+
+                            continue; // Skip to the next iteration if duplicate
+                        }
 
                         id = playerInfo[0];
                         playerName = playerInfo[1];

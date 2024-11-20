@@ -95,6 +95,8 @@ public class LobbyPlayerSystem : MonoBehaviour
 
     public void UpdateStatus(string newStatus)
     {
+        //Debug.Log("Player " + gameObject.name + " updated new status! Status: " + newStatus);
+
         playerStatus = newStatus;
 
         if (playerStatus == "offline")
