@@ -127,28 +127,28 @@ public class LobbyManager : MonoBehaviour
         if (notRegistered == true)
         {
             notRegistered = false;
-
+            StopAllCoroutines();
             StartCoroutine(RegisterNewUser(registerUser, actualName));
         }
 
         if (registeredSucces == true)
         {
             registeredSucces = false;
-
+            StopAllCoroutines();
             StartCoroutine(ConnectToServer(connectUser, actualName, "online"));
         }
 
         if (verifiedSucces == true)
         {
             verifiedSucces = false;
-
+            StopAllCoroutines();
             StartCoroutine(ConnectToServer(connectUser, actualName, "online"));
         }
 
         if (connectedSucces == true)
         {
             connectedSucces = false;
-
+            StopAllCoroutines();
             connectingScreen.SetActive(false);
         }
     }
