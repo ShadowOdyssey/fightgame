@@ -288,34 +288,34 @@ public class PlayerSystem : MonoBehaviour
         {
             //Debug.Log("Player stopped to move forward");
 
-            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
         }
 
         if (playerAnimator.GetBool("isBackward") == true) // Check if Player moved backward to StopMoving trigger the boolean change in the animation parameter
         {
             //Debug.Log("Player stopped to move backward");
 
-            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
         }
 
         if (playerAnimator.GetBool("isHit") == true)
         {
-            playerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - 
         }
 
         if (playerAnimator.GetBool("isAttack1") == true)
         {
-            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
         }
 
         if (playerAnimator.GetBool("isAttack2") == true)
         {
-            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
         }
 
         if (playerAnimator.GetBool("isAttack3") == true)
         {
-            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
         }
 
         // If both triggers to be false, execute nothing, so it saves processing instead to apply false to both animation parameters in each frame, it only will trigger if is true and only once
@@ -428,18 +428,18 @@ public class PlayerSystem : MonoBehaviour
     
     private void MoveRight()
     {
-        if (playerAnimator.GetBool("isForward") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way - Felipe
+        if (playerAnimator.GetBool("isForward") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way - 
         {
             //Debug.Log("Player moved to right");
 
-            moveDirection = 1; // Setup new direction only once before to apply new position - Felipe
-            playerAnimator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            moveDirection = 1; // Setup new direction only once before to apply new position - 
+            playerAnimator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.MoveRight(1, roundSystem.currentPlayerCharacter); // Start character Move Right sound in Player Audio only after animation has started - Optional
             if (trainingSystem.actualInfoIndex == 1 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
         }
@@ -451,18 +451,18 @@ public class PlayerSystem : MonoBehaviour
     
     private void MoveLeft() // MoveLeft is being called alot, consuming processing and it is bad to mobile, so...
     {
-        if (playerAnimator.GetBool("isBackward") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - Felipe
+        if (playerAnimator.GetBool("isBackward") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - 
         {
             //Debug.Log("Player moved to left");
 
-            moveDirection = -1; // Setup new direction only once before to apply new position - Felipe
-            playerAnimator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            moveDirection = -1; // Setup new direction only once before to apply new position - 
+            playerAnimator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.MoveLeft(1, roundSystem.currentPlayerCharacter); // Start character Move Left sound in Player Audio only after animation has started - Optional
             if (trainingSystem.actualInfoIndex == 2 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
         }
@@ -478,13 +478,13 @@ public class PlayerSystem : MonoBehaviour
         {
             //Debug.Log("Hit Animation was activated");
 
-            playerAnimator.SetBool("isHit", true); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            playerAnimator.SetBool("isHit", true); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+            playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.Hit(1, roundSystem.currentPlayerCharacter); // Start character Hit sound in Player Audio only after animation has started
             if (trainingSystem.actualInfoIndex == 6 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
             Invoke(nameof(CheckHitStuck), 1f);
@@ -507,12 +507,12 @@ public class PlayerSystem : MonoBehaviour
 
                 cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
                 playerAnimator.SetBool("isAttack1", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-                playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
                 isCooldown1= true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
                 //roundSystem.audioSystem.Attack1(1, roundSystem.currentPlayerCharacter); // Start character Attack 1 sound in Player Audio only after animation has started
@@ -533,13 +533,13 @@ public class PlayerSystem : MonoBehaviour
                 //Debug.Log("Attack 2 Animation was activated");
 
                 cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
-                playerAnimator.SetBool("isAttack2", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isAttack2", true); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
                 isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
                 //roundSystem.audioSystem.Attack2(1, roundSystem.currentPlayerCharacter); // Start character Attack 2 sound in Player Audio only after animation has started
@@ -560,13 +560,13 @@ public class PlayerSystem : MonoBehaviour
                 //Debug.Log("Attack 3 Animation was activated");
 
                 cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
-                playerAnimator.SetBool("isAttack3", true); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-                playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+                playerAnimator.SetBool("isAttack3", true); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+                playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
                 isCooldown3 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
                 //roundSystem.audioSystem.Attack3(1, roundSystem.currentPlayerCharacter); // Start character Attack 3 sound in Player Audio only after animation has started
@@ -713,15 +713,15 @@ public class PlayerSystem : MonoBehaviour
 
     private void ResetAllAnimations()
     {
-        playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        playerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        playerAnimator.SetBool("isDead", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        playerAnimator.SetBool("isIntro", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+        playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+        playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+        playerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - 
+        playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+        playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+        playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
+        playerAnimator.SetBool("isDead", false); // Values in parameters should be low case in the first letter because is variable name - 
+        playerAnimator.SetBool("isIntro", false); // Values in parameters should be low case in the first letter because is variable name - 
     }
 
     private void ResetAllTriggers()

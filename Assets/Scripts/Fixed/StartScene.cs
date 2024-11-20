@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class StartScene : MonoBehaviour
 {
-    public AudioSource currentAudio; // Added the AudioSource component here to make Sound On and Sound Off option to work - Felipe
+    public AudioSource currentAudio; // Added the AudioSource component here to make Sound On and Sound Off option to work - 
 
     public Texture2D _playButtonImage; // Play button image
     public Texture2D _settingsButtonImage; // Settings button image
@@ -194,12 +194,12 @@ public class StartScene : MonoBehaviour
         if (isSoundOn)
         {
             Debug.Log("Sound On");
-            currentAudio.Play(); // Assigned AudioSource component to play the music - Felipe
+            currentAudio.Play(); // Assigned AudioSource component to play the music - 
         }
         else
         {
             Debug.Log("No Sound");
-            currentAudio.Stop();// Assigned AudioSource component to stop to play the music - Felipe
+            currentAudio.Stop();// Assigned AudioSource component to stop to play the music - 
         }
     }
 

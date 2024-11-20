@@ -128,28 +128,28 @@ public class LobbyManager : MonoBehaviour
         if (notRegistered == true)
         {
             notRegistered = false;
-            StopAllCoroutines();
+            StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it.
             StartCoroutine(RegisterNewUser(registerUser, actualName));
         }
 
         if (registeredSucces == true)
         {
             registeredSucces = false;
-            StopAllCoroutines();
+            StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it.
             StartCoroutine(ConnectToServer(connectUser, actualName, "online"));
         }
 
         if (verifiedSucces == true)
         {
             verifiedSucces = false;
-            StopAllCoroutines();
+            StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it.
             StartCoroutine(ConnectToServer(connectUser, actualName, "online"));
         }
 
         if (connectedSucces == true)
         {
             connectedSucces = false;
-            StopAllCoroutines();
+            StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it.
             connectingScreen.SetActive(false);
         }
     }

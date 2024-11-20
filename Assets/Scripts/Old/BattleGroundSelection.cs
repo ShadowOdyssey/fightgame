@@ -228,7 +228,7 @@ public class BattleGroundSelection : MonoBehaviour
         if (GUI.Button(buttonRect, "", GUIStyle.none)) // Use an empty button style to make it clickable
         {
             // Removed LoadSelectedArena call, no functionality for selecting an arena
-            ExitButtonClicked(); // So lets exit scene if nothing changes on game here - Felipe
+            ExitButtonClicked(); // So lets exit scene if nothing changes on game here - 
         }
 
         // Draw the "Select" text on top of the button

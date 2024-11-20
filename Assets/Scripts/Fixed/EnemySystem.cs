@@ -167,7 +167,7 @@ public class EnemySystem : MonoBehaviour
 
         #region Checking if round finished
 
-        if (roundSystem.roundOver == true && wasResetTriggers == false) // If round not started and is 2nd or 3rd round, load Idle animation till round start again! - Felipe
+        if (roundSystem.roundOver == true && wasResetTriggers == false) // If round not started and is 2nd or 3rd round, load Idle animation till round start again! - 
         {
             ResetAllTriggers();
         }
@@ -649,12 +649,12 @@ public class EnemySystem : MonoBehaviour
             enemyDifficulty == 0 && moveSuccessRandom == false && enemyAnimator.GetBool("isForward") == false && changedAnimDirectionToForward == true)
         {
             enemyAnimator.SetBool("isForward", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.MoveLeft(2, roundSystem.currentEnemyCharacter); // Start character Move Left sound in Enemy Audio only after animation has started - Optional
             isWalking = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
@@ -663,12 +663,12 @@ public class EnemySystem : MonoBehaviour
             enemyDifficulty == 0 && moveSuccessRandom == false && enemyAnimator.GetBool("isBackward") == false && changedAnimDirectionToBackward == true)
         {
             enemyAnimator.SetBool("isBackward", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.MoveRight(2, roundSystem.currentEnemyCharacter); // Start character Move Right sound in Enemy Audio only after animation has started - Optional
             isWalking = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
@@ -679,12 +679,12 @@ public class EnemySystem : MonoBehaviour
         if (enemyAnimator.GetBool("isIdle") == false)
         {
             enemyAnimator.SetBool("isIdle", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.Idle(2, roundSystem.currentEnemyCharacter); // Start character Idle sound in Enemy Audio only after animation has started - Optional
             isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
@@ -695,12 +695,12 @@ public class EnemySystem : MonoBehaviour
         if (enemyAnimator.GetBool("isAttack1") == false)
         {
             enemyAnimator.SetBool("isAttack1", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.Attack1(2, roundSystem.currentEnemyCharacter); // Start character Attack 1 sound in Enemy Audio only after animation has started
             isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
@@ -711,12 +711,12 @@ public class EnemySystem : MonoBehaviour
         if (enemyAnimator.GetBool("isAttack2") == false)
         {
             enemyAnimator.SetBool("isAttack2", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.Attack2(2, roundSystem.currentEnemyCharacter); // Start character Attack 2 sound in Enemy Audio only after animation has started
             isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
@@ -727,12 +727,12 @@ public class EnemySystem : MonoBehaviour
         if (enemyAnimator.GetBool("isAttack3") == false)
         {
             enemyAnimator.SetBool("isAttack3", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.Attack3(2, roundSystem.currentEnemyCharacter); // Start character Attack 3 sound in Enemy Audio only after animation has started
             isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
@@ -743,12 +743,12 @@ public class EnemySystem : MonoBehaviour
         if (enemyAnimator.GetBool("isBlock") == false)
         {
             enemyAnimator.SetBool("isBlock", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.Hit(2, roundSystem.currentEnemyCharacter); // Start character Hit sound in Enemy Audio only after animation has started
             isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
         }
@@ -1046,9 +1046,9 @@ public class EnemySystem : MonoBehaviour
         //Debug.Log("Reset all Enemy´s triggers");
 
         randomizeTimer = 0f; // Reset randomizer time when next round to start if to have a new round yet
-        canFight = false; // Round finished, stop to fight - Felipe
+        canFight = false; // Round finished, stop to fight - 
         isWalking = false; // Disable movement
-        canRandomize = false; // Round finished, stop to randomize - Felipe
+        canRandomize = false; // Round finished, stop to randomize - 
         isHit = false; // Round finished, reset all variables
         isAttacking = false; // Round finished, reset all variables
         checkDamage = false; // Round finished, reset all variables
@@ -1061,15 +1061,15 @@ public class EnemySystem : MonoBehaviour
 
     private void ResetAllAnimations()
     {
-        enemyAnimator.SetBool("isIntro", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        enemyAnimator.SetBool("isDead", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
-        enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - Felipe
+        enemyAnimator.SetBool("isIntro", false); // Values in parameters should be low case in the first letter because is variable name - 
+        enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+        enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+        enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+        enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
+        enemyAnimator.SetBool("isDead", false); // Values in parameters should be low case in the first letter because is variable name - 
+        enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+        enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+        enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
     }
 
     #endregion
