@@ -221,7 +221,7 @@ public class LobbyManager : MonoBehaviour
         {
             joinedLobby = false;
 
-            UpdateData("teste", "status", int.Parse(currentSession));
+            UpdateData("online", "status", int.Parse(currentSession));
         }
 
         #endregion
@@ -581,18 +581,18 @@ public class LobbyManager : MonoBehaviour
 
     #region Update user info in database
 
-    public IEnumerator UpdateUser(string urlPHP, string newValue, string desiredCollumn, int validateSearch)
+    public IEnumerator UpdateUser(string urlPHP, string newValue, string desiredCollumn, int validateRequest)
     {
         // Lets use Update User to change values of a collumn to a specific player
 
         // UPDATE lobby SET status = 'offline' WHERE id = 1; - Example use of UpdateUser();
 
-        // UPDATE table SET desiredCollumn = 'newValue' WHERE id = validateCollumn - Main structure of the query
+        // UPDATE table SET desiredCollumn = 'newValue' WHERE id = validateRequest - Main structure of the query
 
         WWWForm form = new WWWForm();
         form.AddField("desiredCollumn", desiredCollumn);
         form.AddField("newValue", newValue);
-        form.AddField("validateSearch", validateSearch);
+        form.AddField("validateRequest", validateRequest);
 
         UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
 
@@ -660,10 +660,10 @@ public class LobbyManager : MonoBehaviour
 
     #region Data Methods
 
-    public void UpdateData(string newValue, string desiredCollumn, int validateSearch)
+    public void UpdateData(string newValue, string desiredCollumn, int validateRequest)
     {
         StopAllCoroutines();
-        StartCoroutine(UpdateUser(updateUser, newValue, desiredCollumn, validateSearch));
+        StartCoroutine(UpdateUser(updateUser, newValue, desiredCollumn, validateRequest));
     }
 
     public void RequestData(string desiredData, string collumnVerification, string dataValidation)

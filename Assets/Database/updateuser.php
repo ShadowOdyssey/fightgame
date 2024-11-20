@@ -6,7 +6,7 @@ $dbname = "queen056_shadowodyssey";
 
 $collumn = $_POST['desiredCollumn'];
 $value = $_POST['newValue'];
-$validateSearch = $_POST['validateSearch'];
+$validateRequest = $_POST['validateRequest'];
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -15,7 +15,7 @@ $escaped_column = $conn->real_escape_string($collumn);
 
 $sql = "UPDATE lobby SET `$escaped_column` = ? WHERE id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("si", $value, $validateSearch);
+$stmt->bind_param("si", $value, $validateRequest);
 
 if ($stmt->execute()) {
     echo "success004";
