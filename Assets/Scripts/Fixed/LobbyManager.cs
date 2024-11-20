@@ -44,6 +44,8 @@ public class LobbyManager : MonoBehaviour
 
     #region Database Setup
 
+    #region PHP URLs
+
     [Header("Database Setup")]
     [Tooltip("Put the URL of the PHP file Verify User in the host server")]
     public string verifyUser = "https://queensheartgames.com/shadowodyssey/verifyuser.php";
@@ -58,6 +60,10 @@ public class LobbyManager : MonoBehaviour
     [Tooltip("Put the URL of the PHP file Enter Session in the host server")]
     public string enterSession = "https://queensheartgames.com/shadowodyssey/entersession.php";
 
+    #endregion
+
+    #region Success Response From Database
+
     [Header("Success Response Setup")]
     [Tooltip("Setup the message when a connection is a success with the server")]
     public string success001 = "Connection success! Connected with the server! Loading Lobby..."; // Done
@@ -67,6 +73,10 @@ public class LobbyManager : MonoBehaviour
     public string success003 = "User found in database, connecting with server..."; // DOne
     [Tooltip("Setup the message when a user data update in database is a success")]
     public string success004 = "User register in database changed!"; // DOne
+
+    #endregion
+
+    #region Error Response From Database
 
     [Header("Error Response Setup")]
     [Tooltip("Setup the message when a connection with the server have failed")]
@@ -79,6 +89,8 @@ public class LobbyManager : MonoBehaviour
     public string error004 = "Requested data dont found in the database!"; // Done
     [Tooltip("Setup the message when a failed to change a user data in database")]
     public string error005 = "Was not possible to apply new changes in database!"; // Done
+
+    #endregion
 
     #endregion
 
@@ -207,7 +219,9 @@ public class LobbyManager : MonoBehaviour
 
         if (joinedLobby == true)
         {
+            joinedLobby = false;
 
+            UpdateData("teste", "status", int.Parse(currentSession));
         }
 
         #endregion
@@ -567,7 +581,7 @@ public class LobbyManager : MonoBehaviour
 
     #region Update user info in database
 
-    public IEnumerator UpdateUser(string urlPHP, string newValue, string desiredCollumn, string referenceCollumn, string validateCollumn)
+    public IEnumerator UpdateUser(string urlPHP, string newValue, string desiredCollumn, int validateSearch)
     {
         // Lets use Update User to change values of a collumn to a specific player
 
@@ -578,8 +592,7 @@ public class LobbyManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("desiredCollumn", desiredCollumn);
         form.AddField("newValue", "'" + newValue + "'");
-        form.AddField("referenceCollumn", referenceCollumn);
-        form.AddField("validateCollumn", validateCollumn);
+        form.AddField("validateSearch", validateSearch);
 
         UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
 
@@ -645,10 +658,17 @@ public class LobbyManager : MonoBehaviour
 
     #endregion
 
-    #region Request Data Methods
+    #region Data Methods
+
+    public void UpdateData(string newValue, string desiredCollumn, int validateSearch)
+    {
+        StopAllCoroutines();
+        StartCoroutine(UpdateUser(updateUser, newValue, desiredCollumn, validateSearch));
+    }
 
     public void RequestData(string desiredData, string collumnVerification, string dataValidation)
     {
+        StopAllCoroutines();
         StartCoroutine(VerifyData(verifyUser, desiredData, "lobby", collumnVerification, "'" + dataValidation + "'"));
     }
 
