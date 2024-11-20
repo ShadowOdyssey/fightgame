@@ -84,6 +84,8 @@ public class LobbyManager : MonoBehaviour
     public string success003 = "User found in database, connecting with server...";
     [Tooltip("Setup the message when a user data update in database is a success")]
     public string success004 = "User register in database changed!";
+    [Tooltip("Setup the message when Player On Lobby list was loaded successfuly")]
+    public string success005 = "Players On Lobby list refreshed with success!";
 
     #endregion
 
@@ -660,7 +662,9 @@ public class LobbyManager : MonoBehaviour
 
             if (responseFromServer != "error006")
             {
+                serverMessage.text = success005;
 
+                // Parse the string containing the list of players online
             }
         }
 
