@@ -569,7 +569,7 @@ public class LobbyManager : MonoBehaviour
 
     public IEnumerator UpdateUser(string urlPHP, string newValue, string desiredCollumn, string validateCollumn, string seachCollumn)
     {
-        // Lets use Verify Data to request a specific data in database
+        // Lets use Update User to change values of a collumn to a specific player
 
         WWWForm form = new WWWForm();
         form.AddField("newValue", newValue);
