@@ -406,11 +406,11 @@ public class RoundManager : MonoBehaviour
 
             if (PlayerPrefs.GetString("whoWasTheHost") == PlayerPrefs.GetInt("multiplayerPlayer").ToString())
             {
-                playerMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerPlayer"));
+                playerMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerPlayer")); // If i am the host so i am the player at left side
             }
             else
             {
-                playerMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerOpponent"));
+                playerMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerOpponent")); // If i am not the host so my opponent is the player at left side
             }
         }
     }
@@ -447,11 +447,11 @@ public class RoundManager : MonoBehaviour
 
             if (PlayerPrefs.GetString("whoWasTheHost") == PlayerPrefs.GetInt("multiplayerPlayer").ToString())
             {
-                enemyMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerOpponent")); 
+                enemyMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerOpponent")); // If i am the host my opponent is the player at right side
             }
             else
             {
-                enemyMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerPlayer"));
+                enemyMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerPlayer")); // If i am not the host so i am the player at right side
             }
         }
     }
