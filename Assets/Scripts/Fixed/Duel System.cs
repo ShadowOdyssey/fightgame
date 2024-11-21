@@ -18,6 +18,8 @@ public class DuelSystem : MonoBehaviour
     public Image playerImage;
     public Image opponentImage;
 
+    public Sprite loadImage;
+
     public Sprite gabriellaVersus;
     public Sprite marcusVersus;
     public Sprite selenaVersus;
@@ -36,9 +38,16 @@ public class DuelSystem : MonoBehaviour
     private bool wasOpen = false;
     private bool isWaiting = false;
 
+    public void Awake()
+    {
+        countTime = waitTime;
+    }
+
     public void Start()
     {
         timerText.text = waitTime.ToString("00");
+        playerImage.sprite = loadImage;
+        opponentImage.sprite = loadImage;
     }
 
     public void Update()
@@ -125,7 +134,6 @@ public class DuelSystem : MonoBehaviour
     public void PlayerIsHost()
     {
         acceptButton.SetActive(false);
-        declineButton.SetActive(false);
         waitText.text = "Waiting for opponent " + opponentNameText.text + " to accept...";
         waitMessage.SetActive(true);
         isWaiting = true;
@@ -149,8 +157,8 @@ public class DuelSystem : MonoBehaviour
     {
         playerNameText.text = "";
         opponentNameText.text = "";
-        playerImage.sprite = null;
-        opponentImage.sprite = null;
+        playerImage.sprite = loadImage;
+        opponentImage.sprite = loadImage;
         playerSession = "";
         opponentSession = "";
         isWaiting = false;

@@ -8,16 +8,6 @@ using TMPro;
 
 public class LobbyManager : MonoBehaviour
 {
-    /* *** REMEMBER *** 
-     * 
-     * METHODS TO FINISH:
-     * 
-     * VERIFY DATA
-     * FIGHT
-     * INPUT SEND/RECEIVE
-     * 
-     * */
-
     #region Variables
 
     #region Components Setup
@@ -846,7 +836,7 @@ public class LobbyManager : MonoBehaviour
                     wasHostLoaded = true;
                     UpdateDuelPlayer();
 
-                    Debug.Log("Host Value from server is: " + currentHost);
+                    //Debug.Log("Host Value from server is: " + currentHost);
                 }
                 else
                 {
@@ -1020,7 +1010,7 @@ public class LobbyManager : MonoBehaviour
         {
             isDueling = true;
 
-            Debug.Log("Checking for Host");
+            //Debug.Log("Checking for Host");
 
             StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
         }
@@ -1034,8 +1024,11 @@ public class LobbyManager : MonoBehaviour
 
                 PlayerPrefs.SetInt("multiplayerPlayer", 0);
                 PlayerPrefs.SetInt("multiplayerOpponent", 0);
+                PlayerPrefs.SetString("multiplayerOpponentName", "");
 
                 duelScreen.SetActive(false);
+
+                serverMessage.text = "Player dont want to fight against you anymore!";
 
                 wasHostLoaded = false;
                 isDueling = false;
@@ -1085,7 +1078,7 @@ public class LobbyManager : MonoBehaviour
 
         if (currentHost == currentSession)
         {
-            Debug.Log("You are the host!");
+            //Debug.Log("You are the host!");
 
             duelSystem.UpdateSessions(currentSession, requestedSessionDuel);
             duelSystem.UpdateNames(actualName, requestedNameDuel);
@@ -1097,7 +1090,7 @@ public class LobbyManager : MonoBehaviour
             connectingScreen.SetActive(true);
             connectionText.text = "You was invited to fight, loading...";
 
-            Debug.Log("You are the invited!");
+            //Debug.Log("You are the invited!");
 
             StartCoroutine(VerifyHostName(verifyUser, "name", "lobby", "id", currentHost));
             StartCoroutine(VerifyHostProfile(verifyUser, "profile", "lobby", "id", currentHost));
@@ -1123,25 +1116,29 @@ public class LobbyManager : MonoBehaviour
 
         PlayerPrefs.SetInt("multiplayerPlayer", pn);
         PlayerPrefs.SetInt("multiplayerOpponent", on);
+        PlayerPrefs.SetString("multiplayerOpponentName", hostName);
 
-        Debug.Log("Player Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerPlayer"));
-        Debug.Log("Opponent Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerOpponent"));
+        //Debug.Log("Player Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerPlayer"));
+        //Debug.Log("Opponent Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerOpponent"));
+        //Debug.Log("Opponent Multiplayer Name is: " + PlayerPrefs.GetInt("multiplayerOpponentName"));
     }
 
     public void DuelDeclined(string playerDuel, string opponentDuel)
     {
-        UpdateData("yes", "ready", playerDuel);
-        UpdateData("yes", "ready", opponentDuel);
-        UpdateData("0", "duel", playerDuel);
-        UpdateData("0", "host", playerDuel);
-        UpdateData("0", "duel", opponentDuel);
-        UpdateData("0", "host", opponentDuel);
+        UpdateData("yes", "ready", currentSession);
+        UpdateData("yes", "ready", currentHost);
+        UpdateData("0", "duel", currentSession);
+        UpdateData("0", "host", currentSession);
+        UpdateData("0", "duel", currentHost);
+        UpdateData("0", "host", currentHost);
 
+        currentHost = "";
         hostName = "";
         hostProfile = "";
 
         PlayerPrefs.SetInt("multiplayerPlayer", 0);
         PlayerPrefs.SetInt("multiplayerOpponent", 0);
+        PlayerPrefs.SetString("multiplayerOpponentName", "");
 
         duelScreen.SetActive(false);
         isDueling = false;
