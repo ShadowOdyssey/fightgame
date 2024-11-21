@@ -233,9 +233,9 @@ public class RoundManager : MonoBehaviour
         Debug.Log("Who Was The Host is: " + PlayerPrefs.GetString("whoWasTheHost"));
         Debug.Log("Player Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerPlayer"));
         Debug.Log("Opponent Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerOpponent"));
-        Debug.Log("Player Profile is: " + PlayerPrefs.GetInt("multiplayerPlayerProfile"));
+        Debug.Log("Player Profile is: " + PlayerPrefs.GetInt("multiplayerPlayerProfile")); // Done
         Debug.Log("Opponent Multiplayer Name is: " + PlayerPrefs.GetString("multiplayerOpponentName"));
-        Debug.Log("Opponent Multiplayer Profile is: " + PlayerPrefs.GetString("multiplayerOpponentProfile"));
+        Debug.Log("Opponent Multiplayer Profile is: " + PlayerPrefs.GetString("multiplayerOpponentProfile")); // Done
 
         CheckForMultiplayerOrTrainningMode(); // Done
         LoadArenaAndEnemyCharacter(); // Done
@@ -316,6 +316,11 @@ public class RoundManager : MonoBehaviour
             // Loading Names
             playerNameText.text = PlayerPrefs.GetString("playerName").ToUpper(); // Load my name at left side
             enemyNameText.text = PlayerPrefs.GetString("multiplayerOpponentName").ToUpper(); // Load opponent name at right side
+
+            Debug.Log("Player Character Profile is: " + currentPlayerCharacter);
+            Debug.Log("Enemy Character Profile is: " + currentEnemyCharacter);
+            Debug.Log("Player Name is: " + playerNameText.text);
+            Debug.Log("Enemy Name is: " + enemyNameText.text);
         }
         else
         {
@@ -326,6 +331,11 @@ public class RoundManager : MonoBehaviour
             // Loading Names
             playerNameText.text = PlayerPrefs.GetString("multiplayerOpponentName").ToUpper(); // Load opponent name at left side
             enemyNameText.text = PlayerPrefs.GetString("playerName").ToUpper(); // Load my name at right side
+
+            Debug.Log("Player Character Profile is: " + currentPlayerCharacter);
+            Debug.Log("Enemy Character Profile is: " + currentEnemyCharacter);
+            Debug.Log("Player Name is: " + playerNameText.text);
+            Debug.Log("Enemy Name is: " + enemyNameText.text);
         }
     }
 
@@ -414,13 +424,13 @@ public class RoundManager : MonoBehaviour
 
             if (PlayerPrefs.GetString("whoWasTheHost") == PlayerPrefs.GetInt("multiplayerPlayer").ToString())
             {
-                Debug.Log("Still exist Multiplayer Player? Value: " + PlayerPrefs.GetInt("multiplayerPlayer"));
+                Debug.Log("Still exist Multiplayer Player to apply in Player? Value: " + PlayerPrefs.GetInt("multiplayerPlayer"));
 
                 playerMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerPlayer")); // If i am the host so i am the player at left side
             }
             else
             {
-                Debug.Log("Still exist Multiplayer Opponent? Value: " + PlayerPrefs.GetInt("multiplayerOpponent"));
+                Debug.Log("Still exist Multiplayer Opponent to apply in Player? Value: " + PlayerPrefs.GetInt("multiplayerOpponent"));
 
                 playerMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerOpponent")); // If i am not the host so my opponent is the player at left side
             }
@@ -459,13 +469,13 @@ public class RoundManager : MonoBehaviour
 
             if (PlayerPrefs.GetString("whoWasTheHost") == PlayerPrefs.GetInt("multiplayerPlayer").ToString())
             {
-                Debug.Log("Still exist Multiplayer Opponent? Value: " + PlayerPrefs.GetInt("multiplayerOpponent"));
+                Debug.Log("Still exist Multiplayer Opponent to apply in Enemy? Value: " + PlayerPrefs.GetInt("multiplayerOpponent"));
 
                 enemyMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerOpponent")); // If i am the host my opponent is the player at right side
             }
             else
             {
-                Debug.Log("Still exist Multiplayer Player? Value: " + PlayerPrefs.GetInt("multiplayerPlayer"));
+                Debug.Log("Still exist Multiplayer Player to apply in Enemy? Value: " + PlayerPrefs.GetInt("multiplayerPlayer"));
 
                 enemyMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerPlayer")); // If i am not the host so i am the player at right side
             }
