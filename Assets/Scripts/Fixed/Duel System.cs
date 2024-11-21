@@ -29,8 +29,8 @@ public class DuelSystem : MonoBehaviour
 
     private readonly float waitTime = 20f;
 
-    public int playerSession = 0;
-    public int opponentSession = 0;
+    public string playerSession = "";
+    public string opponentSession = "";
     private float countTime = 20f;
     
     private bool wasOpen = false;
@@ -90,8 +90,8 @@ public class DuelSystem : MonoBehaviour
     {
         if (wasOpen == false)
         {
-            playerSession = int.Parse(actualPlayerSesison);
-            opponentSession = int.Parse(actualOpponentSession);
+            playerSession = actualPlayerSesison;
+            opponentSession = actualOpponentSession;
         }
     }
 
@@ -151,8 +151,8 @@ public class DuelSystem : MonoBehaviour
         opponentNameText.text = "";
         playerImage.sprite = null;
         opponentImage.sprite = null;
-        playerSession = 0;
-        opponentSession = 0;
+        playerSession = "";
+        opponentSession = "";
         isWaiting = false;
         wasOpen = false;
         countTime = waitTime;
