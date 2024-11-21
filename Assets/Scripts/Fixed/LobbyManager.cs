@@ -1132,7 +1132,7 @@ public class LobbyManager : MonoBehaviour
     public void DuelAccepted(string playerDuel, string opponentDuel)
     {
         UpdateData("fighting", "ready", currentSession);
-        UpdateData("fighting", "ready", requestedSessionDuel);
+        UpdateData("fighting", "ready", currentHost);
 
         int pn = int.Parse(playerDuel);
         int on = int.Parse(opponentDuel);
@@ -1144,8 +1144,8 @@ public class LobbyManager : MonoBehaviour
 
         //Debug.Log("Player Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerPlayer"));
         //Debug.Log("Opponent Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerOpponent"));
-        //Debug.Log("Opponent Multiplayer Name is: " + PlayerPrefs.GetInt("multiplayerOpponentName"));
-        //Debug.Log("Opponent Multiplayer Profile is: " + PlayerPrefs.GetInt("multiplayerOpponentProfile"));
+        //Debug.Log("Opponent Multiplayer Name is: " + PlayerPrefs.GetString("multiplayerOpponentName"));
+        //Debug.Log("Opponent Multiplayer Profile is: " + PlayerPrefs.GetString("multiplayerOpponentProfile"));
 
         duelScreen.SetActive(false);
         connectingScreen.SetActive(true);
@@ -1183,7 +1183,6 @@ public class LobbyManager : MonoBehaviour
         PlayerPrefs.SetInt("multiplayerOpponent", 0);
         PlayerPrefs.SetString("multiplayerOpponentName", "");
         PlayerPrefs.SetString("multiplayerOpponentProfile", "");
-
     }
 
     #endregion
