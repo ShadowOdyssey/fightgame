@@ -19,7 +19,6 @@ public class LobbyPlayerSystem : MonoBehaviour
     private string actualName = "";
     private string actualReady = "";
     private string actualStatus = "";
-    private string uniqueHash = "";
 
     public void Start()
     {
@@ -114,17 +113,12 @@ public class LobbyPlayerSystem : MonoBehaviour
     {
         actualStatus = newStatus;
 
-        if (actualStatus == "offline")
-        {
-            lobbySystem.RemovePlayer(actualSession, actualName, uniqueHash);
-            Destroy(gameObject);
-        }
-
         //Debug.Log("Player " + gameObject.name + " updated new status! Status: " + newStatus);
     }
 
-    public void RegisterUnique(string newHash)
+    public void PlayerIsOffline()
     {
-        uniqueHash = newHash;
+        lobbySystem.RemovePlayer(actualSession, actualName);
+        Destroy(gameObject);
     }
 }

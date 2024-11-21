@@ -864,7 +864,7 @@ MonoBehaviour:
   playerLobbyPrefab: {fileID: 2707116089954561644, guid: fa001e07394c2d84b9b984e7ea0cdb96,
     type: 3}
   connectingScreen: {fileID: 239883574}
-  timeToRefreshPlayerList: 30
+  timeToRefreshPlayerList: 5
   serverMessage: {fileID: 1872106400}
   characterName: {fileID: 38656134}
   selectButtonText: {fileID: 1999178281}
@@ -878,17 +878,21 @@ MonoBehaviour:
   registerUser: https://queensheartgames.com/shadowodyssey/registeruser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   updatePlayerList: https://queensheartgames.com/shadowodyssey/updateplayerlist.php
+  verifyOffline: https://queensheartgames.com/shadowodyssey/verifyoffline.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   success001: Connection success! Connected with the server!
   success002: New account registered with sucess! Connecting...
   success003: Lobby updated successfully!
   success004: User register in database changed!
   success005: Players On Lobby list refreshed with success!
+  success006: ' has logged off!'
   error001: Connection failed! Please try again!
   error002: User dont found in the database! Registering new user...
   error003: Was not possible to regirster a new user. Open a ticket to admin!
   error004: Requested data dont found in the database!
   error005: Was not possible to apply new changes in database!
   error006: Was not possible to generate a new list, try again!
+  error007: Was not possible to find offline players, try again!
   spawnPlayerArea: {fileID: 1924273011}
   characterSelectedImage: {fileID: 1008693459}
   noImage: {fileID: 21300000, guid: 01f101c768f3c404297e38dc2ba2c93c, type: 3}

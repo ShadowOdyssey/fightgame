@@ -73,6 +73,8 @@ public class LobbyManager : MonoBehaviour
     public string updateUser = "https://queensheartgames.com/shadowodyssey/updateuser.php";
     [Tooltip("Put the URL of the PHP file Update Player List in the host server")]
     public string updatePlayerList = "https://queensheartgames.com/shadowodyssey/updateplayerlist.php";
+    [Tooltip("Put the URL of the PHP file Verify Offline in the host server")]
+    public string verifyOffline = "https://queensheartgames.com/shadowodyssey/verifyoffline.php";
     [Tooltip("Put the URL of the PHP file Log Off Player in the host server")]
     public string logOffPlayer = "https://queensheartgames.com/shadowodyssey/logoffplayer.php";
 
@@ -111,6 +113,8 @@ public class LobbyManager : MonoBehaviour
     public string error005 = "Was not possible to apply new changes in database!";
     [Tooltip("Setup the message when to update Players On Lobby list has failed to load")]
     public string error006 = "Was not possible to generate a new list, try again!";
+    [Tooltip("Setup the message when to request Offline Players list has failed to load")]
+    public string error007 = "Was not possible to find offline players, try again!";
 
     #endregion
 
@@ -156,10 +160,8 @@ public class LobbyManager : MonoBehaviour
     #region Hidden Variables
 
     [Header("Parse Variables")]
-    private HashSet<string> uniquePlayers = new HashSet<string>();
     private string[] playersList = new string[0];
     private string[] playerInfo = new string[0];
-    private string[] oldList = new string[0];
     private string id = "";
     private string playerName = "";
     private string profile = "";
@@ -177,12 +179,10 @@ public class LobbyManager : MonoBehaviour
     private bool joinedLobby = false;
     private bool loadedLobby = false;
     private bool notRegistered = false;
-    private bool firstRegister = false;
     private bool wasRefreshed = false;
     private string actualName = "";
     private string currentSession = "";
     private string responseFromServer = "";
-    private string actualHash = "";
 
     #endregion
 
@@ -713,45 +713,10 @@ public class LobbyManager : MonoBehaviour
 
             if (responseFromServer != "error006")
             {
-                if (firstRegister == false)
-                {
-                    playersList = responseFromServer.Split(new[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries);
-                    oldList = playersList.ToArray();
-                    firstRegister = true;
-                }
-                else
-                {
-                    playersList = responseFromServer.Split(new[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries);
-
-                    foreach (string previousPlayer in oldList)
-                    {
-                        playerInfo = previousPlayer.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-
-                        if (playersList.Contains(previousPlayer) == false && playerInfo[0] != currentSession)
-                        {
-                            GameObject updatePlayer = GameObject.Find(playerInfo[0] + playerInfo[1] + "(Clone)");
-
-                            //Debug.Log("Trying to find: " + updatePlayer.name + " because the player is not online anymore");
-
-                            if (updatePlayer != null)
-                            {
-                                //Debug.Log("Found: " + updatePlayer.name + " and trying to update it as offline to remove from lobby list!");
-
-                                updatePlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus("offline");
-                            }
-
-                            uniquePlayers.Remove(previousPlayer);
-                        }
-                    }
-
-                    oldList = playersList.ToArray();
-                }
-
                 playersList = responseFromServer.Split(new[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries);
 
                 foreach (string playerString in playersList)
                 {
-                    actualHash = playerString;
                     playerInfo = playerString.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
                     if (playerInfo[0] != currentSession)
@@ -762,35 +727,35 @@ public class LobbyManager : MonoBehaviour
                         wins = playerInfo[3];
                         ready = playerInfo[4];
                         status = playerInfo[5];
-                    }
 
-                    GameObject actualPlayer = GameObject.Find(id + playerName + "(Clone)");
+                        GameObject actualPlayer = GameObject.Find(id + playerName + "(Clone)");
 
-                    if (actualPlayer == null)
-                    {
-                        playerLobbyPrefab.name = id + playerName;
+                        if (actualPlayer == null)
+                        {
+                            playerLobbyPrefab.name = id + playerName;
 
-                        Instantiate(playerLobbyPrefab, spawnPlayerArea);
+                            Instantiate(playerLobbyPrefab, spawnPlayerArea);
 
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().RegisterUnique(actualHash);
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateSession(int.Parse(id));
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateProfile(int.Parse(profile));
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateWins(int.Parse(wins));
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateName(playerName);
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateReady(ready);
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus(status);
+                            GameObject newPlayer = GameObject.Find(id + playerName + "(Clone)");
 
-                        playerLobbyPrefab.name = "LobbyPlayers";
-                    }
-                    else
-                    {
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().RegisterUnique(actualHash);
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateSession(int.Parse(id));
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateProfile(int.Parse(profile));
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateWins(int.Parse(wins));
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateName(playerName);
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateReady(ready);
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus(status);
+                            newPlayer.GetComponent<LobbyPlayerSystem>().UpdateSession(int.Parse(id));
+                            newPlayer.GetComponent<LobbyPlayerSystem>().UpdateProfile(int.Parse(profile));
+                            newPlayer.GetComponent<LobbyPlayerSystem>().UpdateWins(int.Parse(wins));
+                            newPlayer.GetComponent<LobbyPlayerSystem>().UpdateName(playerName);
+                            newPlayer.GetComponent<LobbyPlayerSystem>().UpdateReady(ready);
+                            newPlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus(status);
+
+                            playerLobbyPrefab.name = "LobbyPlayers";
+                        }
+                        else
+                        {
+                            actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateSession(int.Parse(id));
+                            actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateProfile(int.Parse(profile));
+                            actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateWins(int.Parse(wins));
+                            actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateName(playerName);
+                            actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateReady(ready);
+                            actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus(status);
+                        }
                     }
                 }
 
@@ -809,6 +774,58 @@ public class LobbyManager : MonoBehaviour
                 }
 
                 serverMessage.text = success005;
+            }
+        }
+
+        request.Dispose();
+    }
+
+    #endregion
+
+    #region Find offline players
+
+    public IEnumerator FindOfflinePlayers()
+    {
+        //$sql = "SELECT id, name FROM lobby WHERE status = 'offline'";
+
+        WWWForm form = new WWWForm();
+        UnityWebRequest request = UnityWebRequest.Post(verifyOffline, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            responseFromServer = request.downloadHandler.text;
+
+            //Debug.Log("Response from server was: " + responseFromServer);
+
+            if (responseFromServer == "error007")
+            {
+                serverMessage.text = error007;
+                yield break; // Exit the coroutine if there's an error
+            }
+
+            if (responseFromServer != "error006")
+            {
+                playersList = responseFromServer.Split(new[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (string playerString in playersList)
+                {
+                    playerInfo = playerString.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (playerInfo[0] != currentSession)
+                    {
+                        id = playerInfo[0];
+                        playerName = playerInfo[1];
+
+                        GameObject actualPlayer = GameObject.Find(id + playerName + "(Clone)");
+
+                        if (actualPlayer != null)
+                        {
+                            actualPlayer.GetComponent<LobbyPlayerSystem>().PlayerIsOffline();
+                        }
+                    }
+                }
             }
         }
 
@@ -892,6 +909,7 @@ public class LobbyManager : MonoBehaviour
     {
         StopAllCoroutines();
         wasRefreshed = false;
+        StartCoroutine(FindOfflinePlayers());
         StartCoroutine(UpdatePlayerList());
     }
 
@@ -930,9 +948,9 @@ public class LobbyManager : MonoBehaviour
         Invoke(nameof(ReturnToMenu), 5f); // Delay MainMenu load to give enough time to register the Offline data in database before to leave Arcade Mode scene
     }
 
-    public void RemovePlayer(int playerSession, string playerName, string playerHash)
+    public void RemovePlayer(int playerSession, string playerName)
     {
-        uniquePlayers.Remove(playerHash);
+        //Debug.Log("Player " + playerName + " is offline!");
         StartCoroutine(LogOffPlayer(logOffPlayer, playerSession, playerName));
     }
 
