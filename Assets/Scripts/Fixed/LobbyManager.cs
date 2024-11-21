@@ -1040,6 +1040,7 @@ public class LobbyManager : MonoBehaviour
                     if (playerInfo[2] == currentSession && playerInfo[0] != currentSession)
                     {
                         UpdateDuelPlayer("",0,0);
+                        isDueling = true;
                     }
                 }
             }
@@ -1060,7 +1061,6 @@ public class LobbyManager : MonoBehaviour
 
         if (isDueling == false)
         {
-            isDueling = true;
             StartCoroutine(CheckForDuel());
         }
 
@@ -1101,7 +1101,6 @@ public class LobbyManager : MonoBehaviour
 
     public void RegisterRequestedDuelPlayer(int requestedSession, int requestedProfile, string requestedName)
     {
-        isDueling = true;
         UpdateData("queue", "ready", int.Parse(currentSession));
         UpdateData("queue", "ready", requestedSession);
         UpdateData(requestedSession.ToString(), "duel", int.Parse(currentSession));
@@ -1109,6 +1108,7 @@ public class LobbyManager : MonoBehaviour
         UpdateData(requestedSession.ToString(), "duel", requestedSession);
         UpdateData(currentSession.ToString(), "host", requestedSession);
         UpdateDuelPlayer(requestedName, requestedSession, requestedProfile);
+        isDueling = true;
     }
 
     public void UpdateDuelPlayer(string opponentName, int opponentSession, int opponentProfile)
