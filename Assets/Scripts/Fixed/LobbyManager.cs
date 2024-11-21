@@ -1102,12 +1102,12 @@ public class LobbyManager : MonoBehaviour
             int pn = int.Parse(currentSession);
             int on = int.Parse(requestedSessionDuel);
 
-            PlayerPrefs.SetString("whoWasTheHost", currentSession);
-            PlayerPrefs.SetInt("multiplayerPlayer", pn);
+            PlayerPrefs.SetString("whoWasTheHost", currentSession); // Done
+            PlayerPrefs.SetInt("multiplayerPlayer", pn); // Done
             PlayerPrefs.SetInt("multiplayerOpponent", on);
-            PlayerPrefs.SetInt("multiplayerPlayerProfile", currentCharacterSelected);
-            PlayerPrefs.SetString("multiplayerOpponentName", requestedNameDuel);
-            PlayerPrefs.SetString("multiplayerOpponentProfile", requestedProfileDuel);
+            PlayerPrefs.SetInt("multiplayerPlayerProfile", currentCharacterSelected); // Done
+            PlayerPrefs.SetString("multiplayerOpponentName", requestedNameDuel); // Done
+            PlayerPrefs.SetString("multiplayerOpponentProfile", requestedProfileDuel); // Done
 
             duelSystem.OpenDuel(1);
         }
