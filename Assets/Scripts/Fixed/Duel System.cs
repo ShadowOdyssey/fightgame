@@ -9,6 +9,7 @@ public class DuelSystem : MonoBehaviour
     public TextMeshProUGUI playerNameText;
     public TextMeshProUGUI opponentNameText;
     public TextMeshProUGUI waitText;
+    public TextMeshProUGUI timerText;
 
     public GameObject acceptButton;
     public GameObject declineButton;
@@ -35,11 +36,18 @@ public class DuelSystem : MonoBehaviour
     private bool wasOpen = false;
     private bool isWaiting = false;
 
+    public void Start()
+    {
+        timerText.text = waitTime.ToString("00");
+    }
+
     public void Update()
     {
         if (isWaiting == true)
         {
             countTime = countTime - Time.deltaTime;
+
+            timerText.text = countTime.ToString("00");
 
             if (countTime < 0f)
             {
@@ -148,6 +156,7 @@ public class DuelSystem : MonoBehaviour
         isWaiting = false;
         wasOpen = false;
         countTime = waitTime;
+        timerText.text = countTime.ToString("00");
         gameObject.SetActive(false);
         lobbySystem.DuelDeclined(playerSession, opponentSession);
     }

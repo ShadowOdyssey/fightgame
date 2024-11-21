@@ -970,6 +970,8 @@ public class LobbyManager : MonoBehaviour
 
     public void UpdateDuelPlayer(string opponentName, int opponentSession, int opponentProfile)
     {
+        duelScreen.SetActive(true);
+
         duelSystem.UpdateSessions(int.Parse(currentSession), opponentSession);
         duelSystem.UpdateNames(actualName, opponentName);
         duelSystem.LoadVersusImages(currentCharacterSelected, opponentProfile);
