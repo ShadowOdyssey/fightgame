@@ -1003,7 +1003,7 @@ public class LobbyManager : MonoBehaviour
         if (gameObject.activeInHierarchy == true)
         {
             loadedLobby = false;
-            StartCoroutine(LogOffPlayer(logOffPlayer, int.Parse(currentSession), actualName)); // For some reason Arcade Mode scene was destroyed, so inform player is offline
+            RemovePlayer(int.Parse(currentSession), actualName); // For some reason Arcade Mode scene was destroyed, so inform player is offline
         }
     }
 
@@ -1012,7 +1012,7 @@ public class LobbyManager : MonoBehaviour
         if (gameObject.activeInHierarchy == true)
         {
             loadedLobby = false;
-            StartCoroutine(LogOffPlayer(logOffPlayer, int.Parse(currentSession), actualName)); // Player closed the game, inform database that player is offline
+            RemovePlayer(int.Parse(currentSession), actualName); // Player closed the game, inform database that player is offline
         }
     }
 
