@@ -414,10 +414,14 @@ public class RoundManager : MonoBehaviour
 
             if (PlayerPrefs.GetString("whoWasTheHost") == PlayerPrefs.GetInt("multiplayerPlayer").ToString())
             {
+                Debug.Log("Still exist Multiplayer Player? Value: " + PlayerPrefs.GetInt("multiplayerPlayer"));
+
                 playerMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerPlayer")); // If i am the host so i am the player at left side
             }
             else
             {
+                Debug.Log("Still exist Multiplayer Opponent? Value: " + PlayerPrefs.GetInt("multiplayerOpponent"));
+
                 playerMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerOpponent")); // If i am not the host so my opponent is the player at left side
             }
         }
@@ -455,10 +459,14 @@ public class RoundManager : MonoBehaviour
 
             if (PlayerPrefs.GetString("whoWasTheHost") == PlayerPrefs.GetInt("multiplayerPlayer").ToString())
             {
+                Debug.Log("Still exist Multiplayer Opponent? Value: " + PlayerPrefs.GetInt("multiplayerOpponent"));
+
                 enemyMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerOpponent")); // If i am the host my opponent is the player at right side
             }
             else
             {
+                Debug.Log("Still exist Multiplayer Player? Value: " + PlayerPrefs.GetInt("multiplayerPlayer"));
+
                 enemyMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerPlayer")); // If i am not the host so i am the player at right side
             }
         }

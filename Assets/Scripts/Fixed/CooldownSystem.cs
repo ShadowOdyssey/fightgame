@@ -30,39 +30,42 @@ public class CooldownSystem : MonoBehaviour
 
     private void Update()
     {
-        if (isCooldown1 == true)
+        if (roundSystem.isMultiplayer == false)
         {
-            cooldown1Image.fillAmount = cooldown1Image.fillAmount - 1 / cooldown1Time * Time.deltaTime;
-
-            if (cooldown1Image.fillAmount <= 0f)
+            if (isCooldown1 == true)
             {
-                cooldown1Image.fillAmount = 0f;
-                playerSystem.Cooldown1Finished();
-                isCooldown1 = false;
+                cooldown1Image.fillAmount = cooldown1Image.fillAmount - 1 / cooldown1Time * Time.deltaTime;
+
+                if (cooldown1Image.fillAmount <= 0f)
+                {
+                    cooldown1Image.fillAmount = 0f;
+                    playerSystem.Cooldown1Finished();
+                    isCooldown1 = false;
+                }
             }
-        }
 
-        if (isCooldown2 == true)
-        {
-            cooldown2Image.fillAmount = cooldown2Image.fillAmount - 1 / cooldown2Time * Time.deltaTime;
-
-            if (cooldown2Image.fillAmount <= 0f)
+            if (isCooldown2 == true)
             {
-                cooldown2Image.fillAmount = 0f;
-                playerSystem.Cooldown2Finished();
-                isCooldown2 = false;
+                cooldown2Image.fillAmount = cooldown2Image.fillAmount - 1 / cooldown2Time * Time.deltaTime;
+
+                if (cooldown2Image.fillAmount <= 0f)
+                {
+                    cooldown2Image.fillAmount = 0f;
+                    playerSystem.Cooldown2Finished();
+                    isCooldown2 = false;
+                }
             }
-        }
 
-        if (isCooldown3 == true)
-        {
-            cooldown3Image.fillAmount = cooldown3Image.fillAmount - 1 / cooldown3Time * Time.deltaTime;
-
-            if (cooldown3Image.fillAmount <= 0f)
+            if (isCooldown3 == true)
             {
-                cooldown3Image.fillAmount = 0f;
-                playerSystem.Cooldown3Finished();
-                isCooldown3 = false;
+                cooldown3Image.fillAmount = cooldown3Image.fillAmount - 1 / cooldown3Time * Time.deltaTime;
+
+                if (cooldown3Image.fillAmount <= 0f)
+                {
+                    cooldown3Image.fillAmount = 0f;
+                    playerSystem.Cooldown3Finished();
+                    isCooldown3 = false;
+                }
             }
         }
     }
