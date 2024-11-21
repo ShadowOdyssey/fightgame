@@ -841,14 +841,17 @@ public class LobbyManager : MonoBehaviour
             {
                 currentHost = responseFromServer;
 
-                if (currentHost != "" && currentHost != "0")
+                if (currentHost != "0" && currentHost != currentSession)
                 {
                     wasHostLoaded = true;
+                    UpdateDuelPlayer();
+
                     Debug.Log("Host Value from server is: " + currentHost);
                 }
                 else
                 {
                     isDueling = false;
+                    wasHostLoaded = false;
                 }
             }
         }
@@ -1006,54 +1009,6 @@ public class LobbyManager : MonoBehaviour
 
     #endregion
 
-    #region Checking for duels
-
-    public IEnumerator CheckForDuel()
-    {
-        //$sql = "SELECT id, name FROM lobby WHERE status = 'offline'";
-
-        WWWForm form = new WWWForm();
-        UnityWebRequest request = UnityWebRequest.Post(verifyDuel, form);
-
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            responseFromServer = request.downloadHandler.text;
-
-            //Debug.Log("Response from server was: " + responseFromServer);
-
-            if (responseFromServer == "error008")
-            {
-                serverMessage.text = error008;
-                yield break; // Exit the coroutine if there's an error
-            }
-
-            if (responseFromServer != "error008")
-            {
-                playersList = responseFromServer.Split(new[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (string playerString in playersList)
-                {
-                    // playerInfo[0] = ID playerInfo[1] = NAME playerInfo[2] = DUEL playerInfo[3] = HOST
-
-                    playerInfo = playerString.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-
-                    if (playerInfo[2] == currentSession && playerInfo[0] != currentSession )
-                    {
-                        UpdateDuelPlayer();
-
-                        yield break; // Exit the coroutine
-                    }
-                }
-            }
-        }
-
-        request.Dispose();
-    }
-
-    #endregion
-
     #region Player List Methods
 
     public void RefreshList()
@@ -1068,19 +1023,10 @@ public class LobbyManager : MonoBehaviour
             Debug.Log("Checking for Host");
 
             StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
-
-            if (currentHost != "0" && currentHost != currentSession)
-            {
-                Debug.Log("Host was found!");
-
-                Invoke(nameof(StartDuelCheck), 3f);
-            }
         }
 
         if (isDueling == true && wasHostLoaded == true)
         {
-            wasHostLoaded = false;
-
             if (currentHost == "0")
             {
                 hostName = "";
@@ -1090,9 +1036,10 @@ public class LobbyManager : MonoBehaviour
                 PlayerPrefs.SetInt("multiplayerOpponent", 0);
 
                 duelScreen.SetActive(false);
-            }
 
-            isDueling = false;
+                wasHostLoaded = false;
+                isDueling = false;
+            }
         }
     }
 
@@ -1107,11 +1054,6 @@ public class LobbyManager : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(UpdateUser(updateUser, newValue, desiredCollumn, validateRequest));
         }
-    }
-
-    public void StartDuelCheck()
-    {
-        StartCoroutine(CheckForDuel());
     }
 
     #endregion
