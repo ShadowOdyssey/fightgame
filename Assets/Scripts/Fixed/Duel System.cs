@@ -150,7 +150,7 @@ public class DuelSystem : MonoBehaviour
     public void AcceptButton()
     {
         isWaiting = false;
-        lobbySystem.DuelAccepted(playerSession, opponentSession);
+        lobbySystem.DuelAccepted();
     }
 
     public void DeclineButton()

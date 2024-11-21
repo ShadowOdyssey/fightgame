@@ -1135,13 +1135,13 @@ public class LobbyManager : MonoBehaviour
         duelSystem.OpenDuel(2);
     }
 
-    public void DuelAccepted(string playerDuel, string opponentDuel)
+    public void DuelAccepted()
     {
         UpdateData("fighting", "ready", currentSession);
         UpdateData("fighting", "ready", currentHost);
 
-        int pn = int.Parse(playerDuel);
-        int on = int.Parse(opponentDuel);
+        int pn = int.Parse(currentSession);
+        int on = int.Parse(currentHost);
 
         PlayerPrefs.SetString("whoWasTheHost", currentHost);
         PlayerPrefs.SetInt("multiplayerPlayer", pn);
