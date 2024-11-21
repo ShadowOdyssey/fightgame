@@ -200,8 +200,6 @@ public class LobbyManager : MonoBehaviour
         {
             actualName = PlayerPrefs.GetString("playerName");
         }
-
-        PlayerPrefs.SetInt("selectedMultiplayerPlayerCharacter", 0);
     }
 
     #endregion
@@ -210,6 +208,7 @@ public class LobbyManager : MonoBehaviour
 
     public void Start()
     {
+        ResetPlayer();
         connectingScreen.SetActive(true); // We make sure that Connecting Screen always will appear enabled when Lobby Manager to start
         StopAllCoroutines(); // Stop all coroutines from old scenes
         LoadDefault(); // Load all default values before to apply new values in Select Character
@@ -776,6 +775,13 @@ public class LobbyManager : MonoBehaviour
                             actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus(status);
                         }
                     }
+                    else
+                    {
+                        if (playerInfo[4] == "fighting")
+                        {
+                            SceneManager.LoadScene("FightScene");
+                        }
+                    }
                 }
 
                 playerInfo = new string[0];
@@ -876,7 +882,7 @@ public class LobbyManager : MonoBehaviour
             if (responseFromServer != "error002")
             {
                 hostName = responseFromServer;
-                Debug.Log("Host Name from server is: " + hostName);
+                //Debug.Log("Host Name from server is: " + hostName);
             }
         }
 
@@ -910,7 +916,7 @@ public class LobbyManager : MonoBehaviour
             if (responseFromServer != "error002")
             {
                 hostProfile = responseFromServer;
-                Debug.Log("Host Profile from server is: " + hostProfile);
+                //Debug.Log("Host Profile from server is: " + hostProfile);
             }
         }
 
@@ -1019,12 +1025,17 @@ public class LobbyManager : MonoBehaviour
         {
             if (currentHost == "0")
             {
+                currentHost = "";
                 hostName = "";
                 hostProfile = "";
+                requestedSessionDuel = "";
+                requestedProfileDuel = "";
+                requestedNameDuel = "";
 
                 PlayerPrefs.SetInt("multiplayerPlayer", 0);
                 PlayerPrefs.SetInt("multiplayerOpponent", 0);
                 PlayerPrefs.SetString("multiplayerOpponentName", "");
+                PlayerPrefs.SetString("multiplayerOpponentProfile", "");
 
                 duelScreen.SetActive(false);
 
@@ -1083,6 +1094,15 @@ public class LobbyManager : MonoBehaviour
             duelSystem.UpdateSessions(currentSession, requestedSessionDuel);
             duelSystem.UpdateNames(actualName, requestedNameDuel);
             duelSystem.LoadVersusImages(currentCharacterSelected, requestedProfileDuel);
+
+            int pn = int.Parse(currentSession);
+            int on = int.Parse(requestedSessionDuel);
+
+            PlayerPrefs.SetInt("multiplayerPlayer", pn);
+            PlayerPrefs.SetInt("multiplayerOpponent", on);
+            PlayerPrefs.SetString("multiplayerOpponentName", requestedNameDuel);
+            PlayerPrefs.SetString("multiplayerOpponentProfile", requestedProfileDuel);
+
             duelSystem.OpenDuel(1);
         }
         else 
@@ -1111,37 +1131,59 @@ public class LobbyManager : MonoBehaviour
 
     public void DuelAccepted(string playerDuel, string opponentDuel)
     {
+        UpdateData("fighting", "ready", currentSession);
+        UpdateData("fighting", "ready", requestedSessionDuel);
+
         int pn = int.Parse(playerDuel);
         int on = int.Parse(opponentDuel);
 
         PlayerPrefs.SetInt("multiplayerPlayer", pn);
         PlayerPrefs.SetInt("multiplayerOpponent", on);
         PlayerPrefs.SetString("multiplayerOpponentName", hostName);
+        PlayerPrefs.SetString("multiplayerOpponentProfile", hostProfile);
 
         //Debug.Log("Player Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerPlayer"));
         //Debug.Log("Opponent Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerOpponent"));
         //Debug.Log("Opponent Multiplayer Name is: " + PlayerPrefs.GetInt("multiplayerOpponentName"));
+        //Debug.Log("Opponent Multiplayer Profile is: " + PlayerPrefs.GetInt("multiplayerOpponentProfile"));
+
+        duelScreen.SetActive(false);
+        connectingScreen.SetActive(true);
+        connectionText.text = "Loading Fight! Please wait...";
+        SceneManager.LoadScene("FightScene");
     }
 
     public void DuelDeclined(string playerDuel, string opponentDuel)
     {
-        UpdateData("yes", "ready", currentSession);
+        ResetPlayer();
+
         UpdateData("yes", "ready", currentHost);
-        UpdateData("0", "duel", currentSession);
-        UpdateData("0", "host", currentSession);
         UpdateData("0", "duel", currentHost);
         UpdateData("0", "host", currentHost);
+        UpdateData("yes", "ready", currentSession);
+
+        duelScreen.SetActive(false);
+        isDueling = false;
+    }
+
+    public void ResetPlayer()
+    {
+        UpdateData("no", "ready", currentSession);
+        UpdateData("0", "duel", currentSession);
+        UpdateData("0", "host", currentSession);
 
         currentHost = "";
         hostName = "";
         hostProfile = "";
+        requestedSessionDuel = "";
+        requestedProfileDuel = "";
+        requestedNameDuel = "";
 
         PlayerPrefs.SetInt("multiplayerPlayer", 0);
         PlayerPrefs.SetInt("multiplayerOpponent", 0);
         PlayerPrefs.SetString("multiplayerOpponentName", "");
+        PlayerPrefs.SetString("multiplayerOpponentProfile", "");
 
-        duelScreen.SetActive(false);
-        isDueling = false;
     }
 
     #endregion
