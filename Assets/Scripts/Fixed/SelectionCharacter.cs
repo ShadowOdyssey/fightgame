@@ -45,6 +45,7 @@ public class SelectionCharacter : MonoBehaviour
     #region Hidden Variables
 
     private AudioSource audioSource;
+    [SerializeField] private AudioClip selectArenaSound;
     private Coroutine countdownCoroutine; // Store the reference to the countdown coroutine
     private readonly int[] durabilityStats = { 7, 5, 9, 6, 8, 6, 8, 10 };
     private readonly int[] offenseStats = { 8, 9, 7, 6, 6, 9, 7, 10 };
@@ -63,6 +64,10 @@ public class SelectionCharacter : MonoBehaviour
     private bool showLockedMessage = false; // Indicates if the locked character message should be shown
     private bool showVsPanel = false;
     private bool canRender = false;
+    private bool showArenaPanel = false; // Flag to control the visibility of the arena panel
+    public Texture2D[] arenaImages; // Array to hold arena textures
+    public string[] arenaNames;     // Optional: Array to hold arena names
+    private int selectedArenaIndex = -1; // No arena selected initially
 
     #endregion
 
@@ -101,6 +106,7 @@ public class SelectionCharacter : MonoBehaviour
         CheckPlayerReturn(); // Check if player is returning to Selection Character scene after to battle some IA
         PlayHeroIntro(); // Play the first character's intro at start
     }
+    
 
     #endregion
 
@@ -117,6 +123,8 @@ public class SelectionCharacter : MonoBehaviour
         DrawBackButton();
         DrawCharacter();
         DrawHeroDetails();
+         DrawArenaButton();
+        DrawArenaPanel();
         DrawNavigationButtons();
         DrawActionButtons();
 
@@ -442,6 +450,109 @@ public class SelectionCharacter : MonoBehaviour
             DrawStatBars(panelX, panelY + 70);
         }
     }
+
+    private void DrawArenaButton()
+{
+    float buttonWidth = 400f;
+    float buttonHeight = 80f;
+    float buttonX = Screen.width - buttonWidth - 20f; // Top-right corner
+    float buttonY = 20f;
+
+    GUIStyle buttonStyle = new GUIStyle(GUI.skin.button)
+    {
+        fontSize = 35,
+        normal = { textColor = Color.white, background = MakeTexture(1, 1, Color.black) }
+    };
+
+    if (GUI.Button(new Rect(buttonX, buttonY, buttonWidth, buttonHeight), "Select Arena", buttonStyle))
+    {
+        showArenaPanel = !showArenaPanel; // Toggle panel visibility
+    }
+}
+
+private void DrawArenaPanel()
+{
+    if (!showArenaPanel) return;
+
+    float panelWidth = Screen.width * 0.9f; // Adjust the panel width
+    float panelHeight = Screen.height * 0.8f; // Adjust the panel height
+    float panelX = (Screen.width - panelWidth) / 2;
+    float panelY = (Screen.height - panelHeight) / 2;
+
+    // Panel Background Style
+    GUIStyle panelStyle = new GUIStyle(GUI.skin.box)
+    {
+        normal = { background = MakeTexture(1, 1, new Color(0, 0, 0, 0.6f)) }
+    };
+    GUI.Box(new Rect(panelX, panelY, panelWidth, panelHeight), GUIContent.none, panelStyle);
+
+    // Add "Select Arena" Title
+    GUIStyle titleStyle = new GUIStyle(GUI.skin.label)
+    {
+        fontSize = 45,
+        fontStyle = FontStyle.Bold,
+        normal = { textColor = Color.white },
+        alignment = TextAnchor.UpperCenter
+    };
+
+    GUI.Label(new Rect(panelX, panelY + 20f, panelWidth, 50f), "Select Arena", titleStyle);
+
+    // Arena Image Dimensions
+    float imageWidth = 500f; // Width of each image
+    float imageHeight = 500f; // Height of each image
+    float spacing = 40f; // Spacing between images
+
+    float startX = panelX + 50f; // Starting X position for images
+    float startY = panelY + 100f; // Start below the title
+
+    for (int i = 0; i < arenaImages.Length; i++)
+    {
+        float imageX = startX + (i * (imageWidth + spacing)); // Calculate X position for each image
+        float imageY = startY;
+
+        // Draw the Arena Image Button
+        if (GUI.Button(new Rect(imageX, imageY, imageWidth, imageHeight), GUIContent.none))
+        {
+            selectedArenaIndex = i; // Select the clicked arena
+            Debug.Log("Selected Arena: " + arenaNames[selectedArenaIndex]);
+        }
+
+        // Draw the Arena Image
+        GUI.DrawTexture(new Rect(imageX, imageY, imageWidth, imageHeight), arenaImages[i], ScaleMode.ScaleToFit);
+
+        // Checkmark for Selected Arena
+        if (selectedArenaIndex == i)
+        {
+            GUIStyle checkmarkStyle = new GUIStyle(GUI.skin.label)
+            {
+                fontSize = 60,
+                normal = { textColor = Color.green },
+                alignment = TextAnchor.MiddleCenter
+            };
+
+            GUI.Label(new Rect(imageX + imageWidth - 70f, imageY + 20f, 50f, 50f), "✔", checkmarkStyle);
+        }
+    }
+
+    // Render Arena Names after the panel and images
+    for (int i = 0; i < arenaImages.Length; i++)
+    {
+        float imageX = startX + (i * (imageWidth + spacing)); // Calculate X position for each image
+        float imageY = startY;
+
+        // Add Arena Name Label
+        GUIStyle labelStyle = new GUIStyle(GUI.skin.label)
+        {
+            fontSize = 35,
+            normal = { textColor = Color.white },
+            alignment = TextAnchor.UpperCenter
+        };
+
+        GUI.Label(new Rect(imageX, imageY + imageHeight + 30, imageWidth, 40), arenaNames[i], labelStyle);
+    }
+}
+
+
 
     private void DrawNavigationButtons()
     {
