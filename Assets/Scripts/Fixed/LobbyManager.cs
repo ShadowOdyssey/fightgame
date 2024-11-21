@@ -841,6 +841,7 @@ public class LobbyManager : MonoBehaviour
             if (responseFromServer != "error002")
             {
                 currentHost = responseFromServer;
+                Debug.Log("Host Value from server is: " + currentHost);
             }
         }
 
@@ -874,6 +875,7 @@ public class LobbyManager : MonoBehaviour
             if (responseFromServer != "error002")
             {
                 hostName = responseFromServer;
+                Debug.Log("Host Name from server is: " + hostName);
             }
         }
 
@@ -907,6 +909,7 @@ public class LobbyManager : MonoBehaviour
             if (responseFromServer != "error002")
             {
                 hostProfile = responseFromServer;
+                Debug.Log("Host Profile from server is: " + hostProfile);
             }
         }
 
