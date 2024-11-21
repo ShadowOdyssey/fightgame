@@ -25,10 +25,14 @@ public class LobbyManager : MonoBehaviour
     [Header("Lobby Setup")]
     [Tooltip("Attach here Audio System object in the hierarchy")]
     public LobbyAudioSystem lobbyAudioSystem;
+    [Tooltip("Attach here Duel object inside UI object in the hierarchy")]
+    public DuelSystem duelSystem;
     [Tooltip("Prefab used to instantiate players in the Players On Lobby list")]
     public GameObject playerLobbyPrefab;
     [Tooltip("Attach here Connecting object inside UI object in the hierarchy")]
     public GameObject connectingScreen;
+    [Tooltip("Attach here Duel object inside UI object in the hierarchy")]
+    public GameObject duelScreen;
     [Tooltip("Adjust the time Lobby System will spend to refresh Players On Lobby list. Remember that low values cause more server calls making the server unstable. Find a moderated value to refresh Player On Lobby list!")]
     public float timeToRefreshPlayerList = 2f;
 

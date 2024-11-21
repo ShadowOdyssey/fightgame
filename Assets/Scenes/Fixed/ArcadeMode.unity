@@ -861,9 +861,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyAudioSystem: {fileID: 745105970}
+  duelSystem: {fileID: 2018808028}
   playerLobbyPrefab: {fileID: 2707116089954561644, guid: fa001e07394c2d84b9b984e7ea0cdb96,
     type: 3}
   connectingScreen: {fileID: 239883574}
+  duelScreen: {fileID: 2018808026}
   timeToRefreshPlayerList: 5
   serverMessage: {fileID: 1872106400}
   characterName: {fileID: 38656134}
@@ -2244,7 +2246,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2268,7 +2270,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 590407062}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2018808028}
+        m_TargetAssemblyTypeName: DuelSystem, Assembly-CSharp
+        m_MethodName: AcceptButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &590407062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2989,7 +3003,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -3013,7 +3027,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 851454680}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2018808028}
+        m_TargetAssemblyTypeName: DuelSystem, Assembly-CSharp
+        m_MethodName: DeclineButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &851454680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4421,7 +4447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5789,7 +5815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -6746,6 +6772,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2018808027}
+  - component: {fileID: 2018808028}
   m_Layer: 5
   m_Name: Duel
   m_TagString: Untagged
@@ -6782,6 +6809,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2018808028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018808026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c06397378d601248a107210b7280da3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerImage: {fileID: 798591015}
+  opponentImage: {fileID: 980889345}
+  gabriellaVersus: {fileID: 21300000, guid: d3648bbf094590c42b34f5cb63f44e49, type: 3}
+  marcusVersus: {fileID: 21300000, guid: a932ab1a6bf7b3842a0137d624c46888, type: 3}
+  selenaVersus: {fileID: 21300000, guid: e274b52c1c4fe124293a63dda1d96bb9, type: 3}
+  bryanVersus: {fileID: 21300000, guid: 6b1f61841f72f31409a072980151c50d, type: 3}
+  nunVersus: {fileID: 21300000, guid: f21ba903e914fe54fa45f7f78bcd8a19, type: 3}
+  oliverVersus: {fileID: 21300000, guid: f25a19f7552cd5b4cb4bd967afc5e565, type: 3}
+  orionVersus: {fileID: 21300000, guid: c5e26a9ca18eb8d43a99038f532be510, type: 3}
+  ariaVersus: {fileID: 21300000, guid: 1ddd228c02af85144b9f7d307df24b4b, type: 3}
 --- !u!1 &2069318041
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DuelSystem : MonoBehaviour
 {
+    public TextMeshProUGUI playerNameText;
+    public TextMeshProUGUI opponentNameText;
+
     public Image playerImage;
     public Image opponentImage;
 
@@ -59,6 +63,12 @@ public class DuelSystem : MonoBehaviour
         }
     }
 
+    public void UpdateNames(string playerName, string opponentName)
+    {
+        playerNameText.text = playerName;
+        opponentNameText.text = opponentName;
+    }
+
     public void AcceptButton()
     {
 
@@ -66,6 +76,8 @@ public class DuelSystem : MonoBehaviour
 
     public void DeclineButton()
     {
+        playerNameText.text = "";
+        opponentNameText.text = "";
         playerImage.sprite = null;
         opponentImage.sprite = null;
         playerSession = 0;
