@@ -185,6 +185,7 @@ public class LobbyManager : MonoBehaviour
     private bool joinedLobby = false;
     private bool loadedLobby = false;
     private bool notRegistered = false;
+    private bool foundPlayers = false;
     private bool isReady = false;
     private bool isDueling = false;
     private bool wasHostLoaded = false;
@@ -767,9 +768,9 @@ public class LobbyManager : MonoBehaviour
 
                             GameObject newPlayer = GameObject.Find(id + playerName + "(Clone)");
 
-                            newPlayer.GetComponent<LobbyPlayerSystem>().UpdateSession(int.Parse(id));
-                            newPlayer.GetComponent<LobbyPlayerSystem>().UpdateProfile(int.Parse(profile));
-                            newPlayer.GetComponent<LobbyPlayerSystem>().UpdateWins(int.Parse(wins));
+                            newPlayer.GetComponent<LobbyPlayerSystem>().UpdateSession(id);
+                            newPlayer.GetComponent<LobbyPlayerSystem>().UpdateProfile(profile);
+                            newPlayer.GetComponent<LobbyPlayerSystem>().UpdateWins(wins);
                             newPlayer.GetComponent<LobbyPlayerSystem>().UpdateName(playerName);
                             newPlayer.GetComponent<LobbyPlayerSystem>().UpdateReady(ready);
                             newPlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus(status);
@@ -778,9 +779,9 @@ public class LobbyManager : MonoBehaviour
                         }
                         else
                         {
-                            actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateSession(int.Parse(id));
-                            actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateProfile(int.Parse(profile));
-                            actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateWins(int.Parse(wins));
+                            actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateSession(id);
+                            actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateProfile(profile);
+                            actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateWins(wins);
                             actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateName(playerName);
                             actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateReady(ready);
                             actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus(status);
@@ -802,6 +803,7 @@ public class LobbyManager : MonoBehaviour
                     loadedLobby = true;
                 }
 
+                foundPlayers = false;
                 serverMessage.text = success005;
             }
         }
@@ -976,7 +978,7 @@ public class LobbyManager : MonoBehaviour
 
     #region Log off a player that left the lobby
 
-    public IEnumerator LogOffPlayer(string urlPHP, int playerSession, string playerName)
+    public IEnumerator LogOffPlayer(string urlPHP, string playerSession, string playerName)
     {
         WWWForm form = new WWWForm();
         form.AddField("validateRequest", playerSession);
@@ -1054,16 +1056,21 @@ public class LobbyManager : MonoBehaviour
 
     public void RefreshList()
     {
-        StopAllCoroutines();
-        StartCoroutine(FindOfflinePlayers());
-        StartCoroutine(UpdatePlayerList());
+        if (foundPlayers == false)
+        {
+            foundPlayers = true;
+
+            StopAllCoroutines();
+            StartCoroutine(FindOfflinePlayers());
+            StartCoroutine(UpdatePlayerList());
+        }
 
         if (isDueling == false)
         {
             isDueling = true;
             StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
 
-            if (currentHost != "" || currentHost != "0")
+            if (currentHost != "" && currentHost != "0" && currentHost != currentSession)
             {
                 Invoke(nameof(StartDuelCheck), 3f);
             }
@@ -1120,13 +1127,12 @@ public class LobbyManager : MonoBehaviour
         UpdateData(currentSession, "host", currentSession);
         UpdateData(requestedSessionDuel, "duel", requestedSessionDuel);
         UpdateData(currentSession, "host", requestedSessionDuel);
-        StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
         UpdateData("queue", "ready", currentSession);
         UpdateData("queue", "ready", requestedSessionDuel);
+        currentHost = currentSession;
         connectingScreen.SetActive(true);
         connectionText.text = "Connecting to requested player to fight...";
-        Invoke(nameof(UpdateDuelPlayer), 5f);
-        isDueling = true;
+        Invoke(nameof(UpdateDuelPlayer), 3f);
     }
 
     public void UpdateDuelPlayer()
@@ -1205,14 +1211,14 @@ public class LobbyManager : MonoBehaviour
     public void LeaveLobby() // Used by Leave Lobby Button
     {
         loadedLobby = false;
-        RemovePlayer(int.Parse(currentSession), actualName);
+        RemovePlayer(currentSession, actualName);
         UpdateData("offline", "status", currentSession);
         connectingScreen.SetActive(true);
         connectionText.text = "Leaving the lobby! Please wait...";
         Invoke(nameof(ReturnToMenu), 5f); // Delay MainMenu load to give enough time to register the Offline data in database before to leave Arcade Mode scene
     }
 
-    public void RemovePlayer(int playerSession, string playerName)
+    public void RemovePlayer(string playerSession, string playerName)
     {
         //Debug.Log("Player " + playerName + " is offline!");
         StartCoroutine(LogOffPlayer(logOffPlayer, playerSession, playerName));
@@ -1229,7 +1235,7 @@ public class LobbyManager : MonoBehaviour
         {
             loadedLobby = false;
             UpdateData("offline", "status", currentSession);
-            RemovePlayer(int.Parse(currentSession), actualName); // For some reason Arcade Mode scene was destroyed, so inform player is offline
+            RemovePlayer(currentSession, actualName); // For some reason Arcade Mode scene was destroyed, so inform player is offline
         }
     }
 
@@ -1239,7 +1245,7 @@ public class LobbyManager : MonoBehaviour
         {
             loadedLobby = false;
             UpdateData("offline", "status", currentSession);
-            RemovePlayer(int.Parse(currentSession), actualName); // Player closed the game, inform database that player is offline
+            RemovePlayer(currentSession, actualName); // Player closed the game, inform database that player is offline
         }
     }
 

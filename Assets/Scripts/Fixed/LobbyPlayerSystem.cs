@@ -11,20 +11,20 @@ public class LobbyPlayerSystem : MonoBehaviour
     public TextMeshProUGUI buttonFightText;
 
     private LobbyManager lobbySystem;
-    private int actualSession = 0;
-    private int actualProfile = 0;
-    private int actualWins = 0;
     private bool canFight = false;
     private bool wasLoaded = false;
     private string actualName = "";
     private string actualReady = "";
     private string actualStatus = "";
+    private string actualSession = "";
+    private string actualProfile = "";
+    private string actualWins = "";
 
     public void Start()
     {
         lobbySystem = GameObject.Find("Lobby Manager").GetComponent<LobbyManager>();
 
-        if (actualProfile == 0)
+        if (actualProfile == "0")
         {
             imageProfile.sprite = lobbySystem.noImage;
         }
@@ -40,25 +40,25 @@ public class LobbyPlayerSystem : MonoBehaviour
     {
         switch (actualProfile)
         {
-            case 1: imageProfile.sprite = lobbySystem.gabriellaProfile; break;
-            case 2: imageProfile.sprite = lobbySystem.marcusProfile; break;
-            case 3: imageProfile.sprite = lobbySystem.selenaProfile; break;
-            case 4: imageProfile.sprite = lobbySystem.bryanProfile; break;
-            case 5: imageProfile.sprite = lobbySystem.nunProfile; break;
-            case 6: imageProfile.sprite = lobbySystem.oliverProfile; break;
-            case 7: imageProfile.sprite = lobbySystem.orionProfile; break;
-            case 8: imageProfile.sprite = lobbySystem.ariaProfile; break;
+            case "1": imageProfile.sprite = lobbySystem.gabriellaProfile; break;
+            case "2": imageProfile.sprite = lobbySystem.marcusProfile; break;
+            case "3": imageProfile.sprite = lobbySystem.selenaProfile; break;
+            case "4": imageProfile.sprite = lobbySystem.bryanProfile; break;
+            case "5": imageProfile.sprite = lobbySystem.nunProfile; break;
+            case "6": imageProfile.sprite = lobbySystem.oliverProfile; break;
+            case "7": imageProfile.sprite = lobbySystem.orionProfile; break;
+            case "8": imageProfile.sprite = lobbySystem.ariaProfile; break;
         }
     }
 
-    public void UpdateSession(int newSession)
+    public void UpdateSession(string newSession)
     {
         actualSession = newSession;
 
         //Debug.Log("Player " + gameObject.name + " updated session! Session value is: " + actualSession);
     }
 
-    public void UpdateProfile(int newProfile)
+    public void UpdateProfile(string newProfile)
     {
         actualProfile = newProfile;
 
@@ -70,7 +70,7 @@ public class LobbyPlayerSystem : MonoBehaviour
         //Debug.Log("Player " + gameObject.name + " updated profile! Profile value is: " + actualProfile);
     }
 
-    public void UpdateWins(int totalWins)
+    public void UpdateWins(string totalWins)
     {
         actualWins = totalWins;
         totalWinsText.text = totalWins.ToString();
