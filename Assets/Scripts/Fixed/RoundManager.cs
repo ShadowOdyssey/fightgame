@@ -231,6 +231,15 @@ public class RoundManager : MonoBehaviour
 
     public void Start()
     {
+        if (PlayerPrefs.GetString("isMultiplayerActivade") == "yes")
+        {
+            PlayerPrefs.SetString("isMultiplayer", "yes");
+        }
+        else
+        {
+            PlayerPrefs.SetString("isMultiplayer", "no");
+        }
+
         CheckForMultiplayerOrTrainningMode();
         LoadArenaAndEnemyCharacter();
         CheckCurrentArena();
@@ -298,10 +307,14 @@ public class RoundManager : MonoBehaviour
     {
         if (isMultiplayer == true) // If game is Singleplay load the correct enemy name based in the current stage
         {
-            // Wait for server to give the name of the opponent and the selected character in Lobby
-            //enemyNameText.text = MultiplayerEnemyName().ToUpper();
-            //currentEnemyCharacter = MultiplayerEnemyCharacter();
-            //currentStage = MultiplayerStage();
+            int randomArena = Random.Range(1, 5);
+
+            if (randomArena == 5)
+            {
+                randomArena = Random.Range(1, 4);
+            }
+
+            currentStage = randomArena;
         }
         else
         {
