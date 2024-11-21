@@ -378,7 +378,7 @@ public class LobbyManager : MonoBehaviour
             if (selectedCharacter == false)
             {
                 ShowMessage(1);
-                ButtonIsNotSelected();
+                ButtonIsSelected();
                 SaveCurrentSelection();
             }
 
@@ -509,12 +509,14 @@ public class LobbyManager : MonoBehaviour
     {
         selectedCharacter = true;
         PlayerPrefs.SetInt("selectedMultiplayerPlayerCharacter", currentCharacterSelected);
+        UpdateData(currentCharacterSelected.ToString(), "profile", int.Parse(currentSession));
     }
 
     private void ResetSelection()
     {
         selectedCharacter = false;
         PlayerPrefs.SetInt("selectedMultiplayerPlayerCharacter", 0);
+        UpdateData(0.ToString(), "profile", int.Parse(currentSession));
     }
 
     #endregion
@@ -669,7 +671,16 @@ public class LobbyManager : MonoBehaviour
 
         WWWForm form = new WWWForm();
         form.AddField("desiredCollumn", desiredCollumn);
-        form.AddField("newValue", newValue);
+
+        if (desiredCollumn == "profile")
+        {
+            form.AddField("newValue", int.Parse(newValue));
+        }
+        else
+        {
+            form.AddField("newValue", newValue);
+        }
+
         form.AddField("validateRequest", validateRequest);
 
         UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
@@ -990,13 +1001,13 @@ public class LobbyManager : MonoBehaviour
     public void OnDestroy()
     {
         loadedLobby = false;
-        UpdateData("offline", "status", int.Parse(currentSession)); // For some reason Arcade Mode scene was destroyed, so inform player is offline
+        StartCoroutine(LogOffPlayer(logOffPlayer, int.Parse(currentSession), actualName)); // For some reason Arcade Mode scene was destroyed, so inform player is offline
     }
 
     public void OnApplicationQuit()
     {
         loadedLobby = false;
-        UpdateData("offline", "status", int.Parse(currentSession)); // Player closed the game, inform database that player is offline
+        StartCoroutine(LogOffPlayer(logOffPlayer, int.Parse(currentSession), actualName)); // Player closed the game, inform database that player is offline
     }
 
     #endregion
