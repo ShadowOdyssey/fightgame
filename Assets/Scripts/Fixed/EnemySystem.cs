@@ -138,389 +138,395 @@ public class EnemySystem : MonoBehaviour
 
     private void Update()
     {
-        #region Animate Intro while round dont start
-
-        if (roundSystem.currentRound == 1 && introAnimated == false)
+        if (roundSystem.isMultiplayer == false)
         {
-            introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            StartIntroAnimation(); // Round 1 started so activate Intro animation
-        }
+            #region Animate Intro while round dont start
 
-        if (roundSystem.currentRound == 2 && introAnimated == true)
-        {
-            introAnimated = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
-        }
-
-        if (roundSystem.currentRound == 3 && introAnimated == false)
-        {
-            introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
-        }
-
-        #endregion
-
-        #region Checking if round started
-
-        if (canFight == false && roundSystem.roundStarted == true && moveSuccessRandom == false && roundSystem.roundOver == false) // Only can execute commands in FixedUpdate if round started, but...
-        {
-            //Debug.Log("Round Started");
-
-            canRandomize = true; // Round started, so activate randomizer
-            canFight = true; // Round started, so can fight
-        }
-
-        #endregion
-
-        #region Checking if round finished
-
-        if (roundSystem.roundOver == true && wasResetTriggers == false) // If round not started and is 2nd or 3rd round, load Idle animation till round start again! - 
-        {
-            ResetAllTriggers();
-        }
-
-        #endregion
-
-        #region Randomize Movement
-
-        if (canRandomize == true && isAttacking == false) // Begin to randomize to AI to make decisions so fighting against IA will not to be linear and predictible
-        {
-            randomizeTimer = randomizeTimer + Time.deltaTime; // Count the time to start to randomize
-
-            if (randomizeTimer >= 3f) // I was setup 3 seconds, but you can change this value if you want
+            if (roundSystem.currentRound == 1 && introAnimated == false)
             {
-                moveRandom = Random.Range(1, randomMaxValue); // Randomizing a new value
+                introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                StartIntroAnimation(); // Round 1 started so activate Intro animation
+            }
 
-                switch (enemyDifficulty) // Check sucess in the random number generated
+            if (roundSystem.currentRound == 2 && introAnimated == true)
+            {
+                introAnimated = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
+            }
+
+            if (roundSystem.currentRound == 3 && introAnimated == false)
+            {
+                introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
+            }
+
+            #endregion
+
+            #region Checking if round started
+
+            if (canFight == false && roundSystem.roundStarted == true && moveSuccessRandom == false && roundSystem.roundOver == false) // Only can execute commands in FixedUpdate if round started, but...
+            {
+                //Debug.Log("Round Started");
+
+                canRandomize = true; // Round started, so activate randomizer
+                canFight = true; // Round started, so can fight
+            }
+
+            #endregion
+
+            #region Checking if round finished
+
+            if (roundSystem.roundOver == true && wasResetTriggers == false) // If round not started and is 2nd or 3rd round, load Idle animation till round start again! - 
+            {
+                ResetAllTriggers();
+            }
+
+            #endregion
+
+            #region Randomize Movement
+
+            if (canRandomize == true && isAttacking == false) // Begin to randomize to AI to make decisions so fighting against IA will not to be linear and predictible
+            {
+                randomizeTimer = randomizeTimer + Time.deltaTime; // Count the time to start to randomize
+
+                if (randomizeTimer >= 3f) // I was setup 3 seconds, but you can change this value if you want
                 {
-                    case 0: // Less agressive and less defensive
+                    moveRandom = Random.Range(1, randomMaxValue); // Randomizing a new value
 
-                        if (moveRandom <= 1 && moveRandom <= 80) // 80% chance to AI not to change behaviour
-                        {
-                            moveSuccessRandom = false; // Continue to do what is doing
-                        }
-
-                        if (moveRandom >= 81 &&  moveRandom <= 100) // 20% chance to AI to change behaviour
-                        {
-                            moveSuccessRandom = true; // No agression and no defense - Call for more Idle and stop to move in the middle of the combate and dont attack
-                        }
-
-                        break;
-                    
-                    case 1: // less agressive and more defensive
-
-                        if (moveRandom <= 1 && moveRandom <= 40) // 40% chance to AI not to change behaviour
-                        {
-                            moveSuccessRandom = false; // Continue to do what is doing
-                        }
-
-                        if (moveRandom >= 41 && moveRandom <= 100) // 60% chance to AI to change behaviour
-                        {
-                            moveSuccessRandom = true; // Move more far from player or use defensive skills if possible
-                        }
-
-                        break;
-                    
-                    case 2: // More agressive and less defensive
-
-                        if (moveRandom <= 1 && moveRandom <= 50) // 50% chance to AI not to change behaviour
-                        {
-                            moveSuccessRandom = false; // Continue to do what is doing
-                        }
-
-                        if (moveRandom >= 51 && moveRandom <= 100) // 50% chance to AI to change behaviour
-                        {
-                            moveSuccessRandom = true; // Move more near from player or use aggressive skills if possible
-                        }
-
-                        break;
-                    
-                    case 3: // More agressive and more defensive
-
-                        if (moveRandom <= 1 && moveRandom <= 20) // 20% chance to AI not to change behaviour
-                        {
-                            moveSuccessRandom = false; // Continue to do what is doing
-                        }
-
-                        if (moveRandom >= 21 && moveRandom <= 100) // 80% chance to AI to change behaviour
-                        {
-                            moveSuccessRandom = true; // Move more near from player and use aggressive skills if player is far or move more far from player or use defensive skills if possible
-                        }
-
-                        break;
-                }
-
-                if (isWalking == true && moveSuccessRandom == true) // Apply the success in random number based in the level difficulty
-                {
-                    switch (enemyDifficulty)
+                    switch (enemyDifficulty) // Check sucess in the random number generated
                     {
-                        case 0: // Stop to move AI and let it more vulnerable to attacks
+                        case 0: // Less agressive and less defensive
 
-                            if (isAttacking == false)
+                            if (moveRandom <= 1 && moveRandom <= 80) // 80% chance to AI not to change behaviour
                             {
-                                canFight = false;
-                                isWalking = false;
-                                changedAnimDirectionToBackward = false;
-                                changedAnimDirectionToForward = false;
-                                EnemyIsIdle();
+                                moveSuccessRandom = false; // Continue to do what is doing
+                            }
+
+                            if (moveRandom >= 81 && moveRandom <= 100) // 20% chance to AI to change behaviour
+                            {
+                                moveSuccessRandom = true; // No agression and no defense - Call for more Idle and stop to move in the middle of the combate and dont attack
                             }
 
                             break;
 
-                        case 1: // Follow less the player and use more defensife skills
-                            
-                            if (changedAnimDirectionToForward == true && isAttacking == false)
+                        case 1: // less agressive and more defensive
+
+                            if (moveRandom <= 1 && moveRandom <= 40) // 40% chance to AI not to change behaviour
                             {
-                                changedAnimDirectionToForward = false;
-                                changedAnimDirectionToBackward = true;
+                                moveSuccessRandom = false; // Continue to do what is doing
+                            }
+
+                            if (moveRandom >= 41 && moveRandom <= 100) // 60% chance to AI to change behaviour
+                            {
+                                moveSuccessRandom = true; // Move more far from player or use defensive skills if possible
                             }
 
                             break;
 
-                        case 2: // Follow more the player and use more aggressive skills
+                        case 2: // More agressive and less defensive
 
-                            if (changedAnimDirectionToBackward == true && isAttacking == false)
+                            if (moveRandom <= 1 && moveRandom <= 50) // 50% chance to AI not to change behaviour
                             {
-                                changedAnimDirectionToForward = true;
-                                changedAnimDirectionToBackward = false;
+                                moveSuccessRandom = false; // Continue to do what is doing
+                            }
+
+                            if (moveRandom >= 51 && moveRandom <= 100) // 50% chance to AI to change behaviour
+                            {
+                                moveSuccessRandom = true; // Move more near from player or use aggressive skills if possible
                             }
 
                             break;
 
-                        case 3: // Follow player if far and move far if near player
+                        case 3: // More agressive and more defensive
 
-                            if (isAttacking == false)
+                            if (moveRandom <= 1 && moveRandom <= 20) // 20% chance to AI not to change behaviour
                             {
-                                if (distanceToTarget > attackRange)
+                                moveSuccessRandom = false; // Continue to do what is doing
+                            }
+
+                            if (moveRandom >= 21 && moveRandom <= 100) // 80% chance to AI to change behaviour
+                            {
+                                moveSuccessRandom = true; // Move more near from player and use aggressive skills if player is far or move more far from player or use defensive skills if possible
+                            }
+
+                            break;
+                    }
+
+                    if (isWalking == true && moveSuccessRandom == true) // Apply the success in random number based in the level difficulty
+                    {
+                        switch (enemyDifficulty)
+                        {
+                            case 0: // Stop to move AI and let it more vulnerable to attacks
+
+                                if (isAttacking == false)
+                                {
+                                    canFight = false;
+                                    isWalking = false;
+                                    changedAnimDirectionToBackward = false;
+                                    changedAnimDirectionToForward = false;
+                                    EnemyIsIdle();
+                                }
+
+                                break;
+
+                            case 1: // Follow less the player and use more defensife skills
+
+                                if (changedAnimDirectionToForward == true && isAttacking == false)
+                                {
+                                    changedAnimDirectionToForward = false;
+                                    changedAnimDirectionToBackward = true;
+                                }
+
+                                break;
+
+                            case 2: // Follow more the player and use more aggressive skills
+
+                                if (changedAnimDirectionToBackward == true && isAttacking == false)
                                 {
                                     changedAnimDirectionToForward = true;
                                     changedAnimDirectionToBackward = false;
                                 }
 
-                                if (distanceToTarget <= attackRange)
-                                {
-                                    changedAnimDirectionToForward = false;
-                                    changedAnimDirectionToBackward = true;
-                                }
-                            }
+                                break;
 
-                            break;
+                            case 3: // Follow player if far and move far if near player
+
+                                if (isAttacking == false)
+                                {
+                                    if (distanceToTarget > attackRange)
+                                    {
+                                        changedAnimDirectionToForward = true;
+                                        changedAnimDirectionToBackward = false;
+                                    }
+
+                                    if (distanceToTarget <= attackRange)
+                                    {
+                                        changedAnimDirectionToForward = false;
+                                        changedAnimDirectionToBackward = true;
+                                    }
+                                }
+
+                                break;
+                        }
+                    }
+
+                    isResetRandom = true; // After to get the random value, to check AI difficulty, time to reset timer of the randomizer to generate a new random value
+                    randomizeTimer = 0f; // Zero the randomizer time to use it to reset randomizer system
+                    canRandomize = false; // We got the values we was wish, time to close the randomize thread
+                }
+            }
+
+            #endregion
+
+            #region Reset Randomizer
+
+            if (isResetRandom == true) // Beginning to reset randomizer timer
+            {
+                randomizeTimer = randomizeTimer + Time.deltaTime; // Using randomizer timer to reset now
+
+                if (randomizeTimer > 2f) // I was put 2 seconds, but you can change this value to a value you to wish
+                {
+                    randomizeTimer = 0f; // Randomizer time was reseted
+
+                    if (attackRandom != 0) // Only reset if AttackRandom was being used
+                    {
+                        attackRandom = 0; // Randomize attack again if AI will attack or not
+                    }
+
+                    if (canFight == false) // Check if AI is not fighting...
+                    {
+                        canFight = true; // AI can fight now
+                    }
+
+                    if (moveSuccessRandom == true) // Check if AI got succes on the closed thead, reset it to generate new value...
+                    {
+                        moveSuccessRandom = false; // Disable last success in random to make random success avaiable again
+                    }
+
+                    isResetRandom = false; // We already was reset randomizer system
+
+                    if (canRandomize == false) // Only activate if CanRandomize was being used
+                    {
+                        canRandomize = true; // Randomize AI actions again!!!
                     }
                 }
-
-                isResetRandom = true; // After to get the random value, to check AI difficulty, time to reset timer of the randomizer to generate a new random value
-                randomizeTimer = 0f; // Zero the randomizer time to use it to reset randomizer system
-                canRandomize = false; // We got the values we was wish, time to close the randomize thread
             }
-        }
 
-        #endregion
+            #endregion
 
-        #region Reset Randomizer
+            #region Check if Enemy dealed damage to player
 
-        if (isResetRandom == true) // Beginning to reset randomizer timer
-        {
-            randomizeTimer = randomizeTimer + Time.deltaTime; // Using randomizer timer to reset now
-
-            if (randomizeTimer > 2f) // I was put 2 seconds, but you can change this value to a value you to wish
+            if (checkDamage == true)
             {
-                randomizeTimer = 0f; // Randomizer time was reseted
+                damageTime = damageTime + Time.deltaTime;
 
-                if (attackRandom != 0) // Only reset if AttackRandom was being used
+                if (distanceToTarget <= attackRange && damageTime > 0f)
                 {
-                    attackRandom = 0; // Randomize attack again if AI will attack or not
+                    checkDamage = false;
+                    damageTime = 0f;
+                    playerSystem.TakeHit(20);
                 }
 
-                if (canFight == false) // Check if AI is not fighting...
+                if (distanceToTarget > attackRange && playerSystem.trainingSystem.actualInfoIndex == 7 && playerSystem.completedTutorial == false)
                 {
-                    canFight = true; // AI can fight now
+                    playerSystem.completedTutorial = true;
+                    playerSystem.trainingSystem.SelectInfo();
                 }
 
-                if (moveSuccessRandom == true) // Check if AI got succes on the closed thead, reset it to generate new value...
+                if (damageTime > 0.2f)
                 {
-                    moveSuccessRandom = false; // Disable last success in random to make random success avaiable again
-                }
-
-                isResetRandom = false; // We already was reset randomizer system
-
-                if (canRandomize == false) // Only activate if CanRandomize was being used
-                {
-                    canRandomize = true; // Randomize AI actions again!!!
+                    checkDamage = false;
+                    damageTime = 0f;
                 }
             }
+
+            #endregion
+
+            #region Check actual cooldown in skills
+
+            if (isCooldown1 == true) // If Attack 1 cooldown is activated...
+            {
+                attackCooldown1 = attackCooldown1 - Time.deltaTime; // Count cooldwon time
+
+                if (attackCooldown1 < 0f) // If cooldown time finished...
+                {
+                    attackCooldown1 = 3f; // Reset cooldown time
+                    isCooldown1 = false; // Disable cooldown event so AI can use the skill again
+                }
+            }
+
+            if (isCooldown2 == true) // If Attack 2 cooldown is activated...
+            {
+                attackCooldown2 = attackCooldown2 - Time.deltaTime; // Count cooldwon time
+
+                if (attackCooldown2 < 0f) // If cooldown time finished...
+                {
+                    attackCooldown2 = 9f; // Reset cooldown time
+                    isCooldown2 = false; // Disable cooldown event so AI can use the skill again
+                }
+            }
+
+            if (isCooldown3 == true) // If Attack 3 cooldown is activated...
+            {
+                attackCooldown3 = attackCooldown3 - Time.deltaTime; // Count cooldwon time
+
+                if (attackCooldown3 < 0f) // If cooldown time finished...
+                {
+                    attackCooldown3 = 15f; // Reset cooldown time
+                    isCooldown3 = false; // Disable cooldown event so AI can use the skill again
+                }
+            }
+
+            #endregion
         }
-
-        #endregion
-
-        #region Check if Enemy dealed damage to player
-
-        if (checkDamage == true)
-        {
-            damageTime = damageTime + Time.deltaTime;
-
-            if (distanceToTarget <= attackRange && damageTime > 0f)
-            {
-                checkDamage = false;
-                damageTime = 0f;
-                playerSystem.TakeHit(20);
-            }
-
-            if (distanceToTarget > attackRange && playerSystem.trainingSystem.actualInfoIndex == 7 && playerSystem.completedTutorial == false)
-            {
-                playerSystem.completedTutorial = true;
-                playerSystem.trainingSystem.SelectInfo();
-            }
-
-            if (damageTime > 0.2f)
-            {
-                checkDamage = false;
-                damageTime = 0f;
-            }
-        }
-
-        #endregion
-
-        #region Check actual cooldown in skills
-
-        if (isCooldown1 == true) // If Attack 1 cooldown is activated...
-        {
-            attackCooldown1 = attackCooldown1 - Time.deltaTime; // Count cooldwon time
-
-            if (attackCooldown1 < 0f) // If cooldown time finished...
-            {
-                attackCooldown1 = 3f; // Reset cooldown time
-                isCooldown1 = false; // Disable cooldown event so AI can use the skill again
-            }
-        }
-
-        if (isCooldown2 == true) // If Attack 2 cooldown is activated...
-        {
-            attackCooldown2 = attackCooldown2 - Time.deltaTime; // Count cooldwon time
-
-            if (attackCooldown2 < 0f) // If cooldown time finished...
-            {
-                attackCooldown2 = 9f; // Reset cooldown time
-                isCooldown2 = false; // Disable cooldown event so AI can use the skill again
-            }
-        }
-
-        if (isCooldown3 == true) // If Attack 3 cooldown is activated...
-        {
-            attackCooldown3 = attackCooldown3 - Time.deltaTime; // Count cooldwon time
-
-            if (attackCooldown3< 0f) // If cooldown time finished...
-            {
-                attackCooldown3 = 15f; // Reset cooldown time
-                isCooldown3 = false; // Disable cooldown event so AI can use the skill again
-            }
-        }
-
-        #endregion
     }
 
     private void FixedUpdate()
     {
-        #region Check if enemy is not alive anymore
-
-        if (roundSystem.opponentHealthBar.slider.value <= 0) return; // Prevent further actions if Enemy is dead
-
-        #endregion
-
-        #region Check if enemy is still alive and perform actions if alive
-
-        if (canFight == true && roundSystem.roundOver == false) // Prevent further actions if round not started yet
+        if (roundSystem.isMultiplayer == false)
         {
-            if (wasResetTriggers == true)
+            #region Check if enemy is not alive anymore
+
+            if (roundSystem.opponentHealthBar.slider.value <= 0) return; // Prevent further actions if Enemy is dead
+
+            #endregion
+
+            #region Check if enemy is still alive and perform actions if alive
+
+            if (canFight == true && roundSystem.roundOver == false) // Prevent further actions if round not started yet
             {
-                wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
-            }
-
-            distanceToTarget = Vector3.Distance(transform.position, playerBody.position);
-
-            //Debug.Log("Actual distance to target from Enemy is: " + distanceToTarget); // Debug actual distance between Enemy and Player
-
-            #region Check distance to player and make decisions
-
-            #region Decide what to do when player is inside attack range
-
-            if (distanceToTarget < attackRange && distanceToTarget > attackRange - 1f && isHit == false)
-            {
-                #region Randomize Attack
-
-                if (isResetRandom == false && isAttacking == false)
+                if (wasResetTriggers == true)
                 {
-                    // Call for attack action randomize, AI can decide if attack or not when player is inside attack area
+                    wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
+                }
 
-                    attackRandom = Random.Range(1, 100);
+                distanceToTarget = Vector3.Distance(transform.position, playerBody.position);
 
-                    if (enemyDifficulty == 0 && attackRandom >= 81 && attackRandom <= 100) // 20% the easy AI have to attack
+                //Debug.Log("Actual distance to target from Enemy is: " + distanceToTarget); // Debug actual distance between Enemy and Player
+
+                #region Check distance to player and make decisions
+
+                #region Decide what to do when player is inside attack range
+
+                if (distanceToTarget < attackRange && distanceToTarget > attackRange - 1f && isHit == false)
+                {
+                    #region Randomize Attack
+
+                    if (isResetRandom == false && isAttacking == false)
                     {
-                        attackSuccessRandom = true;
+                        // Call for attack action randomize, AI can decide if attack or not when player is inside attack area
+
+                        attackRandom = Random.Range(1, 100);
+
+                        if (enemyDifficulty == 0 && attackRandom >= 81 && attackRandom <= 100) // 20% the easy AI have to attack
+                        {
+                            attackSuccessRandom = true;
+                        }
+
+                        if (enemyDifficulty == 1 && attackRandom >= 61 && attackRandom <= 100) // 40% the moderate AI have to attack
+                        {
+                            attackSuccessRandom = true;
+                        }
+
+                        if (enemyDifficulty == 2 && attackRandom >= 41 && attackRandom <= 100) // 60% the normal AI have to attack
+                        {
+                            attackSuccessRandom = true;
+                        }
+
+                        if (enemyDifficulty == 3 && attackRandom >= 21 && attackRandom <= 100) // 80% the hard AI have to attack
+                        {
+                            attackSuccessRandom = true;
+                        }
+
+                        if (attackSuccessRandom == false) // Check if enemy decided to attack player
+                        {
+                            EnemyIsIdle(); // Call for Idle because enemy is to much near player
+                        }
+                        else
+                        {
+                            RandomizeSkill(); // Enemy can attack player now and will select wich skill will use
+                        }
+
+                        isResetRandom = true; // Close the attack random call and reset it
                     }
 
-                    if (enemyDifficulty == 1 && attackRandom >= 61 && attackRandom <= 100) // 40% the moderate AI have to attack
-                    {
-                        attackSuccessRandom = true;
-                    }
+                    #endregion
 
-                    if (enemyDifficulty == 2 && attackRandom >= 41 && attackRandom <= 100) // 60% the normal AI have to attack
-                    {
-                        attackSuccessRandom = true;
-                    }
-
-                    if (enemyDifficulty == 3 && attackRandom >= 21 && attackRandom <= 100) // 80% the hard AI have to attack
-                    {
-                        attackSuccessRandom = true;
-                    }
-
-                    if (attackSuccessRandom == false) // Check if enemy decided to attack player
-                    {
-                        EnemyIsIdle(); // Call for Idle because enemy is to much near player
-                    }
-                    else
-                    {
-                        RandomizeSkill(); // Enemy can attack player now and will select wich skill will use
-                    }
-
-                    isResetRandom = true; // Close the attack random call and reset it
+                    // Attack area is determined by Attack Range and Attack Range -1, so if Attack Range is 8, the area will between 8f and 7f in the distance value, if player is 6.9f or less the AI will move backward
                 }
 
                 #endregion
 
-                // Attack area is determined by Attack Range and Attack Range -1, so if Attack Range is 8, the area will between 8f and 7f in the distance value, if player is 6.9f or less the AI will move backward
-            }
+                #region Decide to do when player is outside attack range
 
-            #endregion
-
-            #region Decide to do when player is outside attack range
-
-            if (distanceToTarget > attackRange && isAttacking == false && isHit == false)
-            {
-                if (checkDamage == true) // Check if player got out from attack area when damage is trying to be applied
+                if (distanceToTarget > attackRange && isAttacking == false && isHit == false)
                 {
-                    checkDamage = false; // Player is outside attack area so dont apply damage to player, only apply damage if player is really inside attack area
+                    if (checkDamage == true) // Check if player got out from attack area when damage is trying to be applied
+                    {
+                        checkDamage = false; // Player is outside attack area so dont apply damage to player, only apply damage if player is really inside attack area
+                    }
+
+                    FixWalkAnimDirectionToForward();
+                    EnemyCanMove(); // Follow player if is outside attack area to attack the player
                 }
 
-                FixWalkAnimDirectionToForward();
-                EnemyCanMove(); // Follow player if is outside attack area to attack the player
+                #endregion
+
+                #region Decide what to do when player is beyound attack range
+
+                if (distanceToTarget < attackRange && distanceToTarget < attackRange - 1f && isAttacking == false && isHit == false)
+                {
+                    FixWalkAnimDirectionToBackward(); // Move opponent to backward if player to much near or if it is taking damage
+                    EnemyCanMove(); // Get far from player if is to much inside attack area to not let AI vulnerable for attacks
+                }
+
+                #endregion
+
+                #endregion
             }
-
-            #endregion
-
-            #region Decide what to do when player is beyound attack range
-
-            if (distanceToTarget < attackRange && distanceToTarget < attackRange - 1f && isAttacking == false && isHit == false)
-            {
-                FixWalkAnimDirectionToBackward(); // Move opponent to backward if player to much near or if it is taking damage
-                EnemyCanMove(); // Get far from player if is to much inside attack area to not let AI vulnerable for attacks
-            }
-
-            #endregion
 
             #endregion
         }
-
-        #endregion
     }
 
     #endregion

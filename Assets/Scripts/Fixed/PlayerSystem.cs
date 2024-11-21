@@ -154,103 +154,109 @@ public class PlayerSystem : MonoBehaviour
 
     private void Update()
     {
-        #region Animate Intro while round dont start
-
-        if (roundSystem.currentRound == 1 && introAnimated == false)
+        if (roundSystem.isMultiplayer == false)
         {
-            introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            StartIntroAnimation(); // Round 1 started so activate Intro Animation
-        }
+            #region Animate Intro while round dont start
 
-        if (roundSystem.currentRound == 2 && introAnimated == true)
-        {
-            introAnimated = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
-        }
-
-        if (roundSystem.currentRound == 3 && introAnimated == false)
-        {
-            introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
-        }
-
-        #endregion
-
-        #region Check if round finished
-
-        if (roundSystem.roundOver == true && wasResetTriggers == false)
-        {
-            ResetAllTriggers();
-        }
-
-        #endregion
-
-        #region Check if Player dealed damage to Enemy
-
-        if (checkDamage == true)
-        {
-            damageTime = damageTime + Time.deltaTime;
-
-            if (enemySystem.distanceToTarget <= attackRange && damageTime > 0f)
+            if (roundSystem.currentRound == 1 && introAnimated == false)
             {
-                checkDamage = false;
-                damageTime = 0f;
-                enemySystem.TakeDamage(20);
+                introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                StartIntroAnimation(); // Round 1 started so activate Intro Animation
             }
 
-            if (damageTime > 0.2f)
+            if (roundSystem.currentRound == 2 && introAnimated == true)
             {
-                checkDamage = false;
-                damageTime = 0f;
+                introAnimated = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
             }
-        }
 
-        #endregion
+            if (roundSystem.currentRound == 3 && introAnimated == false)
+            {
+                introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
+            }
+
+            #endregion
+
+            #region Check if round finished
+
+            if (roundSystem.roundOver == true && wasResetTriggers == false)
+            {
+                ResetAllTriggers();
+            }
+
+            #endregion
+
+            #region Check if Player dealed damage to Enemy
+
+            if (checkDamage == true)
+            {
+                damageTime = damageTime + Time.deltaTime;
+
+                if (enemySystem.distanceToTarget <= attackRange && damageTime > 0f)
+                {
+                    checkDamage = false;
+                    damageTime = 0f;
+                    enemySystem.TakeDamage(20);
+                }
+
+                if (damageTime > 0.2f)
+                {
+                    checkDamage = false;
+                    damageTime = 0f;
+                }
+            }
+
+            #endregion
+        }
     }
 
     private void FixedUpdate()
     {
-        #region Movement Player because round started
-
-        // Ensure movement only happens when buttons are held and not during attacks
-        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false) // Check if round started so Player can move and if Player is not attacking
+        if (roundSystem.isMultiplayer == false)
         {
-            if (wasResetTriggers == true)
+            #region Movement Player because round started
+
+            // Ensure movement only happens when buttons are held and not during attacks
+            if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false) // Check if round started so Player can move and if Player is not attacking
             {
-                wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
+                if (wasResetTriggers == true)
+                {
+                    wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
+                }
+
+                if (isMovingForward == true && isMovingBackward == false)
+                {
+                    MoveRight();
+                }
+                else if (isMovingBackward == true && isMovingForward == false)
+                {
+                    MoveLeft();
+                }
+                else
+                {
+                    AnimIsIdle();
+                }
+
+                if (isMovingBackward == true || isMovingForward == true)
+                {
+                    // Check if Player is moving so apply new position, turned 2 lines code into 1 since both forward and backward calls same method
+                    Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
+                    transform.localPosition = newPosition;
+                }
             }
 
-            if (isMovingForward == true && isMovingBackward == false)
+            #endregion
+
+            #region Player got a hit so move Player a bit to backwards or enemy can hit Player forever
+
+            if (isHit == true && roundSystem.roundOver == false)
             {
-                MoveRight();
-            }
-            else if (isMovingBackward == true && isMovingForward == false)
-            {
-                MoveLeft();
-            }
-            else
-            {
-                AnimIsIdle();
+                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime * 3f);
             }
 
-            if (isMovingBackward == true || isMovingForward == true)
-            {
-                // Check if Player is moving so apply new position, turned 2 lines code into 1 since both forward and backward calls same method
-                Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
-                transform.localPosition = newPosition;
-            }
+            #endregion
         }
-
-        #endregion
-
-        #region Player got a hit so move Player a bit to backwards or enemy can hit Player forever
-
-        if (isHit == true && roundSystem.roundOver == false)
-        {
-            transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime * 3f);
-        }
-
-        #endregion
     }
 
     #endregion

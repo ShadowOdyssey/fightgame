@@ -240,8 +240,8 @@ public class RoundManager : MonoBehaviour
         CheckForMultiplayerOrTrainningMode(); // Done
         LoadArenaAndEnemyCharacter(); // Done
         CheckCurrentArena(); // Done
-        CheckCurrentPlayerCharacter(); // DOne
-        CheckCurrentEnemyCharacter(); // Done
+        CheckCurrentPlayerCharacter(); // Working here
+        CheckCurrentEnemyCharacter(); // Working here
         LoadPlayerName(); // Done
         SetupCharactersHealth(); // Done 
     }
@@ -288,6 +288,7 @@ public class RoundManager : MonoBehaviour
         }
         else
         {
+            isTrainingMode = false;
             isMultiplayer = true; // Game is multiplayer, so dont load stage number from Singleplay
 
             LoadMultiplayerCharacter();
@@ -309,22 +310,22 @@ public class RoundManager : MonoBehaviour
         if (PlayerPrefs.GetString("whoWasTheHost") == PlayerPrefs.GetInt("multiplayerPlayer").ToString())
         {
             // Loading Character Mesh Model
-            currentPlayerCharacter = PlayerPrefs.GetInt("multiplayerPlayerProfile");
-            currentEnemyCharacter = PlayerPrefs.GetInt("multiplayerOpponentProfile");
+            currentPlayerCharacter = PlayerPrefs.GetInt("multiplayerPlayerProfile"); // I am the left side
+            currentEnemyCharacter = PlayerPrefs.GetInt("multiplayerOpponentProfile"); // Opponent is right side
 
             // Loading Names
-            playerNameText.text = PlayerPrefs.GetString("playerName").ToUpper();
-            enemyNameText.text = PlayerPrefs.GetString("multiplayerOpponentName").ToUpper();
+            playerNameText.text = PlayerPrefs.GetString("playerName").ToUpper(); // Load my name at left side
+            enemyNameText.text = PlayerPrefs.GetString("multiplayerOpponentName").ToUpper(); // Load opponent name at right side
         }
         else
         {
             // Loading Character Mesh Model
-            currentPlayerCharacter = PlayerPrefs.GetInt("multiplayerOpponentProfile");
-            currentEnemyCharacter = PlayerPrefs.GetInt("multiplayerPlayerProfile");
+            currentPlayerCharacter = PlayerPrefs.GetInt("multiplayerOpponentProfile"); // Opponent is left side
+            currentEnemyCharacter = PlayerPrefs.GetInt("multiplayerPlayerProfile"); // I am the right side
 
             // Loading Names
-            playerNameText.text = PlayerPrefs.GetString("multiplayerOpponentName").ToUpper();
-            enemyNameText.text = PlayerPrefs.GetString("playerName").ToUpper();
+            playerNameText.text = PlayerPrefs.GetString("multiplayerOpponentName").ToUpper(); // Load opponent name at left side
+            enemyNameText.text = PlayerPrefs.GetString("playerName").ToUpper(); // Load my name at right side
         }
     }
 
