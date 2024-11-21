@@ -892,43 +892,43 @@ private void DrawArenaPanel()
         {
             if (isUnlocked[0] == true && isUnlocked[1] == false && isUnlocked[2] == false && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(1, 2, 1); // Gabriella vs Marcus
+                SetupNextFight(1, 2, selectedArenaIndex + 1); // Gabriella vs Marcus
                 enemyIndex = 2;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == false && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(1, 3, 2); // Gabriella vs Selena
+                SetupNextFight(1, 3, selectedArenaIndex + 1); // Gabriella vs Selena
                 enemyIndex = 3;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(1, 4, 3); // Gabriella vs Bryan
+                SetupNextFight(1, 4, selectedArenaIndex + 1); // Gabriella vs Bryan
                 enemyIndex = 4;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(1, 5, 4); // Gabriella vs Nun
+                SetupNextFight(1, 5, selectedArenaIndex + 1); // Gabriella vs Nun
                 enemyIndex = 5;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(1, 6, 1); // Gabriella vs Oliver
+                SetupNextFight(1, 6, selectedArenaIndex + 1); // Gabriella vs Oliver
                 enemyIndex = 6;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(1, 7, 2); // Gabriella vs Orion
+                SetupNextFight(1, 7, selectedArenaIndex + 1); // Gabriella vs Orion
                 enemyIndex = 7;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(1, 8, 4); // Gabriella vs Aria
+                SetupNextFight(1, 8, selectedArenaIndex + 1); // Gabriella vs Aria
                 enemyIndex = 8;
             }
 
@@ -949,7 +949,7 @@ private void DrawArenaPanel()
 
                 enemyIndex = randomizeCharacter;
 
-                SetupNextFight(1, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Gabriella
+                SetupNextFight(1, randomizeCharacter, selectedArenaIndex + 1); // Next enemy character and arena selected by random against Gabriella
 
                 randomizeCharacter = 0; // Reset values to be used in the next fight
                 randomizeArena = 0; // Reset values to be used in the next fight
@@ -963,37 +963,37 @@ private void DrawArenaPanel()
         {
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == false && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 3, 2); // Marcus vs Selena
+                SetupNextFight(2, 3, selectedArenaIndex + 1); // Marcus vs Selena
                 enemyIndex = 3;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 4, 3); // Marcus vs Bryan
+                SetupNextFight(2, 4, selectedArenaIndex + 1); // Marcus vs Bryan
                 enemyIndex = 4;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 5, 4); // Marcus vs Nun
+                SetupNextFight(2, 5, selectedArenaIndex + 1); // Marcus vs Nun
                 enemyIndex = 5;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 6, 1); // Marcus vs Oliver
+                SetupNextFight(2, 6, selectedArenaIndex + 1); // Marcus vs Oliver
                 enemyIndex = 6;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 7, 2); // Marcus vs Orion
+                SetupNextFight(2, 7, selectedArenaIndex + 1); // Marcus vs Orion
                 enemyIndex = 7;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(2, 8, 3); // Marcus vs Aria
+                SetupNextFight(2, 8, selectedArenaIndex + 1); // Marcus vs Aria
                 enemyIndex = 8;
             }
 
@@ -1014,7 +1014,7 @@ private void DrawArenaPanel()
 
                 enemyIndex = randomizeCharacter;
 
-                SetupNextFight(2, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Marcus
+                SetupNextFight(2, randomizeCharacter, selectedArenaIndex + 1); // Next enemy character and arena selected by random against Marcus
 
                 randomizeCharacter = 0; // Reset values to be used in the next fight
                 randomizeArena = 0; // Reset values to be used in the next fight
@@ -1028,31 +1028,31 @@ private void DrawArenaPanel()
         {
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == false && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(3, 4, 3); // Selena vs Bryan
+                SetupNextFight(3, 4, selectedArenaIndex + 1); // Selena vs Bryan
                 enemyIndex = 4;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(3, 5, 4); // Selena vs Nun
+                SetupNextFight(3, 5, selectedArenaIndex + 1); // Selena vs Nun
                 enemyIndex = 5;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(3, 6, 1); // Selena vs Oliver
+                SetupNextFight(3, 6, selectedArenaIndex + 1); // Selena vs Oliver
                 enemyIndex = 6;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(3, 7, 2); // Selena vs Orion
+                SetupNextFight(3, 7, selectedArenaIndex + 1); // Selena vs Orion
                 enemyIndex = 7;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(3, 8, 2); // Selena vs Aria
+                SetupNextFight(3, 8, selectedArenaIndex + 1); // Selena vs Aria
                 enemyIndex = 8;
             }
 
@@ -1073,7 +1073,7 @@ private void DrawArenaPanel()
 
                 enemyIndex = randomizeCharacter;
 
-                SetupNextFight(3, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Selena
+                SetupNextFight(3, randomizeCharacter, selectedArenaIndex + 1); // Next enemy character and arena selected by random against Selena
 
                 randomizeCharacter = 0; // Reset values to be used in the next fight
                 randomizeArena = 0; // Reset values to be used in the next fight
@@ -1087,25 +1087,25 @@ private void DrawArenaPanel()
         {
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == false && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(4, 5, 4); // Bryan vs Nun
+                SetupNextFight(4, 5, selectedArenaIndex + 1); // Bryan vs Nun
                 enemyIndex = 5;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(4, 6, 1); // Bryan vs Oliver
+                SetupNextFight(4, 6, selectedArenaIndex + 1); // Bryan vs Oliver
                 enemyIndex = 6;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(4, 7, 2); // Bryan vs Orion
+                SetupNextFight(4, 7, selectedArenaIndex + 1); // Bryan vs Orion
                 enemyIndex = 7;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(4, 8, 1); // Bryan vs Aria
+                SetupNextFight(4, 8, selectedArenaIndex + 1); // Bryan vs Aria
                 enemyIndex = 8;
             }
 
@@ -1126,7 +1126,7 @@ private void DrawArenaPanel()
 
                 enemyIndex = randomizeCharacter;
 
-                SetupNextFight(4, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Bryan
+                SetupNextFight(4, randomizeCharacter, selectedArenaIndex + 1); // Next enemy character and arena selected by random against Bryan
 
                 randomizeCharacter = 0; // Reset values to be used in the next fight
                 randomizeArena = 0; // Reset values to be used in the next fight
@@ -1140,19 +1140,19 @@ private void DrawArenaPanel()
         {
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == false && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(5, 6, 1); // Nun vs Oliver
+                SetupNextFight(5, 6, selectedArenaIndex + 1); // Nun vs Oliver
                 enemyIndex = 6;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(5, 7, 2); // Nun vs Orion
+                SetupNextFight(5, 7, selectedArenaIndex + 1); // Nun vs Orion
                 enemyIndex = 7;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(5, 8, 2); // Nun vs Aria
+                SetupNextFight(5, 8, selectedArenaIndex + 1); // Nun vs Aria
                 enemyIndex = 8;
             }
 
@@ -1173,7 +1173,7 @@ private void DrawArenaPanel()
 
                 enemyIndex = randomizeCharacter;
 
-                SetupNextFight(5, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Nun
+                SetupNextFight(5, randomizeCharacter, selectedArenaIndex + 1); // Next enemy character and arena selected by random against Nun
 
                 randomizeCharacter = 0; // Reset values to be used in the next fight
                 randomizeArena = 0; // Reset values to be used in the next fight
@@ -1187,13 +1187,13 @@ private void DrawArenaPanel()
         {
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == false && isUnlocked[7] == false)
             {
-                SetupNextFight(6, 7, 2); // Oliver vs Orion
+                SetupNextFight(6, 7, selectedArenaIndex + 1); // Oliver vs Orion
                 enemyIndex = 7;
             }
 
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(6, 8, 3); // Oliver vs Aria
+                SetupNextFight(6, 8, selectedArenaIndex + 1); // Oliver vs Aria
                 enemyIndex = 8;
             }
 
@@ -1214,7 +1214,7 @@ private void DrawArenaPanel()
 
                 enemyIndex = randomizeCharacter;
 
-                SetupNextFight(6, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Oliver
+                SetupNextFight(6, randomizeCharacter, selectedArenaIndex + 1); // Next enemy character and arena selected by random against Oliver
 
                 randomizeCharacter = 0; // Reset values to be used in the next fight
                 randomizeArena = 0; // Reset values to be used in the next fight
@@ -1228,7 +1228,7 @@ private void DrawArenaPanel()
         {
             if (isUnlocked[0] == true && isUnlocked[1] == true && isUnlocked[2] == true && isUnlocked[3] == true && isUnlocked[4] == true && isUnlocked[5] == true && isUnlocked[6] == true && isUnlocked[7] == false)
             {
-                SetupNextFight(7, 8, 4); // Orion vs Aria
+                SetupNextFight(7, 8, selectedArenaIndex + 1); // Orion vs Aria
                 enemyIndex = 7;
             }
 
@@ -1249,7 +1249,7 @@ private void DrawArenaPanel()
 
                 enemyIndex = randomizeCharacter;
 
-                SetupNextFight(7, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Orion
+                SetupNextFight(7, randomizeCharacter, selectedArenaIndex + 1); // Next enemy character and arena selected by random against Orion
 
                 randomizeCharacter = 0; // Reset values to be used in the next fight
                 randomizeArena = 0; // Reset values to be used in the next fight
@@ -1278,7 +1278,7 @@ private void DrawArenaPanel()
 
                 enemyIndex = randomizeCharacter;
 
-                SetupNextFight(8, randomizeCharacter, randomizeArena); // Next enemy character and arena selected by random against Aria
+                SetupNextFight(8, randomizeCharacter, selectedArenaIndex + 1); // Next enemy character and arena selected by random against Aria
 
                 randomizeCharacter = 0; // Reset values to be used in the next fight
                 randomizeArena = 0; // Reset values to be used in the next fight
