@@ -187,6 +187,7 @@ public class LobbyManager : MonoBehaviour
     private bool notRegistered = false;
     private bool isReady = false;
     private bool isDueling = false;
+    private bool wasHostLoaded = false;
     private string actualName = "";
     private string currentSession = "";
     private string currentHost = "";
@@ -844,6 +845,7 @@ public class LobbyManager : MonoBehaviour
             if (responseFromServer != "error002")
             {
                 currentHost = responseFromServer;
+                wasHostLoaded = true;
                 Debug.Log("Host Value from server is: " + currentHost);
             }
         }
@@ -1036,7 +1038,6 @@ public class LobbyManager : MonoBehaviour
 
                     if (playerInfo[2] == currentSession && playerInfo[0] != currentSession )
                     {
-                        isDueling = true;
                         UpdateDuelPlayer();
 
                         yield break; // Exit the coroutine
@@ -1060,14 +1061,16 @@ public class LobbyManager : MonoBehaviour
 
         if (isDueling == false)
         {
-            StartCoroutine(CheckForDuel());
+            isDueling = true;
+            StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
+            Invoke(nameof(StartDuelCheck), 3f);
         }
 
-        if (isDueling == true)
+        if (isDueling == true && wasHostLoaded == true)
         {
-            StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
+            wasHostLoaded = false;
 
-            if (currentHost == "0")
+            if (currentHost == "0" || currentHost == "")
             {
                 hostName = "";
                 hostProfile = "";
@@ -1076,8 +1079,9 @@ public class LobbyManager : MonoBehaviour
                 PlayerPrefs.SetInt("multiplayerOpponent", 0);
 
                 duelScreen.SetActive(false);
-                isDueling = false;
             }
+
+            isDueling = false;
         }
     }
 
@@ -1092,6 +1096,11 @@ public class LobbyManager : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(UpdateUser(updateUser, newValue, desiredCollumn, validateRequest));
         }
+    }
+
+    public void StartDuelCheck()
+    {
+        StartCoroutine(CheckForDuel());
     }
 
     #endregion
