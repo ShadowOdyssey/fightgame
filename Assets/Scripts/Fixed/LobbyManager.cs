@@ -709,11 +709,6 @@ public class LobbyManager : MonoBehaviour
                 connectionText.text = error005;
                 yield break; // Exit the coroutine if there's an error
             }
-
-            if (responseFromServer == "success004")
-            {
-
-            }
         }
 
         request.Dispose();
@@ -845,8 +840,12 @@ public class LobbyManager : MonoBehaviour
             if (responseFromServer != "error002")
             {
                 currentHost = responseFromServer;
-                wasHostLoaded = true;
-                Debug.Log("Host Value from server is: " + currentHost);
+
+                if (currentHost != "" && currentHost != "0")
+                {
+                    wasHostLoaded = true;
+                    Debug.Log("Host Value from server is: " + currentHost);
+                }
             }
         }
 
@@ -1146,16 +1145,26 @@ public class LobbyManager : MonoBehaviour
         }
         else 
         {
+            connectingScreen.SetActive(true);
+            connectionText.text = "You was invited to fight, loading...";
+
             Debug.Log("You are the invited!");
 
             StartCoroutine(VerifyHostName(verifyUser, "name", "lobby", "id", currentHost));
             StartCoroutine(VerifyHostProfile(verifyUser, "profile", "lobby", "id", currentHost));
 
-            duelSystem.UpdateSessions(currentHost, currentSession);
-            duelSystem.UpdateNames(actualName, hostName);
-            duelSystem.LoadVersusImages(currentCharacterSelected, hostProfile);
-            duelSystem.OpenDuel(2);
+            Invoke(nameof(StartInvited), 3f);
         }
+    }
+
+    public void StartInvited()
+    {
+        connectingScreen.SetActive(false);
+
+        duelSystem.UpdateSessions(currentHost, currentSession);
+        duelSystem.UpdateNames(actualName, hostName);
+        duelSystem.LoadVersusImages(currentCharacterSelected, hostProfile);
+        duelSystem.OpenDuel(2);
     }
 
     public void DuelAccepted(string playerDuel, string opponentDuel)
@@ -1165,6 +1174,9 @@ public class LobbyManager : MonoBehaviour
 
         PlayerPrefs.SetInt("multiplayerPlayer", pn);
         PlayerPrefs.SetInt("multiplayerOpponent", on);
+
+        Debug.Log("Player Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerPlayer"));
+        Debug.Log("Opponent Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerOpponent"));
     }
 
     public void DuelDeclined(string playerDuel, string opponentDuel)
