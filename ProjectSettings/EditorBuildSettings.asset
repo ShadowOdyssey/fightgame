@@ -15,23 +15,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Fixed/MainMenu.unity
     guid: ea58d724020003b439c74ca1e87d44dc
   - enabled: 1
-    path: Assets/Scenes/OverviewStory.unity
-    guid: bea446ad1c619c74d9399fb12e63bb37
-  - enabled: 1
-    path: Assets/Scenes/SinglePlayer.unity
-    guid: 5db0de3d1b5af7840b2aedca5c072c74
-  - enabled: 1
-    path: Assets/Scenes/FightingSingle.unity
-    guid: a29045420d4131245bf23ef039836540
-  - enabled: 1
     path: Assets/Scenes/Fixed/1BattleGroundSelection.unity
     guid: 69b5da5e8618d04418ffcff9785969cf
   - enabled: 1
     path: Assets/Scenes/Fixed/CharactersViewing.unity
     guid: 8c45567ea7e3351498aa9b367b1cb03d
-  - enabled: 1
-    path: Assets/Scenes/Fixed/TrainingMode.unity
-    guid: a8b98abcc1bd5334aa3333ac65ef102a
   - enabled: 1
     path: Assets/Scenes/Fixed/ArcadeMode.unity
     guid: 12fd85e940c98b04b9b6438c740da66a
