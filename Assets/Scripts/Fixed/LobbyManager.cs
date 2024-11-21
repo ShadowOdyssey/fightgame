@@ -192,6 +192,9 @@ public class LobbyManager : MonoBehaviour
     private string currentHost = "";
     private string hostName = "";
     private string hostProfile = "";
+    private string requestedSessionDuel = "";
+    private string requestedProfileDuel = "";
+    private string requestedNameDuel = "";
     private string responseFromServer = "";
 
     #endregion
@@ -1034,7 +1037,7 @@ public class LobbyManager : MonoBehaviour
                     if (playerInfo[2] == currentSession && playerInfo[0] != currentSession )
                     {
                         isDueling = true;
-                        UpdateDuelPlayer("","","");
+                        UpdateDuelPlayer();
 
                         yield break; // Exit the coroutine
                     }
@@ -1097,28 +1100,35 @@ public class LobbyManager : MonoBehaviour
 
     public void RegisterRequestedDuelPlayer(string requestedSession, string requestedProfile, string requestedName)
     {
-        UpdateData(requestedSession.ToString(), "duel", currentSession);
-        UpdateData(currentSession.ToString(), "host", currentSession);
-        UpdateData(requestedSession.ToString(), "duel", requestedSession);
-        UpdateData(currentSession.ToString(), "host", requestedSession);
+        requestedSessionDuel = requestedSession;
+        requestedProfileDuel = requestedProfile;
+        requestedNameDuel = requestedName;
+
+        UpdateData(requestedSessionDuel, "duel", currentSession);
+        UpdateData(currentSession, "host", currentSession);
+        UpdateData(requestedSessionDuel, "duel", requestedSessionDuel);
+        UpdateData(currentSession, "host", requestedSessionDuel);
         StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
         UpdateData("queue", "ready", currentSession);
-        UpdateData("queue", "ready", requestedSession);
-        UpdateDuelPlayer(requestedName, requestedSession, requestedProfile);
+        UpdateData("queue", "ready", requestedSessionDuel);
+        connectingScreen.SetActive(true);
+        connectionText.text = "Connecting to requested player to fight...";
+        Invoke(nameof(UpdateDuelPlayer), 5f);
         isDueling = true;
     }
 
-    public void UpdateDuelPlayer(string opponentName, string opponentSession, string opponentProfile)
+    public void UpdateDuelPlayer()
     {
+        connectingScreen.SetActive(false);
         duelScreen.SetActive(true);
 
         if (currentHost == currentSession)
         {
             Debug.Log("You are the host!");
 
-            duelSystem.UpdateSessions(currentSession, opponentSession);
-            duelSystem.UpdateNames(actualName, opponentName);
-            duelSystem.LoadVersusImages(currentCharacterSelected, opponentProfile);
+            duelSystem.UpdateSessions(currentSession, requestedSessionDuel);
+            duelSystem.UpdateNames(actualName, requestedNameDuel);
+            duelSystem.LoadVersusImages(currentCharacterSelected, requestedProfileDuel);
             duelSystem.OpenDuel(1);
         }
         else 
