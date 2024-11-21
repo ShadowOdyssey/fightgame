@@ -185,6 +185,8 @@ public class LobbyManager : MonoBehaviour
     private string actualName = "";
     private string currentSession = "";
     private string currentHost = "";
+    private string hostName = "";
+    private string hostProfile = "";
     private string responseFromServer = "";
 
     #endregion
@@ -681,7 +683,7 @@ public class LobbyManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("desiredCollumn", desiredCollumn);
 
-        if (desiredCollumn == "profile")
+        if (desiredCollumn == "profile" || desiredCollumn == "duel" || desiredCollumn == "host")
         {
             form.AddField("newValue", int.Parse(newValue));
         }
@@ -814,6 +816,109 @@ public class LobbyManager : MonoBehaviour
 
     #endregion
 
+    #region Verify host player
+
+    public IEnumerator VerifyHost(string urlPHP, string newSelection, string requestedTable, string requestedCollumn, string desiredSearch)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("desiredSelection", newSelection);
+        form.AddField("currentTable", requestedTable);
+        form.AddField("currentCollumn", requestedCollumn);
+        form.AddField("newSearch", desiredSearch);
+
+        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            responseFromServer = request.downloadHandler.text;
+
+            //Debug.Log("Response from server was: " + responseFromServer);
+
+            if (responseFromServer == "error002")
+            {
+                connectionText.text = error002;
+                yield break; // Exit the coroutine if there's an error
+            }
+
+            if (responseFromServer != "error002")
+            {
+                currentHost = responseFromServer;
+            }
+        }
+
+        request.Dispose();
+    }
+
+    public IEnumerator VerifyHostName(string urlPHP, string newSelection, string requestedTable, string requestedCollumn, string desiredSearch)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("desiredSelection", newSelection);
+        form.AddField("currentTable", requestedTable);
+        form.AddField("currentCollumn", requestedCollumn);
+        form.AddField("newSearch", int.Parse(desiredSearch));
+
+        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            responseFromServer = request.downloadHandler.text;
+
+            //Debug.Log("Response from server was: " + responseFromServer);
+
+            if (responseFromServer == "error002")
+            {
+                connectionText.text = error002;
+                yield break; // Exit the coroutine if there's an error
+            }
+
+            if (responseFromServer != "error002")
+            {
+                hostName = responseFromServer;
+            }
+        }
+
+        request.Dispose();
+    }
+
+    public IEnumerator VerifyHostProfile(string urlPHP, string newSelection, string requestedTable, string requestedCollumn, string desiredSearch)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("desiredSelection", newSelection);
+        form.AddField("currentTable", requestedTable);
+        form.AddField("currentCollumn", requestedCollumn);
+        form.AddField("newSearch", int.Parse(desiredSearch));
+
+        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            responseFromServer = request.downloadHandler.text;
+
+            //Debug.Log("Response from server was: " + responseFromServer);
+
+            if (responseFromServer == "error002")
+            {
+                connectionText.text = error002;
+                yield break; // Exit the coroutine if there's an error
+            }
+
+            if (responseFromServer != "error002")
+            {
+                hostProfile = responseFromServer;
+            }
+        }
+
+        request.Dispose();
+    }
+
+    #endregion
+
     #region Find offline players
 
     public IEnumerator FindOfflinePlayers()
@@ -894,45 +999,6 @@ public class LobbyManager : MonoBehaviour
 
     #endregion
 
-    #region Verify specific data
-
-    public IEnumerator VerifyData(string urlPHP, string newSelection, string requestedTable, string requestedCollumn, string desiredSearch)
-    {
-        // Lets use Verify Data to request a specific data in database
-
-        WWWForm form = new WWWForm();
-        form.AddField("desiredSelection", newSelection);
-        form.AddField("currentTable", requestedTable);
-        form.AddField("currentCollumn", requestedCollumn);
-        form.AddField("newSearch", desiredSearch);
-
-        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
-
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            responseFromServer = request.downloadHandler.text;
-
-            //Debug.Log("Response from server was: " + responseFromServer);
-
-            if (responseFromServer == "error002")
-            {
-                connectionText.text = error004;
-                yield break; // Exit the coroutine if there's an error
-            }
-
-            if (responseFromServer != "error002")
-            {
-            
-            }
-        }
-
-        request.Dispose();
-    }
-
-    #endregion
-
     #region Checking for duels
 
 
@@ -962,38 +1028,43 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-    public void RequestData(string desiredData, string collumnVerification, string dataValidation)
-    {
-        if (gameObject.activeInHierarchy == true)
-        {
-            StopAllCoroutines();
-            StartCoroutine(VerifyData(verifyUser, desiredData, "lobby", collumnVerification, "'" + dataValidation + "'"));
-        }
-    }
-
     #endregion
 
     #region Duel Methods
 
     public void RegisterRequestedDuelPlayer(int requestedSession, int requestedProfile, string requestedName)
     {
-        UpdateData("yes", "ready", int.Parse(currentSession));
+        UpdateData("queue", "ready", int.Parse(currentSession));
+        UpdateData("queue", "ready", requestedSession);
+        UpdateData(requestedSession.ToString(), "duel", int.Parse(currentSession));
+        UpdateData(currentSession.ToString(), "host", int.Parse(currentSession));
+        UpdateData(requestedSession.ToString(), "duel", requestedSession);
+        UpdateData(currentSession.ToString(), "host", requestedSession);
+
+        UpdateDuelPlayer(requestedName, requestedSession, requestedProfile);
     }
 
     public void UpdateDuelPlayer(string opponentName, int opponentSession, int opponentProfile)
     {
-        duelScreen.SetActive(true);
+        StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
 
-        duelSystem.UpdateSessions(int.Parse(currentSession), opponentSession);
-        duelSystem.UpdateNames(actualName, opponentName);
-        duelSystem.LoadVersusImages(currentCharacterSelected, opponentProfile);
+        duelScreen.SetActive(true);
 
         if (currentHost == currentSession)
         {
+            duelSystem.UpdateSessions(int.Parse(currentSession), opponentSession);
+            duelSystem.UpdateNames(actualName, opponentName);
+            duelSystem.LoadVersusImages(currentCharacterSelected, opponentProfile);
             duelSystem.OpenDuel(1);
         }
         else 
         {
+            StartCoroutine(VerifyHostName(verifyUser, "name", "lobby", "id", currentHost));
+            StartCoroutine(VerifyHostProfile(verifyUser, "profile", "lobby", "id", currentHost));
+
+            duelSystem.UpdateSessions(int.Parse(currentHost), int.Parse(currentSession));
+            duelSystem.UpdateNames(actualName, hostName);
+            duelSystem.LoadVersusImages(currentCharacterSelected, int.Parse(hostProfile));
             duelSystem.OpenDuel(2);
         }
     }
@@ -1006,6 +1077,13 @@ public class LobbyManager : MonoBehaviour
 
     public void DuelDeclined(int playerDuel, int opponentDuel)
     {
+        UpdateData("yes", "ready", playerDuel);
+        UpdateData("yes", "ready", opponentDuel);
+        UpdateData("0", "duel", playerDuel);
+        UpdateData("0", "host", playerDuel);
+        UpdateData("0", "duel", opponentDuel);
+        UpdateData("0", "host", opponentDuel);
+
         PlayerPrefs.SetInt("multiplayerPlayer", 0);
         PlayerPrefs.SetInt("multiplayerOpponent", 0);
     }

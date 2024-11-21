@@ -29,8 +29,8 @@ public class DuelSystem : MonoBehaviour
 
     private readonly float waitTime = 20f;
 
-    private int playerSession;
-    private int opponentSession;
+    public int playerSession;
+    public int opponentSession;
     private float countTime = 20f;
     
     private bool wasOpen = false;
