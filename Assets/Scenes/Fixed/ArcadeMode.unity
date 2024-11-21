@@ -882,6 +882,7 @@ MonoBehaviour:
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   updatePlayerList: https://queensheartgames.com/shadowodyssey/updateplayerlist.php
   verifyOffline: https://queensheartgames.com/shadowodyssey/verifyoffline.php
+  verifyDuel: https://queensheartgames.com/shadowodyssey/verifyduel.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   success001: Connection success! Connected with the server!
   success002: New account registered with sucess! Connecting...
@@ -896,6 +897,7 @@ MonoBehaviour:
   error005: Was not possible to apply new changes in database!
   error006: Was not possible to generate a new list, try again!
   error007: Was not possible to find offline players, try again!
+  error008: Was not possible to verify for any duel, try again!
   spawnPlayerArea: {fileID: 1924273011}
   characterSelectedImage: {fileID: 1008693459}
   noImage: {fileID: 21300000, guid: 01f101c768f3c404297e38dc2ba2c93c, type: 3}
@@ -6974,6 +6976,8 @@ MonoBehaviour:
   oliverVersus: {fileID: 21300000, guid: f25a19f7552cd5b4cb4bd967afc5e565, type: 3}
   orionVersus: {fileID: 21300000, guid: c5e26a9ca18eb8d43a99038f532be510, type: 3}
   ariaVersus: {fileID: 21300000, guid: 1ddd228c02af85144b9f7d307df24b4b, type: 3}
+  playerSession: 0
+  opponentSession: 0
 --- !u!1 &2069318041
 GameObject:
   m_ObjectHideFlags: 0

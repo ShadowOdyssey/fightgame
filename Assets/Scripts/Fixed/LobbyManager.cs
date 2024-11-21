@@ -1063,6 +1063,23 @@ public class LobbyManager : MonoBehaviour
             isDueling = true;
             StartCoroutine(CheckForDuel());
         }
+
+        if (isDueling == true)
+        {
+            StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
+
+            if (currentHost == "0")
+            {
+                hostName = "";
+                hostProfile = "";
+
+                PlayerPrefs.SetInt("multiplayerPlayer", 0);
+                PlayerPrefs.SetInt("multiplayerOpponent", 0);
+
+                duelScreen.SetActive(false);
+                isDueling = false;
+            }
+        }
     }
 
     #endregion
