@@ -128,7 +128,7 @@ public class LobbyPlayerSystem : MonoBehaviour
     {
         if (canFight == true)
         {
-            lobbySystem.RegisterRequestedDuelPlayer(actualSession, actualProfile, actualName);
+            lobbySystem.RegisterRequestedDuelPlayer(actualSession.ToString(), actualProfile.ToString(), actualName);
             canFight = false;
         }
     }
