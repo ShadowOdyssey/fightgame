@@ -965,6 +965,7 @@ public class LobbyManager : MonoBehaviour
     public void LeaveLobby() // Used by Leave Lobby Button
     {
         loadedLobby = false;
+        RemovePlayer(int.Parse(currentSession), actualName);
         UpdateData("offline", "status", int.Parse(currentSession));
         connectingScreen.SetActive(true);
         connectionText.text = "Leaving the lobby! Please wait...";
@@ -980,22 +981,6 @@ public class LobbyManager : MonoBehaviour
     private void ReturnToMenu()
     {
         SceneManager.LoadScene("MainMenu");
-    }
-
-    private void RefreshListComponents()
-    {
-        if (wasRefreshed == false)
-        {
-            foreach (Transform child in spawnPlayerArea)
-            {
-                if (child != null)
-                {
-                    Destroy(child.gameObject);
-                }
-            }
-        }
-
-        wasRefreshed = true;
     }
 
     public void OnDestroy()
