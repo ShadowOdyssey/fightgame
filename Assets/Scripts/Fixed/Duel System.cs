@@ -26,9 +26,10 @@ public class DuelSystem : MonoBehaviour
     public Sprite orionVersus;
     public Sprite ariaVersus;
 
+    private readonly float waitTime = 20f;
+
     private int playerSession;
     private int opponentSession;
-    private float waitTime = 20f;
     private float countTime = 20f;
     
     private bool wasOpen = false;
@@ -49,7 +50,7 @@ public class DuelSystem : MonoBehaviour
 
     public void LoadVersusImages(int playerProfile, int opponentProfile)
     {
-        if (wasOpen == true)
+        if (wasOpen == false)
         {
             switch (playerProfile)
             {
@@ -77,26 +78,9 @@ public class DuelSystem : MonoBehaviour
         }
     }
 
-    public void PlayerIsHost()
-    {
-        acceptButton.SetActive(false);
-        declineButton.SetActive(false);
-        waitText.text = "Waiting for opponent " + opponentNameText.text + " to accept...";
-        waitMessage.SetActive(true);
-        isWaiting = true;
-    }
-
-    public void PlayerIsRequested()
-    {
-        acceptButton.SetActive(true);
-        declineButton.SetActive(true);
-        waitMessage.SetActive(false);
-        isWaiting = true;
-    }
-
     public void UpdateSessions(int actualPlayerSesison, int actualOpponentSession)
     {
-        if (wasOpen == true)
+        if (wasOpen == false)
         {
             playerSession = actualPlayerSesison;
             opponentSession = actualOpponentSession;
@@ -105,8 +89,11 @@ public class DuelSystem : MonoBehaviour
 
     public void UpdateNames(string playerName, string opponentName)
     {
-        playerNameText.text = playerName;
-        opponentNameText.text = opponentName;
+        if (wasOpen == false)
+        {
+            playerNameText.text = playerName;
+            opponentNameText.text = opponentName;
+        }
     }
 
     public void OpenDuel(int playerIndex)
@@ -127,10 +114,27 @@ public class DuelSystem : MonoBehaviour
         }
     }
 
+    public void PlayerIsHost()
+    {
+        acceptButton.SetActive(false);
+        declineButton.SetActive(false);
+        waitText.text = "Waiting for opponent " + opponentNameText.text + " to accept...";
+        waitMessage.SetActive(true);
+        isWaiting = true;
+    }
+
+    public void PlayerIsRequested()
+    {
+        acceptButton.SetActive(true);
+        declineButton.SetActive(true);
+        waitMessage.SetActive(false);
+        isWaiting = true;
+    }
+
     public void AcceptButton()
     {
         isWaiting = false;
-        lobbySystem.DuelAccepted();
+        lobbySystem.DuelAccepted(playerSession, opponentSession);
     }
 
     public void DeclineButton()
@@ -145,6 +149,6 @@ public class DuelSystem : MonoBehaviour
         wasOpen = false;
         countTime = waitTime;
         gameObject.SetActive(false);
-        lobbySystem.DuelDeclined();
+        lobbySystem.DuelDeclined(playerSession, opponentSession);
     }
 }

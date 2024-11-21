@@ -974,25 +974,26 @@ public class LobbyManager : MonoBehaviour
         duelSystem.UpdateNames(actualName, opponentName);
         duelSystem.LoadVersusImages(currentCharacterSelected, opponentProfile);
 
-        if (currentHost == "yes")
+        if (currentHost == currentSession)
         {
             duelSystem.OpenDuel(1);
         }
-        
-        if (currentHost == "no")
+        else 
         {
             duelSystem.OpenDuel(2);
         }
     }
 
-    public void DuelAccepted()
+    public void DuelAccepted(int playerDuel, int opponentDuel)
     {
-
+        PlayerPrefs.SetInt("multiplayerPlayer", playerDuel);
+        PlayerPrefs.SetInt("multiplayerOpponent", opponentDuel);
     }
 
-    public void DuelDeclined()
+    public void DuelDeclined(int playerDuel, int opponentDuel)
     {
-
+        PlayerPrefs.SetInt("multiplayerPlayer", 0);
+        PlayerPrefs.SetInt("multiplayerOpponent", 0);
     }
 
     #endregion
