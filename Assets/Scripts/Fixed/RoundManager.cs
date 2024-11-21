@@ -236,6 +236,7 @@ public class RoundManager : MonoBehaviour
 
     public void Start()
     {
+        Debug.Log("Is multiplayer activated? " + PlayerPrefs.GetString("isMultiplayerActivade"));
         Debug.Log("Who Was The Host is: " + PlayerPrefs.GetString("whoWasTheHost"));
         Debug.Log("Player Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerPlayer"));
         Debug.Log("Opponent Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerOpponent"));
@@ -277,7 +278,7 @@ public class RoundManager : MonoBehaviour
 
     private void CheckForMultiplayerOrTrainningMode()
     {
-        if (PlayerPrefs.GetString("isMultiplayerActivade") != "yes") // Check if is multiplayer game to the loaded scene
+        if (PlayerPrefs.GetString("isMultiplayerActivade") == "no") // Check if is multiplayer game to the loaded scene
         {
             isMultiplayer = false;
 
@@ -294,6 +295,8 @@ public class RoundManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("Is multiplayer, so load persisted data!");
+
             isTrainingMode = false;
             isMultiplayer = true; // Game is multiplayer, so dont load stage number from Singleplay
 
@@ -323,6 +326,7 @@ public class RoundManager : MonoBehaviour
             playerNameText.text = PlayerPrefs.GetString("playerName").ToUpper(); // Load my name at left side
             enemyNameText.text = PlayerPrefs.GetString("multiplayerOpponentName").ToUpper(); // Load opponent name at right side
 
+            Debug.Log("I am in the left side");
             Debug.Log("Player Character Profile is: " + currentPlayerCharacter);
             Debug.Log("Enemy Character Profile is: " + currentEnemyCharacter);
             Debug.Log("Player Name is: " + playerNameText.text);
@@ -338,6 +342,7 @@ public class RoundManager : MonoBehaviour
             playerNameText.text = PlayerPrefs.GetString("multiplayerOpponentName").ToUpper(); // Load opponent name at left side
             enemyNameText.text = PlayerPrefs.GetString("playerName").ToUpper(); // Load my name at right side
 
+            Debug.Log("I am in the right side");
             Debug.Log("Player Character Profile is: " + currentPlayerCharacter);
             Debug.Log("Enemy Character Profile is: " + currentEnemyCharacter);
             Debug.Log("Player Name is: " + playerNameText.text);
