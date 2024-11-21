@@ -157,7 +157,6 @@ public class DuelSystem : MonoBehaviour
         wasOpen = false;
         countTime = waitTime;
         timerText.text = waitTime.ToString("00");
-        gameObject.SetActive(false);
         lobbySystem.DuelDeclined(playerSession, opponentSession);
     }
 }

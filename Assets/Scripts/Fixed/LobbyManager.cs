@@ -77,6 +77,8 @@ public class LobbyManager : MonoBehaviour
     public string updatePlayerList = "https://queensheartgames.com/shadowodyssey/updateplayerlist.php";
     [Tooltip("Put the URL of the PHP file Verify Offline in the host server")]
     public string verifyOffline = "https://queensheartgames.com/shadowodyssey/verifyoffline.php";
+    [Tooltip("Put the URL of the PHP file Verify Duel in the host server")]
+    public string verifyDuel = "https://queensheartgames.com/shadowodyssey/verifyduel.php";
     [Tooltip("Put the URL of the PHP file Log Off Player in the host server")]
     public string logOffPlayer = "https://queensheartgames.com/shadowodyssey/logoffplayer.php";
 
@@ -117,6 +119,8 @@ public class LobbyManager : MonoBehaviour
     public string error006 = "Was not possible to generate a new list, try again!";
     [Tooltip("Setup the message when to request Offline Players list has failed to load")]
     public string error007 = "Was not possible to find offline players, try again!";
+    [Tooltip("Setup the message when to request Verify Duel has failed to load")]
+    public string error008 = "Was not possible to verify for any duel, try again!";
 
     #endregion
 
@@ -182,6 +186,7 @@ public class LobbyManager : MonoBehaviour
     private bool loadedLobby = false;
     private bool notRegistered = false;
     private bool isReady = false;
+    private bool isDueling = false;
     private string actualName = "";
     private string currentSession = "";
     private string currentHost = "";
@@ -1001,7 +1006,47 @@ public class LobbyManager : MonoBehaviour
 
     #region Checking for duels
 
+    public IEnumerator CheckForDuel()
+    {
+        //$sql = "SELECT id, name FROM lobby WHERE status = 'offline'";
 
+        WWWForm form = new WWWForm();
+        UnityWebRequest request = UnityWebRequest.Post(verifyDuel, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            responseFromServer = request.downloadHandler.text;
+
+            //Debug.Log("Response from server was: " + responseFromServer);
+
+            if (responseFromServer == "error008")
+            {
+                serverMessage.text = error008;
+                yield break; // Exit the coroutine if there's an error
+            }
+
+            if (responseFromServer != "error008")
+            {
+                playersList = responseFromServer.Split(new[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (string playerString in playersList)
+                {
+                    // playerInfo[0] = ID playerInfo[1] = NAME playerInfo[2] = DUEL playerInfo[3] = HOST
+
+                    playerInfo = playerString.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (playerInfo[2] == currentSession && playerInfo[0] != currentSession)
+                    {
+                        UpdateDuelPlayer("",0,0);
+                    }
+                }
+            }
+        }
+
+        request.Dispose();
+    }
 
     #endregion
 
@@ -1012,7 +1057,12 @@ public class LobbyManager : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(FindOfflinePlayers());
         StartCoroutine(UpdatePlayerList());
-        //StartCoroutine(CheckForDuel());
+
+        if (isDueling == false)
+        {
+            isDueling = true;
+            StartCoroutine(CheckForDuel());
+        }
     }
 
     #endregion
@@ -1034,13 +1084,13 @@ public class LobbyManager : MonoBehaviour
 
     public void RegisterRequestedDuelPlayer(int requestedSession, int requestedProfile, string requestedName)
     {
+        isDueling = true;
         UpdateData("queue", "ready", int.Parse(currentSession));
         UpdateData("queue", "ready", requestedSession);
         UpdateData(requestedSession.ToString(), "duel", int.Parse(currentSession));
         UpdateData(currentSession.ToString(), "host", int.Parse(currentSession));
         UpdateData(requestedSession.ToString(), "duel", requestedSession);
         UpdateData(currentSession.ToString(), "host", requestedSession);
-
         UpdateDuelPlayer(requestedName, requestedSession, requestedProfile);
     }
 
@@ -1084,8 +1134,14 @@ public class LobbyManager : MonoBehaviour
         UpdateData("0", "duel", opponentDuel);
         UpdateData("0", "host", opponentDuel);
 
+        hostName = "";
+        hostProfile = "";
+
         PlayerPrefs.SetInt("multiplayerPlayer", 0);
         PlayerPrefs.SetInt("multiplayerOpponent", 0);
+
+        duelScreen.SetActive(false);
+        isDueling = false;
     }
 
     #endregion
