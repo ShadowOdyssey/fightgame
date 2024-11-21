@@ -940,6 +940,7 @@ public class LobbyManager : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(FindOfflinePlayers());
         StartCoroutine(UpdatePlayerList());
+        StartCoroutine(CheckForDuel());
     }
 
     #endregion
