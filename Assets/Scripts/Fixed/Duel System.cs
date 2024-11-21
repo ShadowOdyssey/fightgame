@@ -29,8 +29,8 @@ public class DuelSystem : MonoBehaviour
 
     private readonly float waitTime = 20f;
 
-    public int playerSession;
-    public int opponentSession;
+    public int playerSession = 0;
+    public int opponentSession = 0;
     private float countTime = 20f;
     
     private bool wasOpen = false;
@@ -56,7 +56,7 @@ public class DuelSystem : MonoBehaviour
         }
     }
 
-    public void LoadVersusImages(int playerProfile, int opponentProfile)
+    public void LoadVersusImages(int playerProfile, string opponentProfile)
     {
         if (wasOpen == false)
         {
@@ -74,24 +74,24 @@ public class DuelSystem : MonoBehaviour
 
             switch (opponentProfile)
             {
-                case 1: opponentImage.sprite = gabriellaVersus; break;
-                case 2: opponentImage.sprite = marcusVersus; break;
-                case 3: opponentImage.sprite = selenaVersus; break;
-                case 4: opponentImage.sprite = bryanVersus; break;
-                case 5: opponentImage.sprite = nunVersus; break;
-                case 6: opponentImage.sprite = oliverVersus; break;
-                case 7: opponentImage.sprite = orionVersus; break;
-                case 8: opponentImage.sprite = ariaVersus; break;
+                case "1": opponentImage.sprite = gabriellaVersus; break;
+                case "2": opponentImage.sprite = marcusVersus; break;
+                case "3": opponentImage.sprite = selenaVersus; break;
+                case "4": opponentImage.sprite = bryanVersus; break;
+                case "5": opponentImage.sprite = nunVersus; break;
+                case "6": opponentImage.sprite = oliverVersus; break;
+                case "7": opponentImage.sprite = orionVersus; break;
+                case "8": opponentImage.sprite = ariaVersus; break;
             }
         }
     }
 
-    public void UpdateSessions(int actualPlayerSesison, int actualOpponentSession)
+    public void UpdateSessions(string actualPlayerSesison, string actualOpponentSession)
     {
         if (wasOpen == false)
         {
-            playerSession = actualPlayerSesison;
-            opponentSession = actualOpponentSession;
+            playerSession = int.Parse(actualPlayerSesison);
+            opponentSession = int.Parse(actualOpponentSession);
         }
     }
 

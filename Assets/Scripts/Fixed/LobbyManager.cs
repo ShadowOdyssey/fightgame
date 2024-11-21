@@ -1039,7 +1039,7 @@ public class LobbyManager : MonoBehaviour
 
                     if (playerInfo[2] == currentSession && playerInfo[0] != currentSession)
                     {
-                        UpdateDuelPlayer("",0,0);
+                        UpdateDuelPlayer("","","");
                         isDueling = true;
                     }
                 }
@@ -1099,19 +1099,19 @@ public class LobbyManager : MonoBehaviour
 
     #region Duel Methods
 
-    public void RegisterRequestedDuelPlayer(int requestedSession, int requestedProfile, string requestedName)
+    public void RegisterRequestedDuelPlayer(string requestedSession, string requestedProfile, string requestedName)
     {
         UpdateData("queue", "ready", int.Parse(currentSession));
-        UpdateData("queue", "ready", requestedSession);
+        UpdateData("queue", "ready", int.Parse(requestedSession));
         UpdateData(requestedSession.ToString(), "duel", int.Parse(currentSession));
         UpdateData(currentSession.ToString(), "host", int.Parse(currentSession));
-        UpdateData(requestedSession.ToString(), "duel", requestedSession);
-        UpdateData(currentSession.ToString(), "host", requestedSession);
+        UpdateData(requestedSession.ToString(), "duel", int.Parse(requestedSession));
+        UpdateData(currentSession.ToString(), "host", int.Parse(requestedSession));
         UpdateDuelPlayer(requestedName, requestedSession, requestedProfile);
         isDueling = true;
     }
 
-    public void UpdateDuelPlayer(string opponentName, int opponentSession, int opponentProfile)
+    public void UpdateDuelPlayer(string opponentName, string opponentSession, string opponentProfile)
     {
         StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
 
@@ -1119,7 +1119,7 @@ public class LobbyManager : MonoBehaviour
 
         if (currentHost == currentSession)
         {
-            duelSystem.UpdateSessions(int.Parse(currentSession), opponentSession);
+            duelSystem.UpdateSessions(currentSession, opponentSession);
             duelSystem.UpdateNames(actualName, opponentName);
             duelSystem.LoadVersusImages(currentCharacterSelected, opponentProfile);
             duelSystem.OpenDuel(1);
@@ -1129,9 +1129,9 @@ public class LobbyManager : MonoBehaviour
             StartCoroutine(VerifyHostName(verifyUser, "name", "lobby", "id", currentHost));
             StartCoroutine(VerifyHostProfile(verifyUser, "profile", "lobby", "id", currentHost));
 
-            duelSystem.UpdateSessions(int.Parse(currentHost), int.Parse(currentSession));
+            duelSystem.UpdateSessions(currentHost, currentSession);
             duelSystem.UpdateNames(actualName, hostName);
-            duelSystem.LoadVersusImages(currentCharacterSelected, int.Parse(hostProfile));
+            duelSystem.LoadVersusImages(currentCharacterSelected, hostProfile);
             duelSystem.OpenDuel(2);
         }
     }
