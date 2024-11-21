@@ -73,6 +73,8 @@ public class LobbyManager : MonoBehaviour
     public string updateUser = "https://queensheartgames.com/shadowodyssey/updateuser.php";
     [Tooltip("Put the URL of the PHP file Update Player List in the host server")]
     public string updatePlayerList = "https://queensheartgames.com/shadowodyssey/updateplayerlist.php";
+    [Tooltip("Put the URL of the PHP file Log Off Player in the host server")]
+    public string logOffPlayer = "https://queensheartgames.com/shadowodyssey/logoffplayer.php";
 
     #endregion
 
@@ -89,6 +91,8 @@ public class LobbyManager : MonoBehaviour
     public string success004 = "User register in database changed!";
     [Tooltip("Setup the message when Player On Lobby list was loaded successfuly")]
     public string success005 = "Players On Lobby list refreshed with success!";
+    [Tooltip("Setup the message when some player has logged off")]
+    public string success006 = " has logged off!";
 
     #endregion
 
@@ -152,10 +156,10 @@ public class LobbyManager : MonoBehaviour
     #region Hidden Variables
 
     [Header("Parse Variables")]
-    public HashSet<string> uniquePlayers = new HashSet<string>();
-    public string[] oldList = new string[0];
+    private HashSet<string> uniquePlayers = new HashSet<string>();
     private string[] playersList = new string[0];
     private string[] playerInfo = new string[0];
+    private string[] oldList = new string[0];
     private string id = "";
     private string playerName = "";
     private string profile = "";
@@ -174,9 +178,11 @@ public class LobbyManager : MonoBehaviour
     private bool loadedLobby = false;
     private bool notRegistered = false;
     private bool firstRegister = false;
+    private bool wasRefreshed = false;
     private string actualName = "";
     private string currentSession = "";
     private string responseFromServer = "";
+    private string actualHash = "";
 
     #endregion
 
@@ -741,38 +747,32 @@ public class LobbyManager : MonoBehaviour
                     oldList = playersList.ToArray();
                 }
 
+                playersList = responseFromServer.Split(new[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries);
+
                 foreach (string playerString in playersList)
                 {
+                    actualHash = playerString;
                     playerInfo = playerString.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
                     if (playerInfo[0] != currentSession)
                     {
-                        if (uniquePlayers.Contains(playerString))
-                        {
-                            GameObject updatePlayer = GameObject.Find(playerInfo[0] + playerInfo[1] + "(Clone)");
-
-                            if (updatePlayer != null)
-                            {
-                                updatePlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus(playerInfo[5]);
-                            }
-
-                            continue; // Skip to the next iteration if duplicate
-                        }
-
                         id = playerInfo[0];
                         playerName = playerInfo[1];
                         profile = playerInfo[2];
                         wins = playerInfo[3];
                         ready = playerInfo[4];
                         status = playerInfo[5];
+                    }
 
+                    GameObject actualPlayer = GameObject.Find(id + playerName + "(Clone)");
+
+                    if (actualPlayer == null)
+                    {
                         playerLobbyPrefab.name = id + playerName;
 
                         Instantiate(playerLobbyPrefab, spawnPlayerArea);
 
-                        GameObject actualPlayer = GameObject.Find(id + playerName + "(Clone)");
-
-                        actualPlayer.GetComponent<LobbyPlayerSystem>().RegisterUnique(playerString);
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().RegisterUnique(actualHash);
                         actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateSession(int.Parse(id));
                         actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateProfile(int.Parse(profile));
                         actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateWins(int.Parse(wins));
@@ -781,8 +781,16 @@ public class LobbyManager : MonoBehaviour
                         actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus(status);
 
                         playerLobbyPrefab.name = "LobbyPlayers";
-
-                        uniquePlayers.Add(playerString);
+                    }
+                    else
+                    {
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().RegisterUnique(actualHash);
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateSession(int.Parse(id));
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateProfile(int.Parse(profile));
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateWins(int.Parse(wins));
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateName(playerName);
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateReady(ready);
+                        actualPlayer.GetComponent<LobbyPlayerSystem>().UpdateStatus(status);
                     }
                 }
 
@@ -795,8 +803,42 @@ public class LobbyManager : MonoBehaviour
                 ready = "";
                 status = "";
 
-                loadedLobby = true;
+                if (loadedLobby == false)
+                {
+                    loadedLobby = true;
+                }
+
                 serverMessage.text = success005;
+            }
+        }
+
+        request.Dispose();
+    }
+
+    #endregion
+
+    #region Log off a player that left the lobby
+
+    public IEnumerator LogOffPlayer(string urlPHP, int playerSession, string playerName)
+    {
+        // Lets use Verify Data to request a specific data in database
+
+        WWWForm form = new WWWForm();
+        form.AddField("validateRequest", playerSession);
+
+        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            responseFromServer = request.downloadHandler.text;
+
+            //Debug.Log("Response from server was: " + responseFromServer);
+
+            if (responseFromServer == "success006")
+            {
+                serverMessage.text = "Player " + playerName + success006;
             }
         }
 
@@ -849,6 +891,7 @@ public class LobbyManager : MonoBehaviour
     public void RefreshList()
     {
         StopAllCoroutines();
+        wasRefreshed = false;
         StartCoroutine(UpdatePlayerList());
     }
 
@@ -887,14 +930,31 @@ public class LobbyManager : MonoBehaviour
         Invoke(nameof(ReturnToMenu), 5f); // Delay MainMenu load to give enough time to register the Offline data in database before to leave Arcade Mode scene
     }
 
+    public void RemovePlayer(int playerSession, string playerName, string playerHash)
+    {
+        uniquePlayers.Remove(playerHash);
+        StartCoroutine(LogOffPlayer(logOffPlayer, playerSession, playerName));
+    }
+
     private void ReturnToMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void RemoveUnique(string actualHash)
+    private void RefreshListComponents()
     {
-        uniquePlayers.Remove(actualHash);
+        if (wasRefreshed == false)
+        {
+            foreach (Transform child in spawnPlayerArea)
+            {
+                if (child != null)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
+
+        wasRefreshed = true;
     }
 
     public void OnDestroy()

@@ -15,9 +15,10 @@ public class LobbyPlayerSystem : MonoBehaviour
     private int actualProfile = 0;
     private int actualWins = 0;
     private bool canFight = false;
-    private string playerName = "";
-    private string playerReady = "";
-    private string playerStatus = "";
+    private bool wasLoaded = false;
+    private string actualName = "";
+    private string actualReady = "";
+    private string actualStatus = "";
     private string uniqueHash = "";
 
     public void Start()
@@ -32,6 +33,8 @@ public class LobbyPlayerSystem : MonoBehaviour
         {
             LoadProfile();
         }
+
+        wasLoaded = true;
     }
 
     public void LoadProfile()
@@ -52,58 +55,72 @@ public class LobbyPlayerSystem : MonoBehaviour
     public void UpdateSession(int newSession)
     {
         actualSession = newSession;
+
+        //Debug.Log("Player " + gameObject.name + " updated session! Session value is: " + actualSession);
     }
 
     public void UpdateProfile(int newProfile)
     {
         actualProfile = newProfile;
-        LoadProfile();
+
+        if (wasLoaded == true)
+        {
+            LoadProfile();
+        }
+
+        //Debug.Log("Player " + gameObject.name + " updated profile! Profile value is: " + actualProfile);
     }
 
     public void UpdateWins(int totalWins)
     {
         actualWins = totalWins;
         totalWinsText.text = totalWins.ToString();
+
+        //Debug.Log("Player " + gameObject.name + " updated wins! Wins value is: " + actualWins);
     }
 
     public void UpdateName(string newName)
     {
-        playerName = newName;
-        playerNameText.text = playerName;
+        actualName = newName;
+        playerNameText.text = actualName;
+
+        //Debug.Log("Player " + gameObject.name + " updated name! Name value is: " + actualName);
     }
 
     public void UpdateReady(string newReady)
     {
-        playerReady = newReady;
+        actualReady = newReady;
 
-        if (playerReady == "no")
+        if (actualReady == "no")
         {
-            canFight = false;
-            playerReady = "LOBBY";
+            actualReady = "LOBBY";
             buttonFightText.color = Color.white;
-            buttonFightText.text = playerReady;
+            buttonFightText.text = actualReady;
+            canFight = false;
         }
 
-        if (playerReady == "yes")
+        if (actualReady == "yes")
         {
-            canFight = true;
-            playerReady = "FIGHT";
+            actualReady = "FIGHT";
             buttonFightText.color = Color.green;
-            buttonFightText.text = playerReady;
+            buttonFightText.text = actualReady;
+            canFight = true;
         }
+
+        //Debug.Log("Player " + gameObject.name + " updated ready! Ready value is: " + actualReady);
     }
 
     public void UpdateStatus(string newStatus)
     {
-        //Debug.Log("Player " + gameObject.name + " updated new status! Status: " + newStatus);
+        actualStatus = newStatus;
 
-        playerStatus = newStatus;
-
-        if (playerStatus == "offline")
+        if (actualStatus == "offline")
         {
-            lobbySystem.RemoveUnique(uniqueHash);
+            lobbySystem.RemovePlayer(actualSession, actualName, uniqueHash);
             Destroy(gameObject);
         }
+
+        //Debug.Log("Player " + gameObject.name + " updated new status! Status: " + newStatus);
     }
 
     public void RegisterUnique(string newHash)
