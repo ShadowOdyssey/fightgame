@@ -497,14 +497,14 @@ public class LobbyManager : MonoBehaviour
                 readyButtonText.color = Color.green;
                 readyButtonText.text = "FIGHT!";
                 isReady = true;
-                UpdateData("yes", "ready", int.Parse(currentSession));
+                UpdateData("yes", "ready", currentSession);
             }
             else
             {
                 readyButtonText.color = Color.white;
                 readyButtonText.text = "READY?";
                 isReady = false;
-                UpdateData("no", "ready", int.Parse(currentSession));
+                UpdateData("no", "ready", currentSession);
             }
         }
     }
@@ -525,14 +525,14 @@ public class LobbyManager : MonoBehaviour
     {
         selectedCharacter = true;
         PlayerPrefs.SetInt("selectedMultiplayerPlayerCharacter", currentCharacterSelected);
-        UpdateData(currentCharacterSelected.ToString(), "profile", int.Parse(currentSession));
+        UpdateData(currentCharacterSelected.ToString(), "profile", currentSession);
     }
 
     private void ResetSelection()
     {
         selectedCharacter = false;
         PlayerPrefs.SetInt("selectedMultiplayerPlayerCharacter", 0);
-        UpdateData(0.ToString(), "profile", int.Parse(currentSession));
+        UpdateData(0.ToString(), "profile", currentSession);
     }
 
     #endregion
