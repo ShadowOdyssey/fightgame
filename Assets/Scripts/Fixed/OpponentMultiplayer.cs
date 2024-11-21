@@ -7,5 +7,12 @@ public class OpponentMultiplayer : MonoBehaviour
     public void SetHost(int newHost)
     {
         actualHost = newHost;
+
+        LoadData();
+    }
+
+    private void LoadData()
+    {
+
     }
 }

@@ -1150,8 +1150,10 @@ public class LobbyManager : MonoBehaviour
         PlayerPrefs.SetString("multiplayerOpponentName", hostName);
         PlayerPrefs.SetString("multiplayerOpponentProfile", hostProfile);
 
+        //Debug.Log("Who Was The Host is: " + PlayerPrefs.GetString("whoWasTheHost"));
         //Debug.Log("Player Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerPlayer"));
         //Debug.Log("Opponent Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerOpponent"));
+        //Debug.Log("Player Profile is: " + PlayerPrefs.GetInt("multiplayerPlayerProfile"));
         //Debug.Log("Opponent Multiplayer Name is: " + PlayerPrefs.GetString("multiplayerOpponentName"));
         //Debug.Log("Opponent Multiplayer Profile is: " + PlayerPrefs.GetString("multiplayerOpponentProfile"));
 
