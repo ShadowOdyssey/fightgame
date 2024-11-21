@@ -1063,7 +1063,11 @@ public class LobbyManager : MonoBehaviour
         {
             isDueling = true;
             StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
-            Invoke(nameof(StartDuelCheck), 3f);
+
+            if (currentHost != "" || currentHost != "0")
+            {
+                Invoke(nameof(StartDuelCheck), 3f);
+            }
         }
 
         if (isDueling == true && wasHostLoaded == true)
@@ -1212,6 +1216,7 @@ public class LobbyManager : MonoBehaviour
         if (gameObject.activeInHierarchy == true)
         {
             loadedLobby = false;
+            UpdateData("offline", "status", currentSession);
             RemovePlayer(int.Parse(currentSession), actualName); // For some reason Arcade Mode scene was destroyed, so inform player is offline
         }
     }
@@ -1221,6 +1226,7 @@ public class LobbyManager : MonoBehaviour
         if (gameObject.activeInHierarchy == true)
         {
             loadedLobby = false;
+            UpdateData("offline", "status", currentSession);
             RemovePlayer(int.Parse(currentSession), actualName); // Player closed the game, inform database that player is offline
         }
     }
