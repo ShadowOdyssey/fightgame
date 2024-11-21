@@ -211,7 +211,7 @@ public class RoundManager : MonoBehaviour
     [Tooltip("When enabled so Trainning system will be loaded in the scene, if disabled so load Singleplay system or Multiplayer system in the scene")]
     public bool isTrainingMode = false;
     [Tooltip("When enabled so Multiplayer system will be loaded in the scene, if disabled so load Singleplay system or Training system in the scene")]
-    private bool isMultiplayer = false;
+    public bool isMultiplayer = false;
     [Tooltip("Trigger to start events and round mechanics in the current round")]
     private bool canDecrease = false;
     [Tooltip("When enabled means game saved the result of the fight to the next scene")]

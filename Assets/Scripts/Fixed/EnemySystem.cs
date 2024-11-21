@@ -109,20 +109,27 @@ public class EnemySystem : MonoBehaviour
 
     public void Start()
     {
-        switch (roundSystem.currentPlayerCharacter)
+        if (roundSystem.isMultiplayer == true)
         {
-            case 1: playerBody = GameObject.Find("GabriellaPlayer").GetComponent<Transform>(); break;
-            case 2: playerBody = GameObject.Find("MarcusPlayer").GetComponent<Transform>(); break;
-            case 3: playerBody = GameObject.Find("SelenaPlayer").GetComponent<Transform>(); break;
-            case 4: playerBody = GameObject.Find("BryanPlayer").GetComponent<Transform>(); break;
-            case 5: playerBody = GameObject.Find("NunPlayer").GetComponent<Transform>(); break;
-            case 6: playerBody = GameObject.Find("OliverPlayer").GetComponent<Transform>(); break;
-            case 7: playerBody = GameObject.Find("OrionPlayer").GetComponent<Transform>(); break;
-            case 8: playerBody = GameObject.Find("AriaPlayer").GetComponent<Transform>(); break;
+            DisableAI();
         }
+        else
+        {
+            switch (roundSystem.currentPlayerCharacter)
+            {
+                case 1: playerBody = GameObject.Find("GabriellaPlayer").GetComponent<Transform>(); break;
+                case 2: playerBody = GameObject.Find("MarcusPlayer").GetComponent<Transform>(); break;
+                case 3: playerBody = GameObject.Find("SelenaPlayer").GetComponent<Transform>(); break;
+                case 4: playerBody = GameObject.Find("BryanPlayer").GetComponent<Transform>(); break;
+                case 5: playerBody = GameObject.Find("NunPlayer").GetComponent<Transform>(); break;
+                case 6: playerBody = GameObject.Find("OliverPlayer").GetComponent<Transform>(); break;
+                case 7: playerBody = GameObject.Find("OrionPlayer").GetComponent<Transform>(); break;
+                case 8: playerBody = GameObject.Find("AriaPlayer").GetComponent<Transform>(); break;
+            }
 
-        playerSystem = roundSystem.playerSystem;
-        distanceToTarget = Vector3.Distance(transform.position, playerBody.position); // Get initial position from Player to get the first distance measure only once
+            playerSystem = roundSystem.playerSystem;
+            distanceToTarget = Vector3.Distance(transform.position, playerBody.position); // Get initial position from Player to get the first distance measure only once
+        }
     }
 
     #endregion
