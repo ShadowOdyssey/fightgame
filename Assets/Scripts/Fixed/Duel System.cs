@@ -6,6 +6,11 @@ public class DuelSystem : MonoBehaviour
 {
     public TextMeshProUGUI playerNameText;
     public TextMeshProUGUI opponentNameText;
+    public TextMeshProUGUI waitText;
+
+    public GameObject acceptButton;
+    public GameObject declineButton;
+    public GameObject waitMessage;
 
     public Image playerImage;
     public Image opponentImage;
@@ -21,8 +26,24 @@ public class DuelSystem : MonoBehaviour
 
     private int playerSession;
     private int opponentSession;
-
+    private float waitTime = 20f;
+    private float countTime = 20f;
+    
     private bool wasOpen = false;
+    private bool isWaiting = false;
+
+    public void Update()
+    {
+        if (isWaiting == true)
+        {
+            countTime = countTime - Time.deltaTime;
+
+            if (countTime < 0f)
+            {
+                DeclineButton();
+            }
+        }
+    }
 
     public void LoadVersusImages(int playerProfile, int opponentProfile)
     {
@@ -54,6 +75,23 @@ public class DuelSystem : MonoBehaviour
         }
     }
 
+    public void PlayerIsHost()
+    {
+        acceptButton.SetActive(false);
+        declineButton.SetActive(false);
+        waitText.text = "Waiting for opponent " + opponentNameText.text + " to accept...";
+        waitMessage.SetActive(true);
+        isWaiting = true;
+    }
+
+    public void PlayerIsRequested()
+    {
+        acceptButton.SetActive(true);
+        declineButton.SetActive(true);
+        waitMessage.SetActive(false);
+        isWaiting = true;
+    }
+
     public void UpdateSessions(int actualPlayerSesison, int actualOpponentSession)
     {
         if (wasOpen == true)
@@ -71,7 +109,25 @@ public class DuelSystem : MonoBehaviour
 
     public void AcceptButton()
     {
+        isWaiting = false;
+    }
 
+    public void OpenDuel(int playerIndex)
+    {
+        if (wasOpen == false)
+        {
+            if (playerIndex == 1)
+            {
+                PlayerIsHost();
+            }
+
+            if (playerIndex == 2)
+            {
+                PlayerIsRequested();
+            }
+
+            wasOpen = true;
+        }
     }
 
     public void DeclineButton()
@@ -82,7 +138,9 @@ public class DuelSystem : MonoBehaviour
         opponentImage.sprite = null;
         playerSession = 0;
         opponentSession = 0;
+        isWaiting = false;
         wasOpen = false;
+        countTime = waitTime;
         gameObject.SetActive(false);
     }
 }
