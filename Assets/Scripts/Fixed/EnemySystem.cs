@@ -1082,4 +1082,13 @@ public class EnemySystem : MonoBehaviour
     }
 
     #endregion
+
+    #region Multiplayer Operations
+
+    public void DisableAI()
+    {
+        this.enabled = false;
+    }
+
+    #endregion
 }

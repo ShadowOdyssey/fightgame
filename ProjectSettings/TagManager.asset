@@ -9,6 +9,7 @@ TagManager:
   - System
   - Arena
   - Collider
+  - Multiplayer
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Opponent
   - Scenario
   - Collider
-  - 
+  - Multiplayer
   - 
   - 
   - 

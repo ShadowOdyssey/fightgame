@@ -96,11 +96,13 @@
     <Compile Include="Assets\Scripts\Fixed\EnemySystem.cs" />
     <Compile Include="Assets\Scripts\Old\SettingsBattle.cs" />
     <Compile Include="Assets\Scripts\Fixed\InfoSystem.cs" />
+    <Compile Include="Assets\Scripts\Fixed\FightMultiplayer.cs" />
     <Compile Include="Assets\Scripts\Old\Battleground1.cs" />
     <Compile Include="Assets\Scripts\Fixed\AudioSystem.cs" />
     <Compile Include="Assets\Scripts\Old\AriaMovement.cs" />
     <Compile Include="Assets\Scripts\Fixed\RoundManager.cs" />
     <Compile Include="Assets\Scripts\Old\AdjustJoystickSize.cs" />
+    <Compile Include="Assets\Scripts\Fixed\OpponentMultiplayer.cs" />
     <Compile Include="Assets\Scripts\Fixed\TrainingSystem.cs" />
     <Compile Include="Assets\Scripts\Old\ComboPunch.cs" />
     <Compile Include="Assets\Scripts\Old\PunchElbowController.cs" />
