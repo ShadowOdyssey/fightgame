@@ -1,14 +1,10 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using TMPro;
-using Unity.VisualScripting;
-using System;
-using System.Runtime.CompilerServices;
-using System.Collections.Generic;
-using System.Linq;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -45,6 +41,8 @@ public class LobbyManager : MonoBehaviour
     public TextMeshProUGUI selectButtonText;
     [Tooltip("Attach here Connecting Text object inside Connecting object that is inside Character Selected object that is inside UI object in the hierarchy")]
     public TextMeshProUGUI connectionText;
+    [Tooltip("Attach here Ready Text object inside Ready button that is inside Lobby object that is inside UI object in the hierarchy")]
+    public TextMeshProUGUI readyButtonText;
 
     [Header("Attributes Values")]
     [Tooltip("Attach here Durability Value slider inside DURABILITY object that is inside Character Selected object that is inside UI object in the hierarchy")]
@@ -180,6 +178,7 @@ public class LobbyManager : MonoBehaviour
     private bool loadedLobby = false;
     private bool notRegistered = false;
     private bool wasRefreshed = false;
+    private bool isReady = false;
     private string actualName = "";
     private string currentSession = "";
     private string responseFromServer = "";
@@ -468,7 +467,7 @@ public class LobbyManager : MonoBehaviour
         lobbyAudioSystem.PlayIntro(1);
     }
 
-    public void FightButton()
+    public void ReadyButton()
     {
         if (selectedCharacter == false)
         {
@@ -477,7 +476,20 @@ public class LobbyManager : MonoBehaviour
         }
         else
         {
-            // Make Player ready to fight in the lobby
+            if (isReady == false)
+            {
+                readyButtonText.color = Color.green;
+                readyButtonText.text = "FIGHT!";
+                isReady = true;
+                UpdateData("yes", "ready", int.Parse(currentSession));
+            }
+            else
+            {
+                readyButtonText.color = Color.white;
+                readyButtonText.text = "READY?";
+                isReady = false;
+                UpdateData("no", "ready", int.Parse(currentSession));
+            }
         }
     }
 
