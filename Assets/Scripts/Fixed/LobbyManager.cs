@@ -185,7 +185,6 @@ public class LobbyManager : MonoBehaviour
     private bool joinedLobby = false;
     private bool loadedLobby = false;
     private bool notRegistered = false;
-    private bool foundPlayers = false;
     private bool isReady = false;
     private bool isDueling = false;
     private bool wasHostLoaded = false;
@@ -803,7 +802,6 @@ public class LobbyManager : MonoBehaviour
                     loadedLobby = true;
                 }
 
-                foundPlayers = false;
                 serverMessage.text = success005;
             }
         }
@@ -847,6 +845,10 @@ public class LobbyManager : MonoBehaviour
                 {
                     wasHostLoaded = true;
                     Debug.Log("Host Value from server is: " + currentHost);
+                }
+                else
+                {
+                    isDueling = false;
                 }
             }
         }
@@ -1056,22 +1058,21 @@ public class LobbyManager : MonoBehaviour
 
     public void RefreshList()
     {
-        if (foundPlayers == false)
-        {
-            foundPlayers = true;
-
-            StopAllCoroutines();
-            StartCoroutine(FindOfflinePlayers());
-            StartCoroutine(UpdatePlayerList());
-        }
+        StartCoroutine(FindOfflinePlayers());
+        StartCoroutine(UpdatePlayerList());
 
         if (isDueling == false)
         {
             isDueling = true;
+
+            Debug.Log("Checking for Host");
+
             StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
 
-            if (currentHost != "" && currentHost != "0" && currentHost != currentSession)
+            if (currentHost != "0" && currentHost != currentSession)
             {
+                Debug.Log("Host was found!");
+
                 Invoke(nameof(StartDuelCheck), 3f);
             }
         }
@@ -1080,7 +1081,7 @@ public class LobbyManager : MonoBehaviour
         {
             wasHostLoaded = false;
 
-            if (currentHost == "0" || currentHost == "")
+            if (currentHost == "0")
             {
                 hostName = "";
                 hostProfile = "";

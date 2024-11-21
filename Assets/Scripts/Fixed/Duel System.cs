@@ -27,11 +27,11 @@ public class DuelSystem : MonoBehaviour
     public Sprite orionVersus;
     public Sprite ariaVersus;
 
-    private readonly float waitTime = 20f;
+    private readonly float waitTime = 60f;
 
     public string playerSession = "";
     public string opponentSession = "";
-    private float countTime = 20f;
+    private float countTime = 60f;
     
     private bool wasOpen = false;
     private bool isWaiting = false;
