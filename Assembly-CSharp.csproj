@@ -70,10 +70,10 @@
     <Compile Include="Assets\Scripts\Old\SinglePlayer.cs" />
     <Compile Include="Assets\Scripts\Fixed\LobbyPlayerSystem.cs" />
     <Compile Include="Assets\Scripts\Old\BattleGroundSelection.cs" />
+    <Compile Include="Assets\Scripts\Fixed\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Fixed\CooldownSystem.cs" />
-    <Compile Include="Assets\Scripts\Old\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Old\OrionMovement.cs" />
-    <Compile Include="Assets\Scripts\Old\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\Fixed\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Fixed\SelectionCharacter.cs" />
     <Compile Include="Assets\Scripts\Old\selena vs.cs" />
     <Compile Include="Assets\Scripts\Old\MarcusMovement.cs" />

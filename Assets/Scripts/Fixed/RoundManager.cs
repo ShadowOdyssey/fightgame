@@ -21,6 +21,10 @@ public class RoundManager : MonoBehaviour
     [Tooltip("EnemySystem will be loaded automatically when scene to start, so attach nothing here! Make sure characters and arenas area all disabled!")]
     public EnemySystem enemySystem;
 
+    [Header("Multiplayer Setup")]
+    public OpponentMultiplayer playerMultiplayer;
+    public OpponentMultiplayer enemyMultiplayer;
+
     [Header("Arena Battlegrounds")]
     [Tooltip("Attach here Arena 1 object inside Battlegrounds object in hierarchy")]
     public GameObject arena1;

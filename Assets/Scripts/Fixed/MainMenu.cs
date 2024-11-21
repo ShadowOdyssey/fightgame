@@ -24,6 +24,8 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        PlayerPrefs.SetString("isMultiplayerActivade", "no");
+
         Cursor.visible = true;
 
         // Initialize audio source and set mute based on isSoundOn
