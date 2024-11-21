@@ -677,7 +677,7 @@ public class LobbyManager : MonoBehaviour
 
     #region Update user info in database
 
-    public IEnumerator UpdateUser(string urlPHP, string newValue, string desiredCollumn, int validateRequest)
+    public IEnumerator UpdateUser(string urlPHP, string newValue, string desiredCollumn, string validateRequest)
     {
         // Lets use Update User to change values of a collumn to a specific player
 
@@ -687,16 +687,7 @@ public class LobbyManager : MonoBehaviour
 
         WWWForm form = new WWWForm();
         form.AddField("desiredCollumn", desiredCollumn);
-
-        if (desiredCollumn == "profile" || desiredCollumn == "duel" || desiredCollumn == "host")
-        {
-            form.AddField("newValue", int.Parse(newValue));
-        }
-        else
-        {
-            form.AddField("newValue", newValue);
-        }
-
+        form.AddField("newValue", newValue);
         form.AddField("validateRequest", validateRequest);
 
         UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
@@ -1088,7 +1079,7 @@ public class LobbyManager : MonoBehaviour
 
     #region Data Methods
 
-    public void UpdateData(string newValue, string desiredCollumn, int validateRequest)
+    public void UpdateData(string newValue, string desiredCollumn, string validateRequest)
     {
         if (gameObject.activeInHierarchy == true)
         {
@@ -1103,12 +1094,12 @@ public class LobbyManager : MonoBehaviour
 
     public void RegisterRequestedDuelPlayer(string requestedSession, string requestedProfile, string requestedName)
     {
-        UpdateData("queue", "ready", int.Parse(currentSession));
-        UpdateData("queue", "ready", int.Parse(requestedSession));
-        UpdateData(requestedSession.ToString(), "duel", int.Parse(currentSession));
-        UpdateData(currentSession.ToString(), "host", int.Parse(currentSession));
-        UpdateData(requestedSession.ToString(), "duel", int.Parse(requestedSession));
-        UpdateData(currentSession.ToString(), "host", int.Parse(requestedSession));
+        UpdateData("queue", "ready", currentSession);
+        UpdateData("queue", "ready", requestedSession);
+        UpdateData(requestedSession.ToString(), "duel", currentSession);
+        UpdateData(currentSession.ToString(), "host", currentSession);
+        UpdateData(requestedSession.ToString(), "duel", requestedSession);
+        UpdateData(currentSession.ToString(), "host", requestedSession);
         UpdateDuelPlayer(requestedName, requestedSession, requestedProfile);
         isDueling = true;
     }
@@ -1144,18 +1135,21 @@ public class LobbyManager : MonoBehaviour
 
     public void DuelAccepted(string playerDuel, string opponentDuel)
     {
-        PlayerPrefs.SetInt("multiplayerPlayer", int.Parse(playerDuel));
-        PlayerPrefs.SetInt("multiplayerOpponent", int.Parse(opponentDuel));
+        int pn = int.Parse(playerDuel);
+        int on = int.Parse(opponentDuel);
+
+        PlayerPrefs.SetInt("multiplayerPlayer", pn);
+        PlayerPrefs.SetInt("multiplayerOpponent", on);
     }
 
     public void DuelDeclined(string playerDuel, string opponentDuel)
     {
-        UpdateData("yes", "ready", int.Parse(playerDuel));
-        UpdateData("yes", "ready", int.Parse(opponentDuel));
-        UpdateData("0", "duel", int.Parse(playerDuel));
-        UpdateData("0", "host", int.Parse(playerDuel));
-        UpdateData("0", "duel", int.Parse(opponentDuel));
-        UpdateData("0", "host", int.Parse(opponentDuel));
+        UpdateData("yes", "ready", playerDuel);
+        UpdateData("yes", "ready", opponentDuel);
+        UpdateData("0", "duel", playerDuel);
+        UpdateData("0", "host", playerDuel);
+        UpdateData("0", "duel", opponentDuel);
+        UpdateData("0", "host", opponentDuel);
 
         hostName = "";
         hostProfile = "";
@@ -1175,7 +1169,7 @@ public class LobbyManager : MonoBehaviour
     {
         loadedLobby = false;
         RemovePlayer(int.Parse(currentSession), actualName);
-        UpdateData("offline", "status", int.Parse(currentSession));
+        UpdateData("offline", "status", currentSession);
         connectingScreen.SetActive(true);
         connectionText.text = "Leaving the lobby! Please wait...";
         Invoke(nameof(ReturnToMenu), 5f); // Delay MainMenu load to give enough time to register the Offline data in database before to leave Arcade Mode scene
