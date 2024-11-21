@@ -1034,8 +1034,10 @@ public class LobbyManager : MonoBehaviour
                 requestedProfileDuel = "";
                 requestedNameDuel = "";
 
+                PlayerPrefs.SetString("whoWasTheHost", "");
                 PlayerPrefs.SetInt("multiplayerPlayer", 0);
                 PlayerPrefs.SetInt("multiplayerOpponent", 0);
+                PlayerPrefs.SetInt("multiplayerPlayerProfile", 0);
                 PlayerPrefs.SetString("multiplayerOpponentName", "");
                 PlayerPrefs.SetString("multiplayerOpponentProfile", "");
 
@@ -1100,8 +1102,10 @@ public class LobbyManager : MonoBehaviour
             int pn = int.Parse(currentSession);
             int on = int.Parse(requestedSessionDuel);
 
+            PlayerPrefs.SetString("whoWasTheHost", currentSession);
             PlayerPrefs.SetInt("multiplayerPlayer", pn);
             PlayerPrefs.SetInt("multiplayerOpponent", on);
+            PlayerPrefs.SetInt("multiplayerPlayerProfile", currentCharacterSelected);
             PlayerPrefs.SetString("multiplayerOpponentName", requestedNameDuel);
             PlayerPrefs.SetString("multiplayerOpponentProfile", requestedProfileDuel);
 
@@ -1139,8 +1143,10 @@ public class LobbyManager : MonoBehaviour
         int pn = int.Parse(playerDuel);
         int on = int.Parse(opponentDuel);
 
+        PlayerPrefs.SetString("whoWasTheHost", currentHost);
         PlayerPrefs.SetInt("multiplayerPlayer", pn);
         PlayerPrefs.SetInt("multiplayerOpponent", on);
+        PlayerPrefs.SetInt("multiplayerPlayerProfile", currentCharacterSelected);
         PlayerPrefs.SetString("multiplayerOpponentName", hostName);
         PlayerPrefs.SetString("multiplayerOpponentProfile", hostProfile);
 
@@ -1181,8 +1187,10 @@ public class LobbyManager : MonoBehaviour
         requestedProfileDuel = "";
         requestedNameDuel = "";
 
+        PlayerPrefs.SetString("whoWasTheHost", "");
         PlayerPrefs.SetInt("multiplayerPlayer", 0);
         PlayerPrefs.SetInt("multiplayerOpponent", 0);
+        PlayerPrefs.SetInt("multiplayerPlayerProfile", 0);
         PlayerPrefs.SetString("multiplayerOpponentName", "");
         PlayerPrefs.SetString("multiplayerOpponentProfile", "");
     }

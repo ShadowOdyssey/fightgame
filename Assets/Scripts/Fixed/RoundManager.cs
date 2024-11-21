@@ -226,26 +226,16 @@ public class RoundManager : MonoBehaviour
     public void Awake()
     {
         StopAllCoroutines(); // Stop all coroutines from old scenes
-        LoadPlayerCharacter();
     }
 
     public void Start()
     {
-        if (PlayerPrefs.GetString("isMultiplayerActivade") == "yes")
-        {
-            PlayerPrefs.SetString("isMultiplayer", "yes");
-        }
-        else
-        {
-            PlayerPrefs.SetString("isMultiplayer", "no");
-        }
-
         CheckForMultiplayerOrTrainningMode();
-        LoadArenaAndEnemyCharacter();
+        LoadArenaAndEnemyCharacter(); // Done
         CheckCurrentArena();
         CheckCurrentPlayerCharacter();
         CheckCurrentEnemyCharacter();
-        LoadPlayerName();
+        LoadPlayerName(); // Done
         SetupCharactersHealth();        
     }
 
@@ -272,21 +262,13 @@ public class RoundManager : MonoBehaviour
 
     #region Setup Loaded Data
 
-    private void LoadPlayerCharacter()
-    {
-        if (PlayerPrefs.GetInt("playerCharacterSelected") != 0)
-        {
-            currentPlayerCharacter = PlayerPrefs.GetInt("playerCharacterSelected");
-
-            //Debug.Log("Player selected character: " + currentPlayerCharacter);
-        }
-    }
-    
     private void CheckForMultiplayerOrTrainningMode()
     {
-        if (PlayerPrefs.GetString("isMultiplayer") != "yes") // Check if is multiplayer game to the loaded scene
+        if (PlayerPrefs.GetString("isMultiplayerActivade") != "yes") // Check if is multiplayer game to the loaded scene
         {
             isMultiplayer = false;
+
+            LoadPlayerCharacter();
 
             if (PlayerPrefs.GetString("isTraining") == "yes")
             {
@@ -300,9 +282,41 @@ public class RoundManager : MonoBehaviour
         else
         {
             isMultiplayer = true; // Game is multiplayer, so dont load stage number from Singleplay
+
+            LoadMultiplayerCharacter();
         }
     }
-    
+
+    private void LoadPlayerCharacter()
+    {
+        if (PlayerPrefs.GetInt("playerCharacterSelected") != 0)
+        {
+            currentPlayerCharacter = PlayerPrefs.GetInt("playerCharacterSelected");
+
+            //Debug.Log("Player selected character: " + currentPlayerCharacter);
+        }
+    }
+
+    private void LoadMultiplayerCharacter()
+    {
+        if (PlayerPrefs.GetString("whoWasTheHost") == PlayerPrefs.GetInt("multiplayerPlayer").ToString())
+        {
+            currentPlayerCharacter = PlayerPrefs.GetInt("multiplayerPlayerProfile");
+            currentEnemyCharacter = PlayerPrefs.GetInt("multiplayerOpponentProfile");
+
+            playerNameText.text = PlayerPrefs.GetString("playerName").ToUpper();
+            enemyNameText.text = PlayerPrefs.GetString("multiplayerOpponentName").ToUpper();
+        }
+        else
+        {
+            currentPlayerCharacter = PlayerPrefs.GetInt("multiplayerOpponentProfile");
+            currentEnemyCharacter = PlayerPrefs.GetInt("multiplayerPlayerProfile");
+
+            playerNameText.text = PlayerPrefs.GetString("multiplayerOpponentName").ToUpper();
+            enemyNameText.text = PlayerPrefs.GetString("playerName").ToUpper();
+        }
+    }
+
     private void LoadArenaAndEnemyCharacter()
     {
         if (isMultiplayer == true) // If game is Singleplay load the correct enemy name based in the current stage
@@ -387,9 +401,12 @@ public class RoundManager : MonoBehaviour
 
     private void LoadPlayerName()
     {
-        if (PlayerPrefs.GetString("playerName") != "") // Load player name to show in the screen
+        if (isMultiplayer == false)
         {
-            playerNameText.text = PlayerPrefs.GetString("playerName").ToUpper();
+            if (PlayerPrefs.GetString("playerName") != "") // Load player name to show in the screen
+            {
+                playerNameText.text = PlayerPrefs.GetString("playerName").ToUpper();
+            }
         }
     }
 
