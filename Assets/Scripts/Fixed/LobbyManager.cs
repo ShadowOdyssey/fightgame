@@ -865,8 +865,6 @@ public class LobbyManager : MonoBehaviour
 
     public IEnumerator LogOffPlayer(string urlPHP, int playerSession, string playerName)
     {
-        // Lets use Verify Data to request a specific data in database
-
         WWWForm form = new WWWForm();
         form.AddField("validateRequest", playerSession);
 
