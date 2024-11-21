@@ -177,7 +177,6 @@ public class LobbyManager : MonoBehaviour
     private bool joinedLobby = false;
     private bool loadedLobby = false;
     private bool notRegistered = false;
-    private bool wasRefreshed = false;
     private bool isReady = false;
     private string actualName = "";
     private string currentSession = "";
@@ -384,6 +383,11 @@ public class LobbyManager : MonoBehaviour
 
             if (selectedCharacter == true)
             {
+                if (isReady == true)
+                {
+                    ReadyButton();
+                }
+
                 ShowMessage(2);
                 ButtonIsNotSelected();
                 ResetSelection();
@@ -931,7 +935,6 @@ public class LobbyManager : MonoBehaviour
     public void RefreshList()
     {
         StopAllCoroutines();
-        wasRefreshed = false;
         StartCoroutine(FindOfflinePlayers());
         StartCoroutine(UpdatePlayerList());
     }
