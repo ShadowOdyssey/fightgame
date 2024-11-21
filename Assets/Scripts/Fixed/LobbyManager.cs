@@ -1097,20 +1097,19 @@ public class LobbyManager : MonoBehaviour
 
     public void RegisterRequestedDuelPlayer(string requestedSession, string requestedProfile, string requestedName)
     {
-        UpdateData("queue", "ready", currentSession);
-        UpdateData("queue", "ready", requestedSession);
         UpdateData(requestedSession.ToString(), "duel", currentSession);
         UpdateData(currentSession.ToString(), "host", currentSession);
         UpdateData(requestedSession.ToString(), "duel", requestedSession);
         UpdateData(currentSession.ToString(), "host", requestedSession);
+        StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
+        UpdateData("queue", "ready", currentSession);
+        UpdateData("queue", "ready", requestedSession);
         UpdateDuelPlayer(requestedName, requestedSession, requestedProfile);
         isDueling = true;
     }
 
     public void UpdateDuelPlayer(string opponentName, string opponentSession, string opponentProfile)
     {
-        StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
-
         duelScreen.SetActive(true);
 
         if (currentHost == currentSession)
