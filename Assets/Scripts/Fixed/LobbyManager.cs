@@ -1000,14 +1000,20 @@ public class LobbyManager : MonoBehaviour
 
     public void OnDestroy()
     {
-        loadedLobby = false;
-        StartCoroutine(LogOffPlayer(logOffPlayer, int.Parse(currentSession), actualName)); // For some reason Arcade Mode scene was destroyed, so inform player is offline
+        if (gameObject.activeInHierarchy == true)
+        {
+            loadedLobby = false;
+            StartCoroutine(LogOffPlayer(logOffPlayer, int.Parse(currentSession), actualName)); // For some reason Arcade Mode scene was destroyed, so inform player is offline
+        }
     }
 
     public void OnApplicationQuit()
     {
-        loadedLobby = false;
-        StartCoroutine(LogOffPlayer(logOffPlayer, int.Parse(currentSession), actualName)); // Player closed the game, inform database that player is offline
+        if (gameObject.activeInHierarchy == true)
+        {
+            loadedLobby = false;
+            StartCoroutine(LogOffPlayer(logOffPlayer, int.Parse(currentSession), actualName)); // Player closed the game, inform database that player is offline
+        }
     }
 
     #endregion
