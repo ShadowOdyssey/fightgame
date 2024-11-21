@@ -1037,10 +1037,12 @@ public class LobbyManager : MonoBehaviour
 
                     playerInfo = playerString.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
-                    if (playerInfo[2] == currentSession && playerInfo[0] != currentSession)
+                    if (playerInfo[2] == currentSession && playerInfo[0] != currentSession )
                     {
-                        UpdateDuelPlayer("","","");
                         isDueling = true;
+                        UpdateDuelPlayer("","","");
+
+                        yield break; // Exit the coroutine
                     }
                 }
             }
@@ -1119,6 +1121,8 @@ public class LobbyManager : MonoBehaviour
 
         if (currentHost == currentSession)
         {
+            Debug.Log("You are the host!");
+
             duelSystem.UpdateSessions(currentSession, opponentSession);
             duelSystem.UpdateNames(actualName, opponentName);
             duelSystem.LoadVersusImages(currentCharacterSelected, opponentProfile);
@@ -1126,6 +1130,8 @@ public class LobbyManager : MonoBehaviour
         }
         else 
         {
+            Debug.Log("You are the invited!");
+
             StartCoroutine(VerifyHostName(verifyUser, "name", "lobby", "id", currentHost));
             StartCoroutine(VerifyHostProfile(verifyUser, "profile", "lobby", "id", currentHost));
 
