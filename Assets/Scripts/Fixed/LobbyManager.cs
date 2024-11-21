@@ -862,7 +862,7 @@ public class LobbyManager : MonoBehaviour
         form.AddField("desiredSelection", newSelection);
         form.AddField("currentTable", requestedTable);
         form.AddField("currentCollumn", requestedCollumn);
-        form.AddField("newSearch", int.Parse(desiredSearch));
+        form.AddField("newSearch", desiredSearch);
 
         UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
 
@@ -895,7 +895,7 @@ public class LobbyManager : MonoBehaviour
         form.AddField("desiredSelection", newSelection);
         form.AddField("currentTable", requestedTable);
         form.AddField("currentCollumn", requestedCollumn);
-        form.AddField("newSearch", int.Parse(desiredSearch));
+        form.AddField("newSearch", desiredSearch);
 
         UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
 
@@ -1136,20 +1136,20 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-    public void DuelAccepted(int playerDuel, int opponentDuel)
+    public void DuelAccepted(string playerDuel, string opponentDuel)
     {
-        PlayerPrefs.SetInt("multiplayerPlayer", playerDuel);
-        PlayerPrefs.SetInt("multiplayerOpponent", opponentDuel);
+        PlayerPrefs.SetInt("multiplayerPlayer", int.Parse(playerDuel));
+        PlayerPrefs.SetInt("multiplayerOpponent", int.Parse(opponentDuel));
     }
 
-    public void DuelDeclined(int playerDuel, int opponentDuel)
+    public void DuelDeclined(string playerDuel, string opponentDuel)
     {
-        UpdateData("yes", "ready", playerDuel);
-        UpdateData("yes", "ready", opponentDuel);
-        UpdateData("0", "duel", playerDuel);
-        UpdateData("0", "host", playerDuel);
-        UpdateData("0", "duel", opponentDuel);
-        UpdateData("0", "host", opponentDuel);
+        UpdateData("yes", "ready", int.Parse(playerDuel));
+        UpdateData("yes", "ready", int.Parse(opponentDuel));
+        UpdateData("0", "duel", int.Parse(playerDuel));
+        UpdateData("0", "host", int.Parse(playerDuel));
+        UpdateData("0", "duel", int.Parse(opponentDuel));
+        UpdateData("0", "host", int.Parse(opponentDuel));
 
         hostName = "";
         hostProfile = "";
