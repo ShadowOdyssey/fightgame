@@ -106,6 +106,14 @@ public class LobbyPlayerSystem : MonoBehaviour
             canFight = true;
         }
 
+        if (actualReady == "queue")
+        {
+            actualReady = "DUELING";
+            buttonFightText.color = Color.yellow;
+            buttonFightText.text = actualReady;
+            canFight = false;
+        }
+
         //Debug.Log("Player " + gameObject.name + " updated ready! Ready value is: " + actualReady);
     }
 
@@ -114,6 +122,15 @@ public class LobbyPlayerSystem : MonoBehaviour
         actualStatus = newStatus;
 
         //Debug.Log("Player " + gameObject.name + " updated new status! Status: " + newStatus);
+    }
+
+    public void RegisterDuel()
+    {
+        if (canFight == true)
+        {
+            lobbySystem.RegisterRequestedDuelPlayer(actualSession, actualProfile, actualName);
+            canFight = false;
+        }
     }
 
     public void PlayerIsOffline()

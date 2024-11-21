@@ -933,6 +933,12 @@ public class LobbyManager : MonoBehaviour
 
     #endregion
 
+    #region Checking for duels
+
+
+
+    #endregion
+
     #region Player List Methods
 
     public void RefreshList()
@@ -940,7 +946,7 @@ public class LobbyManager : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(FindOfflinePlayers());
         StartCoroutine(UpdatePlayerList());
-        StartCoroutine(CheckForDuel());
+        //StartCoroutine(CheckForDuel());
     }
 
     #endregion
@@ -968,6 +974,11 @@ public class LobbyManager : MonoBehaviour
     #endregion
 
     #region Duel Methods
+
+    public void RegisterRequestedDuelPlayer(int requestedSession, int requestedProfile, string requestedName)
+    {
+        UpdateData("yes", "ready", int.Parse(currentSession));
+    }
 
     public void UpdateDuelPlayer(string opponentName, int opponentSession, int opponentProfile)
     {
