@@ -4,6 +4,8 @@ using TMPro;
 
 public class DuelSystem : MonoBehaviour
 {
+    public LobbyManager lobbySystem;
+
     public TextMeshProUGUI playerNameText;
     public TextMeshProUGUI opponentNameText;
     public TextMeshProUGUI waitText;
@@ -107,11 +109,6 @@ public class DuelSystem : MonoBehaviour
         opponentNameText.text = opponentName;
     }
 
-    public void AcceptButton()
-    {
-        isWaiting = false;
-    }
-
     public void OpenDuel(int playerIndex)
     {
         if (wasOpen == false)
@@ -130,6 +127,12 @@ public class DuelSystem : MonoBehaviour
         }
     }
 
+    public void AcceptButton()
+    {
+        isWaiting = false;
+        lobbySystem.DuelAccepted();
+    }
+
     public void DeclineButton()
     {
         playerNameText.text = "";
@@ -142,5 +145,6 @@ public class DuelSystem : MonoBehaviour
         wasOpen = false;
         countTime = waitTime;
         gameObject.SetActive(false);
+        lobbySystem.DuelDeclined();
     }
 }

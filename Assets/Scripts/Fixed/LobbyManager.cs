@@ -184,6 +184,7 @@ public class LobbyManager : MonoBehaviour
     private bool isReady = false;
     private string actualName = "";
     private string currentSession = "";
+    private string currentHost = "";
     private string responseFromServer = "";
 
     #endregion
@@ -961,6 +962,37 @@ public class LobbyManager : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(VerifyData(verifyUser, desiredData, "lobby", collumnVerification, "'" + dataValidation + "'"));
         }
+    }
+
+    #endregion
+
+    #region Duel Methods
+
+    public void UpdateDuelPlayer(string opponentName, int opponentSession, int opponentProfile)
+    {
+        duelSystem.UpdateSessions(int.Parse(currentSession), opponentSession);
+        duelSystem.UpdateNames(actualName, opponentName);
+        duelSystem.LoadVersusImages(currentCharacterSelected, opponentProfile);
+
+        if (currentHost == "yes")
+        {
+            duelSystem.OpenDuel(1);
+        }
+        
+        if (currentHost == "no")
+        {
+            duelSystem.OpenDuel(2);
+        }
+    }
+
+    public void DuelAccepted()
+    {
+
+    }
+
+    public void DuelDeclined()
+    {
+
     }
 
     #endregion
