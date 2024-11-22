@@ -266,18 +266,30 @@ public class PlayerSystem : MonoBehaviour
         {
             multiplayerForward = false;
             multiplayerBackward = false;
+
+            AnimIsAttack1();
+
+            multiplayerAttack1 = false;
         }
 
         if (multiplayerAttack2 == true)
         {
             multiplayerForward = false;
             multiplayerBackward = false;
+
+            AnimIsAttack2();
+
+            multiplayerAttack2 = false;
         }
 
         if (multiplayerAttack3 == true)
         {
             multiplayerForward = false;
             multiplayerBackward = false;
+
+            AnimIsAttack3();
+
+            multiplayerAttack3 = false;
         }
 
         #endregion
@@ -620,13 +632,14 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
-                isCooldown1= true; // Skill in cooldown mode, disable button action till the end of cooldown effect
-                isAttacking = true; // We make sure only to trigger isAttacking after animation started
+
                 //roundSystem.audioSystem.Attack1(1, roundSystem.currentPlayerCharacter); // Start character Attack 1 sound in Player Audio only after animation has started
                 if (trainingSystem.actualInfoIndex == 3 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
 
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
+                    isCooldown1 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
+                    isAttacking = true; // We make sure only to trigger isAttacking after animation started
                     Invoke(nameof(CheckAttack1Stuck), 1f);
                 }
             }
@@ -655,13 +668,14 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
-                isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
-                isAttacking = true; // We make sure only to trigger isAttacking after animation started
                 //roundSystem.audioSystem.Attack2(1, roundSystem.currentPlayerCharacter); // Start character Attack 2 sound in Player Audio only after animation has started
+                
                 if (trainingSystem.actualInfoIndex == 4 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
                 
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
+                    isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
+                    isAttacking = true; // We make sure only to trigger isAttacking after animation started
                     Invoke(nameof(CheckAttack2Stuck), 1f);
                 }
             }
@@ -690,14 +704,14 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isHit", false); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
-                isCooldown3 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
-                isAttacking = true; // We make sure only to trigger isAttacking after animation started
                 //roundSystem.audioSystem.Attack3(1, roundSystem.currentPlayerCharacter); // Start character Attack 3 sound in Player Audio only after animation has started
 
                 if (trainingSystem.actualInfoIndex == 5 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
 
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
+                    isCooldown3 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
+                    isAttacking = true; // We make sure only to trigger isAttacking after animation started
                     Invoke(nameof(CheckAttack3Stuck), 1f);
                 }
             }
@@ -739,7 +753,7 @@ public class PlayerSystem : MonoBehaviour
 
     public void CheckHitStuck() // It shows zero references but is activated by the last frame of Hit animation
     {
-        if (isHit == true || selectedMultiplayer == true)
+        if (isHit == true)
         {
             //Debug.Log("Hit Stuck was checked");
 

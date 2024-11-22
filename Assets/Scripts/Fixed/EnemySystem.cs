@@ -115,6 +115,7 @@ public class EnemySystem : MonoBehaviour
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
     private bool selectedMultiplayer = false;
+    private bool multiplayerStop = false;
     private bool multiplayerForward = false;
     private bool multiplayerBackward = false;
     private bool multiplayerAttack1 = false;
@@ -653,32 +654,59 @@ public class EnemySystem : MonoBehaviour
 
         #region Multiplayer Operations
 
+        if (multiplayerStop == false && multiplayerForward == false && multiplayerBackward == false)
+        {
+            StartIdleAnimation();
+
+            multiplayerStop = true;
+        }
+
         if (multiplayerForward == true)
         {
+            multiplayerStop = false;
             multiplayerBackward = false;
+
+
         }
 
         if (multiplayerBackward == true)
         {
+            multiplayerStop = false;
             multiplayerForward = false;
+
+
         }
 
         if (multiplayerAttack1 == true)
         {
+            multiplayerStop = false;
             multiplayerForward = false;
             multiplayerBackward = false;
+
+            UseAttack1();
+
+            multiplayerAttack1 = false;
         }
 
         if (multiplayerAttack2 == true)
         {
+            multiplayerStop = false;
             multiplayerForward = false;
             multiplayerBackward = false;
+
+            UseAttack2();
+
+            multiplayerAttack2 = false;
         }
 
         if (multiplayerAttack3 == true)
         {
             multiplayerForward = false;
             multiplayerBackward = false;
+            
+            UseAttack3();
+
+            multiplayerAttack3 = false;
         }
 
         #endregion
@@ -1117,7 +1145,11 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.Idle(2, roundSystem.currentEnemyCharacter); // Start character Idle sound in Enemy Audio only after animation has started - Optional
-            isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+
+            if (roundSystem.isMultiplayer == false)
+            {
+                isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            }
         }
     }
 
