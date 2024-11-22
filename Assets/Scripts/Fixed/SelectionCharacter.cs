@@ -835,7 +835,14 @@ private void DrawArenaPanel()
             normal = { textColor = Color.white, background = MakeTexture(1, 1, new Color(0, 0, 0, 0.8f)) }
         };
 
-        GUI.Box(new Rect(messageX, messageY, messageWidth, messageHeight), "Character is Locked!", lockedMessageStyle);
+        if (wasArenaSelected == false)
+        {
+            GUI.Box(new Rect(messageX, messageY, messageWidth, messageHeight), "Arena was not selected!", lockedMessageStyle);
+        }
+        else
+        {
+            GUI.Box(new Rect(messageX, messageY, messageWidth, messageHeight), "Character is Locked!", lockedMessageStyle);
+        }
     }
 
     private void DrawStatBars(float x, float y)

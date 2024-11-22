@@ -469,27 +469,27 @@ public class EnemySystem : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (roundSystem.isMultiplayer == false)
+        #region Check if enemy is not alive anymore
+
+        if (roundSystem.opponentHealthBar.slider.value <= 0) return; // Prevent further actions if Enemy is dead
+
+        #endregion
+
+        #region Check if enemy is still alive and perform actions if alive
+
+        if (canFight == true && roundSystem.roundOver == false) // Prevent further actions if round not started yet
         {
-            #region Check if enemy is not alive anymore
-
-            if (roundSystem.opponentHealthBar.slider.value <= 0) return; // Prevent further actions if Enemy is dead
-
-            #endregion
-
-            #region Check if enemy is still alive and perform actions if alive
-
-            if (canFight == true && roundSystem.roundOver == false) // Prevent further actions if round not started yet
+            if (wasResetTriggers == true)
             {
-                if (wasResetTriggers == true)
-                {
-                    wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
-                }
+                wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
+            }
 
-                distanceToTarget = Vector3.Distance(transform.position, playerBody.position);
+            distanceToTarget = Vector3.Distance(transform.position, playerBody.position);
 
-                //Debug.Log("Actual distance to target from Enemy is: " + distanceToTarget); // Debug actual distance between Enemy and Player
+            //Debug.Log("Actual distance to target from Enemy is: " + distanceToTarget); // Debug actual distance between Enemy and Player
 
+            if (roundSystem.isMultiplayer == false)
+            {
                 #region Check distance to player and make decisions
 
                 #region Decide what to do when player is inside attack range
@@ -570,9 +570,13 @@ public class EnemySystem : MonoBehaviour
 
                 #endregion
             }
+            else
+            {
 
-            #endregion
+            }
         }
+
+        #endregion
     }
 
     #endregion
