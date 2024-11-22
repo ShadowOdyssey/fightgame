@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class EnemySystem : MonoBehaviour
 {
@@ -11,6 +14,20 @@ public class EnemySystem : MonoBehaviour
     [Header("Hit Effect Setup")]
     [Tooltip("Attach current enemy HitEffect GameObject here")]
     public GameObject hitEffect;
+
+    [Header("Multiplayer Setup")]
+    [Tooltip("Setup actual player step size to change movement speed")]
+    public float stepSize = 0.1f;
+    [Tooltip("Attach current player Button Forward component here")]
+    public Button buttonForward;
+    [Tooltip("Attach current player Button Backward component here")]
+    public Button buttonBackward;
+    [Tooltip("Attach current player Button Attack 1 component here")]
+    public Button buttonAttack1;
+    [Tooltip("Attach current player Button Attack 2 component here")]
+    public Button buttonAttack2;
+    [Tooltip("Attach current player Button Attack 3 component here")]
+    public Button buttonAttack3;
 
     [Header("Enemy Setup")]
     [Tooltip("Actual enemy attack AI or multiplayer selected - It should be public because in multiplayer we will allow Player to read this value")]
@@ -87,6 +104,10 @@ public class EnemySystem : MonoBehaviour
     private bool changedAnimDirectionToBackward = false;
     [Tooltip("If enabled means player triggers will be reseted on each end of round")]
     private bool wasResetTriggers = false;
+    [Tooltip("Current movement direction player is using when moving")]
+    private int moveDirection = 0;
+    private bool isMovingForward = false;
+    private bool isMovingBackward = false;
 
     #endregion
 
@@ -103,6 +124,32 @@ public class EnemySystem : MonoBehaviour
 
         roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
         initialPosition = gameObject.transform.position; // Store the initial position to use it when a new round to start, so can move Enemy always to initial position
+
+        if (roundSystem.isMultiplayer == true)
+        {
+            if (buttonForward != null)
+            {
+                AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
+                AddEventTrigger(buttonForward, EventTriggerType.PointerUp, OnMoveButtonReleased);
+            }
+            if (buttonBackward != null)
+            {
+                AddEventTrigger(buttonBackward, EventTriggerType.PointerDown, OnMoveLeftButtonPressed);
+                AddEventTrigger(buttonBackward, EventTriggerType.PointerUp, OnMoveButtonReleased);
+            }
+            if (buttonAttack1 != null)
+            {
+                buttonAttack1.onClick.AddListener(OnAttack1ButtonPressed);
+            }
+            if (buttonAttack2 != null)
+            {
+                buttonAttack2.onClick.AddListener(OnAttack2ButtonPressed);
+            }
+            if (buttonAttack3 != null)
+            {
+                buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
+            }
+        }
     }
 
     #endregion
@@ -572,7 +619,47 @@ public class EnemySystem : MonoBehaviour
             }
             else
             {
+                #region Movement Player because round started
 
+                // Ensure movement only happens when buttons are held and not during attacks
+                if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false) // Check if round started so Player can move and if Player is not attacking
+                {
+                    if (wasResetTriggers == true)
+                    {
+                        wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
+                    }
+
+                    if (isMovingForward == true && isMovingBackward == false)
+                    {
+                        MoveRight();
+                    }
+                    else if (isMovingBackward == true && isMovingForward == false)
+                    {
+                        MoveLeft();
+                    }
+                    else
+                    {
+                        AnimIsIdle();
+                    }
+
+                    if (isMovingBackward == true || isMovingForward == true)
+                    {
+                        // Check if Player is moving so apply new position, turned 2 lines code into 1 since both forward and backward calls same method
+                        Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
+                        transform.localPosition = newPosition;
+                    }
+                }
+
+                #endregion
+
+                #region Player got a hit so move Player a bit to backwards or enemy can hit Player forever
+
+                if (isHit == true && roundSystem.roundOver == false)
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime * 3f);
+                }
+
+                #endregion
             }
         }
 
@@ -582,6 +669,206 @@ public class EnemySystem : MonoBehaviour
     #endregion
 
     #region Movement Operations
+
+    #region Button press handlers
+
+    public void OnMoveRightButtonPressed(BaseEventData eventData)
+    {
+        if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
+        {
+            //Debug.Log("Player is moving forward");
+
+            isMovingForward = true;
+            isMovingBackward = false;
+        }
+        else
+        {
+            //Debug.Log("Player cant move forward because round not started yet");
+
+            if (isMovingForward == true) // Check if any move boolean is activate when Gabriela cant move and deactivate it
+            {
+                isMovingForward = false;
+                isMovingBackward = false;
+            }
+        }
+    }
+
+    public void OnMoveLeftButtonPressed(BaseEventData eventData)
+    {
+        if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
+        {
+            //Debug.Log("Player is moving backward");
+
+            isMovingBackward = true;
+            isMovingForward = false;
+        }
+        else
+        {
+            //Debug.Log("Player cant move backward because round not started yet");
+
+            if (isMovingBackward == true) // Check if any boolean is activate when Gabriela cant move and deactivate it
+            {
+                isMovingBackward = false;
+                isMovingForward = false;
+            }
+        }
+    }
+
+    #endregion
+
+    #region Utility method to add event triggers to buttons
+
+    private void AddEventTrigger(Button button, EventTriggerType eventTriggerType, UnityAction<BaseEventData> eventHandler)
+    {
+        EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+        EventTrigger.Entry entry = new EventTrigger.Entry
+        {
+            eventID = eventTriggerType
+        };
+        entry.callback.AddListener(eventHandler);
+        trigger.triggers.Add(entry);
+    }
+
+    #endregion
+
+    #region Called when the button is released
+
+    private void OnMoveButtonReleased(BaseEventData eventData)
+    {
+        if (isMovingForward == true)
+        {
+            isMovingForward = false;
+        }
+
+        if (isMovingBackward == true)
+        {
+            isMovingBackward = false;
+        }
+    }
+
+    public void OnAttack1ButtonPressed()
+    {
+        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
+        {
+            //Debug.Log("Player activated Attack 1");
+            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
+            //AnimIsAttack1();
+        }
+    }
+
+    public void OnAttack2ButtonPressed()
+    {
+        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
+        {
+            //Debug.Log("Player activated Attack 2");
+            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
+            //AnimIsAttack2();
+        }
+    }
+
+    public void OnAttack3ButtonPressed()
+    {
+        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
+        {
+            //Debug.Log("Player activated Attack 3");
+            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
+            //AnimIsAttack3();
+        }
+    }
+
+    #endregion
+
+    #region Stop Multiplayer movement and set idle animation
+
+    private void AnimIsIdle() // StopMoving is being called alot, consuming processing and it is bad to mobile, so...
+    {
+        // Check if Player moved forward to StopMoving trigger the boolean change in the animation parameter
+
+        if (enemyAnimator.GetBool("isIdle") == false)
+        {
+            enemyAnimator.SetBool("isIdle", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+        }
+
+        if (enemyAnimator.GetBool("isForward") == true) // Check if Player moved forward to StopMoving trigger the boolean change in the animation parameter
+        {
+            //Debug.Log("Player stopped to move forward");
+
+            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+        }
+
+        if (enemyAnimator.GetBool("isBackward") == true) // Check if Player moved backward to StopMoving trigger the boolean change in the animation parameter
+        {
+            //Debug.Log("Player stopped to move backward");
+
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+        }
+
+        if (enemyAnimator.GetBool("isBlock") == true)
+        {
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
+        }
+
+        if (enemyAnimator.GetBool("isAttack1") == true)
+        {
+            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+        }
+
+        if (enemyAnimator.GetBool("isAttack2") == true)
+        {
+            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+        }
+
+        if (enemyAnimator.GetBool("isAttack3") == true)
+        {
+            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
+        }
+    }
+
+    #endregion
+
+    #region Method to start Multiplayer moving right
+
+    private void MoveRight()
+    {
+        if (enemyAnimator.GetBool("isForward") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way - 
+        {
+            //Debug.Log("Player moved to right");
+
+            moveDirection = 1; // Setup new direction only once before to apply new position - 
+            enemyAnimator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
+            //roundSystem.audioSystem.MoveRight(1, roundSystem.currentPlayerCharacter); // Start character Move Right sound in Player Audio only after animation has started - Optional
+        }
+    }
+
+    #endregion
+
+    #region Method to start Multiplayer moving left
+
+    private void MoveLeft() // MoveLeft is being called alot, consuming processing and it is bad to mobile, so...
+    {
+        if (enemyAnimator.GetBool("isBackward") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - 
+        {
+            //Debug.Log("Player moved to left");
+
+            moveDirection = -1; // Setup new direction only once before to apply new position - 
+            enemyAnimator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
+            //roundSystem.audioSystem.MoveLeft(1, roundSystem.currentPlayerCharacter); // Start character Move Left sound in Player Audio only after animation has started - Optional
+        }
+    }
+
+    #endregion
 
     private void EnemyCanMove()
     {

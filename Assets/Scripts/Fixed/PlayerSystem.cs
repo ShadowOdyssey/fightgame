@@ -134,14 +134,14 @@ public class PlayerSystem : MonoBehaviour
         {
             switch (roundSystem.currentEnemyCharacter)
             {
-                case 1: enemyBody = GameObject.Find("GabriellaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("GabriellaEnemy").GetComponent<OpponentMultiplayer>(); break;
-                case 2: enemyBody = GameObject.Find("MarcusEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("MarcusEnemy").GetComponent<OpponentMultiplayer>(); break;
-                case 3: enemyBody = GameObject.Find("SelenaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("SelenaEnemy").GetComponent<OpponentMultiplayer>(); break;
-                case 4: enemyBody = GameObject.Find("BryanEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("BryanEnemy").GetComponent<OpponentMultiplayer>(); break;
-                case 5: enemyBody = GameObject.Find("NunEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("NunEnemy").GetComponent<OpponentMultiplayer>(); break;
-                case 6: enemyBody = GameObject.Find("OliverEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("OliverEnemy").GetComponent<OpponentMultiplayer>(); break;
-                case 7: enemyBody = GameObject.Find("OrionEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("OrionEnemy").GetComponent<OpponentMultiplayer>(); break;
-                case 8: enemyBody = GameObject.Find("AriaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("AriaEnemy").GetComponent<OpponentMultiplayer>(); break;
+                case 1: enemyBody = GameObject.Find("GabriellaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("GabriellaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("GabriellaEnemy").GetComponent<EnemySystem>(); break;
+                case 2: enemyBody = GameObject.Find("MarcusEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("MarcusEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("MarcusEnemy").GetComponent<EnemySystem>(); break;
+                case 3: enemyBody = GameObject.Find("SelenaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("SelenaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("SelenaEnemy").GetComponent<EnemySystem>(); break;
+                case 4: enemyBody = GameObject.Find("BryanEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("BryanEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("BryanEnemy").GetComponent<EnemySystem>(); break;
+                case 5: enemyBody = GameObject.Find("NunEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("NunEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("NunEnemy").GetComponent<EnemySystem>(); break;
+                case 6: enemyBody = GameObject.Find("OliverEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("OliverEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("OliverEnemy").GetComponent<EnemySystem>(); break;
+                case 7: enemyBody = GameObject.Find("OrionEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("OrionEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("OrionEnemy").GetComponent<EnemySystem>(); break;
+                case 8: enemyBody = GameObject.Find("AriaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("AriaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); break;
             }
         }
         else
@@ -230,50 +230,47 @@ public class PlayerSystem : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (roundSystem.isMultiplayer == false)
+        #region Movement Player because round started
+
+        // Ensure movement only happens when buttons are held and not during attacks
+        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false) // Check if round started so Player can move and if Player is not attacking
         {
-            #region Movement Player because round started
-
-            // Ensure movement only happens when buttons are held and not during attacks
-            if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false) // Check if round started so Player can move and if Player is not attacking
+            if (wasResetTriggers == true)
             {
-                if (wasResetTriggers == true)
-                {
-                    wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
-                }
-
-                if (isMovingForward == true && isMovingBackward == false)
-                {
-                    MoveRight();
-                }
-                else if (isMovingBackward == true && isMovingForward == false)
-                {
-                    MoveLeft();
-                }
-                else
-                {
-                    AnimIsIdle();
-                }
-
-                if (isMovingBackward == true || isMovingForward == true)
-                {
-                    // Check if Player is moving so apply new position, turned 2 lines code into 1 since both forward and backward calls same method
-                    Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
-                    transform.localPosition = newPosition;
-                }
+                wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
             }
 
-            #endregion
-
-            #region Player got a hit so move Player a bit to backwards or enemy can hit Player forever
-
-            if (isHit == true && roundSystem.roundOver == false)
+            if (isMovingForward == true && isMovingBackward == false)
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime * 3f);
+                MoveRight();
+            }
+            else if (isMovingBackward == true && isMovingForward == false)
+            {
+                MoveLeft();
+            }
+            else
+            {
+                AnimIsIdle();
             }
 
-            #endregion
+            if (isMovingBackward == true || isMovingForward == true)
+            {
+                // Check if Player is moving so apply new position, turned 2 lines code into 1 since both forward and backward calls same method
+                Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
+                transform.localPosition = newPosition;
+            }
         }
+
+        #endregion
+
+        #region Player got a hit so move Player a bit to backwards or enemy can hit Player forever
+
+        if (isHit == true && roundSystem.roundOver == false)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime * 3f);
+        }
+
+        #endregion
     }
 
     #endregion
