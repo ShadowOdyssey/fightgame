@@ -434,13 +434,6 @@ public class RoundManager : MonoBehaviour
                 case 7: playerCharacter7.SetActive(true); playerMultiplayer = GameObject.Find("OrionPlayer").GetComponent<OpponentMultiplayer>(); playerSystem = GameObject.Find("OrionPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile7.sprite; break;
                 case 8: playerCharacter8.SetActive(true); playerMultiplayer = GameObject.Find("AriaPlayer").GetComponent<OpponentMultiplayer>(); playerSystem = GameObject.Find("AriaPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile8.sprite; break;
             }
-
-            if (actualHost == playerMultiplayerID.ToString())
-            {
-                playerMultiplayer.SetHost(playerMultiplayerID, enemyMultiplayerID); // If i am the host so i am the player at left side
-                playerSystem.RegisterInput();
-                wasPlayerInput = true;
-            }
         }
     }
 
@@ -474,12 +467,26 @@ public class RoundManager : MonoBehaviour
                 case 8: enemyCharacter8.SetActive(true); enemyMultiplayer = GameObject.Find("AriaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile8.sprite; break;
             }
 
-            if (actualHost != playerMultiplayerID.ToString())
-            {
-                enemyMultiplayer.SetHost(playerMultiplayerID, enemyMultiplayerID); // If i am not the host so i am the player at right side
-                enemySystem.RegisterInput();
-                wasEnemyInput = true;
-            }
+            CheckActualHost();
+        }
+    }
+
+    private void CheckActualHost()
+    {
+        if (actualHost == playerMultiplayerID.ToString())
+        {
+            playerMultiplayer.SetOpponentEnemy(enemySystem);
+            playerMultiplayer.SetHost(playerMultiplayerID, enemyMultiplayerID); // If i am the host so i am the player at left side
+            playerSystem.RegisterInput();
+            wasPlayerInput = true;
+        }
+
+        if (actualHost != playerMultiplayerID.ToString())
+        {
+            enemyMultiplayer.SetOpponentPlayer(playerSystem);
+            enemyMultiplayer.SetHost(playerMultiplayerID, enemyMultiplayerID); // If i am not the host so i am the player at right side
+            enemySystem.RegisterInput();
+            wasEnemyInput = true;
         }
     }
 

@@ -19,6 +19,8 @@ public class OpponentMultiplayer : MonoBehaviour
 
     [Header("Script Setup")]
     public RoundManager roundSystem;
+    public PlayerSystem opponentIsPlayer;
+    public EnemySystem opponentIsEnemy;
 
     [Header("Lobby Data")]
     public int actualHost = 0;
@@ -28,6 +30,7 @@ public class OpponentMultiplayer : MonoBehaviour
     private string[] listenerInfo = new string[0];
     public float listenerTimer = 0.3f;
     public float countListen = 0f;
+    public bool isEnemyPlayer = false;
     public bool canListen = false;
     public bool wasDataLoaded = false;
     public bool isCheckingWin = false;
@@ -55,6 +58,8 @@ public class OpponentMultiplayer : MonoBehaviour
         CheckRoundStartToListen();
         CheckRoundOverToStopListen();
     }
+
+    #region Database Operations
 
     public IEnumerator ListenUser(string urlPHP, int actualListener)
     {
@@ -102,6 +107,8 @@ public class OpponentMultiplayer : MonoBehaviour
             {
                 listenerHit = listenerInfo[5];
             }
+
+            RegisterAllData();
 
             wasDataLoaded = false;
         }
@@ -186,6 +193,10 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Apply loaded data from Lobby
+
     public void SetHost(int newHost, int newListener)
     {
         if (gameObject.activeInHierarchy == true)
@@ -195,6 +206,22 @@ public class OpponentMultiplayer : MonoBehaviour
             StartCoroutine(RegisterDuel(duelingUser, actualHost));
         }
     }
+
+    public void SetOpponentPlayer(PlayerSystem actualEnemySystem)
+    {
+        opponentIsPlayer = actualEnemySystem;
+        isEnemyPlayer = true;
+    }
+
+    public void SetOpponentEnemy(EnemySystem actualEnemySystem)
+    {
+        opponentIsEnemy = actualEnemySystem;
+        isEnemyPlayer = false;
+    }
+
+    #endregion
+
+    #region Listening Methods
 
     private void ListenOpponent()
     {
@@ -225,6 +252,10 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Round is over
+
     public void RegisterVictory()
     {
         if (isCheckingWin == false && gameObject.activeInHierarchy == true)
@@ -245,28 +276,87 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
-    public void RegisterForward()
+    #endregion
+
+    #region Synchronize Now
+
+    private void RegisterAllData()
+    {
+        if (isEnemyPlayer == true)
+        {
+            RegisterForwardPlayer();
+            RegisterBackwardPlayer();
+            RegisterAttack1Player();
+            RegisterAttack2Player();
+            RegisterAttack3Player();
+        }
+        else
+        {
+            RegisterForwardEnemy();
+            RegisterBackwardEnemy();
+            RegisterAttack1Enemy();
+            RegisterAttack2Enemy();
+            RegisterAttack3Enemy();
+        }
+    }
+
+    #endregion
+
+    #region Enemy is Player, register new data
+
+    public void RegisterForwardPlayer()
     {
 
     }
 
-    public void RegisterBackward()
+    public void RegisterBackwardPlayer()
     {
 
     }
 
-    public void RegisterAttack1()
+    public void RegisterAttack1Player()
     {
 
     }
 
-    public void RegisterAttack2()
+    public void RegisterAttack2Player()
     {
 
     }
 
-    public void RegisterAttack3()
+    public void RegisterAttack3Player()
     {
 
     }
+
+    #endregion
+
+    #region Enemy is Enemy, register new data
+
+    public void RegisterForwardEnemy()
+    {
+
+    }
+
+    public void RegisterBackwardEnemy()
+    {
+
+    }
+
+    public void RegisterAttack1Enemy()
+    {
+
+    }
+
+    public void RegisterAttack2Enemy()
+    {
+
+    }
+
+    public void RegisterAttack3Enemy()
+    {
+
+    }
+
+    #endregion
 }
