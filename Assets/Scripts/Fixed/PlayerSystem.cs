@@ -84,6 +84,11 @@ public class PlayerSystem : MonoBehaviour
     private bool wasResetTriggers = false;
 
     private bool selectedMultiplayer = false;
+    private bool multiplayerForward = false;
+    private bool multiplayerBackward = false;
+    private bool multiplayerAttack1 = false;
+    private bool multiplayerAttack2 = false;
+    private bool multiplayerAttack3 = false;
     #endregion
 
     #endregion
@@ -241,6 +246,38 @@ public class PlayerSystem : MonoBehaviour
         if (isHit == true && roundSystem.roundOver == false)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime * 3f);
+        }
+
+        #endregion
+
+        #region Multiplayer Operations
+
+        if (multiplayerForward == true)
+        {
+            multiplayerBackward = false;
+        }
+
+        if (multiplayerBackward == true)
+        {
+            multiplayerForward = false;
+        }
+
+        if (multiplayerAttack1 == true)
+        {
+            multiplayerForward = false;
+            multiplayerBackward = false;
+        }
+
+        if (multiplayerAttack2 == true)
+        {
+            multiplayerForward = false;
+            multiplayerBackward = false;
+        }
+
+        if (multiplayerAttack3 == true)
+        {
+            multiplayerForward = false;
+            multiplayerBackward = false;
         }
 
         #endregion
@@ -571,7 +608,11 @@ public class PlayerSystem : MonoBehaviour
             {
                 //Debug.Log("Attack 1 Animation was activated");
 
-                cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
+                if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
+                {
+                    cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
+                }
+
                 playerAnimator.SetBool("isAttack1", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
                 playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -583,7 +624,11 @@ public class PlayerSystem : MonoBehaviour
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
                 //roundSystem.audioSystem.Attack1(1, roundSystem.currentPlayerCharacter); // Start character Attack 1 sound in Player Audio only after animation has started
                 if (trainingSystem.actualInfoIndex == 3 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
-                Invoke(nameof(CheckAttack1Stuck), 1f);
+
+                if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
+                {
+                    Invoke(nameof(CheckAttack1Stuck), 1f);
+                }
             }
         }
     }
@@ -598,7 +643,11 @@ public class PlayerSystem : MonoBehaviour
             {
                 //Debug.Log("Attack 2 Animation was activated");
 
-                cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
+                if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
+                {
+                    cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
+                }
+
                 playerAnimator.SetBool("isAttack2", true); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -610,7 +659,11 @@ public class PlayerSystem : MonoBehaviour
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
                 //roundSystem.audioSystem.Attack2(1, roundSystem.currentPlayerCharacter); // Start character Attack 2 sound in Player Audio only after animation has started
                 if (trainingSystem.actualInfoIndex == 4 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
-                Invoke(nameof(CheckAttack2Stuck), 1f);
+                
+                if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
+                {
+                    Invoke(nameof(CheckAttack2Stuck), 1f);
+                }
             }
         }
     }
@@ -625,7 +678,11 @@ public class PlayerSystem : MonoBehaviour
             {
                 //Debug.Log("Attack 3 Animation was activated");
 
-                cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
+                if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
+                {
+                    cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
+                }
+
                 playerAnimator.SetBool("isAttack3", true); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -636,8 +693,13 @@ public class PlayerSystem : MonoBehaviour
                 isCooldown3 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                 isAttacking = true; // We make sure only to trigger isAttacking after animation started
                 //roundSystem.audioSystem.Attack3(1, roundSystem.currentPlayerCharacter); // Start character Attack 3 sound in Player Audio only after animation has started
+
                 if (trainingSystem.actualInfoIndex == 5 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
-                Invoke(nameof(CheckAttack3Stuck), 1f);
+
+                if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
+                {
+                    Invoke(nameof(CheckAttack3Stuck), 1f);
+                }
             }
         }
     }
@@ -677,7 +739,7 @@ public class PlayerSystem : MonoBehaviour
 
     public void CheckHitStuck() // It shows zero references but is activated by the last frame of Hit animation
     {
-        if (isHit == true)
+        if (isHit == true || selectedMultiplayer == true)
         {
             //Debug.Log("Hit Stuck was checked");
 
@@ -883,7 +945,73 @@ public class PlayerSystem : MonoBehaviour
 
     #region Multiplayer Operations
 
+    #region Send Data to Server
 
+    private void MultiplayerForward()
+    {
+        multiplayerSystem.RegisterForward();
+    }
+
+    private void MultiplayerBackward()
+    {
+        multiplayerSystem.RegisterBackward();
+    }
+
+    private void MultiplayerAttack1()
+    {
+        multiplayerSystem.RegisterAttack1();
+    }
+
+    private void MultiplayerAttack2()
+    {
+        multiplayerSystem.RegisterAttack2();
+    }
+
+    private void MultiplayerAttack3()
+    {
+        multiplayerSystem.RegisterAttack3();
+    }
+
+    #endregion
+
+    #region Receive Data from Server
+
+    public void MultiplayerMovesForward()
+    {
+        multiplayerForward = true;
+    }
+
+    public void MultiplayerMovesBackward()
+    {
+        multiplayerBackward = true;
+    }
+
+    public void MultiplayerStopForward()
+    {
+        multiplayerForward = false;
+    }
+
+    public void MultiplayerStopBackward()
+    {
+        multiplayerBackward = false;
+    }
+
+    public void MultiplayerAttacked1()
+    {
+        multiplayerAttack1 = true;
+    }
+
+    public void MultiplayerAttacked2()
+    {
+        multiplayerAttack2 = true;
+    }
+
+    public void MultiplayerAttacked3()
+    {
+        multiplayerAttack3 = true;
+    }
+
+    #endregion
 
     #endregion
 }

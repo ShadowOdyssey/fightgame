@@ -132,7 +132,7 @@ public class OpponentMultiplayer : MonoBehaviour
             if (responseFromServer != "error002")
             {
                 checkWin = responseFromServer;
-                UpdaterWins();
+                UpdateWins();
             }
         }
 
@@ -186,6 +186,16 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
+    public void SetHost(int newHost, int newListener)
+    {
+        if (gameObject.activeInHierarchy == true)
+        {
+            actualHost = newHost;
+            actualListener = newListener;
+            StartCoroutine(RegisterDuel(duelingUser, actualHost));
+        }
+    }
+
     private void ListenOpponent()
     {
         if (canListen == true && wasDataLoaded == false)
@@ -224,7 +234,7 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
-    private void UpdaterWins()
+    private void UpdateWins()
     {
         if (gameObject.activeInHierarchy == true)
         {
@@ -235,13 +245,28 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
-    public void SetHost(int newHost, int newListener)
+    public void RegisterForward()
     {
-        if (gameObject.activeInHierarchy == true)
-        {
-            actualHost = newHost;
-            actualListener = newListener;
-            StartCoroutine(RegisterDuel(duelingUser, actualHost));
-        }
+
+    }
+
+    public void RegisterBackward()
+    {
+
+    }
+
+    public void RegisterAttack1()
+    {
+
+    }
+
+    public void RegisterAttack2()
+    {
+
+    }
+
+    public void RegisterAttack3()
+    {
+
     }
 }

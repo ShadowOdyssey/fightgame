@@ -115,6 +115,11 @@ public class EnemySystem : MonoBehaviour
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
     private bool selectedMultiplayer = false;
+    private bool multiplayerForward = false;
+    private bool multiplayerBackward = false;
+    private bool multiplayerAttack1 = false;
+    private bool multiplayerAttack2 = false;
+    private bool multiplayerAttack3 = false;
 
     #endregion
 
@@ -645,6 +650,38 @@ public class EnemySystem : MonoBehaviour
         }
 
         #endregion
+
+        #region Multiplayer Operations
+
+        if (multiplayerForward == true)
+        {
+            multiplayerBackward = false;
+        }
+
+        if (multiplayerBackward == true)
+        {
+            multiplayerForward = false;
+        }
+
+        if (multiplayerAttack1 == true)
+        {
+            multiplayerForward = false;
+            multiplayerBackward = false;
+        }
+
+        if (multiplayerAttack2 == true)
+        {
+            multiplayerForward = false;
+            multiplayerBackward = false;
+        }
+
+        if (multiplayerAttack3 == true)
+        {
+            multiplayerForward = false;
+            multiplayerBackward = false;
+        }
+
+        #endregion
     }
 
     #endregion
@@ -1100,10 +1137,14 @@ public class EnemySystem : MonoBehaviour
             if (roundSystem.isMultiplayer == false)
             {
                 isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                Invoke(nameof(CheckAttack1Stuck), 1f);
             }
             else
             {
-                Invoke(nameof(CheckAttack1Stuck), 1f);
+                if (selectedMultiplayer == true)
+                {
+                    Invoke(nameof(CheckAttack1Stuck), 1f);
+                }
             }
         }
     }
@@ -1124,10 +1165,14 @@ public class EnemySystem : MonoBehaviour
             if (roundSystem.isMultiplayer == false)
             {
                 isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                Invoke(nameof(CheckAttack2Stuck), 1f);
             }
             else
             {
-                Invoke(nameof(CheckAttack2Stuck), 1f);
+                if (selectedMultiplayer == true)
+                {
+                    Invoke(nameof(CheckAttack2Stuck), 1f);
+                }
             }
         }
     }
@@ -1148,10 +1193,14 @@ public class EnemySystem : MonoBehaviour
             if (roundSystem.isMultiplayer == false)
             {
                 isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                Invoke(nameof(CheckAttack3Stuck), 1f);
             }
             else
             {
-                Invoke(nameof(CheckAttack3Stuck), 1f);
+                if (selectedMultiplayer == true)
+                {
+                    Invoke(nameof(CheckAttack3Stuck), 1f);
+                }
             }
         }
     }
@@ -1201,7 +1250,11 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.Hit(2, roundSystem.currentEnemyCharacter); // Start character Hit sound in Enemy Audio only after animation has started
-            isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+
+            if (roundSystem.isMultiplayer == false)
+            {
+                isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            }
         }
     }
 
@@ -1427,9 +1480,14 @@ public class EnemySystem : MonoBehaviour
             if (isCooldown3 == false) // If Attack 3 not in cooldown start Attack 3
             {
                 StartAttack3Animation(); // Now activate the attack 3 animation
-                cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
+
+                if (selectedMultiplayer == true)
+                {
+                    cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
+                    isCooldown3 = true;
+                }
+
                 isAttacking = true;
-                isCooldown3 = true;
             }
         }
         else
@@ -1482,9 +1540,14 @@ public class EnemySystem : MonoBehaviour
             if (isCooldown1 == false) // If Attack 1 not in cooldown start Attack 1
             {
                 StartAttack1Animation(); // Now activate the attack 1 animation
-                cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
+
+                if (selectedMultiplayer == true)
+                {
+                    cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
+                    isCooldown1 = true;
+                }
+
                 isAttacking = true;
-                isCooldown1 = true;
             }
         }
         else
@@ -1508,9 +1571,14 @@ public class EnemySystem : MonoBehaviour
             if (isCooldown2 == false) // If Attack 2 not in cooldown start Attack 2
             {
                 StartAttack2Animation(); // Now activate the attack 2 animation
-                cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
+
+                if (selectedMultiplayer == true)
+                {
+                    cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
+                    isCooldown2 = true;
+                }
+
                 isAttacking = true;
-                isCooldown2 = true;
             }
         }
         else
@@ -1595,7 +1663,73 @@ public class EnemySystem : MonoBehaviour
 
     #region Multiplayer Operations
 
+    #region Send Data to Servre
 
+    private void MultiplayerForward()
+    {
+        multiplayerSystem.RegisterForward();
+    }
+
+    private void MultiplayerBackward()
+    {
+        multiplayerSystem.RegisterBackward();
+    }
+
+    private void MultiplayerAttack1()
+    {
+        multiplayerSystem.RegisterAttack1();
+    }
+
+    private void MultiplayerAttack2()
+    {
+        multiplayerSystem.RegisterAttack2();
+    }
+
+    private void MultiplayerAttack3()
+    {
+        multiplayerSystem.RegisterAttack3();
+    }
+
+    #endregion
+
+    #region Receive Data from Server
+
+    public void MultiplayerMovesForward()
+    {
+        multiplayerForward = true;
+    }
+
+    public void MultiplayerMovesBackward()
+    {
+        multiplayerBackward = true;
+    }
+
+    public void MultiplayerStopForward()
+    {
+        multiplayerForward = false;
+    }
+
+    public void MultiplayerStopBackward()
+    {
+        multiplayerBackward = false;
+    }
+
+    public void MultiplayerAttacked1()
+    {
+        multiplayerAttack1 = true;
+    }
+
+    public void MultiplayerAttacked2()
+    {
+        multiplayerAttack2 = true;
+    }
+
+    public void MultiplayerAttacked3()
+    {
+        multiplayerAttack3 = true;
+    }
+
+    #endregion
 
     #endregion
 }
