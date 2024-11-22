@@ -601,6 +601,8 @@ public class PlayerSystem : MonoBehaviour
     {
         if (playerAnimator.GetBool("isForward") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way - 
         {
+            MultiplayerForward();
+
             //Debug.Log("Player moved to right");
 
             moveDirection = 1; // Setup new direction only once before to apply new position - 
@@ -625,6 +627,8 @@ public class PlayerSystem : MonoBehaviour
     {
         if (playerAnimator.GetBool("isBackward") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - 
         {
+            MultiplayerBackward();
+
             //Debug.Log("Player moved to left");
 
             moveDirection = -1; // Setup new direction only once before to apply new position - 
@@ -696,6 +700,7 @@ public class PlayerSystem : MonoBehaviour
 
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
+                    MultiplayerAttack1();
                     isCooldown1 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                     isAttacking = true; // We make sure only to trigger isAttacking after animation started
                     Invoke(nameof(CheckAttack1Stuck), 1f);
@@ -732,6 +737,7 @@ public class PlayerSystem : MonoBehaviour
                 
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
+                    MultiplayerAttack2();
                     isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                     isAttacking = true; // We make sure only to trigger isAttacking after animation started
                     Invoke(nameof(CheckAttack2Stuck), 1f);
@@ -768,6 +774,7 @@ public class PlayerSystem : MonoBehaviour
 
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
+                    MultiplayerAttack3();
                     isCooldown3 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                     isAttacking = true; // We make sure only to trigger isAttacking after animation started
                     Invoke(nameof(CheckAttack3Stuck), 1f);
@@ -837,20 +844,26 @@ public class PlayerSystem : MonoBehaviour
 
     #endregion
 
-    #region Called when the button is released
+    #region Called when the movement button is released
 
     private void OnMoveButtonReleased(BaseEventData eventData)
     {
         if (isMovingForward == true)
         {
+            MultiplayerStoppedForward();
             isMovingForward = false;
         }
 
         if (isMovingBackward == true)
         {
+            MultiplayerStoppedBackward();
             isMovingBackward = false;
         }
     }
+
+    #endregion
+
+    #region Attack was pressed
 
     public void OnAttack1ButtonPressed()
     {

@@ -879,11 +879,13 @@ public class EnemySystem : MonoBehaviour
     {
         if (isMovingForward == true)
         {
+            MultiplayerStoppedForward();
             isMovingForward = false;
         }
 
         if (isMovingBackward == true)
         {
+            MultiplayerStoppedBackward();
             isMovingBackward = false;
         }
     }
@@ -974,6 +976,8 @@ public class EnemySystem : MonoBehaviour
     {
         if (enemyAnimator.GetBool("isForward") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way - 
         {
+            MultiplayerForward();
+
             //Debug.Log("Player moved to right");
 
             moveDirection = 1; // Setup new direction only once before to apply new position - 
@@ -996,6 +1000,8 @@ public class EnemySystem : MonoBehaviour
     {
         if (enemyAnimator.GetBool("isBackward") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - 
         {
+            MultiplayerBackward();
+
             //Debug.Log("Player moved to left");
 
             moveDirection = -1; // Setup new direction only once before to apply new position - 
@@ -1552,6 +1558,7 @@ public class EnemySystem : MonoBehaviour
 
                 if (selectedMultiplayer == true)
                 {
+                    MultiplayerAttack3();
                     cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
                     isCooldown3 = true;
                 }
@@ -1612,6 +1619,7 @@ public class EnemySystem : MonoBehaviour
 
                 if (selectedMultiplayer == true)
                 {
+                    MultiplayerAttack1();
                     cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
                     isCooldown1 = true;
                 }
@@ -1643,6 +1651,7 @@ public class EnemySystem : MonoBehaviour
 
                 if (selectedMultiplayer == true)
                 {
+                    MultiplayerAttack2();
                     cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
                     isCooldown2 = true;
                 }
