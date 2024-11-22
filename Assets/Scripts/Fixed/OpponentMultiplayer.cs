@@ -66,6 +66,11 @@ public class OpponentMultiplayer : MonoBehaviour
 
     }
 
+    public void RegisterVictory()
+    {
+
+    }
+
     public void SetHost(int newHost)
     {
         actualHost = newHost;

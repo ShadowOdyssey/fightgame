@@ -891,10 +891,7 @@ public class PlayerSystem : MonoBehaviour
 
     #region Multiplayer Operations
 
-    public void DisableSingle()
-    {
-        this.enabled = false;
-    }
+
 
     #endregion
 }

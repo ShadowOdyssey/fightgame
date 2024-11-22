@@ -639,7 +639,8 @@ public class RoundManager : MonoBehaviour
 
                 ShowRoundText(playerNameText.text + " WINS ROUND " + currentRound);
             }
-            else if (opponentHealth > playerHealth)
+            
+            if (opponentHealth > playerHealth)
             {
                 playerSystem.StartDefeatAnimation();
                 enemySystem.StartVictoryAnimation();
@@ -657,14 +658,35 @@ public class RoundManager : MonoBehaviour
 
                 ShowRoundText(enemyNameText.text + " WINS ROUND " + currentRound);
             }
-            else
+            
+            if (playerHealth < 0f && opponentHealth < 0f)
             {
                 playerSystem.StartDrawAnimation();
                 enemySystem.StartDrawAnimation();
 
                 ShowRoundText("ROUND " + currentRound + " DRAW");
 
+                if (enemyWonRound1.activeInHierarchy == false)
+                {
+                    enemyWonRound1.SetActive(true);
+                    timesEnemyWon = 1;
+                }
+                else
+                {
+                    enemyWonRound2.SetActive(true);
+                    timesEnemyWon = 2;
+                }
 
+                if (playerWonRound1.activeInHierarchy == false)
+                {
+                    playerWonRound1.SetActive(true);
+                    timesPlayerWon = 1;
+                }
+                else
+                {
+                    playerWonRound2.SetActive(true);
+                    timesPlayerWon = 2;
+                }
             }
 
             wasDetermined = true;
@@ -683,23 +705,47 @@ public class RoundManager : MonoBehaviour
 
             if (timesPlayerWon == 1 && timesEnemyWon == 1)
             {
-                currentRound = 3;
+                if (currentRound == 2)
+                {
+                    currentRound = 3;
+                }
+                else
+                {
+                    currentRound = 2;
+                }
+
                 Invoke(nameof(StartRoundAgain), 6f);
             }
 
-            if (timesPlayerWon == 2 || timesEnemyWon == 2)
+            if (timesPlayerWon == 2 && timesEnemyWon == 1 || timesEnemyWon == 2 && timesPlayerWon == 1)
             {
 
                 if (timesPlayerWon == 2)
                 {
+                    if (isMultiplayer == true)
+                    {
+                        playerMultiplayer.RegisterVictory();
+                    }
+
                     ShowRoundText("FIGHT OVER! " + playerNameText.text + " WINS");
                 }
 
                 if (timesEnemyWon == 2)
                 {
+                    if (isMultiplayer == true)
+                    {
+                        enemyMultiplayer.RegisterVictory();
+                    }
+
                     ShowRoundText("FIGHT OVER! " + enemyNameText.text + " WINS");
                 }
 
+                Invoke(nameof(FightEnded), 5f);
+            }
+
+            if (timesPlayerWon == 2 && timesEnemyWon == 2)
+            {
+                ShowRoundText("FIGHT OVER! DRAW! NO WINNERS");
                 Invoke(nameof(FightEnded), 5f);
             }
         }

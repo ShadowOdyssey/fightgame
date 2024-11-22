@@ -649,7 +649,7 @@ public class EnemySystem : MonoBehaviour
 
     #endregion
 
-    #region Camera Movement
+    #region Multiplayer Camera Movement
 
     private void OnTriggerEnter(Collider other)
     {
@@ -675,6 +675,8 @@ public class EnemySystem : MonoBehaviour
     #endregion
 
     #region Movement Operations
+
+    #region Multiplayer input register
 
     public void RegisterInput()
     {
@@ -710,7 +712,24 @@ public class EnemySystem : MonoBehaviour
         }
     }
 
-    #region Button press handlers
+    #endregion
+
+    #region Utility method to add event triggers to buttons
+
+    private void AddEventTrigger(Button button, EventTriggerType eventTriggerType, UnityAction<BaseEventData> eventHandler)
+    {
+        EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+        EventTrigger.Entry entry = new EventTrigger.Entry
+        {
+            eventID = eventTriggerType
+        };
+        entry.callback.AddListener(eventHandler);
+        trigger.triggers.Add(entry);
+    }
+
+    #endregion
+
+    #region Multiplayer buttons actions
 
     public void OnMoveRightButtonPressed(BaseEventData eventData)
     {
@@ -753,25 +772,6 @@ public class EnemySystem : MonoBehaviour
             }
         }
     }
-
-    #endregion
-
-    #region Utility method to add event triggers to buttons
-
-    private void AddEventTrigger(Button button, EventTriggerType eventTriggerType, UnityAction<BaseEventData> eventHandler)
-    {
-        EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
-        EventTrigger.Entry entry = new EventTrigger.Entry
-        {
-            eventID = eventTriggerType
-        };
-        entry.callback.AddListener(eventHandler);
-        trigger.triggers.Add(entry);
-    }
-
-    #endregion
-
-    #region Called when the button is released
 
     private void OnMoveButtonReleased(BaseEventData eventData)
     {
@@ -910,6 +910,8 @@ public class EnemySystem : MonoBehaviour
 
     #endregion
 
+    #region AI movement methods
+
     private void EnemyCanMove()
     {
         #region Check if enemy is being hit, if is being hit dont trigger move animation
@@ -969,6 +971,8 @@ public class EnemySystem : MonoBehaviour
             changedAnimDirectionToBackward = true;
         }
     }
+
+    #endregion
 
     #endregion
 
@@ -1084,7 +1088,6 @@ public class EnemySystem : MonoBehaviour
     {
         if (enemyAnimator.GetBool("isAttack1") == false)
         {
-            cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
             enemyAnimator.SetBool("isAttack1", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -1109,7 +1112,6 @@ public class EnemySystem : MonoBehaviour
     {
         if (enemyAnimator.GetBool("isAttack2") == false)
         {
-            cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
             enemyAnimator.SetBool("isAttack2", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -1134,7 +1136,6 @@ public class EnemySystem : MonoBehaviour
     {
         if (enemyAnimator.GetBool("isAttack3") == false)
         {
-            cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
             enemyAnimator.SetBool("isAttack3", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -1426,6 +1427,7 @@ public class EnemySystem : MonoBehaviour
             if (isCooldown3 == false) // If Attack 3 not in cooldown start Attack 3
             {
                 StartAttack3Animation(); // Now activate the attack 3 animation
+                cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
                 isAttacking = true;
                 isCooldown3 = true;
             }
@@ -1480,6 +1482,7 @@ public class EnemySystem : MonoBehaviour
             if (isCooldown1 == false) // If Attack 1 not in cooldown start Attack 1
             {
                 StartAttack1Animation(); // Now activate the attack 1 animation
+                cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
                 isAttacking = true;
                 isCooldown1 = true;
             }
@@ -1505,6 +1508,7 @@ public class EnemySystem : MonoBehaviour
             if (isCooldown2 == false) // If Attack 2 not in cooldown start Attack 2
             {
                 StartAttack2Animation(); // Now activate the attack 2 animation
+                cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
                 isAttacking = true;
                 isCooldown2 = true;
             }
@@ -1591,10 +1595,7 @@ public class EnemySystem : MonoBehaviour
 
     #region Multiplayer Operations
 
-    public void DisableAI()
-    {
-        this.enabled = false;
-    }
+
 
     #endregion
 }
