@@ -10,7 +10,7 @@ public class EnemySystem : MonoBehaviour
     [Header("Animator Setup")]
     [Tooltip("Attach current enemy Animator component here")]
     public Animator enemyAnimator;
-
+    public OpponentMultiplayer multiplayerSystem;
     public BoxCollider enemyCollider;
 
     [Header("Hit Effect Setup")]

@@ -437,7 +437,7 @@ public class RoundManager : MonoBehaviour
 
             if (actualHost == playerMultiplayerID.ToString())
             {
-                playerMultiplayer.SetHost(playerMultiplayerID); // If i am the host so i am the player at left side
+                playerMultiplayer.SetHost(playerMultiplayerID, enemyMultiplayerID); // If i am the host so i am the player at left side
                 playerSystem.RegisterInput();
                 wasPlayerInput = true;
             }
@@ -480,7 +480,7 @@ public class RoundManager : MonoBehaviour
 
             if (actualHost == playerMultiplayerID.ToString())
             {
-                enemyMultiplayer.SetHost(enemyMultiplayerID); // If i am the host my opponent is the player at right side
+                enemyMultiplayer.SetHost(enemyMultiplayerID, playerMultiplayerID); // If i am the host my opponent is the player at right side
             }
             else
             {

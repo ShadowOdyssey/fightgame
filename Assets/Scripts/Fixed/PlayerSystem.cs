@@ -10,7 +10,7 @@ public class PlayerSystem : MonoBehaviour
     [Header("Animator Setup")]
     [Tooltip("Attach current player Animator component here")]
     public Animator playerAnimator;
-
+    public OpponentMultiplayer multiplayerSystem;
     public BoxCollider playerCollider;
 
     [Header("Buttons UI Setup")]

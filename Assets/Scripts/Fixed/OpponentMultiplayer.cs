@@ -18,6 +18,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
     [Header("Lobby Data")]
     public int actualHost = 0;
+    public int actualListener = 0;
 
     private string responseFromServer = "";
 
@@ -41,15 +42,9 @@ public class OpponentMultiplayer : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            responseFromServer = request.downloadHandler.text;
-
-            if (responseFromServer == "error005")
-            {
-                yield break; // Exit the coroutine if there's an error
-            }
+            request.Dispose();
+            yield break; // Exit the coroutine if there's an error
         }
-
-        request.Dispose();
     }
 
     public void UpdateData(string newValue, string desiredCollumn, string validateRequest)
@@ -71,8 +66,9 @@ public class OpponentMultiplayer : MonoBehaviour
 
     }
 
-    public void SetHost(int newHost)
+    public void SetHost(int newHost, int newListener)
     {
         actualHost = newHost;
+        actualListener = newListener;
     }
 }
