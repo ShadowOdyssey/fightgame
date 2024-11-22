@@ -69,6 +69,8 @@ public class SelectionCharacter : MonoBehaviour
     public string[] arenaNames;     // Optional: Array to hold arena names
     private int selectedArenaIndex = -1; // No arena selected initially
 
+    private bool wasArenaSelected = false;
+
     #endregion
 
     #endregion
@@ -514,6 +516,12 @@ private void DrawArenaPanel()
         if (GUI.Button(new Rect(imageX, imageY, imageWidth, imageHeight), GUIContent.none))
         {
             selectedArenaIndex = i; // Select the clicked arena
+
+            if (wasArenaSelected == false)
+            {
+                wasArenaSelected = true;
+            }
+
             Debug.Log("Selected Arena: " + arenaNames[selectedArenaIndex]);
         }
 
@@ -593,7 +601,7 @@ private void DrawArenaPanel()
 
         if (GUI.Button(new Rect(buttonX, buttonY, buttonWidth, buttonHeight), "Select", selectButtonStyle))
         {
-            if (isUnlocked[playerIndex] == true)
+            if (isUnlocked[playerIndex] == true && wasArenaSelected == true)
             {
                 //Debug.Log("Character Selected: " + characterNames[currentIndex]);
 
@@ -610,6 +618,11 @@ private void DrawArenaPanel()
             }
             else
             {
+                if (wasArenaSelected == false)
+                {
+                    // Warn about not selected arena
+                }
+
                 showLockedMessage = true;
                 lockedMessageTimer = 3f;
             }
