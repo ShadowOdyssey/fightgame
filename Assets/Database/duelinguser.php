@@ -8,7 +8,7 @@ $validateRequest = $_POST['validateRequest'];
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-$sql = "UPDATE lobby SET status = 'queue', duel='0', host='0' WHERE id = ?;";
+$sql = "UPDATE lobby SET status='queue', duel='0', host='0' WHERE id = ?;";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $validateRequest);
 
