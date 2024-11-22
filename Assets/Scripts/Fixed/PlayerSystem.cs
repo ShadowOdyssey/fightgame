@@ -286,6 +286,8 @@ public class PlayerSystem : MonoBehaviour
 
     public void RegisterInput()
     {
+        Debug.Log("Character " + gameObject.name + " was choice to start input events");
+
         if (buttonForward != null)
         {
             AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
