@@ -425,8 +425,6 @@ public class RoundManager : MonoBehaviour
                 case 8: playerCharacter8.SetActive(true); playerMultiplayer = GameObject.Find("AriaPlayer").GetComponent<OpponentMultiplayer>(); playerProfile.sprite = imageProfile8.sprite; break;
             }
 
-            Debug.Log("############## LOADING PLAYER ###############");
-
             if (actualHost == playerMultiplayerID.ToString())
             {
                 playerMultiplayer.SetHost(playerMultiplayerID); // If i am the host so i am the player at left side
@@ -467,8 +465,6 @@ public class RoundManager : MonoBehaviour
                 case 7: enemyCharacter7.SetActive(true); enemyMultiplayer = GameObject.Find("OrionEnemy").GetComponent<OpponentMultiplayer>(); enemyProfile.sprite = imageProfile7.sprite; break;
                 case 8: enemyCharacter8.SetActive(true); enemyMultiplayer = GameObject.Find("AriaEnemy").GetComponent<OpponentMultiplayer>(); enemyProfile.sprite = imageProfile8.sprite; break;
             }
-
-            Debug.Log("############## LOADING ENEMY ###############");
 
             if (actualHost == playerMultiplayerID.ToString())
             {
@@ -569,8 +565,18 @@ public class RoundManager : MonoBehaviour
             {
                 roundTime = roundTime - 1;
                 actualTime.text = roundTime.ToString();
-                ApplyDamageToOpponent(opponentDamagePerSecond);
-                ApplyDamageToPlayer(playerDamagePerSecond);
+
+                if (isMultiplayer == false)
+                {
+                    ApplyDamageToOpponent(opponentDamagePerSecond);
+                    ApplyDamageToPlayer(playerDamagePerSecond);
+                }
+                else
+                {
+                    ApplyDamageToOpponent(playerDamagePerSecond);
+                    ApplyDamageToPlayer(playerDamagePerSecond);
+                }
+
                 decreaseTime = 0f;
             }
 
@@ -589,8 +595,6 @@ public class RoundManager : MonoBehaviour
     {
         if (playerHealthBar.slider.value <= 0f && roundOver == false || opponentHealthBar.slider.value <= 0f && roundOver == false)
         {
-            //Debug.Log("Character died! Round Over! Check for winner!");
-
             roundOver = true;
             DetermineRoundWinner();
         }
@@ -600,15 +604,11 @@ public class RoundManager : MonoBehaviour
     {
         if (wasDetermined == false)
         {
-            //Debug.Log("Determining winner");
-
             canDecrease = false;
 
             // Determine the winner of the round based on remaining health
             if (playerHealth > opponentHealth)
             {
-                //Debug.Log("Player Won");
-
                 playerSystem.StartVictoryAnimation();
                 enemySystem.StartDefeatAnimation();
 
@@ -627,8 +627,6 @@ public class RoundManager : MonoBehaviour
             }
             else if (opponentHealth > playerHealth)
             {
-                //Debug.Log("Enemy Won");
-
                 playerSystem.StartDefeatAnimation();
                 enemySystem.StartVictoryAnimation();
 
@@ -647,12 +645,12 @@ public class RoundManager : MonoBehaviour
             }
             else
             {
-                //Debug.Log("Nobody Won");
-
                 playerSystem.StartDrawAnimation();
                 enemySystem.StartDrawAnimation();
 
                 ShowRoundText("ROUND " + currentRound + " DRAW");
+
+
             }
 
             wasDetermined = true;
