@@ -242,19 +242,16 @@ public class RoundManager : MonoBehaviour
     public void Start()
     {
         playerMultiplayerID = PlayerPrefs.GetInt("multiplayerPlayer");
-       string opponentProfileString = PlayerPrefs.GetString("multiplayerOpponentProfile", "0"); // Default to "0" if the key doesn't exist
-       int enemyMultiplayerProfile;
+        enemyMultiplayerID = PlayerPrefs.GetInt("multiplayerOpponent");
+        playerMultiplayerProfile = PlayerPrefs.GetInt("multiplayerPlayerProfile");
 
-       if (int.TryParse(opponentProfileString, out enemyMultiplayerProfile))
-      {
-    // Successfully parsed, enemyMultiplayerProfile contains the integer value
-      }
-     else
-      {
-    // Handle the error case (e.g., use a default value or log an error)
-    enemyMultiplayerProfile = 0;
-    Debug.LogWarning($"Invalid multiplayerOpponentProfile value: {opponentProfileString}");
-}
+        //enemyMultiplayerProfile = int.Parse(PlayerPrefs.GetString("multiplayerOpponentProfile"));
+
+        if (int.TryParse(PlayerPrefs.GetString("multiplayerOpponentProfile"), out enemyMultiplayerProfile))
+        {
+            // Conversion successful, use enemyMultiplayerProfile
+            Debug.Log("Conversion successful: " + enemyMultiplayerProfile);
+        }
 
         actualHost = PlayerPrefs.GetString("whoWasTheHost");
         enemyMultiplayerName = PlayerPrefs.GetString("multiplayerOpponentName");
