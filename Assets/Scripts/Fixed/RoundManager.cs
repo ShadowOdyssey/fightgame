@@ -221,7 +221,12 @@ public class RoundManager : MonoBehaviour
 
     #region Multiplayer
 
-
+    public int playerMultiplayerID = 0;
+    public int enemyMultiplayerID = 0;
+    public int playerMultiplayerProfile = 0;
+    public int enemyMultiplayerProfile = 0;
+    public string actualHost = "";
+    public string enemyMultiplayerName = "";
 
     #endregion
 
@@ -236,14 +241,29 @@ public class RoundManager : MonoBehaviour
 
     public void Start()
     {
+        //Debug.Log("################### START ####################");
+        //Debug.Log("Is multiplayer activated? " + PlayerPrefs.GetString("isMultiplayerActivade"));
+        //Debug.Log("Who Was The Host is: " + PlayerPrefs.GetString("whoWasTheHost"));
+        //Debug.Log("Player Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerPlayer"));
+        //Debug.Log("Opponent Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerOpponent"));
+        //Debug.Log("Player Profile is: " + PlayerPrefs.GetInt("multiplayerPlayerProfile"));
+        //Debug.Log("Opponent Multiplayer Name is: " + PlayerPrefs.GetString("multiplayerOpponentName"));
+        //Debug.Log("Opponent Multiplayer Profile is: " + PlayerPrefs.GetString("multiplayerOpponentProfile"));
+
+        playerMultiplayerID = PlayerPrefs.GetInt("multiplayerPlayer");
+        enemyMultiplayerID = PlayerPrefs.GetInt("multiplayerOpponent");
+        playerMultiplayerProfile = PlayerPrefs.GetInt("multiplayerPlayerProfile");
+        enemyMultiplayerProfile = int.Parse(PlayerPrefs.GetString("multiplayerOpponentProfile"));
+        actualHost = PlayerPrefs.GetString("whoWasTheHost");
+        enemyMultiplayerName = PlayerPrefs.GetString("multiplayerOpponentName");
+
         Debug.Log("################### START ####################");
-        Debug.Log("Is multiplayer activated? " + PlayerPrefs.GetString("isMultiplayerActivade"));
-        Debug.Log("Who Was The Host is: " + PlayerPrefs.GetString("whoWasTheHost"));
-        Debug.Log("Player Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerPlayer"));
-        Debug.Log("Opponent Multiplayer value is: " + PlayerPrefs.GetInt("multiplayerOpponent"));
-        Debug.Log("Player Profile is: " + PlayerPrefs.GetInt("multiplayerPlayerProfile")); // Done
-        Debug.Log("Opponent Multiplayer Name is: " + PlayerPrefs.GetString("multiplayerOpponentName"));
-        Debug.Log("Opponent Multiplayer Profile is: " + PlayerPrefs.GetString("multiplayerOpponentProfile")); // Done
+        Debug.Log("Who Was The Host is: " + actualHost);
+        Debug.Log("Player Multiplayer ID value is: " + playerMultiplayerID);
+        Debug.Log("Opponent Multiplayer ID value is: " + enemyMultiplayerID);
+        Debug.Log("Player Profile is: " + playerMultiplayerProfile);
+        Debug.Log("Opponent Multiplayer Name is: " + enemyMultiplayerName);
+        Debug.Log("Opponent Multiplayer Profile is: " + enemyMultiplayerProfile);
 
         CheckForMultiplayerOrTrainningMode(); // Done
         LoadArenaAndEnemyCharacter(); // Done
@@ -296,8 +316,8 @@ public class RoundManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("############## CHECK MULTIPLAYER ###############");
-            Debug.Log("Is multiplayer, so load persisted data!");
+            //Debug.Log("############## CHECK MULTIPLAYER ###############");
+            //Debug.Log("Is multiplayer, so load persisted data!");
 
             isTrainingMode = false;
             isMultiplayer = true; // Game is multiplayer, so dont load stage number from Singleplay
@@ -308,8 +328,12 @@ public class RoundManager : MonoBehaviour
 
     private void LoadPlayerCharacter()
     {
+        Debug.Log("It cant appear in Debug - A");
+
         if (PlayerPrefs.GetInt("playerCharacterSelected") != 0)
         {
+            Debug.Log("It cant appear in Debug - B");
+
             currentPlayerCharacter = PlayerPrefs.GetInt("playerCharacterSelected");
 
             //Debug.Log("Player selected character: " + currentPlayerCharacter);
@@ -318,43 +342,43 @@ public class RoundManager : MonoBehaviour
 
     private void LoadMultiplayerCharacter()
     {
-        Debug.Log("############## LOADING ###############");
+        //Debug.Log("############## LOADING ###############");
 
-        if (PlayerPrefs.GetString("whoWasTheHost") == PlayerPrefs.GetInt("multiplayerPlayer").ToString())
+        if (actualHost == playerMultiplayerID.ToString())
         {
             // Loading Character Mesh Model
-            currentPlayerCharacter = PlayerPrefs.GetInt("multiplayerPlayerProfile"); // I am the left side
-            currentEnemyCharacter = PlayerPrefs.GetInt("multiplayerOpponentProfile"); // Opponent is right side
+            currentPlayerCharacter = playerMultiplayerProfile; // I am the left side
+            currentEnemyCharacter = enemyMultiplayerProfile; // Opponent is right side
 
             // Loading Names
             playerNameText.text = PlayerPrefs.GetString("playerName").ToUpper(); // Load my name at left side
             enemyNameText.text = PlayerPrefs.GetString("multiplayerOpponentName").ToUpper(); // Load opponent name at right side
 
             Debug.Log("############## LEFT SIDE ###############");
-            Debug.Log("Player Character Persisted Data is: " + PlayerPrefs.GetInt("multiplayerPlayerProfile"));
+            //Debug.Log("Player Character Persisted Data is: " + PlayerPrefs.GetInt("multiplayerPlayerProfile"));
             Debug.Log("Player Character Profile applied in variable is: " + currentPlayerCharacter);
-            Debug.Log("Enemy Character Persisted Data is: " + PlayerPrefs.GetInt("multiplayerOpponentProfile"));
+            //Debug.Log("Enemy Character Persisted Data is: " + PlayerPrefs.GetInt("multiplayerOpponentProfile"));
             Debug.Log("Enemy Character Profile applied in variable is: " + currentEnemyCharacter);
-            Debug.Log("Player Name is: " + playerNameText.text);
-            Debug.Log("Enemy Name is: " + enemyNameText.text);
+            //Debug.Log("Player Name is: " + playerNameText.text);
+            //Debug.Log("Enemy Name is: " + enemyNameText.text);
         }
         else
         {
             // Loading Character Mesh Model
-            currentPlayerCharacter = PlayerPrefs.GetInt("multiplayerOpponentProfile"); // Opponent is left side
-            currentEnemyCharacter = PlayerPrefs.GetInt("multiplayerPlayerProfile"); // I am the right side
+            currentPlayerCharacter = enemyMultiplayerProfile; // Opponent is left side
+            currentEnemyCharacter = playerMultiplayerProfile; // I am the right side
 
             // Loading Names
             playerNameText.text = PlayerPrefs.GetString("multiplayerOpponentName").ToUpper(); // Load opponent name at left side
             enemyNameText.text = PlayerPrefs.GetString("playerName").ToUpper(); // Load my name at right side
 
             Debug.Log("############## RIGHT SIDE ###############");
-            Debug.Log("Player Character Persisted Data is: " + PlayerPrefs.GetInt("multiplayerOpponentProfile"));
+            //Debug.Log("Player Character Persisted Data is: " + PlayerPrefs.GetInt("multiplayerOpponentProfile"));
             Debug.Log("Player Character Profile applied in variable is: " + currentPlayerCharacter);
-            Debug.Log("Enemy Character Persisted Data is: " + PlayerPrefs.GetInt("multiplayerPlayerProfile"));
+            //Debug.Log("Enemy Character Persisted Data is: " + PlayerPrefs.GetInt("multiplayerPlayerProfile"));
             Debug.Log("Enemy Character Profile applied in variable is: " + currentEnemyCharacter);
-            Debug.Log("Player Name is: " + playerNameText.text);
-            Debug.Log("Enemy Name is: " + enemyNameText.text);
+            //Debug.Log("Player Name is: " + playerNameText.text);
+            //Debug.Log("Enemy Name is: " + enemyNameText.text);
         }
     }
 
@@ -443,17 +467,17 @@ public class RoundManager : MonoBehaviour
 
             Debug.Log("############## LOADING PLAYER ###############");
 
-            if (PlayerPrefs.GetString("whoWasTheHost") == PlayerPrefs.GetInt("multiplayerPlayer").ToString())
+            if (actualHost == playerMultiplayerID.ToString())
             {
-                Debug.Log("Still exist Multiplayer Player to apply in Player - A? Value: " + PlayerPrefs.GetInt("multiplayerPlayer"));
+                Debug.Log("Still exist Multiplayer Player to apply in Player - A? Value: " + playerMultiplayerID);
 
-                playerMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerPlayer")); // If i am the host so i am the player at left side
+                playerMultiplayer.SetHost(playerMultiplayerID); // If i am the host so i am the player at left side
             }
             else
             {
-                Debug.Log("Still exist Multiplayer Opponent to apply in Player - B? Value: " + PlayerPrefs.GetInt("multiplayerOpponent"));
+                Debug.Log("Still exist Multiplayer Opponent to apply in Player - B? Value: " + enemyMultiplayerID);
 
-                playerMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerOpponent")); // If i am not the host so my opponent is the player at left side
+                playerMultiplayer.SetHost(enemyMultiplayerID); // If i am not the host so my opponent is the player at left side
             }
         }
     }
@@ -490,17 +514,17 @@ public class RoundManager : MonoBehaviour
 
             Debug.Log("############## LOADING ENEMY ###############");
 
-            if (PlayerPrefs.GetString("whoWasTheHost") == PlayerPrefs.GetInt("multiplayerPlayer").ToString())
+            if (actualHost == playerMultiplayerID.ToString())
             {
-                Debug.Log("Still exist Multiplayer Opponent to apply in Enemy - A? Value: " + PlayerPrefs.GetInt("multiplayerOpponent"));
+                Debug.Log("Still exist Multiplayer Opponent to apply in Enemy - A? Value: " + enemyMultiplayerID);
 
-                enemyMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerOpponent")); // If i am the host my opponent is the player at right side
+                enemyMultiplayer.SetHost(enemyMultiplayerID); // If i am the host my opponent is the player at right side
             }
             else
             {
-                Debug.Log("Still exist Multiplayer Player to apply in Enemy - B? Value: " + PlayerPrefs.GetInt("multiplayerPlayer"));
+                Debug.Log("Still exist Multiplayer Player to apply in Enemy - B? Value: " + playerMultiplayerID);
 
-                enemyMultiplayer.SetHost(PlayerPrefs.GetInt("multiplayerPlayer")); // If i am not the host so i am the player at right side
+                enemyMultiplayer.SetHost(playerMultiplayerID); // If i am not the host so i am the player at right side
             }
         }
     }
