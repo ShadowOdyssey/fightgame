@@ -74,6 +74,8 @@ public class MainMenu : MonoBehaviour
         Rect playButtonRect = new Rect(centerX, panelY, buttonWidth, buttonHeight);
         if (GUI.Button(playButtonRect, GUIContent.none, GUIStyle.none))
         {
+
+            PlayerPrefs.SetString("isMultiplayerActivade", "no");
             PlayerPrefs.SetString("isTraining", "no");
             SceneManager.LoadScene("SelectionCharacter");
         }
