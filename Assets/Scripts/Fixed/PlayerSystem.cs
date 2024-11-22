@@ -808,7 +808,17 @@ public class PlayerSystem : MonoBehaviour
         isCooldown1 = false;
         isCooldown2 = false;
         isCooldown3 = false;
-        cooldownSystem.ResetAllCooldowns();
+
+        if (selectedMultiplayer == true && roundSystem.isMultiplayer == true)
+        {
+            cooldownSystem.ResetAllCooldowns();
+        }
+        
+        if (roundSystem.isMultiplayer == false)
+        {
+            cooldownSystem.ResetAllCooldowns();
+        }
+
         wasResetTriggers = true;
     }
 

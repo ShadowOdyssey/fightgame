@@ -1465,6 +1465,11 @@ public class EnemySystem : MonoBehaviour
         changedAnimDirectionToBackward = false; // Disable all directions movement
         changedAnimDirectionToForward = false; // Disable all directions movement
         wasResetTriggers = true; // All tiggers was reset, so close this Reset Trigger call
+
+        if (selectedMultiplayer == true && roundSystem.isMultiplayer == true)
+        {
+            cooldownSystem.ResetAllCooldowns();
+        }
     }
 
     private void ResetAllAnimations()
