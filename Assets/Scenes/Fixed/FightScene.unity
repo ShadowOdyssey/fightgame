@@ -7546,6 +7546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 195582296}
+  enemyCollider: {fileID: 195582300}
   hitEffect: {fileID: 678784640}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -28650,6 +28651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 766459695}
+  enemyCollider: {fileID: 766459699}
   hitEffect: {fileID: 1545518282}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -38675,6 +38677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 1182155158}
+  enemyCollider: {fileID: 1182155162}
   hitEffect: {fileID: 806010340}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -41762,6 +41765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 1443079219}
+  enemyCollider: {fileID: 1443079223}
   hitEffect: {fileID: 222634076}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -50005,6 +50009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 1682586386}
+  enemyCollider: {fileID: 1682586389}
   hitEffect: {fileID: 22025710}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -77186,6 +77191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 1702918070325892023}
+  enemyCollider: {fileID: 4950711130276591987}
   hitEffect: {fileID: 2700347895830053798}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -93701,6 +93707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 2495953252140554705}
+  enemyCollider: {fileID: 8026062536542031976}
   hitEffect: {fileID: 4545454749973784299}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -101737,6 +101744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 5094669300415737938}
+  enemyCollider: {fileID: 6833581998742927827}
   hitEffect: {fileID: 7428514330982426404}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -114767,6 +114775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 2141172749761112830}
+  playerCollider: {fileID: 5428761219676516486}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -126113,6 +126122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 5866666021251667148}
+  playerCollider: {fileID: 5866666021251667149}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -126223,6 +126233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 5866666021348040838}
+  playerCollider: {fileID: 5866666021348040839}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -128152,6 +128163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 5336496286630718541}
+  playerCollider: {fileID: 675574995597770192}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -133660,6 +133672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 5355074099231696326}
+  playerCollider: {fileID: 331305771408501157}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -136177,6 +136190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 8361852595730644831}
+  playerCollider: {fileID: 8361852595730644833}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -138584,6 +138598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 1529150710048386913}
+  playerCollider: {fileID: 5483367893164437563}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -139826,6 +139841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 2516783442718657983}
+  playerCollider: {fileID: 9171181848999038336}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
