@@ -648,6 +648,8 @@ public class EnemySystem : MonoBehaviour
     {
         if (roundSystem.isMultiplayer == true)
         {
+            Debug.Log("Character " + gameObject.name + " was choice to start input events");
+
             if (buttonForward != null)
             {
                 AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
