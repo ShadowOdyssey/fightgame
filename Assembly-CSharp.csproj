@@ -968,10 +968,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.Animation.Rigging.csproj">
-      <Project>{D847C318-7832-615B-D954-798F9CE6E318}</Project>
-      <Name>Unity.Animation.Rigging</Name>
-    </ProjectReference>
     <ProjectReference Include="com.unity.cinemachine.editor.csproj">
       <Project>{1594F8CF-D4E2-A4A3-AB63-A3327DC7680D}</Project>
       <Name>com.unity.cinemachine.editor</Name>
@@ -1064,13 +1060,13 @@
       <Project>{296210D4-82A1-9C73-ED95-83A46B917610}</Project>
       <Name>Unity.VisualScripting.State.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Mathematics.csproj">
-      <Project>{E8384743-9090-A76A-6B44-71C012BC7157}</Project>
-      <Name>Unity.Mathematics</Name>
-    </ProjectReference>
     <ProjectReference Include="Autodesk.Fbx.Editor.csproj">
       <Project>{6D2BC136-E521-440B-7B5A-08912358D7E9}</Project>
       <Name>Autodesk.Fbx.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Mathematics.csproj">
+      <Project>{E8384743-9090-A76A-6B44-71C012BC7157}</Project>
+      <Name>Unity.Mathematics</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.csproj">
       <Project>{E72A3C6E-1DE9-110B-E814-0C7A1E2C8699}</Project>
@@ -1091,6 +1087,10 @@
     <ProjectReference Include="Cinemachine.csproj">
       <Project>{BED19A27-2A21-3C50-0C75-CE8D6370D0BE}</Project>
       <Name>Cinemachine</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Animation.Rigging.csproj">
+      <Project>{D847C318-7832-615B-D954-798F9CE6E318}</Project>
+      <Name>Unity.Animation.Rigging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

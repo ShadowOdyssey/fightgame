@@ -892,10 +892,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.Animation.Rigging.Player.csproj">
-      <Project>{6F994EF8-12A4-71B4-C886-ED6F7D4ED0AC}</Project>
-      <Name>Unity.Animation.Rigging.Player</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.Burst.Player.csproj">
       <Project>{5C1AEF2A-F814-2C04-EF3C-F5D22072C491}</Project>
       <Name>Unity.Burst.Player</Name>
@@ -943,6 +939,10 @@
     <ProjectReference Include="Cinemachine.Player.csproj">
       <Project>{B900A133-1703-51A6-0C85-CC86CDA03671}</Project>
       <Name>Cinemachine.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Animation.Rigging.Player.csproj">
+      <Project>{6F994EF8-12A4-71B4-C886-ED6F7D4ED0AC}</Project>
+      <Name>Unity.Animation.Rigging.Player</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
