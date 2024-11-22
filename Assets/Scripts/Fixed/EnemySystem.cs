@@ -124,32 +124,6 @@ public class EnemySystem : MonoBehaviour
 
         roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
         initialPosition = gameObject.transform.position; // Store the initial position to use it when a new round to start, so can move Enemy always to initial position
-
-        if (roundSystem.isMultiplayer == true)
-        {
-            if (buttonForward != null)
-            {
-                AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
-                AddEventTrigger(buttonForward, EventTriggerType.PointerUp, OnMoveButtonReleased);
-            }
-            if (buttonBackward != null)
-            {
-                AddEventTrigger(buttonBackward, EventTriggerType.PointerDown, OnMoveLeftButtonPressed);
-                AddEventTrigger(buttonBackward, EventTriggerType.PointerUp, OnMoveButtonReleased);
-            }
-            if (buttonAttack1 != null)
-            {
-                buttonAttack1.onClick.AddListener(OnAttack1ButtonPressed);
-            }
-            if (buttonAttack2 != null)
-            {
-                buttonAttack2.onClick.AddListener(OnAttack2ButtonPressed);
-            }
-            if (buttonAttack3 != null)
-            {
-                buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
-            }
-        }
     }
 
     #endregion
@@ -670,6 +644,36 @@ public class EnemySystem : MonoBehaviour
 
     #region Movement Operations
 
+    public void RegisterInput()
+    {
+        if (roundSystem.isMultiplayer == true)
+        {
+            if (buttonForward != null)
+            {
+                AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
+                AddEventTrigger(buttonForward, EventTriggerType.PointerUp, OnMoveButtonReleased);
+            }
+            if (buttonBackward != null)
+            {
+                AddEventTrigger(buttonBackward, EventTriggerType.PointerDown, OnMoveLeftButtonPressed);
+                AddEventTrigger(buttonBackward, EventTriggerType.PointerUp, OnMoveButtonReleased);
+            }
+            if (buttonAttack1 != null)
+            {
+                buttonAttack1.onClick.AddListener(OnAttack1ButtonPressed);
+            }
+            if (buttonAttack2 != null)
+            {
+                buttonAttack2.onClick.AddListener(OnAttack2ButtonPressed);
+            }
+            if (buttonAttack3 != null)
+            {
+                buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
+            }
+        }
+
+    }
+
     #region Button press handlers
 
     public void OnMoveRightButtonPressed(BaseEventData eventData)
@@ -838,7 +842,7 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
-            enemyAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -860,7 +864,7 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
-            enemyAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - 
+            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 

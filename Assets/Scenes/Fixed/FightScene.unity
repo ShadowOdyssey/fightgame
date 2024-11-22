@@ -7547,6 +7547,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 195582296}
   hitEffect: {fileID: 678784640}
+  stepSize: 0.1
+  buttonForward: {fileID: 0}
+  buttonBackward: {fileID: 0}
+  buttonAttack1: {fileID: 0}
+  buttonAttack2: {fileID: 0}
+  buttonAttack3: {fileID: 0}
   actualAttack: 1
   enemyDifficulty: 2
   attackRange: 13
@@ -7564,6 +7570,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!54 &195582299
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8085,6 +8096,8 @@ MonoBehaviour:
   opponentHealthBar: {fileID: 1662190001}
   playerSystem: {fileID: 0}
   enemySystem: {fileID: 0}
+  playerMultiplayer: {fileID: 0}
+  enemyMultiplayer: {fileID: 0}
   arena1: {fileID: 919132147578589512}
   arena2: {fileID: 193646512061278923}
   arena3: {fileID: 6351908984347285709}
@@ -8150,6 +8163,13 @@ MonoBehaviour:
   isPlayerCombo: 0
   isEnemyCombo: 0
   isTrainingMode: 0
+  isMultiplayer: 0
+  playerMultiplayerID: 0
+  enemyMultiplayerID: 0
+  playerMultiplayerProfile: 0
+  enemyMultiplayerProfile: 0
+  actualHost: 
+  enemyMultiplayerName: 
 --- !u!114 &222489664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28629,6 +28649,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 766459695}
   hitEffect: {fileID: 1545518282}
+  stepSize: 0.1
+  buttonForward: {fileID: 0}
+  buttonBackward: {fileID: 0}
+  buttonAttack1: {fileID: 0}
+  buttonAttack2: {fileID: 0}
+  buttonAttack3: {fileID: 0}
   actualAttack: 1
   enemyDifficulty: 0
   attackRange: 13
@@ -28646,6 +28672,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!54 &766459698
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -38643,6 +38674,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 1182155158}
   hitEffect: {fileID: 806010340}
+  stepSize: 0.1
+  buttonForward: {fileID: 0}
+  buttonBackward: {fileID: 0}
+  buttonAttack1: {fileID: 0}
+  buttonAttack2: {fileID: 0}
+  buttonAttack3: {fileID: 0}
   actualAttack: 1
   enemyDifficulty: 1
   attackRange: 13
@@ -38660,6 +38697,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!54 &1182155161
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -41719,6 +41761,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 1443079219}
   hitEffect: {fileID: 222634076}
+  stepSize: 0.1
+  buttonForward: {fileID: 0}
+  buttonBackward: {fileID: 0}
+  buttonAttack1: {fileID: 0}
+  buttonAttack2: {fileID: 0}
+  buttonAttack3: {fileID: 0}
   actualAttack: 1
   enemyDifficulty: 3
   attackRange: 13
@@ -41736,6 +41784,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!54 &1443079222
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -49951,6 +50004,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 1682586386}
   hitEffect: {fileID: 22025710}
+  stepSize: 0.1
+  buttonForward: {fileID: 0}
+  buttonBackward: {fileID: 0}
+  buttonAttack1: {fileID: 0}
+  buttonAttack2: {fileID: 0}
+  buttonAttack3: {fileID: 0}
   actualAttack: 1
   enemyDifficulty: 2
   attackRange: 13
@@ -49989,6 +50048,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!54 &1682586388
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -77121,6 +77185,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 1702918070325892023}
   hitEffect: {fileID: 2700347895830053798}
+  stepSize: 0.1
+  buttonForward: {fileID: 0}
+  buttonBackward: {fileID: 0}
+  buttonAttack1: {fileID: 0}
+  buttonAttack2: {fileID: 0}
+  buttonAttack3: {fileID: 0}
   actualAttack: 1
   enemyDifficulty: 0
   attackRange: 13
@@ -93630,6 +93700,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 2495953252140554705}
   hitEffect: {fileID: 4545454749973784299}
+  stepSize: 0.1
+  buttonForward: {fileID: 0}
+  buttonBackward: {fileID: 0}
+  buttonAttack1: {fileID: 0}
+  buttonAttack2: {fileID: 0}
+  buttonAttack3: {fileID: 0}
   actualAttack: 1
   enemyDifficulty: 1
   attackRange: 13
@@ -101660,6 +101736,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 5094669300415737938}
   hitEffect: {fileID: 7428514330982426404}
+  stepSize: 0.1
+  buttonForward: {fileID: 0}
+  buttonBackward: {fileID: 0}
+  buttonAttack1: {fileID: 0}
+  buttonAttack2: {fileID: 0}
+  buttonAttack3: {fileID: 0}
   actualAttack: 1
   enemyDifficulty: 3
   attackRange: 13
@@ -112575,6 +112657,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!65 &4950711130276591987
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -114749,6 +114836,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!4 &5434746401014096659
 Transform:
   m_ObjectHideFlags: 0
@@ -126042,6 +126134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!95 &5866666021348040838
 Animator:
   serializedVersion: 5
@@ -126147,6 +126244,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!137 &5876281528611456057
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -128071,6 +128173,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!1 &6384688211915794111
 GameObject:
   m_ObjectHideFlags: 0
@@ -129979,6 +130086,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!65 &6833581998742927827
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -134768,6 +134880,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!54 &8026062536542031975
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -136129,6 +136246,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!4 &8362416913127135173
 Transform:
   m_ObjectHideFlags: 0
@@ -138483,6 +138605,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!4 &8920993825790356033
 Transform:
   m_ObjectHideFlags: 0
@@ -138989,6 +139116,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!1 &9012348565679367543
 GameObject:
   m_ObjectHideFlags: 0
@@ -139715,6 +139847,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff739c3534bf7d4da2b5020ebd57bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
+  logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  roundSystem: {fileID: 222489663}
+  actualHost: 0
 --- !u!4 &9175881999152624815
 Transform:
   m_ObjectHideFlags: 0

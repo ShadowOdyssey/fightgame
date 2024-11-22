@@ -104,27 +104,9 @@ public class PlayerSystem : MonoBehaviour
 
         initialPosition = transform.position;
 
-        if (buttonForward != null)
+        if (roundSystem.isMultiplayer == false)
         {
-            AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
-            AddEventTrigger(buttonForward, EventTriggerType.PointerUp, OnMoveButtonReleased);
-        }
-        if (buttonBackward != null)
-        {
-            AddEventTrigger(buttonBackward, EventTriggerType.PointerDown, OnMoveLeftButtonPressed);
-            AddEventTrigger(buttonBackward, EventTriggerType.PointerUp, OnMoveButtonReleased);
-        }
-        if (buttonAttack1 != null)
-        {
-            buttonAttack1.onClick.AddListener(OnAttack1ButtonPressed);
-        }
-        if (buttonAttack2 != null)
-        {
-            buttonAttack2.onClick.AddListener(OnAttack2ButtonPressed);
-        }
-        if (buttonAttack3 != null)
-        {
-            buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
+            RegisterInput();
         }
     }
 
@@ -301,6 +283,32 @@ public class PlayerSystem : MonoBehaviour
     #endregion
 
     #region Stop movement and set idle animation
+
+    public void RegisterInput()
+    {
+        if (buttonForward != null)
+        {
+            AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
+            AddEventTrigger(buttonForward, EventTriggerType.PointerUp, OnMoveButtonReleased);
+        }
+        if (buttonBackward != null)
+        {
+            AddEventTrigger(buttonBackward, EventTriggerType.PointerDown, OnMoveLeftButtonPressed);
+            AddEventTrigger(buttonBackward, EventTriggerType.PointerUp, OnMoveButtonReleased);
+        }
+        if (buttonAttack1 != null)
+        {
+            buttonAttack1.onClick.AddListener(OnAttack1ButtonPressed);
+        }
+        if (buttonAttack2 != null)
+        {
+            buttonAttack2.onClick.AddListener(OnAttack2ButtonPressed);
+        }
+        if (buttonAttack3 != null)
+        {
+            buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
+        }
+    }
 
     private void AnimIsIdle() // StopMoving is being called alot, consuming processing and it is bad to mobile, so...
     {

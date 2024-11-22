@@ -423,19 +423,20 @@ public class RoundManager : MonoBehaviour
         {
             switch (currentPlayerCharacter) // Loading Player character
             {
-                case 1: playerCharacter1.SetActive(true); playerMultiplayer = GameObject.Find("GabriellaPlayer").GetComponent<OpponentMultiplayer>(); playerProfile.sprite = imageProfile1.sprite; break;
-                case 2: playerCharacter2.SetActive(true); playerMultiplayer = GameObject.Find("MarcusPlayer").GetComponent<OpponentMultiplayer>(); playerProfile.sprite = imageProfile2.sprite; break;
-                case 3: playerCharacter3.SetActive(true); playerMultiplayer = GameObject.Find("SelenaPlayer").GetComponent<OpponentMultiplayer>(); playerProfile.sprite = imageProfile3.sprite; break;
-                case 4: playerCharacter4.SetActive(true); playerMultiplayer = GameObject.Find("BryanPlayer").GetComponent<OpponentMultiplayer>(); playerProfile.sprite = imageProfile4.sprite; break;
-                case 5: playerCharacter5.SetActive(true); playerMultiplayer = GameObject.Find("NunPlayer").GetComponent<OpponentMultiplayer>(); playerProfile.sprite = imageProfile5.sprite; break;
-                case 6: playerCharacter6.SetActive(true); playerMultiplayer = GameObject.Find("OliverPlayer").GetComponent<OpponentMultiplayer>(); playerProfile.sprite = imageProfile6.sprite; break;
-                case 7: playerCharacter7.SetActive(true); playerMultiplayer = GameObject.Find("OrionPlayer").GetComponent<OpponentMultiplayer>(); playerProfile.sprite = imageProfile7.sprite; break;
-                case 8: playerCharacter8.SetActive(true); playerMultiplayer = GameObject.Find("AriaPlayer").GetComponent<OpponentMultiplayer>(); playerProfile.sprite = imageProfile8.sprite; break;
+                case 1: playerCharacter1.SetActive(true); playerMultiplayer = GameObject.Find("GabriellaPlayer").GetComponent<OpponentMultiplayer>(); playerSystem = GameObject.Find("GabriellaPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile1.sprite; break;
+                case 2: playerCharacter2.SetActive(true); playerMultiplayer = GameObject.Find("MarcusPlayer").GetComponent<OpponentMultiplayer>(); playerSystem = GameObject.Find("MarcusPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile2.sprite; break;
+                case 3: playerCharacter3.SetActive(true); playerMultiplayer = GameObject.Find("SelenaPlayer").GetComponent<OpponentMultiplayer>(); playerSystem = GameObject.Find("SelenaPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile3.sprite; break;
+                case 4: playerCharacter4.SetActive(true); playerMultiplayer = GameObject.Find("BryanPlayer").GetComponent<OpponentMultiplayer>(); playerSystem = GameObject.Find("BryanPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile4.sprite; break;
+                case 5: playerCharacter5.SetActive(true); playerMultiplayer = GameObject.Find("NunPlayer").GetComponent<OpponentMultiplayer>(); playerSystem = GameObject.Find("NunPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile5.sprite; break;
+                case 6: playerCharacter6.SetActive(true); playerMultiplayer = GameObject.Find("OliverPlayer").GetComponent<OpponentMultiplayer>(); playerSystem = GameObject.Find("OliverPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile6.sprite; break;
+                case 7: playerCharacter7.SetActive(true); playerMultiplayer = GameObject.Find("OrionPlayer").GetComponent<OpponentMultiplayer>(); playerSystem = GameObject.Find("OrionPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile7.sprite; break;
+                case 8: playerCharacter8.SetActive(true); playerMultiplayer = GameObject.Find("AriaPlayer").GetComponent<OpponentMultiplayer>(); playerSystem = GameObject.Find("AriaPlayer").GetComponent<PlayerSystem>(); playerProfile.sprite = imageProfile8.sprite; break;
             }
 
             if (actualHost == playerMultiplayerID.ToString())
             {
                 playerMultiplayer.SetHost(playerMultiplayerID); // If i am the host so i am the player at left side
+                playerSystem.RegisterInput();
             }
             else
             {
@@ -464,14 +465,14 @@ public class RoundManager : MonoBehaviour
         {
             switch (currentEnemyCharacter) // Loading Enemy character
             {
-                case 1: enemyCharacter1.SetActive(true); enemyMultiplayer = GameObject.Find("GabriellaEnemy").GetComponent<OpponentMultiplayer>(); enemyProfile.sprite = imageProfile1.sprite; break;
-                case 2: enemyCharacter2.SetActive(true); enemyMultiplayer = GameObject.Find("MarcusEnemy").GetComponent<OpponentMultiplayer>(); enemyProfile.sprite = imageProfile2.sprite; break;
-                case 3: enemyCharacter3.SetActive(true); enemyMultiplayer = GameObject.Find("SelenaEnemy").GetComponent<OpponentMultiplayer>(); enemyProfile.sprite = imageProfile3.sprite; break;
-                case 4: enemyCharacter4.SetActive(true); enemyMultiplayer = GameObject.Find("BryanEnemy").GetComponent<OpponentMultiplayer>(); enemyProfile.sprite = imageProfile4.sprite; break;
-                case 5: enemyCharacter5.SetActive(true); enemyMultiplayer = GameObject.Find("NunEnemy").GetComponent<OpponentMultiplayer>(); enemyProfile.sprite = imageProfile5.sprite; break;
-                case 6: enemyCharacter6.SetActive(true); enemyMultiplayer = GameObject.Find("OliverEnemy").GetComponent<OpponentMultiplayer>(); enemyProfile.sprite = imageProfile6.sprite; break;
-                case 7: enemyCharacter7.SetActive(true); enemyMultiplayer = GameObject.Find("OrionEnemy").GetComponent<OpponentMultiplayer>(); enemyProfile.sprite = imageProfile7.sprite; break;
-                case 8: enemyCharacter8.SetActive(true); enemyMultiplayer = GameObject.Find("AriaEnemy").GetComponent<OpponentMultiplayer>(); enemyProfile.sprite = imageProfile8.sprite; break;
+                case 1: enemyCharacter1.SetActive(true); enemyMultiplayer = GameObject.Find("GabriellaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("GabriellaEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile1.sprite; break;
+                case 2: enemyCharacter2.SetActive(true); enemyMultiplayer = GameObject.Find("MarcusEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("MarcusEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile2.sprite; break;
+                case 3: enemyCharacter3.SetActive(true); enemyMultiplayer = GameObject.Find("SelenaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("SelenaEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile3.sprite; break;
+                case 4: enemyCharacter4.SetActive(true); enemyMultiplayer = GameObject.Find("BryanEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("BryanEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile4.sprite; break;
+                case 5: enemyCharacter5.SetActive(true); enemyMultiplayer = GameObject.Find("NunEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("NunEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile5.sprite; break;
+                case 6: enemyCharacter6.SetActive(true); enemyMultiplayer = GameObject.Find("OliverEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("OliverEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile6.sprite; break;
+                case 7: enemyCharacter7.SetActive(true); enemyMultiplayer = GameObject.Find("OrionEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("OrionEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile7.sprite; break;
+                case 8: enemyCharacter8.SetActive(true); enemyMultiplayer = GameObject.Find("AriaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile8.sprite; break;
             }
 
             if (actualHost == playerMultiplayerID.ToString())
@@ -481,6 +482,7 @@ public class RoundManager : MonoBehaviour
             else
             {
                 enemyMultiplayer.SetHost(playerMultiplayerID); // If i am not the host so i am the player at right side
+                enemySystem.RegisterInput();
             }
         }
     }
