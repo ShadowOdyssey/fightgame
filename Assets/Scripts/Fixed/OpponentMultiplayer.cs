@@ -40,6 +40,11 @@ public class OpponentMultiplayer : MonoBehaviour
     private string listenerAttack1 = "";
     private string listenerAttack2 = "";
     private string listenerAttack3 = "";
+    private string senderForward = "";
+    private string senderBackward = "";
+    private string senderAttack1 = "";
+    private string senderAttack2 = "";
+    private string senderAttack3 = "";
     private string listenerHit = "";
     private string checkWin = "";
 
@@ -314,6 +319,42 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #endregion
 
+    #region Data Sent
+
+    public void SendStop()
+    {
+
+    }
+
+    public void SendForward()
+    {
+
+    }
+
+    public void SendBackward()
+    {
+
+    }
+
+    public void SendAttack1()
+    {
+
+    }
+
+    public void SendAttack2()
+    {
+
+    }
+
+    public void SendAttack3()
+    {
+
+    }
+
+    #endregion
+
+    #region Data Received
+
     #region Enemy is Player, register new data
 
     public void RegisterForwardPlayer()
@@ -419,6 +460,8 @@ public class OpponentMultiplayer : MonoBehaviour
             opponentIsEnemy.MultiplayerAttacked3();
         }
     }
+
+    #endregion
 
     #endregion
 }
