@@ -792,7 +792,7 @@ public class EnemySystem : MonoBehaviour
         {
             //Debug.Log("Player activated Attack 1");
             // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
-            //AnimIsAttack1();
+            UseAttack1();
         }
     }
 
@@ -802,7 +802,7 @@ public class EnemySystem : MonoBehaviour
         {
             //Debug.Log("Player activated Attack 2");
             // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
-            //AnimIsAttack2();
+            UseAttack2();
         }
     }
 
@@ -812,7 +812,7 @@ public class EnemySystem : MonoBehaviour
         {
             //Debug.Log("Player activated Attack 3");
             // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
-            //AnimIsAttack3();
+            UseAttack3();
         }
     }
 
@@ -1364,27 +1364,39 @@ public class EnemySystem : MonoBehaviour
 
     private void UseAttack3()
     {
-        if (isCooldown3 == false) // If Attack 3 not in cooldown start Attack 3
+        if (roundSystem.isMultiplayer == false)
         {
-            StartAttack3Animation(); // Now activate the attack 3 animation
-            isCooldown3 = true;
+            if (isCooldown3 == false) // If Attack 3 not in cooldown start Attack 3
+            {
+                StartAttack3Animation(); // Now activate the attack 3 animation
+                isCooldown3 = true;
+            }
+            else
+            {
+                if (isCooldown1 == true && isCooldown2 == true && isCooldown3 == true)
+                {
+                    LastFrameAttack(); // If all skills are in cooldown, cancel the attack
+                }
+
+                if (isCooldown3 == true && isCooldown1 == false && isCooldown2 == true ||
+                    isCooldown3 == true && isCooldown1 == false && isCooldown2 == false)
+                {
+                    UseAttack1(); // If Attack 3 is in cooldown so change to Attack 1
+                }
+
+                if (isCooldown3 == true && isCooldown2 == false && isCooldown1 == true)
+                {
+                    UseAttack2(); // If Attack 3 is in cooldown so change to Attack 2
+                }
+            }
         }
         else
         {
-            if (isCooldown1 == true && isCooldown2 == true && isCooldown3 == true)
+            if (isCooldown3 == false) // If Attack 3 not in cooldown start Attack 3
             {
-                LastFrameAttack(); // If all skills are in cooldown, cancel the attack
-            }
-
-            if (isCooldown3 == true && isCooldown1 == false && isCooldown2 == true ||
-                isCooldown3 == true && isCooldown1 == false && isCooldown2 == false)
-            {
-                UseAttack1(); // If Attack 3 is in cooldown so change to Attack 1
-            }
-
-            if (isCooldown3 == true && isCooldown2 == false && isCooldown1 == true)
-            {
-                UseAttack2(); // If Attack 3 is in cooldown so change to Attack 2
+                StartAttack3Animation(); // Now activate the attack 3 animation
+                isAttacking = true;
+                isCooldown3 = true;
             }
         }
     }
@@ -1406,27 +1418,51 @@ public class EnemySystem : MonoBehaviour
 
     private void UseAttack1()
     {
-        if (isCooldown1 == false) // If Attack 1 not in cooldown start Attack 1
+        if (roundSystem.isMultiplayer == false)
         {
-            StartAttack1Animation(); // Now activate the attack 1 animation
-            isCooldown1 = true;
+            if (isCooldown1 == false) // If Attack 1 not in cooldown start Attack 1
+            {
+                StartAttack1Animation(); // Now activate the attack 1 animation
+                isCooldown1 = true;
+            }
+            else
+            {
+                UseAttack2(); // If Attack 1 is in cooldown so change to Attack 2
+            }
         }
         else
         {
-            UseAttack2(); // If Attack 1 is in cooldown so change to Attack 2
+            if (isCooldown1 == false) // If Attack 1 not in cooldown start Attack 1
+            {
+                StartAttack1Animation(); // Now activate the attack 1 animation
+                isAttacking = true;
+                isCooldown1 = true;
+            }
         }
     }
 
     private void UseAttack2()
     {
-        if (isCooldown2 == false) // If Attack 2 not in cooldown start Attack 2
+        if (roundSystem.isMultiplayer == false)
         {
-            StartAttack2Animation(); // Now activate the attack 2 animation
-            isCooldown2 = true;
+            if (isCooldown2 == false) // If Attack 2 not in cooldown start Attack 2
+            {
+                StartAttack2Animation(); // Now activate the attack 2 animation
+                isCooldown2 = true;
+            }
+            else
+            {
+                UseAttack3(); // If Attack 2 is in cooldown so change to Attack 3
+            }
         }
         else
         {
-            UseAttack3(); // If Attack 2 is in cooldown so change to Attack 3
+            if (isCooldown2 == false) // If Attack 2 not in cooldown start Attack 2
+            {
+                StartAttack2Animation(); // Now activate the attack 2 animation
+                isAttacking = true;
+                isCooldown2 = true;
+            }
         }
     }
 
