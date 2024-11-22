@@ -99,6 +99,8 @@ public class PlayerSystem : MonoBehaviour
         cooldownSystem = null;
         enemySystem = null;
         enemyBody = null;
+
+        roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
     }
 
     public void Start()
@@ -316,7 +318,6 @@ public class PlayerSystem : MonoBehaviour
         }
 
         cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
-        roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
         trainingSystem = GameObject.Find("RoundManager").GetComponent<TrainingSystem>();
         cooldownSystem = GameObject.Find("RoundManager").GetComponent<CooldownSystem>();
 
