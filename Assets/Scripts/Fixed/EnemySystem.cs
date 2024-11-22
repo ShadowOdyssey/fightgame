@@ -1734,11 +1734,6 @@ public class EnemySystem : MonoBehaviour
 
     #region Send Data to Servre
 
-    private void MultiplayerStop()
-    {
-        multiplayerSystem.SendStop();
-    }
-
     private void MultiplayerForward()
     {
         multiplayerSystem.SendForward();
@@ -1747,6 +1742,16 @@ public class EnemySystem : MonoBehaviour
     private void MultiplayerBackward()
     {
         multiplayerSystem.SendBackward();
+    }
+
+    private void MultiplayerStoppedForward()
+    {
+        multiplayerSystem.SendStopForward();
+    }
+
+    private void MultiplayerStoppedBackward()
+    {
+        multiplayerSystem.SendStopBackward();
     }
 
     private void MultiplayerAttack1()

@@ -400,7 +400,7 @@ public class PlayerSystem : MonoBehaviour
 
     #endregion
 
-    #region Stop movement and set idle animation
+    #region Register multiplayer data
 
     public void RegisterInput()
     {
@@ -441,6 +441,10 @@ public class PlayerSystem : MonoBehaviour
             buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
         }
     }
+
+    #endregion
+
+    #region Stop movement and set idle animation
 
     private void AnimIsIdle() // StopMoving is being called alot, consuming processing and it is bad to mobile, so...
     {
@@ -1015,11 +1019,6 @@ public class PlayerSystem : MonoBehaviour
 
     #region Send Data to Server
 
-    private void MultiplayerStop()
-    {
-        multiplayerSystem.SendStop();
-    }
-
     private void MultiplayerForward()
     {
         multiplayerSystem.SendForward();
@@ -1028,6 +1027,16 @@ public class PlayerSystem : MonoBehaviour
     private void MultiplayerBackward()
     {
         multiplayerSystem.SendBackward();
+    }
+
+    private void MultiplayerStoppedForward()
+    {
+        multiplayerSystem.SendStopForward();
+    }
+
+    private void MultiplayerStoppedBackward()
+    {
+        multiplayerSystem.SendStopBackward();
     }
 
     private void MultiplayerAttack1()

@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 
 public class OpponentMultiplayer : MonoBehaviour
 {
+    #region Variables
+
     [Header("Database Setup")]
     [Tooltip("Put the URL of the PHP file Verify User in the host server")]
     public string verifyUser = "https://queensheartgames.com/shadowodyssey/verifyuser.php";
@@ -25,6 +27,8 @@ public class OpponentMultiplayer : MonoBehaviour
     [Header("Lobby Data")]
     public int actualHost = 0;
     public int actualListener = 0;
+
+    #region Hidden Variables
 
     [Header("Listener Setup")]
     private string[] listenerInfo = new string[0];
@@ -48,10 +52,20 @@ public class OpponentMultiplayer : MonoBehaviour
     private string listenerHit = "";
     private string checkWin = "";
 
+    #endregion
+
+    #endregion
+
+    #region Load Components
+
     public void Awake()
     {
         roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
     }
+
+    #endregion
+
+    #region Real Time Operations
 
     public void Update()
     {
@@ -63,6 +77,8 @@ public class OpponentMultiplayer : MonoBehaviour
         CheckRoundStartToListen();
         CheckRoundOverToStopListen();
     }
+
+    #endregion
 
     #region Database Operations
 
@@ -86,34 +102,79 @@ public class OpponentMultiplayer : MonoBehaviour
             if (listenerForward != listenerInfo[0])
             {
                 listenerForward = listenerInfo[0];
+                
+                if (isEnemyPlayer == true)
+                {
+                    RegisterForwardPlayer();
+                }
+                else
+                {
+                    RegisterForwardEnemy();
+                }
             }
             
             if (listenerBackward != listenerInfo[1])
             {
                 listenerBackward = listenerInfo[1];
+
+                if (isEnemyPlayer == true)
+                {
+                    RegisterBackwardPlayer();
+                }
+                else
+                {
+                    RegisterBackwardEnemy();
+                }
             }
 
             if (listenerAttack1 != listenerInfo[2])
             {
                 listenerAttack1 = listenerInfo[2];
+
+                if (isEnemyPlayer == true)
+                {
+                    RegisterAttack1Player();
+                }
+                else
+                {
+                    RegisterAttack1Enemy();
+                }
             }
 
             if (listenerAttack2 != listenerInfo[3])
             {
                 listenerAttack2 = listenerInfo[3];
+
+                if (isEnemyPlayer == true)
+                {
+                    RegisterAttack2Player();
+                }
+                else
+                {
+                    RegisterAttack2Enemy();
+                }
             }
 
             if (listenerAttack3 != listenerInfo[4])
             {
                 listenerAttack3 = listenerInfo[4];
+
+                if (isEnemyPlayer == true)
+                {
+                    RegisterAttack3Player();
+                }
+                else
+                {
+                    RegisterAttack3Enemy();
+                }
             }
 
+            /*
             if (listenerHit != listenerInfo[5])
             {
                 listenerHit = listenerInfo[5];
             }
-
-            RegisterAllData();
+            */
 
             wasDataLoaded = false;
             canListen = false;
@@ -297,58 +358,65 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #region Synchronize Now
 
-    private void RegisterAllData()
-    {
-        if (isEnemyPlayer == true)
-        {
-            RegisterForwardPlayer();
-            RegisterBackwardPlayer();
-            RegisterAttack1Player();
-            RegisterAttack2Player();
-            RegisterAttack3Player();
-        }
-        else
-        {
-            RegisterForwardEnemy();
-            RegisterBackwardEnemy();
-            RegisterAttack1Enemy();
-            RegisterAttack2Enemy();
-            RegisterAttack3Enemy();
-        }
-    }
-
-    #endregion
-
     #region Data Sent
 
     public void SendStop()
     {
-
+        UpdateData("no", "forward", actualHost.ToString());
+        UpdateData("no", "backward", actualHost.ToString());
     }
 
     public void SendForward()
     {
-
+        UpdateData("yes", "forward", actualHost.ToString());
     }
 
     public void SendBackward()
     {
+        UpdateData("yes", "backward", actualHost.ToString());
+    }
 
+    public void SendStopForward()
+    {
+        UpdateData("no", "forward", actualHost.ToString());
+    }
+
+    public void SendStopBackward()
+    {
+        UpdateData("no", "backward", actualHost.ToString());
     }
 
     public void SendAttack1()
     {
-
+        UpdateData("yes", "attack1", actualHost.ToString());
+        Invoke(nameof(ResetAttack1), 2f);
     }
 
     public void SendAttack2()
     {
-
+        UpdateData("yes", "attack2", actualHost.ToString());
+        Invoke(nameof(ResetAttack2), 2f);
     }
 
     public void SendAttack3()
     {
+        UpdateData("yes", "attack3", actualHost.ToString());
+        Invoke(nameof(ResetAttack3), 2f);
+    }
 
+    private void ResetAttack1()
+    {
+        UpdateData("no", "attack1", actualHost.ToString());
+    }
+
+    private void ResetAttack2()
+    {
+        UpdateData("no", "attack2", actualHost.ToString());
+    }
+
+    private void ResetAttack3()
+    {
+        UpdateData("no", "attack3", actualHost.ToString());
     }
 
     #endregion
@@ -460,6 +528,8 @@ public class OpponentMultiplayer : MonoBehaviour
             opponentIsEnemy.MultiplayerAttacked3();
         }
     }
+
+    #endregion
 
     #endregion
 
