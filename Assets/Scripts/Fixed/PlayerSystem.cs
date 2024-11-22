@@ -11,6 +11,8 @@ public class PlayerSystem : MonoBehaviour
     [Tooltip("Attach current player Animator component here")]
     public Animator playerAnimator;
 
+    public BoxCollider playerCollider;
+
     [Header("Buttons UI Setup")]
     [Tooltip("Attach current player Button Forward component here")]
     public Button buttonForward;
@@ -81,6 +83,7 @@ public class PlayerSystem : MonoBehaviour
     [Tooltip("If enabled means player triggers will be reseted on each end of round")]
     private bool wasResetTriggers = false;
 
+    private bool selectedMultiplayer = false;
     #endregion
 
     #endregion
@@ -97,15 +100,9 @@ public class PlayerSystem : MonoBehaviour
         enemySystem = null;
         enemyBody = null;
 
-        cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
-        roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
-        trainingSystem = GameObject.Find("RoundManager").GetComponent<TrainingSystem>();
-        cooldownSystem = GameObject.Find("RoundManager").GetComponent<CooldownSystem>();
-
-        initialPosition = transform.position;
-
         if (roundSystem.isMultiplayer == false)
         {
+            playerCollider.enabled = true;
             RegisterInput();
         }
     }
@@ -261,22 +258,48 @@ public class PlayerSystem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == "Left Collider")
+        if (roundSystem.isMultiplayer == false)
         {
-            cameraSystem.MoveToLeft();
+            if (other.name == "Left Collider")
+            {
+                cameraSystem.MoveToLeft();
+            }
+
+            if (other.name == "Right Collider")
+            {
+                cameraSystem.MoveToRight();
+            }
+        }
+        else
+        {
+            if (other.name == "Left Collider" && selectedMultiplayer == true)
+            {
+                cameraSystem.MoveToLeft();
+            }
+
+            if (other.name == "Right Collider" && selectedMultiplayer == true)
+            {
+                cameraSystem.MoveToRight();
+            }
         }
 
-        if (other.name == "Right Collider")
-        {
-            cameraSystem.MoveToRight();
-        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.name == "Left Collider" || other.name == "Right Collider")
+        if (roundSystem.isMultiplayer == false)
         {
-            cameraSystem.StopToMove();
+            if (other.name == "Left Collider" || other.name == "Right Collider")
+            {
+                cameraSystem.StopToMove();
+            }
+        }
+        else
+        {
+            if (other.name == "Left Collider" && selectedMultiplayer == true || other.name == "Right Collider" && selectedMultiplayer == true)
+            {
+                cameraSystem.StopToMove();
+            }
         }
     }
 
@@ -286,6 +309,19 @@ public class PlayerSystem : MonoBehaviour
 
     public void RegisterInput()
     {
+        if (roundSystem.isMultiplayer == true)
+        {
+            playerCollider.enabled = true;
+            selectedMultiplayer = true;
+        }
+
+        cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
+        roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
+        trainingSystem = GameObject.Find("RoundManager").GetComponent<TrainingSystem>();
+        cooldownSystem = GameObject.Find("RoundManager").GetComponent<CooldownSystem>();
+
+        initialPosition = transform.position;
+
         Debug.Log("Character " + gameObject.name + " was choice to start input events");
 
         if (buttonForward != null)

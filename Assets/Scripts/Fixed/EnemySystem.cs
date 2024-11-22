@@ -11,6 +11,8 @@ public class EnemySystem : MonoBehaviour
     [Tooltip("Attach current enemy Animator component here")]
     public Animator enemyAnimator;
 
+    public BoxCollider enemyCollider;
+
     [Header("Hit Effect Setup")]
     [Tooltip("Attach current enemy HitEffect GameObject here")]
     public GameObject hitEffect;
@@ -44,12 +46,16 @@ public class EnemySystem : MonoBehaviour
     #region Hidden Variables
 
     [Header("Monitor")] // Turn variables into public to show monitor
+    [Tooltip("Actual Camera System from MainCamera object in the current scene, it will be loaded when scene to awake")]
+    private CameraSystem cameraSystem;
     [Tooltip("Actual Round System from RoundManager object in the current scene, it will be loaded when scene to awake")]
     private RoundManager roundSystem;
     [Tooltip("Actual Player System from selected player in singleplayer, it will be loaded when scene to awake")]
     private PlayerSystem playerSystem;
     [Tooltip("Actual Player System Multiplayer from selected player in multiplayer, it will be loaded when scene to awake")]
     private OpponentMultiplayer playerSystemMultiplayer;
+    [Tooltip("Actual Cooldown System from RoundManager object in the current scene, it will be loaded when scene to awake")]
+    private CooldownSystem cooldownSystem;
     [Tooltip("Actual Player Transform from selected player in singleplayer or multiplayer, it will be loaded when scene to awake")]
     private Transform playerBody;
     [Tooltip("Initial position from Enemy to use it when a new round to start to move Enemy to initial position")]
@@ -108,6 +114,7 @@ public class EnemySystem : MonoBehaviour
     private int moveDirection = 0;
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
+    private bool selectedMultiplayer = false;
 
     #endregion
 
@@ -642,38 +649,65 @@ public class EnemySystem : MonoBehaviour
 
     #endregion
 
+    #region Camera Movement
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "Left Collider" && selectedMultiplayer == true)
+        {
+            cameraSystem.MoveToLeft();
+        }
+
+        if (other.name == "Right Collider" && selectedMultiplayer == true)
+        {
+            cameraSystem.MoveToRight();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.name == "Left Collider" && selectedMultiplayer == true || other.name == "Right Collider" && selectedMultiplayer == true)
+        {
+            cameraSystem.StopToMove();
+        }
+    }
+
+    #endregion
+
     #region Movement Operations
 
     public void RegisterInput()
     {
-        if (roundSystem.isMultiplayer == true)
+        enemyCollider.enabled = true;
+        selectedMultiplayer = true;
+
+        Debug.Log("Character " + gameObject.name + " was choice to start input events");
+
+        cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
+        cooldownSystem = GameObject.Find("RoundManager").GetComponent<CooldownSystem>();
+
+        if (buttonForward != null)
         {
-            Debug.Log("Character " + gameObject.name + " was choice to start input events");
-
-            if (buttonForward != null)
-            {
-                AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
-                AddEventTrigger(buttonForward, EventTriggerType.PointerUp, OnMoveButtonReleased);
-            }
-            if (buttonBackward != null)
-            {
-                AddEventTrigger(buttonBackward, EventTriggerType.PointerDown, OnMoveLeftButtonPressed);
-                AddEventTrigger(buttonBackward, EventTriggerType.PointerUp, OnMoveButtonReleased);
-            }
-            if (buttonAttack1 != null)
-            {
-                buttonAttack1.onClick.AddListener(OnAttack1ButtonPressed);
-            }
-            if (buttonAttack2 != null)
-            {
-                buttonAttack2.onClick.AddListener(OnAttack2ButtonPressed);
-            }
-            if (buttonAttack3 != null)
-            {
-                buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
-            }
+            AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
+            AddEventTrigger(buttonForward, EventTriggerType.PointerUp, OnMoveButtonReleased);
         }
-
+        if (buttonBackward != null)
+        {
+            AddEventTrigger(buttonBackward, EventTriggerType.PointerDown, OnMoveLeftButtonPressed);
+            AddEventTrigger(buttonBackward, EventTriggerType.PointerUp, OnMoveButtonReleased);
+        }
+        if (buttonAttack1 != null)
+        {
+            buttonAttack1.onClick.AddListener(OnAttack1ButtonPressed);
+        }
+        if (buttonAttack2 != null)
+        {
+            buttonAttack2.onClick.AddListener(OnAttack2ButtonPressed);
+        }
+        if (buttonAttack3 != null)
+        {
+            buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
+        }
     }
 
     #region Button press handlers
@@ -1050,6 +1084,7 @@ public class EnemySystem : MonoBehaviour
     {
         if (enemyAnimator.GetBool("isAttack1") == false)
         {
+            cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
             enemyAnimator.SetBool("isAttack1", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -1066,6 +1101,7 @@ public class EnemySystem : MonoBehaviour
     {
         if (enemyAnimator.GetBool("isAttack2") == false)
         {
+            cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
             enemyAnimator.SetBool("isAttack2", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -1082,6 +1118,7 @@ public class EnemySystem : MonoBehaviour
     {
         if (enemyAnimator.GetBool("isAttack3") == false)
         {
+            cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
             enemyAnimator.SetBool("isAttack3", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 

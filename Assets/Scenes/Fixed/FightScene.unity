@@ -8170,6 +8170,8 @@ MonoBehaviour:
   enemyMultiplayerProfile: 0
   actualHost: 
   enemyMultiplayerName: 
+  wasPlayerInput: 0
+  wasEnemyInput: 0
 --- !u!114 &222489664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76849,7 +76851,7 @@ BoxCollider:
   m_LayerOverridePriority: 2
   m_IsTrigger: 0
   m_ProvidesContacts: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 14, y: 14, z: 25}
   m_Center: {x: 0.1598444, y: 6.640089, z: 0.30785272}
@@ -83290,7 +83292,7 @@ BoxCollider:
   m_LayerOverridePriority: 2
   m_IsTrigger: 0
   m_ProvidesContacts: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 140, y: 140, z: 250}
   m_Center: {x: 3.7135222, y: 87.021515, z: 10.44036}
@@ -114793,7 +114795,7 @@ BoxCollider:
   m_LayerOverridePriority: 2
   m_IsTrigger: 0
   m_ProvidesContacts: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 28, y: 28, z: 50}
   m_Center: {x: 0.1598444, y: 15.9, z: 0.30785272}
@@ -115089,7 +115091,7 @@ BoxCollider:
   m_LayerOverridePriority: 2
   m_IsTrigger: 0
   m_ProvidesContacts: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.5020648, y: 1, z: 2.548979}
   m_Center: {x: -0.016688982, y: 1.01, z: -0.009743956}
@@ -126067,7 +126069,7 @@ BoxCollider:
   m_LayerOverridePriority: 2
   m_IsTrigger: 0
   m_ProvidesContacts: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 14, y: 14, z: 26}
   m_Center: {x: 0.1598444, y: 8.36, z: 0.30785272}
@@ -126177,7 +126179,7 @@ BoxCollider:
   m_LayerOverridePriority: 2
   m_IsTrigger: 0
   m_ProvidesContacts: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 24.593204, y: 20, z: 39.34565}
   m_Center: {x: 0.15969355, y: 13.600001, z: 3.7513413}
@@ -136203,7 +136205,7 @@ BoxCollider:
   m_LayerOverridePriority: 2
   m_IsTrigger: 0
   m_ProvidesContacts: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 10, y: 10, z: 16.356665}
   m_Center: {x: 0.1598444, y: 6.6400886, z: -0.14789519}
@@ -139780,7 +139782,7 @@ BoxCollider:
   m_LayerOverridePriority: 2
   m_IsTrigger: 0
   m_ProvidesContacts: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 2.1246727, y: 2, z: 3.3561606}
   m_Center: {x: -0.15310827, y: 1.3100001, z: 0.16280065}
