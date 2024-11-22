@@ -481,7 +481,7 @@ public class EnemySystem : MonoBehaviour
                 {
                     checkDamage = false;
                     damageTime = 0f;
-                    playerSystemMultiplayer.TakeDamage(20);
+                    playerSystem.TakeHit(20);
                 }
 
                 if (damageTime > 0.2f)

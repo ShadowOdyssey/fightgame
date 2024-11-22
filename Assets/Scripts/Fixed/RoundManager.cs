@@ -441,10 +441,6 @@ public class RoundManager : MonoBehaviour
                 playerSystem.RegisterInput();
                 wasPlayerInput = true;
             }
-            else
-            {
-                playerMultiplayer.SetHost(enemyMultiplayerID); // If i am not the host so my opponent is the player at left side
-            }
         }
     }
 
@@ -478,13 +474,9 @@ public class RoundManager : MonoBehaviour
                 case 8: enemyCharacter8.SetActive(true); enemyMultiplayer = GameObject.Find("AriaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); enemyProfile.sprite = imageProfile8.sprite; break;
             }
 
-            if (actualHost == playerMultiplayerID.ToString())
+            if (actualHost != playerMultiplayerID.ToString())
             {
-                enemyMultiplayer.SetHost(enemyMultiplayerID, playerMultiplayerID); // If i am the host my opponent is the player at right side
-            }
-            else
-            {
-                enemyMultiplayer.SetHost(playerMultiplayerID); // If i am not the host so i am the player at right side
+                enemyMultiplayer.SetHost(playerMultiplayerID, enemyMultiplayerID); // If i am not the host so i am the player at right side
                 enemySystem.RegisterInput();
                 wasEnemyInput = true;
             }

@@ -188,15 +188,7 @@ public class PlayerSystem : MonoBehaviour
             {
                 checkDamage = false;
                 damageTime = 0f;
-
-                if (roundSystem.isMultiplayer == false)
-                {
-                    enemySystem.TakeDamage(20);
-                }
-                else
-                {
-                    enemySystemMultiplayer.TakeDamage(20);
-                }
+                enemySystem.TakeDamage(20);
             }
 
             if (damageTime > 0.2f)
