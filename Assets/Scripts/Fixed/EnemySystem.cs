@@ -1142,7 +1142,7 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
-                                                       //roundSystem.audioSystem.Attack3(2, roundSystem.currentEnemyCharacter); // Start character Attack 3 sound in Enemy Audio only after animation has started
+            //roundSystem.audioSystem.Attack3(2, roundSystem.currentEnemyCharacter); // Start character Attack 3 sound in Enemy Audio only after animation has started
 
             if (roundSystem.isMultiplayer == false)
             {
