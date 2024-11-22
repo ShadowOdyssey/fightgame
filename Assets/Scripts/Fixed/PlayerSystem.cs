@@ -46,8 +46,10 @@ public class PlayerSystem : MonoBehaviour
     public TrainingSystem trainingSystem;
     [Tooltip("Actual Cooldown System from RoundManager object in the current scene, it will be loaded when scene to awake")]
     private CooldownSystem cooldownSystem;
-    [Tooltip("Actual Enemy System from selected enemy by IA or multiplayer, it will be loaded when scene to awake")]
+    [Tooltip("Actual Enemy System from selected enemy by IA, it will be loaded when scene to awake")]
     private EnemySystem enemySystem;
+    [Tooltip("Actual Enemy System Multiplayer from selected enemy by multiplayer, it will be loaded when scene to awake")]
+    private OpponentMultiplayer enemySystemMultiplayer;
     [Tooltip("Actual Enemy Transform from selected enemy by IA or multiplayer, it will be loaded when scene to awake")]
     private Transform enemyBody;
     [Tooltip("Initial position from Player to use it when a new round to start to move Player to initial position")]
@@ -130,7 +132,17 @@ public class PlayerSystem : MonoBehaviour
     {
         if (roundSystem.isMultiplayer == true)
         {
-            DisableSingle();
+            switch (roundSystem.currentEnemyCharacter)
+            {
+                case 1: enemyBody = GameObject.Find("GabriellaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("GabriellaEnemy").GetComponent<OpponentMultiplayer>(); break;
+                case 2: enemyBody = GameObject.Find("MarcusEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("MarcusEnemy").GetComponent<OpponentMultiplayer>(); break;
+                case 3: enemyBody = GameObject.Find("SelenaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("SelenaEnemy").GetComponent<OpponentMultiplayer>(); break;
+                case 4: enemyBody = GameObject.Find("BryanEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("BryanEnemy").GetComponent<OpponentMultiplayer>(); break;
+                case 5: enemyBody = GameObject.Find("NunEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("NunEnemy").GetComponent<OpponentMultiplayer>(); break;
+                case 6: enemyBody = GameObject.Find("OliverEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("OliverEnemy").GetComponent<OpponentMultiplayer>(); break;
+                case 7: enemyBody = GameObject.Find("OrionEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("OrionEnemy").GetComponent<OpponentMultiplayer>(); break;
+                case 8: enemyBody = GameObject.Find("AriaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("AriaEnemy").GetComponent<OpponentMultiplayer>(); break;
+            }
         }
         else
         {
@@ -154,61 +166,66 @@ public class PlayerSystem : MonoBehaviour
 
     private void Update()
     {
-        if (roundSystem.isMultiplayer == false)
+        #region Animate Intro while round dont start
+
+        if (roundSystem.currentRound == 1 && introAnimated == false)
         {
-            #region Animate Intro while round dont start
+            introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            StartIntroAnimation(); // Round 1 started so activate Intro Animation
+        }
 
-            if (roundSystem.currentRound == 1 && introAnimated == false)
+        if (roundSystem.currentRound == 2 && introAnimated == true)
+        {
+            introAnimated = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
+        }
+
+        if (roundSystem.currentRound == 3 && introAnimated == false)
+        {
+            introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
+        }
+
+        #endregion
+
+        #region Check if round finished
+
+        if (roundSystem.roundOver == true && wasResetTriggers == false)
+        {
+            ResetAllTriggers();
+        }
+
+        #endregion
+
+        #region Check if Player dealed damage to Enemy
+
+        if (checkDamage == true)
+        {
+            damageTime = damageTime + Time.deltaTime;
+
+            if (enemySystem.distanceToTarget <= attackRange && damageTime > 0f)
             {
-                introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-                StartIntroAnimation(); // Round 1 started so activate Intro Animation
-            }
+                checkDamage = false;
+                damageTime = 0f;
 
-            if (roundSystem.currentRound == 2 && introAnimated == true)
-            {
-                introAnimated = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-                Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
-            }
-
-            if (roundSystem.currentRound == 3 && introAnimated == false)
-            {
-                introAnimated = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-                Invoke(nameof(StartIntroAnimation), 5f); // We delay Intro animation to start to let last Defeat or Victory animation to run for some time before Intro animation starts again
-            }
-
-            #endregion
-
-            #region Check if round finished
-
-            if (roundSystem.roundOver == true && wasResetTriggers == false)
-            {
-                ResetAllTriggers();
-            }
-
-            #endregion
-
-            #region Check if Player dealed damage to Enemy
-
-            if (checkDamage == true)
-            {
-                damageTime = damageTime + Time.deltaTime;
-
-                if (enemySystem.distanceToTarget <= attackRange && damageTime > 0f)
+                if (roundSystem.isMultiplayer == false)
                 {
-                    checkDamage = false;
-                    damageTime = 0f;
                     enemySystem.TakeDamage(20);
                 }
-
-                if (damageTime > 0.2f)
+                else
                 {
-                    checkDamage = false;
-                    damageTime = 0f;
+                    enemySystemMultiplayer.TakeDamage(20);
                 }
             }
 
-            #endregion
+            if (damageTime > 0.2f)
+            {
+                checkDamage = false;
+                damageTime = 0f;
+            }
         }
+
+        #endregion
     }
 
     private void FixedUpdate()

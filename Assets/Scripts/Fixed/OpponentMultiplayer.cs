@@ -8,33 +8,27 @@ public class OpponentMultiplayer : MonoBehaviour
     [Header("Database Setup")]
     [Tooltip("Put the URL of the PHP file Verify User in the host server")]
     public string verifyUser = "https://queensheartgames.com/shadowodyssey/verifyuser.php";
-    [Tooltip("Put the URL of the PHP file Connect User in the host server")]
-    public string connectUser = "https://queensheartgames.com/shadowodyssey/connectuser.php";
-    [Tooltip("Put the URL of the PHP file Register User in the host server")]
-    public string registerUser = "https://queensheartgames.com/shadowodyssey/registeruser.php";
     [Tooltip("Put the URL of the PHP file Update User in the host server")]
     public string updateUser = "https://queensheartgames.com/shadowodyssey/updateuser.php";
-    [Tooltip("Put the URL of the PHP file Update Player List in the host server")]
-    public string updatePlayerList = "https://queensheartgames.com/shadowodyssey/updateplayerlist.php";
-    [Tooltip("Put the URL of the PHP file Verify Offline in the host server")]
-    public string verifyOffline = "https://queensheartgames.com/shadowodyssey/verifyoffline.php";
-    [Tooltip("Put the URL of the PHP file Verify Duel in the host server")]
-    public string verifyDuel = "https://queensheartgames.com/shadowodyssey/verifyduel.php";
     [Tooltip("Put the URL of the PHP file Log Off Player in the host server")]
     public string logOffPlayer = "https://queensheartgames.com/shadowodyssey/logoffplayer.php";
+
+    [Header("Script Setup")]
+    public RoundManager roundSystem;
 
     [Header("Lobby Data")]
     public int actualHost = 0;
 
     private string responseFromServer = "";
 
+    public void Awake()
+    {
+        roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
+    }
+
     public IEnumerator UpdateUser(string urlPHP, string newValue, string desiredCollumn, string validateRequest)
     {
-        // Lets use Update User to change values of a collumn to a specific player
-
         // UPDATE lobby SET status = 'offline' WHERE id = 1; - Example use of UpdateUser();
-
-        // UPDATE table SET desiredCollumn = 'newValue' WHERE id = validateRequest - Main structure of the query
 
         WWWForm form = new WWWForm();
         form.AddField("desiredCollumn", desiredCollumn);
@@ -48,8 +42,6 @@ public class OpponentMultiplayer : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             responseFromServer = request.downloadHandler.text;
-
-            //Debug.Log("Response from server was: " + responseFromServer);
 
             if (responseFromServer == "error005")
             {
@@ -69,15 +61,13 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
+    public void TakeDamage(int newDamage)
+    {
+
+    }
+
     public void SetHost(int newHost)
     {
         actualHost = newHost;
-
-        LoadData();
-    }
-
-    private void LoadData()
-    {
-
     }
 }
