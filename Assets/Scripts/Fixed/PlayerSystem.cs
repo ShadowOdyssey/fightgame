@@ -99,16 +99,16 @@ public class PlayerSystem : MonoBehaviour
         cooldownSystem = null;
         enemySystem = null;
         enemyBody = null;
+    }
 
+    public void Start()
+    {
         if (roundSystem.isMultiplayer == false)
         {
             playerCollider.enabled = true;
             RegisterInput();
         }
-    }
 
-    public void Start()
-    {
         if (roundSystem.isMultiplayer == true)
         {
             switch (roundSystem.currentEnemyCharacter)
