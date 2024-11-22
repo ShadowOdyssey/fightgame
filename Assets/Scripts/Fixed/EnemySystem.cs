@@ -1093,7 +1093,15 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.Attack1(2, roundSystem.currentEnemyCharacter); // Start character Attack 1 sound in Enemy Audio only after animation has started
-            isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+
+            if (roundSystem.isMultiplayer == false)
+            {
+                isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            }
+            else
+            {
+                Invoke(nameof(CheckAttack1Stuck), 1f);
+            }
         }
     }
 
@@ -1110,7 +1118,15 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.Attack2(2, roundSystem.currentEnemyCharacter); // Start character Attack 2 sound in Enemy Audio only after animation has started
-            isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+
+            if (roundSystem.isMultiplayer == false)
+            {
+                isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            }
+            else
+            {
+                Invoke(nameof(CheckAttack2Stuck), 1f);
+            }
         }
     }
 
@@ -1126,8 +1142,49 @@ public class EnemySystem : MonoBehaviour
             enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
-            //roundSystem.audioSystem.Attack3(2, roundSystem.currentEnemyCharacter); // Start character Attack 3 sound in Enemy Audio only after animation has started
-            isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                                                       //roundSystem.audioSystem.Attack3(2, roundSystem.currentEnemyCharacter); // Start character Attack 3 sound in Enemy Audio only after animation has started
+
+            if (roundSystem.isMultiplayer == false)
+            {
+                isWalking = false; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            }
+            else
+            {
+                Invoke(nameof(CheckAttack3Stuck), 1f);
+            }
+        }
+    }
+
+    private void CheckAttack1Stuck()
+    {
+        if (isAttacking == true) // Sometimes Animator dont triggers correctly in the end of the frame so we make sure it will be triggered
+        {
+            //Debug.Log("Attack 1 Stuck was checked");
+            checkDamage = true; // Attack animation finished so check if Player deals damage in Enemy
+            isAttacking = false; // Attack animation finished
+            AnimIsIdle(); // Reset animation to Idle
+        }
+    }
+
+    private void CheckAttack2Stuck()
+    {
+        if (isAttacking == true) // Sometimes Animator dont triggers correctly in the end of the frame so we make sure it will be triggered
+        {
+            //Debug.Log("Attack 2 Stuck was checked");
+            checkDamage = true; // Attack animation finished so check if Player deals damage in Enemy
+            isAttacking = false; // Attack animation finished
+            AnimIsIdle(); // Reset animation to Idle
+        }
+    }
+
+    private void CheckAttack3Stuck()
+    {
+        if (isAttacking == true) // Sometimes Animator dont triggers correctly in the end of the frame so we make sure it will be triggered
+        {
+            //Debug.Log("Attack 3 Stuck was checked");
+            checkDamage = true; // Attack animation finished so check if Player deals damage in Enemy
+            isAttacking = false; // Attack animation finished
+            AnimIsIdle(); // Reset animation to Idle
         }
     }
 
@@ -1364,7 +1421,16 @@ public class EnemySystem : MonoBehaviour
 
     private void UseAttack3()
     {
-        if (roundSystem.isMultiplayer == false)
+        if (roundSystem.isMultiplayer == true)
+        {
+            if (isCooldown3 == false) // If Attack 3 not in cooldown start Attack 3
+            {
+                StartAttack3Animation(); // Now activate the attack 3 animation
+                isAttacking = true;
+                isCooldown3 = true;
+            }
+        }
+        else
         {
             if (isCooldown3 == false) // If Attack 3 not in cooldown start Attack 3
             {
@@ -1390,15 +1456,6 @@ public class EnemySystem : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            if (isCooldown3 == false) // If Attack 3 not in cooldown start Attack 3
-            {
-                StartAttack3Animation(); // Now activate the attack 3 animation
-                isAttacking = true;
-                isCooldown3 = true;
-            }
-        }
     }
 
     private void EnemyIsIdle()
@@ -1418,7 +1475,16 @@ public class EnemySystem : MonoBehaviour
 
     private void UseAttack1()
     {
-        if (roundSystem.isMultiplayer == false)
+        if (roundSystem.isMultiplayer == true)
+        {
+            if (isCooldown1 == false) // If Attack 1 not in cooldown start Attack 1
+            {
+                StartAttack1Animation(); // Now activate the attack 1 animation
+                isAttacking = true;
+                isCooldown1 = true;
+            }
+        }
+        else
         {
             if (isCooldown1 == false) // If Attack 1 not in cooldown start Attack 1
             {
@@ -1430,20 +1496,20 @@ public class EnemySystem : MonoBehaviour
                 UseAttack2(); // If Attack 1 is in cooldown so change to Attack 2
             }
         }
-        else
-        {
-            if (isCooldown1 == false) // If Attack 1 not in cooldown start Attack 1
-            {
-                StartAttack1Animation(); // Now activate the attack 1 animation
-                isAttacking = true;
-                isCooldown1 = true;
-            }
-        }
     }
 
     private void UseAttack2()
     {
-        if (roundSystem.isMultiplayer == false)
+        if (roundSystem.isMultiplayer == true)
+        {
+            if (isCooldown2 == false) // If Attack 2 not in cooldown start Attack 2
+            {
+                StartAttack2Animation(); // Now activate the attack 2 animation
+                isAttacking = true;
+                isCooldown2 = true;
+            }
+        }
+        else
         {
             if (isCooldown2 == false) // If Attack 2 not in cooldown start Attack 2
             {
@@ -1453,15 +1519,6 @@ public class EnemySystem : MonoBehaviour
             else
             {
                 UseAttack3(); // If Attack 2 is in cooldown so change to Attack 3
-            }
-        }
-        else
-        {
-            if (isCooldown2 == false) // If Attack 2 not in cooldown start Attack 2
-            {
-                StartAttack2Animation(); // Now activate the attack 2 animation
-                isAttacking = true;
-                isCooldown2 = true;
             }
         }
     }
