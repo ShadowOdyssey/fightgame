@@ -402,34 +402,6 @@ public class EnemySystem : MonoBehaviour
 
             #endregion
 
-            #region Check if Enemy dealed damage to player
-
-            if (checkDamage == true)
-            {
-                damageTime = damageTime + Time.deltaTime;
-
-                if (distanceToTarget <= attackRange && damageTime > 0f)
-                {
-                    checkDamage = false;
-                    damageTime = 0f;
-                    playerSystem.TakeHit(20);
-                }
-
-                if (distanceToTarget > attackRange && playerSystem.trainingSystem.actualInfoIndex == 7 && playerSystem.completedTutorial == false)
-                {
-                    playerSystem.completedTutorial = true;
-                    playerSystem.trainingSystem.SelectInfo();
-                }
-
-                if (damageTime > 0.2f)
-                {
-                    checkDamage = false;
-                    damageTime = 0f;
-                }
-            }
-
-            #endregion
-
             #region Check actual cooldown in skills
 
             if (isCooldown1 == true) // If Attack 1 cooldown is activated...
@@ -466,6 +438,43 @@ public class EnemySystem : MonoBehaviour
             }
 
             #endregion
+
+            #region Check if Enemy dealed damage to player
+
+            if (checkDamage == true)
+            {
+                damageTime = damageTime + Time.deltaTime;
+
+                if (distanceToTarget <= attackRange && damageTime > 0f)
+                {
+                    checkDamage = false;
+                    damageTime = 0f;
+
+                    if (roundSystem.isMultiplayer == false)
+                    {
+                        playerSystem.TakeHit(20);
+                    }
+                    else
+                    {
+
+                    }
+
+                }
+
+                if (distanceToTarget > attackRange && playerSystem.trainingSystem.actualInfoIndex == 7 && playerSystem.completedTutorial == false)
+                {
+                    playerSystem.completedTutorial = true;
+                    playerSystem.trainingSystem.SelectInfo();
+                }
+
+                if (damageTime > 0.2f)
+                {
+                    checkDamage = false;
+                    damageTime = 0f;
+                }
+            }
+
+            #endregion
         }
         else
         {
@@ -488,7 +497,15 @@ public class EnemySystem : MonoBehaviour
                 {
                     checkDamage = false;
                     damageTime = 0f;
-                    playerSystem.TakeHit(20);
+
+                    if (roundSystem.isMultiplayer == false)
+                    {
+                        playerSystem.TakeHit(20);
+                    }
+                    else
+                    {
+                        multiplayerSystem.PlayerTakeHit(20);
+                    }
                 }
 
                 if (damageTime > 0.2f)

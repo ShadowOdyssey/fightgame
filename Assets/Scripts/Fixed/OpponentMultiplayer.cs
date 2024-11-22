@@ -358,6 +358,16 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #region Synchronize Now
 
+    public void PlayerTakeHit(int damage)
+    {
+        opponentIsPlayer.TakeHit(damage);
+    }
+
+    public void EnemyTakeHit(int damage)
+    {
+        opponentIsEnemy.TakeDamage(damage);
+    }
+
     #region Data Sent
 
     public void SendStop()
