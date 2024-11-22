@@ -166,7 +166,7 @@ public class LobbyManager : MonoBehaviour
     private string status = "";
 
     [Header("Monitor")]
-    private int currentCharacterSelected = 1;
+    private int currentCharacterSelected = 0;
     private float actualRefreshTime = 0f;
     private bool selectedCharacter = false;
     private bool verifiedSucces = false;
@@ -958,7 +958,7 @@ public class LobbyManager : MonoBehaviour
                 {
                     playerInfo = playerString.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
-                    if (playerInfo[0] != currentSession)
+                    if (playerInfo[0] != currentSession && playerInfo[1] != null && playerInfo[1] != "")
                     {
                         id = playerInfo[0];
                         playerName = playerInfo[1];

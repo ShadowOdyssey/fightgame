@@ -8,6 +8,8 @@ public class OpponentMultiplayer : MonoBehaviour
     [Header("Database Setup")]
     [Tooltip("Put the URL of the PHP file Verify User in the host server")]
     public string verifyUser = "https://queensheartgames.com/shadowodyssey/verifyuser.php";
+    [Tooltip("Put the URL of the PHP file Dueling User in the host server")]
+    public string duelingUser = "https://queensheartgames.com/shadowodyssey/duelinguser.php";
     [Tooltip("Put the URL of the PHP file Update User in the host server")]
     public string updateUser = "https://queensheartgames.com/shadowodyssey/updateuser.php";
     [Tooltip("Put the URL of the PHP file Log Off Player in the host server")]
@@ -28,7 +30,7 @@ public class OpponentMultiplayer : MonoBehaviour
     public float countListen = 0f;
     public bool canListen = false;
     public bool wasDataLoaded = false;
-
+    public bool isCheckingWin = false;
     private string responseFromServer = "";
     private string listenerForward = "";
     private string listenerBackward = "";
@@ -36,6 +38,7 @@ public class OpponentMultiplayer : MonoBehaviour
     private string listenerAttack2 = "";
     private string listenerAttack3 = "";
     private string listenerHit = "";
+    private string checkWin = "";
 
     public void Awake()
     {
@@ -44,24 +47,13 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void Update()
     {
-        if (canListen == true && wasDataLoaded == false)
-        {
-            StartCoroutine(ListenUser(listenUser, actualListener));
-            wasDataLoaded = true;
-        }
+        ListenOpponent();
     }
 
     public void LateUpdate()
     {
-        if (roundSystem.isMultiplayer == true && roundSystem.roundStarted == true && roundSystem.roundOver == false && canListen == false)
-        {
-            canListen = true;
-        }
-
-        if (roundSystem.isMultiplayer == true && roundSystem.roundOver == true && canListen == true)
-        {
-            canListen = false;
-        }
+        CheckRoundStartToListen();
+        CheckRoundOverToStopListen();
     }
 
     public IEnumerator ListenUser(string urlPHP, int actualListener)
@@ -110,9 +102,59 @@ public class OpponentMultiplayer : MonoBehaviour
             {
                 listenerHit = listenerInfo[5];
             }
+
+            wasDataLoaded = false;
         }
 
         request.Dispose();
+    }
+
+    public IEnumerator VerifyUser(string urlPHP, string desiredCollumn, string requestedTable, string requestedCollumn, string desiredSearch)
+    {
+        // "SELECT " . $selection . " FROM " . $table . " WHERE " . $collumn . " = " . $search;
+
+        WWWForm form = new WWWForm();
+        form.AddField("desiredSelection", desiredCollumn);
+        form.AddField("currentTable", requestedTable);
+        form.AddField("currentCollumn", requestedCollumn);
+        form.AddField("newSearch", desiredSearch);
+
+        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            responseFromServer = request.downloadHandler.text;
+
+            //Debug.Log("Response from server was: " + responseFromServer);
+
+            if (responseFromServer != "error002")
+            {
+                checkWin = responseFromServer;
+                UpdaterWins();
+            }
+        }
+
+        request.Dispose();
+    }
+
+    public IEnumerator RegisterDuel(string urlPHP, int actualPlayer)
+    {
+        //UPDATE lobby SET profile='0', status = 'queue', duel='0', host='0' WHERE id = ?
+
+        WWWForm form = new WWWForm();
+        form.AddField("validateRequest", actualPlayer);
+
+        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            request.Dispose();
+            yield break; // Close Coroutine
+        }
     }
 
     public IEnumerator UpdateUser(string urlPHP, string newValue, string desiredCollumn, string validateRequest)
@@ -131,7 +173,7 @@ public class OpponentMultiplayer : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             request.Dispose();
-            yield break; // Exit the coroutine if there's an error
+            yield break; // Close Coroutine
         }
     }
 
@@ -144,14 +186,62 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
+    private void ListenOpponent()
+    {
+        if (canListen == true && wasDataLoaded == false)
+        {
+            StartCoroutine(ListenUser(listenUser, actualListener));
+            wasDataLoaded = true;
+        }
+    }
+
+    private void CheckRoundStartToListen()
+    {
+        if (roundSystem.isMultiplayer == true && roundSystem.roundStarted == true && roundSystem.roundOver == false && canListen == false)
+        {
+            Debug.Log("Started to listen");
+
+            canListen = true;
+        }
+    }
+
+    private void CheckRoundOverToStopListen()
+    {
+        if (roundSystem.isMultiplayer == true && roundSystem.roundOver == true && canListen == true)
+        {
+            Debug.Log("Stopped to listen");
+
+            canListen = false;
+        }
+    }
+
     public void RegisterVictory()
     {
+        if (isCheckingWin == false && gameObject.activeInHierarchy == true)
+        {
+            isCheckingWin = true;
+            StartCoroutine(VerifyUser(verifyUser, "wins", "lobby", "id", actualHost.ToString()));
+        }
+    }
 
+    private void UpdaterWins()
+    {
+        if (gameObject.activeInHierarchy == true)
+        {
+            int newWin = int.Parse(checkWin);
+            newWin = newWin + 1;
+            checkWin = newWin.ToString();
+            UpdateData(checkWin, "wins", actualHost.ToString());
+        }
     }
 
     public void SetHost(int newHost, int newListener)
     {
-        actualHost = newHost;
-        actualListener = newListener;
+        if (gameObject.activeInHierarchy == true)
+        {
+            actualHost = newHost;
+            actualListener = newListener;
+            StartCoroutine(RegisterDuel(duelingUser, actualHost));
+        }
     }
 }

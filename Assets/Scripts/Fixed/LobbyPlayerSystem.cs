@@ -106,7 +106,7 @@ public class LobbyPlayerSystem : MonoBehaviour
             canFight = true;
         }
 
-        if (actualReady == "queue")
+        if (actualReady == "queue" || actualReady == "fighting")
         {
             actualReady = "DUELING";
             buttonFightText.color = Color.yellow;
