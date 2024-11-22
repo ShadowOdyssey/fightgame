@@ -173,6 +173,15 @@ public class EnemySystem : MonoBehaviour
 
         #endregion
 
+        #region Checking if round finished
+
+        if (roundSystem.roundOver == true && wasResetTriggers == false) // If round not started and is 2nd or 3rd round, load Idle animation till round start again! - 
+        {
+            ResetAllTriggers();
+        }
+
+        #endregion
+
         if (roundSystem.isMultiplayer == false)
         {
             #region Checking if round started
@@ -183,15 +192,6 @@ public class EnemySystem : MonoBehaviour
 
                 canRandomize = true; // Round started, so activate randomizer
                 canFight = true; // Round started, so can fight
-            }
-
-            #endregion
-
-            #region Checking if round finished
-
-            if (roundSystem.roundOver == true && wasResetTriggers == false) // If round not started and is 2nd or 3rd round, load Idle animation till round start again! - 
-            {
-                ResetAllTriggers();
             }
 
             #endregion
