@@ -111,6 +111,7 @@ public class OpponentMultiplayer : MonoBehaviour
             RegisterAllData();
 
             wasDataLoaded = false;
+            canListen = false;
         }
 
         request.Dispose();
@@ -225,6 +226,17 @@ public class OpponentMultiplayer : MonoBehaviour
 
     private void ListenOpponent()
     {
+        if (canListen == false)
+        {
+            countListen = countListen + Time.deltaTime;
+
+            if (countListen > listenerTimer)
+            {
+                canListen = true;
+                countListen = 0;
+            }
+        }
+
         if (canListen == true && wasDataLoaded == false)
         {
             StartCoroutine(ListenUser(listenUser, actualListener));
@@ -306,27 +318,52 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void RegisterForwardPlayer()
     {
+        if (listenerForward == "yes")
+        {
+            opponentIsPlayer.MultiplayerMovesForward();
+        }
 
+        if (listenerForward == "no")
+        {
+            opponentIsPlayer.MultiplayerStopForward();
+        }
     }
 
     public void RegisterBackwardPlayer()
     {
+        if (listenerBackward == "yes")
+        {
+            opponentIsPlayer.MultiplayerMovesBackward();
+        }
 
+        if (listenerBackward == "no")
+        {
+            opponentIsPlayer.MultiplayerStopBackward();
+        }
     }
 
     public void RegisterAttack1Player()
     {
-
+        if (listenerAttack1 == "yes")
+        {
+            opponentIsPlayer.MultiplayerAttacked1();
+        }
     }
 
     public void RegisterAttack2Player()
     {
-
+        if (listenerAttack2 == "yes")
+        {
+            opponentIsPlayer.MultiplayerAttacked2();
+        }
     }
 
     public void RegisterAttack3Player()
     {
-
+        if (listenerAttack3 == "yes")
+        {
+            opponentIsPlayer.MultiplayerAttacked3();
+        }
     }
 
     #endregion
@@ -335,27 +372,52 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void RegisterForwardEnemy()
     {
+        if (listenerForward == "yes")
+        {
+            opponentIsEnemy.MultiplayerMovesForward();
+        }
 
+        if (listenerForward == "no")
+        {
+            opponentIsEnemy.MultiplayerStopForward();
+        }
     }
 
     public void RegisterBackwardEnemy()
     {
+        if (listenerBackward == "yes")
+        {
+            opponentIsEnemy.MultiplayerMovesBackward();
+        }
 
+        if (listenerBackward == "no")
+        {
+            opponentIsEnemy.MultiplayerStopBackward();
+        }
     }
 
     public void RegisterAttack1Enemy()
     {
-
+        if (listenerAttack1 == "yes")
+        {
+            opponentIsEnemy.MultiplayerAttacked1();
+        }
     }
 
     public void RegisterAttack2Enemy()
     {
-
+        if (listenerAttack2 == "yes")
+        {
+            opponentIsEnemy.MultiplayerAttacked2();
+        }
     }
 
     public void RegisterAttack3Enemy()
     {
-
+        if (listenerAttack3 == "yes")
+        {
+            opponentIsEnemy.MultiplayerAttacked3();
+        }
     }
 
     #endregion
