@@ -1393,6 +1393,21 @@ public class EnemySystem : MonoBehaviour
         }
     }
 
+    public void Cooldown1Finished()
+    {
+        isCooldown1 = false;
+    }
+
+    public void Cooldown2Finished()
+    {
+        isCooldown2 = false;
+    }
+
+    public void Cooldown3Finished()
+    {
+        isCooldown3 = false;
+    }
+
     #endregion
 
     #region Round Operations

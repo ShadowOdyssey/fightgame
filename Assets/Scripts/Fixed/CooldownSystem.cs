@@ -13,59 +13,103 @@ public class CooldownSystem : MonoBehaviour
     private readonly float cooldown2Time = 9f;
     private readonly float cooldown3Time = 15f;
 
-    private PlayerSystem playerSystem;
-
     private bool isCooldown1 = false;
     private bool isCooldown2 = false;
     private bool isCooldown3 = false;
 
     public void Start()
     {
-        playerSystem = roundSystem.playerSystem; // Load it after Round Manager to load it
-
         cooldown1Image.fillAmount = 0f;
         cooldown2Image.fillAmount = 0f;
         cooldown3Image.fillAmount = 0f;
     }
 
-    private void Update()
+    public void Update()
     {
-        if (roundSystem.isMultiplayer == false)
+        if (isCooldown1 == true)
         {
-            if (isCooldown1 == true)
-            {
-                cooldown1Image.fillAmount = cooldown1Image.fillAmount - 1 / cooldown1Time * Time.deltaTime;
+            cooldown1Image.fillAmount = cooldown1Image.fillAmount - 1 / cooldown1Time * Time.deltaTime;
 
-                if (cooldown1Image.fillAmount <= 0f)
+            if (cooldown1Image.fillAmount <= 0f)
+            {
+                cooldown1Image.fillAmount = 0f;
+
+                if (roundSystem.isMultiplayer == false)
                 {
-                    cooldown1Image.fillAmount = 0f;
-                    playerSystem.Cooldown1Finished();
-                    isCooldown1 = false;
+                    roundSystem.playerSystem.Cooldown1Finished();
                 }
+                else
+                {
+                    if (roundSystem.wasPlayerInput == true)
+                    {
+                        roundSystem.playerSystem.Cooldown1Finished();
+                    }
+
+                    if (roundSystem.wasEnemyInput == true)
+                    {
+                        roundSystem.enemySystem.Cooldown1Finished();
+                    }
+                }
+                
+                isCooldown1 = false;
             }
+        }
 
-            if (isCooldown2 == true)
+        if (isCooldown2 == true)
+        {
+            cooldown2Image.fillAmount = cooldown2Image.fillAmount - 1 / cooldown2Time * Time.deltaTime;
+
+            if (cooldown2Image.fillAmount <= 0f)
             {
-                cooldown2Image.fillAmount = cooldown2Image.fillAmount - 1 / cooldown2Time * Time.deltaTime;
+                cooldown2Image.fillAmount = 0f;
 
-                if (cooldown2Image.fillAmount <= 0f)
+                if (roundSystem.isMultiplayer == false)
                 {
-                    cooldown2Image.fillAmount = 0f;
-                    playerSystem.Cooldown2Finished();
-                    isCooldown2 = false;
+                    roundSystem.playerSystem.Cooldown1Finished();
                 }
+                else
+                {
+                    if (roundSystem.wasPlayerInput == true)
+                    {
+                        roundSystem.playerSystem.Cooldown2Finished();
+                    }
+
+                    if (roundSystem.wasEnemyInput == true)
+                    {
+                        roundSystem.enemySystem.Cooldown2Finished();
+                    }
+                }
+
+                isCooldown2 = false;
             }
+        }
 
-            if (isCooldown3 == true)
+        if (isCooldown3 == true)
+        {
+            cooldown3Image.fillAmount = cooldown3Image.fillAmount - 1 / cooldown3Time * Time.deltaTime;
+
+            if (cooldown3Image.fillAmount <= 0f)
             {
-                cooldown3Image.fillAmount = cooldown3Image.fillAmount - 1 / cooldown3Time * Time.deltaTime;
+                cooldown3Image.fillAmount = 0f;
 
-                if (cooldown3Image.fillAmount <= 0f)
+                if (roundSystem.isMultiplayer == false)
                 {
-                    cooldown3Image.fillAmount = 0f;
-                    playerSystem.Cooldown3Finished();
-                    isCooldown3 = false;
+                    roundSystem.playerSystem.Cooldown1Finished();
                 }
+                else
+                {
+                    if (roundSystem.wasPlayerInput == true)
+                    {
+                        roundSystem.playerSystem.Cooldown3Finished();
+                    }
+
+                    if (roundSystem.wasEnemyInput == true)
+                    {
+                        roundSystem.enemySystem.Cooldown3Finished();
+                    }
+                }
+
+                isCooldown3 = false;
             }
         }
     }

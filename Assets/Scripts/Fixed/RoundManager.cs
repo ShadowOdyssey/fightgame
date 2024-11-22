@@ -227,6 +227,8 @@ public class RoundManager : MonoBehaviour
     public int enemyMultiplayerProfile = 0;
     public string actualHost = "";
     public string enemyMultiplayerName = "";
+    public bool wasPlayerInput = false;
+    public bool wasEnemyInput = false;
 
     #endregion
 
@@ -437,6 +439,7 @@ public class RoundManager : MonoBehaviour
             {
                 playerMultiplayer.SetHost(playerMultiplayerID); // If i am the host so i am the player at left side
                 playerSystem.RegisterInput();
+                wasPlayerInput = true;
             }
             else
             {
@@ -483,6 +486,7 @@ public class RoundManager : MonoBehaviour
             {
                 enemyMultiplayer.SetHost(playerMultiplayerID); // If i am not the host so i am the player at right side
                 enemySystem.RegisterInput();
+                wasEnemyInput = true;
             }
         }
     }
