@@ -121,6 +121,7 @@ public class EnemySystem : MonoBehaviour
     private bool multiplayerAttack1 = false;
     private bool multiplayerAttack2 = false;
     private bool multiplayerAttack3 = false;
+    private bool animatedMultiplayer = false;
 
     #endregion
 
@@ -654,28 +655,62 @@ public class EnemySystem : MonoBehaviour
 
         #region Multiplayer Operations
 
+        #region Server informed player stopped to move
+
         if (multiplayerStop == false && multiplayerForward == false && multiplayerBackward == false)
         {
+            animatedMultiplayer = false;
+
             StartIdleAnimation();
 
             multiplayerStop = true;
         }
 
+        #endregion
+
+        #region Server informed player is moving forward
+
         if (multiplayerForward == true)
         {
+            animatedMultiplayer = false;
             multiplayerStop = false;
             multiplayerBackward = false;
 
+            if (animatedMultiplayer == false)
+            {
+                MoveRight();
 
+                animatedMultiplayer = false;
+            }
+
+            Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
+            transform.localPosition = newPosition;
         }
+
+        #endregion
+
+        #region Server informed player is moving backward
 
         if (multiplayerBackward == true)
         {
+            animatedMultiplayer = false;
             multiplayerStop = false;
             multiplayerForward = false;
 
+            if (animatedMultiplayer == false)
+            {
+                MoveRight();
 
+                animatedMultiplayer = false;
+            }
+
+            Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
+            transform.localPosition = newPosition;
         }
+
+        #endregion
+
+        #region Server informed player is attacking
 
         if (multiplayerAttack1 == true)
         {
@@ -708,6 +743,8 @@ public class EnemySystem : MonoBehaviour
 
             multiplayerAttack3 = false;
         }
+
+        #endregion
 
         #endregion
     }
