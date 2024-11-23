@@ -7584,11 +7584,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -28707,11 +28706,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -38751,11 +38749,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -41857,11 +41854,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -50140,11 +50136,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -112778,11 +112773,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -114975,11 +114969,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -126291,11 +126284,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -126419,11 +126411,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -128366,11 +128357,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -130293,11 +130283,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -135105,11 +135094,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -136489,11 +136477,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -138866,11 +138853,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -139391,11 +139377,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0
@@ -140140,11 +140125,10 @@ MonoBehaviour:
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
-  receiveDelay: 0.4
+  receiveDelay: 0.2
   actualHost: 0
   actualListener: 0
   selected: 0
-  listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
   canListen: 0

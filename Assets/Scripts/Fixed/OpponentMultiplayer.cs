@@ -25,8 +25,8 @@ public class OpponentMultiplayer : MonoBehaviour
     public EnemySystem opponentIsEnemy;
 
     [Header("Listener Setup")]
-    public float sendDelay = 6f;
-    public float receiveDelay = 1f;
+    public float sendDelay = 0f;
+    public float receiveDelay = 0.2f;
 
     [Header("Lobby Data")]
     public int actualHost = 0;
@@ -37,7 +37,6 @@ public class OpponentMultiplayer : MonoBehaviour
 
     [Header("Listener Setup")]
     private string[] listenerInfo = new string[0];
-    public float listenerTimer = 0.3f;
     public float countListen = 0f;
     public bool isEnemyPlayer = false;
     public bool canListen = false;
