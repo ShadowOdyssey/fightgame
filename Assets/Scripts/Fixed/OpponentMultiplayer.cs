@@ -97,6 +97,8 @@ public class OpponentMultiplayer : MonoBehaviour
 
             listenerInfo = responseFromServer.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
+            Debug.Log("Data received from opponent: " + responseFromServer);
+
             if (listenerForward != listenerInfo[0])
             {
                 listenerForward = listenerInfo[0];
@@ -377,54 +379,64 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void SendForward()
     {
+        Debug.Log("Sending forward to server");
         UpdateData("yes", "forward", actualHost.ToString());
     }
 
     public void SendBackward()
     {
+        Debug.Log("Sending backward to server");
         UpdateData("yes", "backward", actualHost.ToString());
     }
 
     public void SendStopForward()
     {
+        Debug.Log("Sending stop forward to server");
         UpdateData("no", "forward", actualHost.ToString());
     }
 
     public void SendStopBackward()
     {
+        Debug.Log("Sending stop backward to server");
         UpdateData("no", "backward", actualHost.ToString());
     }
 
     public void SendAttack1()
     {
+        Debug.Log("Sending attack1 to server");
         UpdateData("yes", "attack1", actualHost.ToString());
         Invoke(nameof(ResetAttack1), 2f);
     }
 
     public void SendAttack2()
     {
+        Debug.Log("Sending attack2 to server");
         UpdateData("yes", "attack2", actualHost.ToString());
         Invoke(nameof(ResetAttack2), 2f);
     }
 
     public void SendAttack3()
     {
+        Debug.Log("Sending attack3 to server");
         UpdateData("yes", "attack3", actualHost.ToString());
         Invoke(nameof(ResetAttack3), 2f);
     }
 
     private void ResetAttack1()
     {
+        Debug.Log("Sending reset attack 1 to server");
         UpdateData("no", "attack1", actualHost.ToString());
     }
 
     private void ResetAttack2()
     {
+        Debug.Log("Sending reset attack 2 to server");
         UpdateData("no", "attack2", actualHost.ToString());
     }
 
     private void ResetAttack3()
     {
+        Debug.Log("Sending reset attack 3 to server");
         UpdateData("no", "attack3", actualHost.ToString());
     }
 
@@ -438,11 +450,13 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerForward == "yes")
         {
+            Debug.Log("Opponent as Player is moving forward");
             opponentIsPlayer.MultiplayerMovesForward();
         }
 
         if (listenerForward == "no")
         {
+            Debug.Log("Opponent as Player stopped to move forward");
             opponentIsPlayer.MultiplayerStopForward();
         }
     }
@@ -451,11 +465,13 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerBackward == "yes")
         {
+            Debug.Log("Opponent as Player is moving backward");
             opponentIsPlayer.MultiplayerMovesBackward();
         }
 
         if (listenerBackward == "no")
         {
+            Debug.Log("Opponent as Player stopped to move backward");
             opponentIsPlayer.MultiplayerStopBackward();
         }
     }
@@ -464,6 +480,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack1 == "yes")
         {
+            Debug.Log("Opponent as Player used Attack 1");
             opponentIsPlayer.MultiplayerAttacked1();
         }
     }
@@ -472,6 +489,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack2 == "yes")
         {
+            Debug.Log("Opponent as Player used Attack 2");
             opponentIsPlayer.MultiplayerAttacked2();
         }
     }
@@ -480,6 +498,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack3 == "yes")
         {
+            Debug.Log("Opponent as Player used Attack 3");
             opponentIsPlayer.MultiplayerAttacked3();
         }
     }
@@ -492,11 +511,13 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerForward == "yes")
         {
+            Debug.Log("Opponent as Enemy stopped is moving forward");
             opponentIsEnemy.MultiplayerMovesForward();
         }
 
         if (listenerForward == "no")
         {
+            Debug.Log("Opponent as Enemy stopped to move forward");
             opponentIsEnemy.MultiplayerStopForward();
         }
     }
@@ -505,11 +526,13 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerBackward == "yes")
         {
+            Debug.Log("Opponent as Enemy stopped is moving backward");
             opponentIsEnemy.MultiplayerMovesBackward();
         }
 
         if (listenerBackward == "no")
         {
+            Debug.Log("Opponent as Enemy stopped to move backward");
             opponentIsEnemy.MultiplayerStopBackward();
         }
     }
@@ -518,6 +541,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack1 == "yes")
         {
+            Debug.Log("Opponent as Enemy used Attack 1");
             opponentIsEnemy.MultiplayerAttacked1();
         }
     }
@@ -526,6 +550,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack2 == "yes")
         {
+            Debug.Log("Opponent as Enemy used Attack 2");
             opponentIsEnemy.MultiplayerAttacked2();
         }
     }
@@ -534,6 +559,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack3 == "yes")
         {
+            Debug.Log("Opponent as Enemy used Attack 3");
             opponentIsEnemy.MultiplayerAttacked3();
         }
     }

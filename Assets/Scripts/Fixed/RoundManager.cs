@@ -559,11 +559,11 @@ public class RoundManager : MonoBehaviour
             }
 
             actualTime.text = roundTime.ToString();
-            roundStarted = true;
             roundOver = true;
             wasDetermined = false;
             decreaseTime = 0f;
             ResetHealth();
+            roundStarted = true;
             Invoke(nameof(DisableRoundText), 6f);
         }
     }
@@ -663,8 +663,6 @@ public class RoundManager : MonoBehaviour
                 playerSystem.StartDrawAnimation();
                 enemySystem.StartDrawAnimation();
 
-                ShowRoundText("ROUND " + currentRound + " DRAW");
-
                 if (enemyWonRound1.activeInHierarchy == false)
                 {
                     enemyWonRound1.SetActive(true);
@@ -686,6 +684,8 @@ public class RoundManager : MonoBehaviour
                     playerWonRound2.SetActive(true);
                     timesPlayerWon = 2;
                 }
+
+                ShowRoundText("ROUND " + currentRound + " DRAW");
             }
 
             wasDetermined = true;
