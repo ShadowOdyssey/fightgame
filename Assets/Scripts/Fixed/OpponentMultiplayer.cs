@@ -73,8 +73,6 @@ public class OpponentMultiplayer : MonoBehaviour
         if (actualHost != 0 && actualListener != 0 && selected == true)
         {
             ListenOpponent();
-            CheckRoundStartToListen();
-            CheckRoundOverToStopListen();
         }
     }
 
