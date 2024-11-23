@@ -76,17 +76,16 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         #region Receiving Data from Server
 
-        if (selected == true)
+        if (selected == true && roundSystem.roundOver == false)
         {
             countListen = countListen + Time.deltaTime;
 
             if (countListen > receiveDelay)
             {
-                countListen = 0f;
-
                 //Debug.Log("Listening opponent actions");
 
                 StartCoroutine(ListenUser(listenUser, actualListener));
+                countListen = 0f;
             }
         }
 

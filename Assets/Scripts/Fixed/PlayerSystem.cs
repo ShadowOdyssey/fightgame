@@ -487,40 +487,14 @@ public class PlayerSystem : MonoBehaviour
 
         if (playerAnimator.GetBool("isIdle") == false)
         {
+            Debug.Log("Idle was called");
+
             playerAnimator.SetBool("isIdle", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-        }
-
-        if (playerAnimator.GetBool("isForward") == true) // Check if Player moved forward to StopMoving trigger the boolean change in the animation parameter
-        {
-            //Debug.Log("Player stopped to move forward");
-
             playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
-        }
-
-        if (playerAnimator.GetBool("isBackward") == true) // Check if Player moved backward to StopMoving trigger the boolean change in the animation parameter
-        {
-            //Debug.Log("Player stopped to move backward");
-
             playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
-        }
-
-        if (playerAnimator.GetBool("isHit") == true)
-        {
             playerAnimator.SetBool("isHit", false); // Values in parameters should be low case in the first letter because is variable name - 
-        }
-
-        if (playerAnimator.GetBool("isAttack1") == true)
-        {
             playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
-        }
-
-        if (playerAnimator.GetBool("isAttack2") == true)
-        {
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
-        }
-
-        if (playerAnimator.GetBool("isAttack3") == true)
-        {
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
         }
 
@@ -733,7 +707,7 @@ public class PlayerSystem : MonoBehaviour
         {
             if (playerAnimator.GetBool("isAttack1") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             {
-                //Debug.Log("Attack 1 Animation was activated");
+                Debug.Log("Attack 1 Animation was activated");
 
                 playerAnimator.SetBool("isAttack1", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
                 playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -770,7 +744,7 @@ public class PlayerSystem : MonoBehaviour
         {
             if (playerAnimator.GetBool("isAttack2") == false) // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             {
-                //Debug.Log("Attack 2 Animation was activated");
+                Debug.Log("Attack 2 Animation was activated");
 
                 playerAnimator.SetBool("isAttack2", true); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -800,7 +774,7 @@ public class PlayerSystem : MonoBehaviour
 
     private void AnimIsAttack3()
     {
-        //Debug.Log("Attack 3 button was activated");
+        Debug.Log("Attack 3 button was activated");
 
         if (isCooldown3 == false) // Check if skill is in cooldown
         {
@@ -977,6 +951,8 @@ public class PlayerSystem : MonoBehaviour
 
     private void ResetAllAnimations()
     {
+        Debug.Log("Reset all animations activated");
+
         playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
         playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
         playerAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
