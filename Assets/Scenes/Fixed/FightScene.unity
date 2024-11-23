@@ -5064,7 +5064,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &24967195
 Transform:
   m_ObjectHideFlags: 0
@@ -5090,10 +5090,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 447
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 1
@@ -6620,7 +6620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &132479500
 Transform:
   m_ObjectHideFlags: 0
@@ -6646,10 +6646,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 576
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 447
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 1
@@ -7573,10 +7573,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!54 &195582299
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -22465,7 +22476,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &643116646
 Transform:
   m_ObjectHideFlags: 0
@@ -22491,10 +22502,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 576
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 447
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 1
@@ -28534,7 +28545,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &761659165
 Transform:
   m_ObjectHideFlags: 0
@@ -28560,10 +28571,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 576
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 447
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 1
@@ -28679,10 +28690,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!54 &766459698
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -38706,10 +38728,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!54 &1182155161
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -41795,10 +41828,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!54 &1443079222
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -49426,7 +49470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1636920092
 Transform:
   m_ObjectHideFlags: 0
@@ -49452,10 +49496,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 576
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 447
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 1
@@ -50061,10 +50105,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!54 &1682586388
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -56441,7 +56496,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1801424858
 Transform:
   m_ObjectHideFlags: 0
@@ -56467,10 +56522,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 576
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 447
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 1
@@ -70272,7 +70327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2127799409
 Transform:
   m_ObjectHideFlags: 0
@@ -70298,10 +70353,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 576
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 447
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 1
@@ -112676,10 +112731,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!65 &4950711130276591987
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -114857,10 +114923,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!4 &5434746401014096659
 Transform:
   m_ObjectHideFlags: 0
@@ -126157,10 +126234,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!95 &5866666021348040838
 Animator:
   serializedVersion: 5
@@ -126269,10 +126357,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!137 &5876281528611456057
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -128200,10 +128299,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!1 &6384688211915794111
 GameObject:
   m_ObjectHideFlags: 0
@@ -130113,10 +130223,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!65 &6833581998742927827
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -134909,10 +135030,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!54 &8026062536542031975
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -136277,10 +136409,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!4 &8362416913127135173
 Transform:
   m_ObjectHideFlags: 0
@@ -138638,10 +138781,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!4 &8920993825790356033
 Transform:
   m_ObjectHideFlags: 0
@@ -139149,10 +139303,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!1 &9012348565679367543
 GameObject:
   m_ObjectHideFlags: 0
@@ -139882,10 +140047,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   verifyUser: https://queensheartgames.com/shadowodyssey/verifyuser.php
+  duelingUser: https://queensheartgames.com/shadowodyssey/duelinguser.php
   updateUser: https://queensheartgames.com/shadowodyssey/updateuser.php
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
+  listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  opponentIsPlayer: {fileID: 0}
+  opponentIsEnemy: {fileID: 0}
   actualHost: 0
+  actualListener: 0
+  listenerTimer: 0.3
+  countListen: 0
+  isEnemyPlayer: 0
+  canListen: 0
+  wasDataLoaded: 0
+  isCheckingWin: 0
 --- !u!4 &9175881999152624815
 Transform:
   m_ObjectHideFlags: 0

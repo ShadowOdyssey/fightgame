@@ -115,7 +115,6 @@ public class PlayerSystem : MonoBehaviour
     {
         if (roundSystem.isMultiplayer == false)
         {
-            playerCollider.enabled = true;
             RegisterInput();
         }
 
@@ -1004,8 +1003,11 @@ public class PlayerSystem : MonoBehaviour
 
         if (roundSystem.currentRound != 1)
         {
-            cameraSystem.ResetCamera();
-            gameObject.transform.position = initialPosition; // Move Player to start position because a new round started
+            if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
+            {
+                cameraSystem.ResetCamera();
+                gameObject.transform.position = initialPosition; // Move Player to start position because a new round started
+            }
         }
 
         playerAnimator.Play("isIntro"); // Play Intro animation because a new round started
