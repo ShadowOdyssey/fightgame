@@ -144,6 +144,8 @@ public class PlayerSystem : MonoBehaviour
                 case 8: enemyBody = GameObject.Find("AriaEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); break;
             }
 
+            playerCollider.enabled = true;
+
             cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
             trainingSystem = GameObject.Find("RoundManager").GetComponent<TrainingSystem>();
             cooldownSystem = GameObject.Find("RoundManager").GetComponent<CooldownSystem>();
