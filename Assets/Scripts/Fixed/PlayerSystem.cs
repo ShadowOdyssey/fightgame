@@ -37,6 +37,7 @@ public class PlayerSystem : MonoBehaviour
     public float moveSpeed = 2f;
     [Tooltip("Setup actual player step size to change movement speed")]
     public float stepSize = 0.1f;
+    public float attackStuckTime = 2f;
 
     [Header("Multiplayer Setup")]
     private float sendDelay = 3f;
@@ -311,6 +312,7 @@ public class PlayerSystem : MonoBehaviour
         {
             multiplayerForward = false;
             multiplayerBackward = false;
+            isAttacking = true;
 
             AnimIsAttack1();
 
@@ -321,6 +323,7 @@ public class PlayerSystem : MonoBehaviour
         {
             multiplayerForward = false;
             multiplayerBackward = false;
+            isAttacking = true;
 
             AnimIsAttack2();
 
@@ -331,6 +334,7 @@ public class PlayerSystem : MonoBehaviour
         {
             multiplayerForward = false;
             multiplayerBackward = false;
+            isAttacking = true;
 
             AnimIsAttack3();
 
@@ -730,7 +734,7 @@ public class PlayerSystem : MonoBehaviour
                     cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
                     isCooldown1 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                     isAttacking = true; // We make sure only to trigger isAttacking after animation started
-                    Invoke(nameof(CheckAttack1Stuck), 1f);
+                    Invoke(nameof(CheckAttack1Stuck), attackStuckTime);
                 }
             }
         }
@@ -766,7 +770,7 @@ public class PlayerSystem : MonoBehaviour
                     cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
                     isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                     isAttacking = true; // We make sure only to trigger isAttacking after animation started
-                    Invoke(nameof(CheckAttack2Stuck), 1f);
+                    Invoke(nameof(CheckAttack2Stuck), attackStuckTime);
                 }
             }
         }
@@ -802,7 +806,7 @@ public class PlayerSystem : MonoBehaviour
                     cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
                     isCooldown3 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                     isAttacking = true; // We make sure only to trigger isAttacking after animation started
-                    Invoke(nameof(CheckAttack3Stuck), 1f);
+                    Invoke(nameof(CheckAttack3Stuck), attackStuckTime);
                 }
             }
         }
