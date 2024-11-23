@@ -942,12 +942,16 @@ public class EnemySystem : MonoBehaviour
     {
         if (isMovingForward == true)
         {
+            Debug.Log("Enemy stopped to move forward");
+
             Invoke(nameof(MultiplayerStoppedForward), sendDelay);
             isMovingForward = false;
         }
 
         if (isMovingBackward == true)
         {
+            Debug.Log("Enemy stopped to move backward");
+
             Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
             isMovingBackward = false;
         }
