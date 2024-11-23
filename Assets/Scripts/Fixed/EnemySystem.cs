@@ -41,7 +41,6 @@ public class EnemySystem : MonoBehaviour
     private bool multiplayerAttack3 = false;
     private bool animatedMultiplayer = false;
 
-
     [Header("Enemy Setup")]
     [Tooltip("Actual enemy attack AI or multiplayer selected - It should be public because in multiplayer we will allow Player to read this value")]
     public int actualAttack = 1;
@@ -126,6 +125,7 @@ public class EnemySystem : MonoBehaviour
     private int moveDirection = 0;
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
+    private bool isIdle = false;
 
     #endregion
 
@@ -623,21 +623,11 @@ public class EnemySystem : MonoBehaviour
                         wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
                     }
 
-                    if (isMovingForward == true && isMovingBackward == false)
-                    {
-                        MoveRight();
-                    }
-                    
-                    if (isMovingBackward == true && isMovingForward == false)
-                    {
-                        MoveLeft();
-                    }
-                    
-                    if (isMovingBackward == false && isMovingForward == false && isAttacking == false && animatedMultiplayer == false)
+                    if (isMovingBackward == false && isMovingForward == false && isIdle == false)
                     {
                         AnimIsIdle();
 
-                        animatedMultiplayer = true;
+                        isIdle = true;
                     }
 
                     if (isMovingBackward == true || isMovingForward == true)
@@ -665,101 +655,104 @@ public class EnemySystem : MonoBehaviour
 
         #region Multiplayer Operations
 
-        #region Server informed player stopped to move
-
-        if (multiplayerStop == false && multiplayerForward == false && multiplayerBackward == false && isAttacking == false)
+        if (selectedMultiplayer == false)
         {
-            Debug.Log("Multiplayer Idle is interrupting attack animation if this message to appear!");
+            #region Server informed player stopped to move
 
-            animatedMultiplayer = false;
-
-            StartIdleAnimation();
-
-            multiplayerStop = true;
-        }
-
-        #endregion
-
-        #region Server informed player is moving forward
-
-        if (multiplayerForward == true)
-        {
-            animatedMultiplayer = false;
-            multiplayerStop = false;
-            multiplayerBackward = false;
-
-            if (animatedMultiplayer == false)
+            if (multiplayerStop == false && multiplayerForward == false && multiplayerBackward == false)
             {
-                MoveRight();
+                Debug.Log("Multiplayer Idle is interrupting attack animation if this message to appear!");
 
                 animatedMultiplayer = false;
+
+                StartIdleAnimation();
+
+                multiplayerStop = true;
             }
 
-            Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
-            transform.localPosition = newPosition;
-        }
+            #endregion
 
-        #endregion
+            #region Server informed player is moving forward
 
-        #region Server informed player is moving backward
-
-        if (multiplayerBackward == true)
-        {
-            animatedMultiplayer = false;
-            multiplayerStop = false;
-            multiplayerForward = false;
-
-            if (animatedMultiplayer == false)
+            if (multiplayerForward == true)
             {
-                MoveRight();
-
                 animatedMultiplayer = false;
+                multiplayerStop = false;
+                multiplayerBackward = false;
+
+                if (animatedMultiplayer == false)
+                {
+                    MoveRight();
+
+                    animatedMultiplayer = false;
+                }
+
+                Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
+                transform.localPosition = newPosition;
             }
 
-            Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
-            transform.localPosition = newPosition;
+            #endregion
+
+            #region Server informed player is moving backward
+
+            if (multiplayerBackward == true)
+            {
+                animatedMultiplayer = false;
+                multiplayerStop = false;
+                multiplayerForward = false;
+
+                if (animatedMultiplayer == false)
+                {
+                    MoveRight();
+
+                    animatedMultiplayer = false;
+                }
+
+                Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
+                transform.localPosition = newPosition;
+            }
+
+            #endregion
+
+            #region Server informed player is attacking
+
+            if (multiplayerAttack1 == true)
+            {
+                multiplayerStop = false;
+                multiplayerForward = false;
+                multiplayerBackward = false;
+                isAttacking = true;
+
+                UseAttack1();
+
+                multiplayerAttack1 = false;
+            }
+
+            if (multiplayerAttack2 == true)
+            {
+                multiplayerStop = false;
+                multiplayerForward = false;
+                multiplayerBackward = false;
+                isAttacking = true;
+
+                UseAttack2();
+
+                multiplayerAttack2 = false;
+            }
+
+            if (multiplayerAttack3 == true)
+            {
+                multiplayerForward = false;
+                multiplayerBackward = false;
+                isAttacking = true;
+
+                UseAttack3();
+
+                multiplayerAttack3 = false;
+            }
+
+            #endregion
         }
-
-        #endregion
-
-        #region Server informed player is attacking
-
-        if (multiplayerAttack1 == true)
-        {
-            multiplayerStop = false;
-            multiplayerForward = false;
-            multiplayerBackward = false;
-            isAttacking = true;
-
-            UseAttack1();
-
-            multiplayerAttack1 = false;
-        }
-
-        if (multiplayerAttack2 == true)
-        {
-            multiplayerStop = false;
-            multiplayerForward = false;
-            multiplayerBackward = false;
-            isAttacking = true;
-
-            UseAttack2();
-
-            multiplayerAttack2 = false;
-        }
-
-        if (multiplayerAttack3 == true)
-        {
-            multiplayerForward = false;
-            multiplayerBackward = false;
-            isAttacking = true;
-
-            UseAttack3();
-
-            multiplayerAttack3 = false;
-        }
-
-        #endregion
 
         #endregion
     }
@@ -902,8 +895,13 @@ public class EnemySystem : MonoBehaviour
         {
             //Debug.Log("Player is moving forward");
 
-            isMovingForward = true;
-            isMovingBackward = false;
+            if (isMovingForward == false)
+            {
+                isIdle = false;
+                isMovingBackward = false;
+                MoveRight();
+                isMovingForward = true;
+            }
         }
         else
         {
@@ -923,8 +921,13 @@ public class EnemySystem : MonoBehaviour
         {
             //Debug.Log("Player is moving backward");
 
-            isMovingBackward = true;
-            isMovingForward = false;
+            if (isMovingBackward == false)
+            {
+                isIdle = false;
+                isMovingForward = false;
+                MoveLeft();
+                isMovingBackward = true;
+            }
         }
         else
         {
@@ -942,18 +945,20 @@ public class EnemySystem : MonoBehaviour
     {
         if (isMovingForward == true)
         {
-            Debug.Log("Enemy stopped to move forward");
+            //Debug.Log("Enemy stopped to move forward");
 
             Invoke(nameof(MultiplayerStoppedForward), sendDelay);
             isMovingForward = false;
+            multiplayerStop = false;
         }
 
         if (isMovingBackward == true)
         {
-            Debug.Log("Enemy stopped to move backward");
+            //Debug.Log("Enemy stopped to move backward");
 
             Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
             isMovingBackward = false;
+            multiplayerStop = false;
         }
     }
 
@@ -1204,32 +1209,65 @@ public class EnemySystem : MonoBehaviour
     {
         // In both cases is checked if AI is level zero to stop to move and if is of other levels to move it correctly
 
-        if (enemyAnimator.GetBool("isForward") == false && changedAnimDirectionToForward == true ||
-            enemyDifficulty == 0 && moveSuccessRandom == false && enemyAnimator.GetBool("isForward") == false && changedAnimDirectionToForward == true)
+        if (selectedMultiplayer == true)
         {
-            enemyAnimator.SetBool("isForward", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
-            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
-            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
-            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
-            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
-            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
-            //roundSystem.audioSystem.MoveLeft(2, roundSystem.currentEnemyCharacter); // Start character Move Left sound in Enemy Audio only after animation has started - Optional
-            isWalking = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-        }
+            if (enemyAnimator.GetBool("isForward") == false && changedAnimDirectionToForward == true ||
+    enemyDifficulty == 0 && moveSuccessRandom == false && enemyAnimator.GetBool("isForward") == false && changedAnimDirectionToForward == true)
+            {
+                enemyAnimator.SetBool("isForward", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
+                                                           //roundSystem.audioSystem.MoveLeft(2, roundSystem.currentEnemyCharacter); // Start character Move Left sound in Enemy Audio only after animation has started - Optional
+                isWalking = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            }
 
-        if (enemyAnimator.GetBool("isBackward") == false && changedAnimDirectionToBackward == true ||
-            enemyDifficulty == 0 && moveSuccessRandom == false && enemyAnimator.GetBool("isBackward") == false && changedAnimDirectionToBackward == true)
+            if (enemyAnimator.GetBool("isBackward") == false && changedAnimDirectionToBackward == true ||
+                enemyDifficulty == 0 && moveSuccessRandom == false && enemyAnimator.GetBool("isBackward") == false && changedAnimDirectionToBackward == true)
+            {
+                enemyAnimator.SetBool("isBackward", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
+                                                           //roundSystem.audioSystem.MoveRight(2, roundSystem.currentEnemyCharacter); // Start character Move Right sound in Enemy Audio only after animation has started - Optional
+                isWalking = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            }
+        }
+        else
         {
-            enemyAnimator.SetBool("isBackward", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-            enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
-            enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
-            enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
-            enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
-            enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
-            enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
-            //roundSystem.audioSystem.MoveRight(2, roundSystem.currentEnemyCharacter); // Start character Move Right sound in Enemy Audio only after animation has started - Optional
-            isWalking = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            if (enemyAnimator.GetBool("isForward") == false && changedAnimDirectionToBackward == true ||
+    enemyDifficulty == 0 && moveSuccessRandom == false && enemyAnimator.GetBool("isForward") == false && changedAnimDirectionToBackward == true)
+            {
+                enemyAnimator.SetBool("isForward", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
+                                                           //roundSystem.audioSystem.MoveLeft(2, roundSystem.currentEnemyCharacter); // Start character Move Left sound in Enemy Audio only after animation has started - Optional
+                isWalking = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            }
+
+            if (enemyAnimator.GetBool("isBackward") == false && changedAnimDirectionToForward == true ||
+                enemyDifficulty == 0 && moveSuccessRandom == false && enemyAnimator.GetBool("isBackward") == false && changedAnimDirectionToForward == true)
+            {
+                enemyAnimator.SetBool("isBackward", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+                enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
+                enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
+                                                           //roundSystem.audioSystem.MoveRight(2, roundSystem.currentEnemyCharacter); // Start character Move Right sound in Enemy Audio only after animation has started - Optional
+                isWalking = true; // Prevents to execute animation call many times, this way we only call 1 time the correct animation
+            }
         }
     }
 

@@ -38,6 +38,7 @@ public class PlayerSystem : MonoBehaviour
     [Tooltip("Setup actual player step size to change movement speed")]
     public float stepSize = 0.1f;
     public float attackStuckTime = 2f;
+    private bool isIdle = false;
 
     [Header("Multiplayer Setup")]
     private float sendDelay = 3f;
@@ -221,13 +222,16 @@ public class PlayerSystem : MonoBehaviour
             {
                 MoveRight();
             }
-            else if (isMovingBackward == true && isMovingForward == false)
+            if (isMovingBackward == true && isMovingForward == false)
             {
                 MoveLeft();
             }
-            else
+            
+            if (isMovingBackward == false && isMovingForward == false && isIdle == false)
             {
                 AnimIsIdle();
+
+                isIdle = true;
             }
 
             if (isMovingBackward == true || isMovingForward == true)
@@ -491,7 +495,7 @@ public class PlayerSystem : MonoBehaviour
 
         if (playerAnimator.GetBool("isIdle") == false)
         {
-            Debug.Log("Idle was called");
+            //Debug.Log("Idle was called");
 
             playerAnimator.SetBool("isIdle", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -887,6 +891,11 @@ public class PlayerSystem : MonoBehaviour
         {
             Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
             isMovingBackward = false;
+        }
+
+        if (isIdle == true)
+        {
+            isIdle = false;
         }
     }
 
