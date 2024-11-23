@@ -74,37 +74,24 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             //ListenOpponent();
 
-            StartCoroutine(ListenUser(listenUser, actualListener));
+            countListen = countListen + Time.deltaTime;
+
+            if (countListen > 1f)
+            {
+                countListen = 0f;
+
+                Debug.Log("Listening opponent actions");
+
+                StartCoroutine(ListenUser(listenUser, actualListener));
+            }
         }
-    }
 
-    #endregion
-
-    #region Database Operations
-
-    public IEnumerator ListenUser(string urlPHP, int actualListener)
-    {
-        // UPDATE lobby SET status = 'offline' WHERE id = 1; - Example use of UpdateUser();
-
-        WWWForm form = new WWWForm();
-        form.AddField("actualListener", actualListener);
-
-        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
-
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success && responseFromServer != request.downloadHandler.text)
+        if (wasDataLoaded == true)
         {
-            responseFromServer = request.downloadHandler.text;
-
-            listenerInfo = responseFromServer.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-
-            Debug.Log("Data received from opponent: " + responseFromServer);
-
             if (listenerForward != listenerInfo[0])
             {
                 listenerForward = listenerInfo[0];
-                
+
                 if (isEnemyPlayer == true)
                 {
                     RegisterForwardPlayer();
@@ -114,7 +101,7 @@ public class OpponentMultiplayer : MonoBehaviour
                     RegisterForwardEnemy();
                 }
             }
-            
+
             if (listenerBackward != listenerInfo[1])
             {
                 listenerBackward = listenerInfo[1];
@@ -171,6 +158,33 @@ public class OpponentMultiplayer : MonoBehaviour
                 }
             }
 
+            wasDataLoaded = false;
+        }
+    }
+
+    #endregion
+
+    #region Database Operations
+
+    public IEnumerator ListenUser(string urlPHP, int actualListener)
+    {
+        // UPDATE lobby SET status = 'offline' WHERE id = 1; - Example use of UpdateUser();
+
+        WWWForm form = new WWWForm();
+        form.AddField("actualListener", actualListener);
+
+        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success && responseFromServer != request.downloadHandler.text)
+        {
+            responseFromServer = request.downloadHandler.text;
+
+            listenerInfo = responseFromServer.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+            Debug.Log("Data received from opponent: " + responseFromServer);
+
             /*
             if (listenerHit != listenerInfo[5])
             {
@@ -178,8 +192,7 @@ public class OpponentMultiplayer : MonoBehaviour
             }
             */
 
-            wasDataLoaded = false;
-            canListen = false;
+            wasDataLoaded = true;
         }
 
         request.Dispose();
