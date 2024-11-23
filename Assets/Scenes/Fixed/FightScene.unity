@@ -7562,6 +7562,7 @@ MonoBehaviour:
   attackRange: 13
   moveSpeed: 4
   distanceToTarget: 0
+  checkStuckTimer: 2
 --- !u!114 &195582298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7582,8 +7583,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -28684,6 +28685,7 @@ MonoBehaviour:
   attackRange: 13
   moveSpeed: 4
   distanceToTarget: 0
+  checkStuckTimer: 2
 --- !u!114 &766459697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28704,8 +28706,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -38727,6 +38729,7 @@ MonoBehaviour:
   attackRange: 13
   moveSpeed: 3
   distanceToTarget: 0
+  checkStuckTimer: 2
 --- !u!114 &1182155160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38747,8 +38750,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -41832,6 +41835,7 @@ MonoBehaviour:
   attackRange: 13
   moveSpeed: 4
   distanceToTarget: 0
+  checkStuckTimer: 2
 --- !u!114 &1443079221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41852,8 +41856,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -50093,6 +50097,7 @@ MonoBehaviour:
   attackRange: 13
   moveSpeed: 4
   distanceToTarget: 0
+  checkStuckTimer: 2
 --- !u!95 &1682586386
 Animator:
   serializedVersion: 5
@@ -50134,8 +50139,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -77292,6 +77297,7 @@ MonoBehaviour:
   attackRange: 13
   moveSpeed: 5
   distanceToTarget: 0
+  checkStuckTimer: 2
 --- !u!1 &414117465103286653
 GameObject:
   m_ObjectHideFlags: 0
@@ -93811,6 +93817,7 @@ MonoBehaviour:
   attackRange: 13
   moveSpeed: 4
   distanceToTarget: 0
+  checkStuckTimer: 2
 --- !u!1 &2493483178322786332
 GameObject:
   m_ObjectHideFlags: 0
@@ -101851,6 +101858,7 @@ MonoBehaviour:
   attackRange: 13
   moveSpeed: 4
   distanceToTarget: 0
+  checkStuckTimer: 2
 --- !u!4 &3242410231814464342
 Transform:
   m_ObjectHideFlags: 0
@@ -112769,8 +112777,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -114895,6 +114903,7 @@ MonoBehaviour:
   attackRange: 15
   moveSpeed: 0.4
   stepSize: 0.1
+  attackStuckTime: 2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!65 &5428761219676516486
@@ -114965,8 +114974,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -126258,6 +126267,7 @@ MonoBehaviour:
   attackRange: 15
   moveSpeed: 0.8
   stepSize: 0.1
+  attackStuckTime: 2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!114 &5866666021251667152
@@ -126280,8 +126290,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -126385,6 +126395,7 @@ MonoBehaviour:
   attackRange: 15
   moveSpeed: 0.8
   stepSize: 0.1
+  attackStuckTime: 2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!114 &5866666021348040842
@@ -126407,8 +126418,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -128331,6 +128342,7 @@ MonoBehaviour:
   attackRange: 15
   moveSpeed: 1
   stepSize: 0.1
+  attackStuckTime: 2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!114 &6378531539091363701
@@ -128353,8 +128365,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -130280,8 +130292,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -133870,6 +133882,7 @@ MonoBehaviour:
   attackRange: 15
   moveSpeed: 0.8
   stepSize: 0.1
+  attackStuckTime: 2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!1 &7723962380351404322
@@ -135091,8 +135104,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -136404,6 +136417,7 @@ MonoBehaviour:
   attackRange: 15
   moveSpeed: 0.8
   stepSize: 0.1
+  attackStuckTime: 2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!65 &8361852595730644833
@@ -136474,8 +136488,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -138828,6 +138842,7 @@ MonoBehaviour:
   attackRange: 15
   moveSpeed: 0.8
   stepSize: 0.1
+  attackStuckTime: 2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!114 &8916439414200134679
@@ -138850,8 +138865,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -139375,8 +139390,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -140101,6 +140116,7 @@ MonoBehaviour:
   attackRange: 15
   moveSpeed: 0.8
   stepSize: 0.1
+  attackStuckTime: 2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!114 &9171181848999038339
@@ -140123,8 +140139,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 3
-  receiveDelay: 0.5
+  sendDelay: 0.2
+  receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
   selected: 0
