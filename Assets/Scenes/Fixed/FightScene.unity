@@ -7583,7 +7583,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -28706,7 +28706,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -38750,7 +38750,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -41856,7 +41856,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -50139,7 +50139,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -112777,7 +112777,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -114974,7 +114974,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -126290,7 +126290,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -126418,7 +126418,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -128365,7 +128365,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -130292,7 +130292,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -135104,7 +135104,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -136488,7 +136488,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -138865,7 +138865,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -139390,7 +139390,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
@@ -140139,7 +140139,7 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
-  sendDelay: 0.2
+  sendDelay: 0
   receiveDelay: 0.4
   actualHost: 0
   actualListener: 0
