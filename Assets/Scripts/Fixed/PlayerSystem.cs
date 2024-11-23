@@ -609,7 +609,10 @@ public class PlayerSystem : MonoBehaviour
     {
         if (playerAnimator.GetBool("isForward") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way - 
         {
-            MultiplayerForward();
+            if (selectedMultiplayer == true)
+            {
+                MultiplayerForward();
+            }
 
             //Debug.Log("Player moved to right");
 
@@ -623,7 +626,10 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.MoveRight(1, roundSystem.currentPlayerCharacter); // Start character Move Right sound in Player Audio only after animation has started - Optional
 
-            if (trainingSystem.actualInfoIndex == 1 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
+            if (roundSystem.isMultiplayer == false)
+            {
+                if (trainingSystem.actualInfoIndex == 1 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
+            }
         }
     }
 
@@ -635,7 +641,10 @@ public class PlayerSystem : MonoBehaviour
     {
         if (playerAnimator.GetBool("isBackward") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - 
         {
-            MultiplayerBackward();
+            if (selectedMultiplayer == true)
+            {
+                MultiplayerBackward();
+            }
 
             //Debug.Log("Player moved to left");
 
@@ -649,7 +658,10 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.MoveLeft(1, roundSystem.currentPlayerCharacter); // Start character Move Left sound in Player Audio only after animation has started - Optional
             
-            if (trainingSystem.actualInfoIndex == 2 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
+            if (roundSystem.isMultiplayer == false)
+            {
+                if (trainingSystem.actualInfoIndex == 2 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
+            }
         }
     }
 
@@ -671,8 +683,15 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
             //roundSystem.audioSystem.Hit(1, roundSystem.currentPlayerCharacter); // Start character Hit sound in Player Audio only after animation has started
-            if (trainingSystem.actualInfoIndex == 6 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
-            Invoke(nameof(CheckHitStuck), 1f);
+
+            if (roundSystem.isMultiplayer == false)
+            {
+                if (trainingSystem.actualInfoIndex == 6 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
+            }
+            else
+            {
+                Invoke(nameof(CheckHitStuck), 1f);
+            }
         }
     }
 
@@ -704,7 +723,11 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
 
                 //roundSystem.audioSystem.Attack1(1, roundSystem.currentPlayerCharacter); // Start character Attack 1 sound in Player Audio only after animation has started
-                if (trainingSystem.actualInfoIndex == 3 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
+                
+                if (roundSystem.isMultiplayer == false)
+                {
+                    if (trainingSystem.actualInfoIndex == 3 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
+                }
 
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
@@ -741,7 +764,10 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
                 //roundSystem.audioSystem.Attack2(1, roundSystem.currentPlayerCharacter); // Start character Attack 2 sound in Player Audio only after animation has started
                 
-                if (trainingSystem.actualInfoIndex == 4 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
+                if (roundSystem.isMultiplayer == false)
+                {
+                    if (trainingSystem.actualInfoIndex == 4 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
+                }
                 
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
@@ -778,7 +804,10 @@ public class PlayerSystem : MonoBehaviour
                 playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
                 //roundSystem.audioSystem.Attack3(1, roundSystem.currentPlayerCharacter); // Start character Attack 3 sound in Player Audio only after animation has started
 
-                if (trainingSystem.actualInfoIndex == 5 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
+                if (roundSystem.isMultiplayer == false)
+                {
+                    if (trainingSystem.actualInfoIndex == 5 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
+                }
 
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
