@@ -1,4 +1,7 @@
+using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -22,9 +25,14 @@ public class MainMenu : MonoBehaviour
     private bool isFading = false;
     private Color fadeColor = Color.clear;
 
-    void Start()
+    private void Start()
     {
         PlayerPrefs.SetString("isMultiplayerActivade", "no");
+
+        if (PlayerPrefs.GetString("playerServerID") != "")
+        {
+            StartCoroutine(LogOffPlayer("https://queensheartgames.com/shadowodyssey/logoffplayer.php", PlayerPrefs.GetString("playerServerID"), PlayerPrefs.GetString("playerName")));
+        }
 
         Cursor.visible = true;
 
@@ -37,6 +45,21 @@ public class MainMenu : MonoBehaviour
         // Only play music if sound is on
         audioSource.mute = !isSoundOn;
         audioSource.Play();
+    }
+
+    private void Update()
+    {
+        if (settingsBackgroundImages.Length > 1)
+        {
+            float interval = 5.0f;
+            if (Time.time > interval)
+            {
+                currentSettingsBackgroundIndex = (currentSettingsBackgroundIndex + 1) % settingsBackgroundImages.Length;
+                isFading = true;
+                fadeColor = Color.clear;
+                interval = Time.time + 5.0f;
+            }
+        }
     }
 
     private void OnGUI()
@@ -128,35 +151,34 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    void ToggleSound()
+    public IEnumerator LogOffPlayer(string urlPHP, string playerSession, string playerName)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("validateRequest", playerSession);
+
+        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
+
+        yield return request.SendWebRequest();
+
+        request.Dispose();
+
+        yield break; // Close Coroutine
+    }
+
+    public void ToggleSound()
     {
         isSoundOn = !isSoundOn;
         audioSource.mute = !isSoundOn;  // Toggle mute based on sound setting
         Debug.Log(isSoundOn ? "Sound On" : "No Sound");
     }
 
-    void LoadScene(string sceneName)
+    public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
 
-    void ExitButtonClicked()
+    public void ExitButtonClicked()
     {
         SceneManager.LoadScene("StartScene");
-    }
-
-    void Update()
-    {
-        if (settingsBackgroundImages.Length > 1)
-        {
-            float interval = 5.0f;
-            if (Time.time > interval)
-            {
-                currentSettingsBackgroundIndex = (currentSettingsBackgroundIndex + 1) % settingsBackgroundImages.Length;
-                isFading = true;
-                fadeColor = Color.clear;
-                interval = Time.time + 5.0f;
-            }
-        }
     }
 }

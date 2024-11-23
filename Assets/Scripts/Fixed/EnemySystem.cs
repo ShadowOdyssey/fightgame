@@ -31,6 +31,16 @@ public class EnemySystem : MonoBehaviour
     public Button buttonAttack2;
     [Tooltip("Attach current player Button Attack 3 component here")]
     public Button buttonAttack3;
+    public float sendDelay = 3f;
+    private bool selectedMultiplayer = false;
+    private bool multiplayerStop = false;
+    private bool multiplayerForward = false;
+    private bool multiplayerBackward = false;
+    private bool multiplayerAttack1 = false;
+    private bool multiplayerAttack2 = false;
+    private bool multiplayerAttack3 = false;
+    private bool animatedMultiplayer = false;
+
 
     [Header("Enemy Setup")]
     [Tooltip("Actual enemy attack AI or multiplayer selected - It should be public because in multiplayer we will allow Player to read this value")]
@@ -115,14 +125,6 @@ public class EnemySystem : MonoBehaviour
     private int moveDirection = 0;
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
-    private bool selectedMultiplayer = false;
-    private bool multiplayerStop = false;
-    private bool multiplayerForward = false;
-    private bool multiplayerBackward = false;
-    private bool multiplayerAttack1 = false;
-    private bool multiplayerAttack2 = false;
-    private bool multiplayerAttack3 = false;
-    private bool animatedMultiplayer = false;
 
     #endregion
 
@@ -909,13 +911,13 @@ public class EnemySystem : MonoBehaviour
     {
         if (isMovingForward == true)
         {
-            Invoke(nameof(MultiplayerStoppedForward), 3f);
+            Invoke(nameof(MultiplayerStoppedForward), sendDelay);
             isMovingForward = false;
         }
 
         if (isMovingBackward == true)
         {
-            Invoke(nameof(MultiplayerStoppedBackward), 3f);
+            Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
             isMovingBackward = false;
         }
     }
@@ -961,39 +963,11 @@ public class EnemySystem : MonoBehaviour
         if (enemyAnimator.GetBool("isIdle") == false)
         {
             enemyAnimator.SetBool("isIdle", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
-        }
-
-        if (enemyAnimator.GetBool("isForward") == true) // Check if Player moved forward to StopMoving trigger the boolean change in the animation parameter
-        {
-            //Debug.Log("Player stopped to move forward");
-
             enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
-        }
-
-        if (enemyAnimator.GetBool("isBackward") == true) // Check if Player moved backward to StopMoving trigger the boolean change in the animation parameter
-        {
-            //Debug.Log("Player stopped to move backward");
-
-            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
-        }
-
-        if (enemyAnimator.GetBool("isBlock") == true)
-        {
+            enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name -
             enemyAnimator.SetBool("isBlock", false); // Values in parameters should be low case in the first letter because is variable name - 
-        }
-
-        if (enemyAnimator.GetBool("isAttack1") == true)
-        {
             enemyAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
-        }
-
-        if (enemyAnimator.GetBool("isAttack2") == true)
-        {
             enemyAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
-        }
-
-        if (enemyAnimator.GetBool("isAttack3") == true)
-        {
             enemyAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
         }
     }
@@ -1006,9 +980,10 @@ public class EnemySystem : MonoBehaviour
     {
         if (enemyAnimator.GetBool("isForward") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way - 
         {
-            MultiplayerForward();
-
-            //Debug.Log("Player moved to right");
+            if (selectedMultiplayer == true)
+            {
+                MultiplayerForward();
+            }
 
             if (selectedMultiplayer == true)
             {
@@ -1038,9 +1013,10 @@ public class EnemySystem : MonoBehaviour
     {
         if (enemyAnimator.GetBool("isBackward") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - 
         {
-            MultiplayerBackward();
-
-            //Debug.Log("Player moved to left");
+            if (selectedMultiplayer == true)
+            {
+                MultiplayerBackward();
+            }
 
             if (selectedMultiplayer == true)
             {

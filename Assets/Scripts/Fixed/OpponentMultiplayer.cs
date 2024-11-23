@@ -24,6 +24,10 @@ public class OpponentMultiplayer : MonoBehaviour
     public PlayerSystem opponentIsPlayer;
     public EnemySystem opponentIsEnemy;
 
+    [Header("Listener Setup")]
+    public float sendDelay = 6f;
+    public float receiveDelay = 1f;
+
     [Header("Lobby Data")]
     public int actualHost = 0;
     public int actualListener = 0;
@@ -70,21 +74,25 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void Update()
     {
+        #region Receiving Data from Server
+
         if (selected == true)
         {
-            //ListenOpponent();
-
             countListen = countListen + Time.deltaTime;
 
-            if (countListen > 1f)
+            if (countListen > receiveDelay)
             {
                 countListen = 0f;
 
-                Debug.Log("Listening opponent actions");
+                //Debug.Log("Listening opponent actions");
 
                 StartCoroutine(ListenUser(listenUser, actualListener));
             }
         }
+
+        #endregion
+
+        #region Processing received Data from Server
 
         if (wasDataLoaded == true)
         {
@@ -158,8 +166,17 @@ public class OpponentMultiplayer : MonoBehaviour
                 }
             }
 
+            /*
+            if (listenerHit != listenerInfo[5])
+            {
+                listenerHit = listenerInfo[5];
+            }
+            */
+
             wasDataLoaded = false;
         }
+
+        #endregion
     }
 
     #endregion
@@ -184,13 +201,6 @@ public class OpponentMultiplayer : MonoBehaviour
             listenerInfo = responseFromServer.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
             Debug.Log("Data received from opponent: " + responseFromServer);
-
-            /*
-            if (listenerHit != listenerInfo[5])
-            {
-                listenerHit = listenerInfo[5];
-            }
-            */
 
             wasDataLoaded = true;
         }
@@ -239,11 +249,9 @@ public class OpponentMultiplayer : MonoBehaviour
 
         yield return request.SendWebRequest();
 
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            request.Dispose();
-            yield break; // Close Coroutine
-        }
+        request.Dispose();
+
+        yield break; // Close Coroutine
     }
 
     public IEnumerator UpdateUser(string urlPHP, string newValue, string desiredCollumn, string validateRequest)
@@ -259,11 +267,23 @@ public class OpponentMultiplayer : MonoBehaviour
 
         yield return request.SendWebRequest();
 
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            request.Dispose();
-            yield break; // Close Coroutine
-        }
+        request.Dispose();
+
+        yield break; // Close Coroutine
+    }
+
+    public IEnumerator LogOffPlayer(string urlPHP, string playerSession, string playerName)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("validateRequest", playerSession);
+
+        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
+
+        yield return request.SendWebRequest();
+
+        request.Dispose();
+
+        yield break; // Close Coroutine
     }
 
     public void UpdateData(string newValue, string desiredCollumn, string validateRequest)
@@ -304,50 +324,6 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #endregion
 
-    #region Listening Methods
-
-    private void ListenOpponent()
-    {
-        if (canListen == false)
-        {
-            countListen = countListen + Time.deltaTime;
-
-            if (countListen > listenerTimer)
-            {
-                canListen = true;
-                countListen = 0;
-            }
-        }
-
-        if (canListen == true && wasDataLoaded == false)
-        {
-
-            wasDataLoaded = true;
-        }
-    }
-
-    private void CheckRoundStartToListen()
-    {
-        if (roundSystem.isMultiplayer == true && roundSystem.roundStarted == true && roundSystem.roundOver == false && canListen == false)
-        {
-            Debug.Log("Started to listen");
-
-            canListen = true;
-        }
-    }
-
-    private void CheckRoundOverToStopListen()
-    {
-        if (roundSystem.isMultiplayer == true && roundSystem.roundOver == true && canListen == true)
-        {
-            Debug.Log("Stopped to listen");
-
-            canListen = false;
-        }
-    }
-
-    #endregion
-
     #region Round is over
 
     public void RegisterVictory()
@@ -374,6 +350,8 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #region Synchronize Now
 
+    #region Hit Operations
+
     public void PlayerTakeHit(int damage)
     {
         opponentIsPlayer.TakeHit(damage);
@@ -383,6 +361,8 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         opponentIsEnemy.TakeDamage(damage);
     }
+
+    #endregion
 
     #region Data Sent
 
@@ -394,64 +374,64 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void SendForward()
     {
-        Debug.Log("Sending forward to server");
+        //Debug.Log("Sending forward to server");
         UpdateData("yes", "forward", actualHost.ToString());
     }
 
     public void SendBackward()
     {
-        Debug.Log("Sending backward to server");
+        //Debug.Log("Sending backward to server");
         UpdateData("yes", "backward", actualHost.ToString());
     }
 
     public void SendStopForward()
     {
-        Debug.Log("Sending stop forward to server");
+        //Debug.Log("Sending stop forward to server");
         UpdateData("no", "forward", actualHost.ToString());
     }
 
     public void SendStopBackward()
     {
-        Debug.Log("Sending stop backward to server");
+        //Debug.Log("Sending stop backward to server");
         UpdateData("no", "backward", actualHost.ToString());
     }
 
     public void SendAttack1()
     {
-        Debug.Log("Sending attack1 to server");
+        //Debug.Log("Sending attack1 to server");
         UpdateData("yes", "attack1", actualHost.ToString());
-        Invoke(nameof(ResetAttack1), 6f);
+        Invoke(nameof(ResetAttack1), sendDelay);
     }
 
     public void SendAttack2()
     {
-        Debug.Log("Sending attack2 to server");
+        //Debug.Log("Sending attack2 to server");
         UpdateData("yes", "attack2", actualHost.ToString());
-        Invoke(nameof(ResetAttack2), 6f);
+        Invoke(nameof(ResetAttack2), sendDelay);
     }
 
     public void SendAttack3()
     {
-        Debug.Log("Sending attack3 to server");
+        //Debug.Log("Sending attack3 to server");
         UpdateData("yes", "attack3", actualHost.ToString());
-        Invoke(nameof(ResetAttack3), 6f);
+        Invoke(nameof(ResetAttack3), sendDelay);
     }
 
     private void ResetAttack1()
     {
-        Debug.Log("Sending reset attack 1 to server");
+        //Debug.Log("Sending reset attack 1 to server");
         UpdateData("no", "attack1", actualHost.ToString());
     }
 
     private void ResetAttack2()
     {
-        Debug.Log("Sending reset attack 2 to server");
+        //Debug.Log("Sending reset attack 2 to server");
         UpdateData("no", "attack2", actualHost.ToString());
     }
 
     private void ResetAttack3()
     {
-        Debug.Log("Sending reset attack 3 to server");
+        //Debug.Log("Sending reset attack 3 to server");
         UpdateData("no", "attack3", actualHost.ToString());
     }
 
@@ -465,13 +445,13 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerForward == "yes")
         {
-            Debug.Log("Opponent as Player is moving forward");
+            //Debug.Log("Opponent as Player is moving forward");
             opponentIsPlayer.MultiplayerMovesForward();
         }
 
         if (listenerForward == "no")
         {
-            Debug.Log("Opponent as Player stopped to move forward");
+            //Debug.Log("Opponent as Player stopped to move forward");
             opponentIsPlayer.MultiplayerStopForward();
         }
     }
@@ -480,13 +460,13 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerBackward == "yes")
         {
-            Debug.Log("Opponent as Player is moving backward");
+            //Debug.Log("Opponent as Player is moving backward");
             opponentIsPlayer.MultiplayerMovesBackward();
         }
 
         if (listenerBackward == "no")
         {
-            Debug.Log("Opponent as Player stopped to move backward");
+            //Debug.Log("Opponent as Player stopped to move backward");
             opponentIsPlayer.MultiplayerStopBackward();
         }
     }
@@ -495,7 +475,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack1 == "yes")
         {
-            Debug.Log("Opponent as Player used Attack 1");
+            //Debug.Log("Opponent as Player used Attack 1");
             opponentIsPlayer.MultiplayerAttacked1();
         }
     }
@@ -504,7 +484,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack2 == "yes")
         {
-            Debug.Log("Opponent as Player used Attack 2");
+            //Debug.Log("Opponent as Player used Attack 2");
             opponentIsPlayer.MultiplayerAttacked2();
         }
     }
@@ -513,7 +493,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack3 == "yes")
         {
-            Debug.Log("Opponent as Player used Attack 3");
+            //Debug.Log("Opponent as Player used Attack 3");
             opponentIsPlayer.MultiplayerAttacked3();
         }
     }
@@ -526,13 +506,13 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerForward == "yes")
         {
-            Debug.Log("Opponent as Enemy stopped is moving forward");
+            //Debug.Log("Opponent as Enemy stopped is moving forward");
             opponentIsEnemy.MultiplayerMovesForward();
         }
 
         if (listenerForward == "no")
         {
-            Debug.Log("Opponent as Enemy stopped to move forward");
+            //Debug.Log("Opponent as Enemy stopped to move forward");
             opponentIsEnemy.MultiplayerStopForward();
         }
     }
@@ -541,13 +521,13 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerBackward == "yes")
         {
-            Debug.Log("Opponent as Enemy stopped is moving backward");
+            //Debug.Log("Opponent as Enemy stopped is moving backward");
             opponentIsEnemy.MultiplayerMovesBackward();
         }
 
         if (listenerBackward == "no")
         {
-            Debug.Log("Opponent as Enemy stopped to move backward");
+            //Debug.Log("Opponent as Enemy stopped to move backward");
             opponentIsEnemy.MultiplayerStopBackward();
         }
     }
@@ -556,7 +536,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack1 == "yes")
         {
-            Debug.Log("Opponent as Enemy used Attack 1");
+            //Debug.Log("Opponent as Enemy used Attack 1");
             opponentIsEnemy.MultiplayerAttacked1();
         }
     }
@@ -565,7 +545,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack2 == "yes")
         {
-            Debug.Log("Opponent as Enemy used Attack 2");
+            //Debug.Log("Opponent as Enemy used Attack 2");
             opponentIsEnemy.MultiplayerAttacked2();
         }
     }
@@ -574,12 +554,61 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack3 == "yes")
         {
-            Debug.Log("Opponent as Enemy used Attack 3");
+            //Debug.Log("Opponent as Enemy used Attack 3");
             opponentIsEnemy.MultiplayerAttacked3();
         }
     }
 
     #endregion
+
+    #endregion
+
+    #region Log Off Operations
+
+    public void LeaveFight()
+    {
+        if (gameObject.activeInHierarchy == true)
+        {
+            if (isEnemyPlayer == true)
+            {
+                StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.enemyNameText.text));
+            }
+            else
+            {
+                StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.playerNameText.text));
+            }
+        }
+    }
+
+    public void OnDisable()
+    {
+        if (gameObject.activeInHierarchy == true)
+        {
+            if (isEnemyPlayer == true)
+            {
+                StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.enemyNameText.text));
+            }
+            else
+            {
+                StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.playerNameText.text));
+            }
+        }
+    }
+
+    public void OnDestroy()
+    {
+        if (gameObject.activeInHierarchy == true)
+        {
+            if (isEnemyPlayer == true)
+            {
+                StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.enemyNameText.text));
+            }
+            else
+            {
+                StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.playerNameText.text));
+            }
+        }
+    }
 
     #endregion
 

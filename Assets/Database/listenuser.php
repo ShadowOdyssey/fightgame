@@ -6,9 +6,6 @@ $dbname = "queen056_shadowodyssey";
 
 $id = $_POST['actualListener'];
 
-// Sanitize the input to prevent SQL injection
-$id = mysqli_real_escape_string($conn, $id);
-
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {

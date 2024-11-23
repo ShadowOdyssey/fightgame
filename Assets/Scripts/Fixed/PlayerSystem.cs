@@ -38,6 +38,17 @@ public class PlayerSystem : MonoBehaviour
     [Tooltip("Setup actual player step size to change movement speed")]
     public float stepSize = 0.1f;
 
+    [Header("Multiplayer Setup")]
+    private float sendDelay = 3f;
+    private bool selectedMultiplayer = false;
+    private bool multiplayerStop = false;
+    private bool multiplayerForward = false;
+    private bool multiplayerBackward = false;
+    private bool multiplayerAttack1 = false;
+    private bool multiplayerAttack2 = false;
+    private bool multiplayerAttack3 = false;
+    private bool animatedMultiplayer = false;
+
     #region Hidden Variables
 
     [Header("Monitor")] // Turn variables into public to show monitor
@@ -83,15 +94,6 @@ public class PlayerSystem : MonoBehaviour
     public bool completedTutorial = false;
     [Tooltip("If enabled means player triggers will be reseted on each end of round")]
     private bool wasResetTriggers = false;
-
-    private bool selectedMultiplayer = false;
-    private bool multiplayerStop = false;
-    private bool multiplayerForward = false;
-    private bool multiplayerBackward = false;
-    private bool multiplayerAttack1 = false;
-    private bool multiplayerAttack2 = false;
-    private bool multiplayerAttack3 = false;
-    private bool animatedMultiplayer = false;
 
     #endregion
 
@@ -638,11 +640,6 @@ public class PlayerSystem : MonoBehaviour
     {
         if (playerAnimator.GetBool("isForward") == false) // Check if MoveForward is false to trigger it only 1 time and to save processing this way - 
         {
-            if (selectedMultiplayer == true)
-            {
-                MultiplayerForward();
-            }
-
             //Debug.Log("Player moved to right");
 
             moveDirection = 1; // Setup new direction only once before to apply new position - 
@@ -659,6 +656,10 @@ public class PlayerSystem : MonoBehaviour
             {
                 if (trainingSystem.actualInfoIndex == 1 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
             }
+            else
+            {
+                MultiplayerForward();
+            }
         }
     }
 
@@ -670,11 +671,6 @@ public class PlayerSystem : MonoBehaviour
     {
         if (playerAnimator.GetBool("isBackward") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - 
         {
-            if (selectedMultiplayer == true)
-            {
-                MultiplayerBackward();
-            }
-
             //Debug.Log("Player moved to left");
 
             moveDirection = -1; // Setup new direction only once before to apply new position - 
@@ -690,6 +686,10 @@ public class PlayerSystem : MonoBehaviour
             if (roundSystem.isMultiplayer == false)
             {
                 if (trainingSystem.actualInfoIndex == 2 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
+            }
+            else
+            {
+                MultiplayerBackward();
             }
         }
     }
@@ -716,6 +716,7 @@ public class PlayerSystem : MonoBehaviour
             if (roundSystem.isMultiplayer == false)
             {
                 if (trainingSystem.actualInfoIndex == 6 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
+                Invoke(nameof(CheckHitStuck), 1f);
             }
             else
             {
@@ -738,11 +739,6 @@ public class PlayerSystem : MonoBehaviour
             {
                 //Debug.Log("Attack 1 Animation was activated");
 
-                if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
-                {
-                    cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
-                }
-
                 playerAnimator.SetBool("isAttack1", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
                 playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -761,6 +757,7 @@ public class PlayerSystem : MonoBehaviour
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
                     MultiplayerAttack1();
+                    cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
                     isCooldown1 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                     isAttacking = true; // We make sure only to trigger isAttacking after animation started
                     Invoke(nameof(CheckAttack1Stuck), 1f);
@@ -779,11 +776,6 @@ public class PlayerSystem : MonoBehaviour
             {
                 //Debug.Log("Attack 2 Animation was activated");
 
-                if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
-                {
-                    cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
-                }
-
                 playerAnimator.SetBool("isAttack2", true); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -801,6 +793,7 @@ public class PlayerSystem : MonoBehaviour
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
                     MultiplayerAttack2();
+                    cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
                     isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                     isAttacking = true; // We make sure only to trigger isAttacking after animation started
                     Invoke(nameof(CheckAttack2Stuck), 1f);
@@ -819,11 +812,6 @@ public class PlayerSystem : MonoBehaviour
             {
                 //Debug.Log("Attack 3 Animation was activated");
 
-                if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
-                {
-                    cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
-                }
-
                 playerAnimator.SetBool("isAttack3", true); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
                 playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -841,6 +829,7 @@ public class PlayerSystem : MonoBehaviour
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
                     MultiplayerAttack3();
+                    cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
                     isCooldown3 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                     isAttacking = true; // We make sure only to trigger isAttacking after animation started
                     Invoke(nameof(CheckAttack3Stuck), 1f);
@@ -916,13 +905,13 @@ public class PlayerSystem : MonoBehaviour
     {
         if (isMovingForward == true)
         {
-            Invoke(nameof(MultiplayerStoppedForward), 3f);
+            Invoke(nameof(MultiplayerStoppedForward), sendDelay);
             isMovingForward = false;
         }
 
         if (isMovingBackward == true)
         {
-            Invoke(nameof(MultiplayerStoppedBackward), 3f);
+            Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
             isMovingBackward = false;
         }
     }
