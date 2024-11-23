@@ -116,68 +116,23 @@ public class PlayerSystem : MonoBehaviour
 
     public void Start()
     {
-        playerCollider.enabled = false;
+        initialPosition = transform.position;
 
         if (roundSystem.isMultiplayer == true)
         {
-            switch (roundSystem.currentEnemyCharacter)
-            {
-                case 1: enemyBody = GameObject.Find("GabriellaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("GabriellaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("GabriellaEnemy").GetComponent<EnemySystem>(); break;
-                case 2: enemyBody = GameObject.Find("MarcusEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("MarcusEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("MarcusEnemy").GetComponent<EnemySystem>(); break;
-                case 3: enemyBody = GameObject.Find("SelenaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("SelenaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("SelenaEnemy").GetComponent<EnemySystem>(); break;
-                case 4: enemyBody = GameObject.Find("BryanEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("BryanEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("BryanEnemy").GetComponent<EnemySystem>(); break;
-                case 5: enemyBody = GameObject.Find("NunEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("NunEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("NunEnemy").GetComponent<EnemySystem>(); break;
-                case 6: enemyBody = GameObject.Find("OliverEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("OliverEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("OliverEnemy").GetComponent<EnemySystem>(); break;
-                case 7: enemyBody = GameObject.Find("OrionEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("OrionEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("OrionEnemy").GetComponent<EnemySystem>(); break;
-                case 8: enemyBody = GameObject.Find("AriaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("AriaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); break;
-            }
+            playerCollider.enabled = false;
+            //backCollider.enabled = true;
+
+            LoadMultiplayer();
         }
         else
         {
-            switch (roundSystem.currentEnemyCharacter)
-            {
-                case 1: enemyBody = GameObject.Find("GabriellaEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("GabriellaEnemy").GetComponent<EnemySystem>(); break;
-                case 2: enemyBody = GameObject.Find("MarcusEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("MarcusEnemy").GetComponent<EnemySystem>(); break;
-                case 3: enemyBody = GameObject.Find("SelenaEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("SelenaEnemy").GetComponent<EnemySystem>(); break;
-                case 4: enemyBody = GameObject.Find("BryanEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("BryanEnemy").GetComponent<EnemySystem>(); break;
-                case 5: enemyBody = GameObject.Find("NunEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("NunEnemy").GetComponent<EnemySystem>(); break;
-                case 6: enemyBody = GameObject.Find("OliverEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("OliverEnemy").GetComponent<EnemySystem>(); break;
-                case 7: enemyBody = GameObject.Find("OrionEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("OrionEnemy").GetComponent<EnemySystem>(); break;
-                case 8: enemyBody = GameObject.Find("AriaEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); break;
-            }
-
             playerCollider.enabled = true;
+            //backCollider.enabled = false;
 
-            cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
-            trainingSystem = GameObject.Find("RoundManager").GetComponent<TrainingSystem>();
-            cooldownSystem = GameObject.Find("RoundManager").GetComponent<CooldownSystem>();
-
-            initialPosition = transform.position;
-
-            Debug.Log("Character " + gameObject.name + " was choice to start input events");
-
-            if (buttonForward != null)
-            {
-                AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
-                AddEventTrigger(buttonForward, EventTriggerType.PointerUp, OnMoveButtonReleased);
-            }
-            if (buttonBackward != null)
-            {
-                AddEventTrigger(buttonBackward, EventTriggerType.PointerDown, OnMoveLeftButtonPressed);
-                AddEventTrigger(buttonBackward, EventTriggerType.PointerUp, OnMoveButtonReleased);
-            }
-            if (buttonAttack1 != null)
-            {
-                buttonAttack1.onClick.AddListener(OnAttack1ButtonPressed);
-            }
-            if (buttonAttack2 != null)
-            {
-                buttonAttack2.onClick.AddListener(OnAttack2ButtonPressed);
-            }
-            if (buttonAttack3 != null)
-            {
-                buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
-            }
+            LoadSinglePlay();
+            LoadScripts();
+            AddNewEvent();
         }
     }
 
@@ -440,23 +395,64 @@ public class PlayerSystem : MonoBehaviour
 
     #endregion
 
-    #region Register multiplayer data
+    #region Register Scripts
 
-    public void RegisterInput()
+    private void LoadScripts()
     {
-        backCollider.enabled = false;
-
-        playerCollider.enabled = true;
-        selectedMultiplayer = true;
-
         cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
         trainingSystem = GameObject.Find("RoundManager").GetComponent<TrainingSystem>();
         cooldownSystem = GameObject.Find("RoundManager").GetComponent<CooldownSystem>();
+    }
 
-        initialPosition = transform.position;
+    #endregion
 
-        Debug.Log("Character " + gameObject.name + " was choice to start input events");
+    #region Register SinglePlayer Data
 
+    private void LoadSinglePlay()
+    {
+        switch (roundSystem.currentEnemyCharacter)
+        {
+            case 1: enemyBody = GameObject.Find("GabriellaEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("GabriellaEnemy").GetComponent<EnemySystem>(); break;
+            case 2: enemyBody = GameObject.Find("MarcusEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("MarcusEnemy").GetComponent<EnemySystem>(); break;
+            case 3: enemyBody = GameObject.Find("SelenaEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("SelenaEnemy").GetComponent<EnemySystem>(); break;
+            case 4: enemyBody = GameObject.Find("BryanEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("BryanEnemy").GetComponent<EnemySystem>(); break;
+            case 5: enemyBody = GameObject.Find("NunEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("NunEnemy").GetComponent<EnemySystem>(); break;
+            case 6: enemyBody = GameObject.Find("OliverEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("OliverEnemy").GetComponent<EnemySystem>(); break;
+            case 7: enemyBody = GameObject.Find("OrionEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("OrionEnemy").GetComponent<EnemySystem>(); break;
+            case 8: enemyBody = GameObject.Find("AriaEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); break;
+        }
+    }
+
+    #endregion
+
+    #region Register multiplayer data
+
+    private void LoadMultiplayer()
+    {
+        switch (roundSystem.currentEnemyCharacter)
+        {
+            case 1: enemyBody = GameObject.Find("GabriellaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("GabriellaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("GabriellaEnemy").GetComponent<EnemySystem>(); break;
+            case 2: enemyBody = GameObject.Find("MarcusEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("MarcusEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("MarcusEnemy").GetComponent<EnemySystem>(); break;
+            case 3: enemyBody = GameObject.Find("SelenaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("SelenaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("SelenaEnemy").GetComponent<EnemySystem>(); break;
+            case 4: enemyBody = GameObject.Find("BryanEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("BryanEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("BryanEnemy").GetComponent<EnemySystem>(); break;
+            case 5: enemyBody = GameObject.Find("NunEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("NunEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("NunEnemy").GetComponent<EnemySystem>(); break;
+            case 6: enemyBody = GameObject.Find("OliverEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("OliverEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("OliverEnemy").GetComponent<EnemySystem>(); break;
+            case 7: enemyBody = GameObject.Find("OrionEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("OrionEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("OrionEnemy").GetComponent<EnemySystem>(); break;
+            case 8: enemyBody = GameObject.Find("AriaEnemy").GetComponent<Transform>(); enemySystemMultiplayer = GameObject.Find("AriaEnemy").GetComponent<OpponentMultiplayer>(); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); break;
+        }
+    }
+
+    public void RegisterInput()
+    {
+        //Debug.Log("Character " + gameObject.name + " was choice to start input events");
+
+        selectedMultiplayer = true;
+        LoadScripts();
+        AddNewEvent();
+    }
+
+    private void AddNewEvent()
+    {
         if (buttonForward != null)
         {
             AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
@@ -1025,8 +1021,9 @@ public class PlayerSystem : MonoBehaviour
             if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
             {
                 cameraSystem.ResetCamera();
-                gameObject.transform.position = initialPosition; // Move Player to start position because a new round started
             }
+
+            gameObject.transform.position = initialPosition; // Move Player to start position because a new round started
         }
 
         playerAnimator.Play("isIntro"); // Play Intro animation because a new round started

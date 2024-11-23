@@ -210,7 +210,6 @@ public class LobbyManager : MonoBehaviour
     {
         PlayerPrefs.SetString("isMultiplayerActivade", "yes");
 
-        ResetPlayer();
         connectingScreen.SetActive(true); // We make sure that Connecting Screen always will appear enabled when Lobby Manager to start
         StopAllCoroutines(); // Stop all coroutines from old scenes
         LoadDefault(); // Load all default values before to apply new values in Select Character
