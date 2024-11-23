@@ -12,6 +12,7 @@ public class PlayerSystem : MonoBehaviour
     public Animator playerAnimator;
     public OpponentMultiplayer multiplayerSystem;
     public BoxCollider playerCollider;
+    public BoxCollider backCollider;
 
     [Header("Buttons UI Setup")]
     [Tooltip("Attach current player Button Forward component here")]
@@ -113,10 +114,7 @@ public class PlayerSystem : MonoBehaviour
 
     public void Start()
     {
-        if (roundSystem.isMultiplayer == false)
-        {
-            RegisterInput();
-        }
+        playerCollider.enabled = false;
 
         if (roundSystem.isMultiplayer == true)
         {
@@ -145,6 +143,11 @@ public class PlayerSystem : MonoBehaviour
                 case 7: enemyBody = GameObject.Find("OrionEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("OrionEnemy").GetComponent<EnemySystem>(); break;
                 case 8: enemyBody = GameObject.Find("AriaEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); break;
             }
+        }
+
+        if (roundSystem.isMultiplayer == false)
+        {
+            RegisterInput();
         }
     }
 
@@ -414,7 +417,13 @@ public class PlayerSystem : MonoBehaviour
         if (roundSystem.isMultiplayer == true)
         {
             playerCollider.enabled = true;
+            backCollider.enabled = false;
             selectedMultiplayer = true;
+        }
+        else
+        {
+            playerCollider.enabled = true;
+            backCollider.enabled = false;
         }
 
         cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();

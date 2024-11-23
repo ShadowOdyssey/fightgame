@@ -7548,6 +7548,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 195582296}
   multiplayerSystem: {fileID: 195582298}
   enemyCollider: {fileID: 195582300}
+  backCollider: {fileID: 1053843229}
   hitEffect: {fileID: 678784640}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -28665,6 +28666,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 766459695}
   multiplayerSystem: {fileID: 766459697}
   enemyCollider: {fileID: 766459699}
+  backCollider: {fileID: 1755492384}
   hitEffect: {fileID: 1545518282}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -38703,6 +38705,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 1182155158}
   multiplayerSystem: {fileID: 1182155160}
   enemyCollider: {fileID: 1182155162}
+  backCollider: {fileID: 674476907}
   hitEffect: {fileID: 806010340}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -41803,6 +41806,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 1443079219}
   multiplayerSystem: {fileID: 1443079221}
   enemyCollider: {fileID: 1443079223}
+  backCollider: {fileID: 120261888}
   hitEffect: {fileID: 222634076}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -50059,6 +50063,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 1682586386}
   multiplayerSystem: {fileID: 1682586387}
   enemyCollider: {fileID: 1682586389}
+  backCollider: {fileID: 1260060803}
   hitEffect: {fileID: 22025710}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -77253,6 +77258,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 1702918070325892023}
   multiplayerSystem: {fileID: 4950711130276591986}
   enemyCollider: {fileID: 4950711130276591987}
+  backCollider: {fileID: 521084260}
   hitEffect: {fileID: 2700347895830053798}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -93770,6 +93776,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 2495953252140554705}
   multiplayerSystem: {fileID: 8026062536542031974}
   enemyCollider: {fileID: 8026062536542031976}
+  backCollider: {fileID: 338102773}
   hitEffect: {fileID: 4545454749973784299}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -101808,6 +101815,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 5094669300415737938}
   multiplayerSystem: {fileID: 6833581998742927826}
   enemyCollider: {fileID: 6833581998742927827}
+  backCollider: {fileID: 60402628}
   hitEffect: {fileID: 7428514330982426404}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -114851,6 +114859,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 2141172749761112830}
   multiplayerSystem: {fileID: 5428761219676516488}
   playerCollider: {fileID: 5428761219676516486}
+  backCollider: {fileID: 132479501}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -126210,6 +126219,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 5866666021251667148}
   multiplayerSystem: {fileID: 5866666021251667152}
   playerCollider: {fileID: 5866666021251667149}
+  backCollider: {fileID: 643116647}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -126333,6 +126343,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 5866666021348040838}
   multiplayerSystem: {fileID: 5866666021348040842}
   playerCollider: {fileID: 5866666021348040839}
+  backCollider: {fileID: 2127799410}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -128275,6 +128286,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 5336496286630718541}
   multiplayerSystem: {fileID: 6378531539091363701}
   playerCollider: {fileID: 675574995597770192}
+  backCollider: {fileID: 1801424859}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -133807,6 +133819,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 5355074099231696326}
   multiplayerSystem: {fileID: 9010929814916507731}
   playerCollider: {fileID: 331305771408501157}
+  backCollider: {fileID: 24967196}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -136337,6 +136350,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 8361852595730644831}
   multiplayerSystem: {fileID: 8361852595730644835}
   playerCollider: {fileID: 8361852595730644833}
+  backCollider: {fileID: 1636920093}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -138757,6 +138771,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 1529150710048386913}
   multiplayerSystem: {fileID: 8916439414200134679}
   playerCollider: {fileID: 5483367893164437563}
+  backCollider: {fileID: 147610262}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}
@@ -140023,6 +140038,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 2516783442718657983}
   multiplayerSystem: {fileID: 9171181848999038339}
   playerCollider: {fileID: 9171181848999038336}
+  backCollider: {fileID: 761659166}
   buttonForward: {fileID: 620303083}
   buttonBackward: {fileID: 278071665}
   buttonAttack1: {fileID: 720947327}

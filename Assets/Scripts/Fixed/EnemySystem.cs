@@ -12,6 +12,7 @@ public class EnemySystem : MonoBehaviour
     public Animator enemyAnimator;
     public OpponentMultiplayer multiplayerSystem;
     public BoxCollider enemyCollider;
+    public BoxCollider backCollider;
 
     [Header("Hit Effect Setup")]
     [Tooltip("Attach current enemy HitEffect GameObject here")]
@@ -146,6 +147,8 @@ public class EnemySystem : MonoBehaviour
 
     public void Start()
     {
+        enemyCollider.enabled = false;
+
         if (roundSystem.isMultiplayer == true)
         {
             switch (roundSystem.currentPlayerCharacter)
@@ -178,6 +181,8 @@ public class EnemySystem : MonoBehaviour
         }
 
         distanceToTarget = Vector3.Distance(transform.position, playerBody.position); // Get initial position from Player to get the first distance measure only once
+
+        RegisterInput();
     }
 
     #endregion
@@ -799,35 +804,45 @@ public class EnemySystem : MonoBehaviour
 
     public void RegisterInput()
     {
-        enemyCollider.enabled = true;
-        selectedMultiplayer = true;
 
-        Debug.Log("Character " + gameObject.name + " was choice to start input events");
+        if (roundSystem.isMultiplayer == false)
+        {
+            enemyCollider.enabled = false;
+            backCollider.enabled = true;
+        }
+        else
+        {
+            enemyCollider.enabled = true;
+            backCollider.enabled = false;
+            selectedMultiplayer = true;
 
-        cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
-        cooldownSystem = GameObject.Find("RoundManager").GetComponent<CooldownSystem>();
+            Debug.Log("Character " + gameObject.name + " was choice to start input events");
 
-        if (buttonForward != null)
-        {
-            AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
-            AddEventTrigger(buttonForward, EventTriggerType.PointerUp, OnMoveButtonReleased);
-        }
-        if (buttonBackward != null)
-        {
-            AddEventTrigger(buttonBackward, EventTriggerType.PointerDown, OnMoveLeftButtonPressed);
-            AddEventTrigger(buttonBackward, EventTriggerType.PointerUp, OnMoveButtonReleased);
-        }
-        if (buttonAttack1 != null)
-        {
-            buttonAttack1.onClick.AddListener(OnAttack1ButtonPressed);
-        }
-        if (buttonAttack2 != null)
-        {
-            buttonAttack2.onClick.AddListener(OnAttack2ButtonPressed);
-        }
-        if (buttonAttack3 != null)
-        {
-            buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
+            cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
+            cooldownSystem = GameObject.Find("RoundManager").GetComponent<CooldownSystem>();
+
+            if (buttonForward != null)
+            {
+                AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
+                AddEventTrigger(buttonForward, EventTriggerType.PointerUp, OnMoveButtonReleased);
+            }
+            if (buttonBackward != null)
+            {
+                AddEventTrigger(buttonBackward, EventTriggerType.PointerDown, OnMoveLeftButtonPressed);
+                AddEventTrigger(buttonBackward, EventTriggerType.PointerUp, OnMoveButtonReleased);
+            }
+            if (buttonAttack1 != null)
+            {
+                buttonAttack1.onClick.AddListener(OnAttack1ButtonPressed);
+            }
+            if (buttonAttack2 != null)
+            {
+                buttonAttack2.onClick.AddListener(OnAttack2ButtonPressed);
+            }
+            if (buttonAttack3 != null)
+            {
+                buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
+            }
         }
     }
 
