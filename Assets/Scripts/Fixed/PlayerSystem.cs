@@ -414,16 +414,17 @@ public class PlayerSystem : MonoBehaviour
 
     public void RegisterInput()
     {
+        backCollider.enabled = false;
+
         if (roundSystem.isMultiplayer == true)
         {
             playerCollider.enabled = true;
-            backCollider.enabled = false;
             selectedMultiplayer = true;
         }
         else
         {
             playerCollider.enabled = true;
-            backCollider.enabled = false;
+            //backCollider.enabled = false;
         }
 
         cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();

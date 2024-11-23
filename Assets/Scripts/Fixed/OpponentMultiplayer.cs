@@ -27,6 +27,7 @@ public class OpponentMultiplayer : MonoBehaviour
     [Header("Lobby Data")]
     public int actualHost = 0;
     public int actualListener = 0;
+    public bool selected = false;
 
     #region Hidden Variables
 
@@ -69,16 +70,9 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void Update()
     {
-        if (actualHost != 0 && actualListener != 0)
+        if (actualHost != 0 && actualListener != 0 && selected == true)
         {
             ListenOpponent();
-        }
-    }
-
-    public void LateUpdate()
-    {
-        if (actualHost != 0 && actualListener != 0)
-        {
             CheckRoundStartToListen();
             CheckRoundOverToStopListen();
         }
@@ -276,6 +270,7 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             actualHost = newHost;
             actualListener = newListener;
+            selected = true;
             StartCoroutine(RegisterDuel(duelingUser, actualHost));
         }
     }

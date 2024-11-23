@@ -181,8 +181,6 @@ public class EnemySystem : MonoBehaviour
         }
 
         distanceToTarget = Vector3.Distance(transform.position, playerBody.position); // Get initial position from Player to get the first distance measure only once
-
-        RegisterInput();
     }
 
     #endregion
@@ -804,16 +802,16 @@ public class EnemySystem : MonoBehaviour
 
     public void RegisterInput()
     {
+        backCollider.enabled = false;
 
         if (roundSystem.isMultiplayer == false)
         {
             enemyCollider.enabled = false;
-            backCollider.enabled = true;
+            //backCollider.enabled = true;
         }
         else
         {
             enemyCollider.enabled = true;
-            backCollider.enabled = false;
             selectedMultiplayer = true;
 
             Debug.Log("Character " + gameObject.name + " was choice to start input events");
