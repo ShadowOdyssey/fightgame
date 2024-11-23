@@ -866,7 +866,7 @@ MonoBehaviour:
     type: 3}
   connectingScreen: {fileID: 239883574}
   duelScreen: {fileID: 2018808026}
-  timeToRefreshPlayerList: 5
+  timeToRefreshPlayerList: 2
   serverMessage: {fileID: 1872106400}
   characterName: {fileID: 38656134}
   selectButtonText: {fileID: 1999178281}
