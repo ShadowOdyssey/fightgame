@@ -712,7 +712,8 @@ public class RoundManager : MonoBehaviour
                 {
                     currentRound = 3;
                 }
-                else
+
+                if (currentRound == 1)
                 {
                     currentRound = 2;
                 }
@@ -980,8 +981,9 @@ public class RoundManager : MonoBehaviour
             }
             else
             {
-                // Inform server about round result
-                // Lets return to Lobby with 1 victory to Player score and 1 loss to Enemy score
+                enemyMultiplayer.LeaveFight();
+                playerMultiplayer.LeaveFight();
+                Invoke(nameof(ReturnToLobby), 6f);
             }
 
             dataSent = true;
@@ -1010,17 +1012,35 @@ public class RoundManager : MonoBehaviour
             }
             else
             {
-                // Inform server about round result
-                // Lets return to Lobby with 1 loss to Player score and 1 victory to Enemy score
+                enemyMultiplayer.LeaveFight();
+                playerMultiplayer.LeaveFight();
+                Invoke(nameof(ReturnToLobby), 6f);
             }
 
             dataSent = true;
+        }
+
+        if (timesPlayerWon == 2 && timesEnemyWon == 2 && isMultiplayer == false)
+        {
+            Invoke(nameof(ReturnToMenu), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
+        }
+
+        if (timesPlayerWon == 2 && timesEnemyWon == 2 && isMultiplayer == true)
+        {
+            enemyMultiplayer.LeaveFight();
+            playerMultiplayer.LeaveFight();
+            Invoke(nameof(ReturnToLobby), 6f);
         }
     }
 
     private void ReturnToSelection()
     {
         SceneManager.LoadScene("SelectionCharacter");
+    }
+
+    private void ReturnToLobby()
+    {
+        SceneManager.LoadScene("ArcadeMode");
     }
 
     private void ReturnToMenu()
