@@ -7583,6 +7583,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -28701,6 +28702,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -38740,6 +38742,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -41841,6 +41844,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -50119,6 +50123,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -112748,6 +112753,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -114941,6 +114947,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -126253,6 +126260,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -126377,6 +126385,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -128320,6 +128329,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -130244,6 +130254,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -135052,6 +135063,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -136432,6 +136444,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -138805,6 +138818,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -139327,6 +139341,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0
@@ -140072,6 +140087,7 @@ MonoBehaviour:
   opponentIsEnemy: {fileID: 0}
   actualHost: 0
   actualListener: 0
+  selected: 0
   listenerTimer: 0.3
   countListen: 0
   isEnemyPlayer: 0

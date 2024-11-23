@@ -658,8 +658,10 @@ public class RoundManager : MonoBehaviour
                 ShowRoundText(enemyNameText.text + " WINS ROUND " + currentRound);
             }
             
-            if (playerHealth < 0f && opponentHealth < 0f)
+            if (playerHealth <= 0f && opponentHealth <= 0f)
             {
+                Debug.Log("#### Round Draw ####");
+
                 playerSystem.StartDrawAnimation();
                 enemySystem.StartDrawAnimation();
 
@@ -684,6 +686,8 @@ public class RoundManager : MonoBehaviour
                     playerWonRound2.SetActive(true);
                     timesPlayerWon = 2;
                 }
+
+                Debug.Log("Times Player won: " + timesPlayerWon + " and Times Enemy won: " + timesEnemyWon);
 
                 ShowRoundText("ROUND " + currentRound + " DRAW");
             }

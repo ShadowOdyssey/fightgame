@@ -70,9 +70,11 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void Update()
     {
-        if (actualHost != 0 && actualListener != 0 && selected == true)
+        if (selected == true)
         {
-            ListenOpponent();
+            //ListenOpponent();
+
+            StartCoroutine(ListenUser(listenUser, actualListener));
         }
     }
 
@@ -306,7 +308,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
         if (canListen == true && wasDataLoaded == false)
         {
-            StartCoroutine(ListenUser(listenUser, actualListener));
+
             wasDataLoaded = true;
         }
     }
@@ -405,21 +407,21 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         Debug.Log("Sending attack1 to server");
         UpdateData("yes", "attack1", actualHost.ToString());
-        Invoke(nameof(ResetAttack1), 2f);
+        Invoke(nameof(ResetAttack1), 6f);
     }
 
     public void SendAttack2()
     {
         Debug.Log("Sending attack2 to server");
         UpdateData("yes", "attack2", actualHost.ToString());
-        Invoke(nameof(ResetAttack2), 2f);
+        Invoke(nameof(ResetAttack2), 6f);
     }
 
     public void SendAttack3()
     {
         Debug.Log("Sending attack3 to server");
         UpdateData("yes", "attack3", actualHost.ToString());
-        Invoke(nameof(ResetAttack3), 2f);
+        Invoke(nameof(ResetAttack3), 6f);
     }
 
     private void ResetAttack1()

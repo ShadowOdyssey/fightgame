@@ -143,11 +143,37 @@ public class PlayerSystem : MonoBehaviour
                 case 7: enemyBody = GameObject.Find("OrionEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("OrionEnemy").GetComponent<EnemySystem>(); break;
                 case 8: enemyBody = GameObject.Find("AriaEnemy").GetComponent<Transform>(); enemySystem = GameObject.Find("AriaEnemy").GetComponent<EnemySystem>(); break;
             }
-        }
 
-        if (roundSystem.isMultiplayer == false)
-        {
-            RegisterInput();
+            cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
+            trainingSystem = GameObject.Find("RoundManager").GetComponent<TrainingSystem>();
+            cooldownSystem = GameObject.Find("RoundManager").GetComponent<CooldownSystem>();
+
+            initialPosition = transform.position;
+
+            Debug.Log("Character " + gameObject.name + " was choice to start input events");
+
+            if (buttonForward != null)
+            {
+                AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
+                AddEventTrigger(buttonForward, EventTriggerType.PointerUp, OnMoveButtonReleased);
+            }
+            if (buttonBackward != null)
+            {
+                AddEventTrigger(buttonBackward, EventTriggerType.PointerDown, OnMoveLeftButtonPressed);
+                AddEventTrigger(buttonBackward, EventTriggerType.PointerUp, OnMoveButtonReleased);
+            }
+            if (buttonAttack1 != null)
+            {
+                buttonAttack1.onClick.AddListener(OnAttack1ButtonPressed);
+            }
+            if (buttonAttack2 != null)
+            {
+                buttonAttack2.onClick.AddListener(OnAttack2ButtonPressed);
+            }
+            if (buttonAttack3 != null)
+            {
+                buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
+            }
         }
     }
 
@@ -416,16 +442,8 @@ public class PlayerSystem : MonoBehaviour
     {
         backCollider.enabled = false;
 
-        if (roundSystem.isMultiplayer == true)
-        {
-            playerCollider.enabled = true;
-            selectedMultiplayer = true;
-        }
-        else
-        {
-            playerCollider.enabled = true;
-            //backCollider.enabled = false;
-        }
+        playerCollider.enabled = true;
+        selectedMultiplayer = true;
 
         cameraSystem = GameObject.Find("Camera").GetComponent<CameraSystem>();
         trainingSystem = GameObject.Find("RoundManager").GetComponent<TrainingSystem>();
@@ -896,13 +914,13 @@ public class PlayerSystem : MonoBehaviour
     {
         if (isMovingForward == true)
         {
-            MultiplayerStoppedForward();
+            Invoke(nameof(MultiplayerStoppedForward), 3f);
             isMovingForward = false;
         }
 
         if (isMovingBackward == true)
         {
-            MultiplayerStoppedBackward();
+            Invoke(nameof(MultiplayerStoppedBackward), 3f);
             isMovingBackward = false;
         }
     }

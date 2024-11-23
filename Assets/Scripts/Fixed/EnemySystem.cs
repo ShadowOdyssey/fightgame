@@ -803,6 +803,7 @@ public class EnemySystem : MonoBehaviour
     public void RegisterInput()
     {
         backCollider.enabled = false;
+        enemyCollider.enabled = true;
 
         if (roundSystem.isMultiplayer == false)
         {
@@ -811,7 +812,6 @@ public class EnemySystem : MonoBehaviour
         }
         else
         {
-            enemyCollider.enabled = true;
             selectedMultiplayer = true;
 
             Debug.Log("Character " + gameObject.name + " was choice to start input events");
@@ -909,13 +909,13 @@ public class EnemySystem : MonoBehaviour
     {
         if (isMovingForward == true)
         {
-            MultiplayerStoppedForward();
+            Invoke(nameof(MultiplayerStoppedForward), 3f);
             isMovingForward = false;
         }
 
         if (isMovingBackward == true)
         {
-            MultiplayerStoppedBackward();
+            Invoke(nameof(MultiplayerStoppedBackward), 3f);
             isMovingBackward = false;
         }
     }
