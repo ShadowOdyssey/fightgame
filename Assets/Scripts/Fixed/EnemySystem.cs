@@ -664,6 +664,8 @@ public class EnemySystem : MonoBehaviour
 
         if (multiplayerStop == false && multiplayerForward == false && multiplayerBackward == false)
         {
+            Debug.Log("Multiplayer Idle is interrupting attack animation if this message to appear!");
+
             animatedMultiplayer = false;
 
             StartIdleAnimation();
@@ -1446,11 +1448,16 @@ public class EnemySystem : MonoBehaviour
     {
         if (checkDamage == false)
         {
-            attackSuccessRandom = false; // Reset to allow another attack randomization after cooldown
+            if (roundSystem.isMultiplayer == false)
+            {
+                attackSuccessRandom = false; // Reset to allow another attack randomization after cooldown
+                isWalking = true; // AI can move if player to get far from punch area
+                canFight = true; // AI can follow player if is outside range
+            }
+
             isAttacking = false; // Reset to allow another attack after cooldown
             checkDamage = true; // Check damage from last attack
-            isWalking = true; // AI can move if player to get far from punch area
-            canFight = true; // AI can follow player if is outside range
+
             StartIdleAnimation(); // Reset animation to repeat the attack if player is inside range yet            
         }
     }
@@ -1608,7 +1615,6 @@ public class EnemySystem : MonoBehaviour
                 {
                     MultiplayerAttack3();
                     cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
-                    isCooldown3 = true;
                 }
 
                 isAttacking = true;
@@ -1669,7 +1675,6 @@ public class EnemySystem : MonoBehaviour
                 {
                     MultiplayerAttack1();
                     cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
-                    isCooldown1 = true;
                 }
 
                 isAttacking = true;
@@ -1701,7 +1706,6 @@ public class EnemySystem : MonoBehaviour
                 {
                     MultiplayerAttack2();
                     cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
-                    isCooldown2 = true;
                 }
 
                 isAttacking = true;
