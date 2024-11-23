@@ -7556,6 +7556,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  sendDelay: 3
   actualAttack: 1
   enemyDifficulty: 2
   attackRange: 13
@@ -7581,6 +7582,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -28675,6 +28678,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  sendDelay: 3
   actualAttack: 1
   enemyDifficulty: 0
   attackRange: 13
@@ -28700,6 +28704,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -38715,6 +38721,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  sendDelay: 3
   actualAttack: 1
   enemyDifficulty: 1
   attackRange: 13
@@ -38740,6 +38747,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -41817,6 +41826,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  sendDelay: 3
   actualAttack: 1
   enemyDifficulty: 3
   attackRange: 13
@@ -41842,6 +41852,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -50075,6 +50087,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  sendDelay: 3
   actualAttack: 1
   enemyDifficulty: 2
   attackRange: 13
@@ -50121,6 +50134,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -77271,6 +77286,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  sendDelay: 3
   actualAttack: 1
   enemyDifficulty: 0
   attackRange: 13
@@ -93789,6 +93805,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  sendDelay: 3
   actualAttack: 1
   enemyDifficulty: 1
   attackRange: 13
@@ -101828,6 +101845,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  sendDelay: 3
   actualAttack: 1
   enemyDifficulty: 3
   attackRange: 13
@@ -112751,6 +112769,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -114945,6 +114965,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -126258,6 +126280,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -126383,6 +126407,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -128327,6 +128353,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -130252,6 +130280,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -135061,6 +135091,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -136442,6 +136474,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -138816,6 +138850,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -139339,6 +139375,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
@@ -140085,6 +140123,8 @@ MonoBehaviour:
   roundSystem: {fileID: 222489663}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
+  sendDelay: 3
+  receiveDelay: 0.5
   actualHost: 0
   actualListener: 0
   selected: 0
