@@ -69,13 +69,19 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void Update()
     {
-        ListenOpponent();
+        if (actualHost != 0 && actualListener != 0)
+        {
+            ListenOpponent();
+        }
     }
 
     public void LateUpdate()
     {
-        CheckRoundStartToListen();
-        CheckRoundOverToStopListen();
+        if (actualHost != 0 && actualListener != 0)
+        {
+            CheckRoundStartToListen();
+            CheckRoundOverToStopListen();
+        }
     }
 
     #endregion
