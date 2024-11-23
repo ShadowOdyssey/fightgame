@@ -1010,7 +1010,15 @@ public class EnemySystem : MonoBehaviour
 
             //Debug.Log("Player moved to right");
 
-            moveDirection = -1; // Setup new direction only once before to apply new position - 
+            if (selectedMultiplayer == true)
+            {
+                moveDirection = 1; // Setup new direction only once before to apply new position - 
+            }
+            else
+            {
+                moveDirection = -1;
+            }
+
             enemyAnimator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isBackward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -1034,7 +1042,15 @@ public class EnemySystem : MonoBehaviour
 
             //Debug.Log("Player moved to left");
 
-            moveDirection = 1; // Setup new direction only once before to apply new position - 
+            if (selectedMultiplayer == true)
+            {
+                moveDirection = -1; // Setup new direction only once before to apply new position - 
+            }
+            else
+            {
+                moveDirection = 1;
+            }
+
             enemyAnimator.SetBool("isBackward", true); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
