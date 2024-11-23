@@ -53,6 +53,7 @@ public class EnemySystem : MonoBehaviour
     public float moveSpeed = 2f;
     [Tooltip("Should be public to player read the value on it - Dont change it")]
     public float distanceToTarget = 0f;
+    public float checkStuckTimer = 2f;
 
     #region Hidden Variables
 
@@ -626,13 +627,17 @@ public class EnemySystem : MonoBehaviour
                     {
                         MoveRight();
                     }
-                    else if (isMovingBackward == true && isMovingForward == false)
+                    
+                    if (isMovingBackward == true && isMovingForward == false)
                     {
                         MoveLeft();
                     }
-                    else
+                    
+                    if (isMovingBackward == false && isMovingForward == false && isAttacking == false && animatedMultiplayer == false)
                     {
                         AnimIsIdle();
+
+                        animatedMultiplayer = true;
                     }
 
                     if (isMovingBackward == true || isMovingForward == true)
@@ -662,7 +667,7 @@ public class EnemySystem : MonoBehaviour
 
         #region Server informed player stopped to move
 
-        if (multiplayerStop == false && multiplayerForward == false && multiplayerBackward == false)
+        if (multiplayerStop == false && multiplayerForward == false && multiplayerBackward == false && isAttacking == false)
         {
             Debug.Log("Multiplayer Idle is interrupting attack animation if this message to appear!");
 
@@ -724,6 +729,7 @@ public class EnemySystem : MonoBehaviour
             multiplayerStop = false;
             multiplayerForward = false;
             multiplayerBackward = false;
+            isAttacking = true;
 
             UseAttack1();
 
@@ -735,6 +741,7 @@ public class EnemySystem : MonoBehaviour
             multiplayerStop = false;
             multiplayerForward = false;
             multiplayerBackward = false;
+            isAttacking = true;
 
             UseAttack2();
 
@@ -745,7 +752,8 @@ public class EnemySystem : MonoBehaviour
         {
             multiplayerForward = false;
             multiplayerBackward = false;
-            
+            isAttacking = true;
+
             UseAttack3();
 
             multiplayerAttack3 = false;
@@ -1609,14 +1617,13 @@ public class EnemySystem : MonoBehaviour
         {
             if (isCooldown3 == false) // If Attack 3 not in cooldown start Attack 3
             {
-                StartAttack3Animation(); // Now activate the attack 3 animation
-
                 if (selectedMultiplayer == true)
                 {
                     MultiplayerAttack3();
                     cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
                 }
 
+                StartAttack3Animation(); // Now activate the attack 3 animation
                 isAttacking = true;
             }
         }
@@ -1669,8 +1676,6 @@ public class EnemySystem : MonoBehaviour
         {
             if (isCooldown1 == false) // If Attack 1 not in cooldown start Attack 1
             {
-                StartAttack1Animation(); // Now activate the attack 1 animation
-
                 if (selectedMultiplayer == true)
                 {
                     MultiplayerAttack1();
@@ -1678,6 +1683,7 @@ public class EnemySystem : MonoBehaviour
                 }
 
                 isAttacking = true;
+                StartAttack1Animation(); // Now activate the attack 1 animation
             }
         }
         else
@@ -1700,14 +1706,13 @@ public class EnemySystem : MonoBehaviour
         {
             if (isCooldown2 == false) // If Attack 2 not in cooldown start Attack 2
             {
-                StartAttack2Animation(); // Now activate the attack 2 animation
-
                 if (selectedMultiplayer == true)
                 {
                     MultiplayerAttack2();
                     cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
                 }
 
+                StartAttack2Animation(); // Now activate the attack 2 animation
                 isAttacking = true;
             }
         }
