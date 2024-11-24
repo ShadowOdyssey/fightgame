@@ -639,15 +639,6 @@ public class EnemySystem : MonoBehaviour
                 }
 
                 #endregion
-
-                #region Player got a hit so move Player a bit to backwards or enemy can hit Player forever
-
-                if (isHit == true && roundSystem.roundOver == false)
-                {
-                    transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime * 3f);
-                }
-
-                #endregion
             }
         }
 

@@ -248,7 +248,7 @@ public class PlayerSystem : MonoBehaviour
 
         #region Player got a hit so move Player a bit to backwards or enemy can hit Player forever
 
-        if (isHit == true && roundSystem.roundOver == false)
+        if (isHit == true && roundSystem.roundOver == false && roundSystem.isMultiplayer == false)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime * 3f);
         }
