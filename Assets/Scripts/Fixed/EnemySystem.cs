@@ -162,14 +162,9 @@ public class EnemySystem : MonoBehaviour
             enemyCollider.enabled = false;
 
             LoadSinglePlay();
-
-            playerSystem = roundSystem.playerSystem;
         }
 
-        if (roundSystem.isMultiplayer == false)
-        {
-            playerSystem = roundSystem.playerSystem;
-        }
+        playerSystem = roundSystem.playerSystem;
 
         distanceToTarget = Vector3.Distance(transform.position, playerBody.position); // Get initial position from Player to get the first distance measure only once
     }
@@ -1653,6 +1648,7 @@ public class EnemySystem : MonoBehaviour
                 {
                     MultiplayerAttack3();
                     cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
+                    isCooldown3 = true;
                 }
 
                 StartAttack3Animation(); // Now activate the attack 3 animation
@@ -1712,6 +1708,7 @@ public class EnemySystem : MonoBehaviour
                 {
                     MultiplayerAttack1();
                     cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
+                    isCooldown1 = true;
                 }
 
                 isAttacking = true;
@@ -1742,6 +1739,7 @@ public class EnemySystem : MonoBehaviour
                 {
                     MultiplayerAttack2();
                     cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
+                    isCooldown2 = true;
                 }
 
                 StartAttack2Animation(); // Now activate the attack 2 animation
@@ -1823,6 +1821,11 @@ public class EnemySystem : MonoBehaviour
 
     private void DisableEffect()
     {
+        if (isHit == true)
+        {
+            isHit = false;
+        }
+
         hitEffect.SetActive(false); // Deactivate Hit Effect in the body of AI
     }
 
