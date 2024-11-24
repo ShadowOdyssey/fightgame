@@ -168,6 +168,11 @@ public class OpponentMultiplayer : MonoBehaviour
                 }
             }
 
+            if (listenerHealth != listenerInfo[6])
+            {
+                listenerHealth = listenerInfo[6];
+            }
+
             if (listenerHit != listenerInfo[5])
             {
                 listenerHit = listenerInfo[5];
