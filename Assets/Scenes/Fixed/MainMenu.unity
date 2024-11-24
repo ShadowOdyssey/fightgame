@@ -346,7 +346,7 @@ MonoBehaviour:
   _settingsButtonIcon: {fileID: 2800000, guid: 8fb01363561ed044b88d2b211fec8adb, type: 3}
   _exitButtonIcon: {fileID: 2800000, guid: e398e18ce81a42c4bba5f4d9f394e0d2, type: 3}
   settingsBackgroundImages:
-  - {fileID: 2800000, guid: 39fd6dd145ff8f44f857bd2df823edc4, type: 3}
+  - {fileID: 2800000, guid: 3635bb5263fc9f142985ce34e84a919c, type: 3}
   backgroundMusic: {fileID: 8300000, guid: 51413e93cc339f04f9652ef5205ce8fe, type: 3}
 --- !u!4 &1240818055
 Transform:
