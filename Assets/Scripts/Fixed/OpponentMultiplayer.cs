@@ -183,7 +183,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
             if (listenerForward == "no" && listenerBackward == "no") // Just for debug
             {
-                Debug.Log("Opponent stopped to move");
+                //Debug.Log("Opponent stopped to move");
             }
 
             wasDataLoaded = false;
@@ -389,7 +389,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
     private void ResetHitPlayer()
     {
-        Debug.Log("Player hit detection was reset");
+        //Debug.Log("Player hit detection was reset");
 
         UpdateData("no", "hit", actualHost.ToString());
         canApplyHit = false;
@@ -397,7 +397,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
     private void ResetHitEnemy()
     {
-        Debug.Log("Enemy hit detection was reset");
+        //Debug.Log("Enemy hit detection was reset");
 
         UpdateData("no", "hit", actualHost.ToString());
         canApplyHit = false;
@@ -554,7 +554,15 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerHit == "yes<br>" && canApplyHit == false)
         {
-            originalPlayer.TakeHit(newDamage);
+            if (originalPlayer != null)
+            {
+                originalPlayer.TakeHit(newDamage);
+            }
+            else
+            {
+                opponentIsPlayer.TakeHit(newDamage);
+            }
+
             newDamage = 0;
             canApplyHit = true;
         }
@@ -632,7 +640,15 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerHit == "yes<br>" && canApplyHit == false)
         {
-            originalEnemy.TakeDamage(newDamage);
+            if (originalEnemy != null)
+            {
+                originalEnemy.TakeDamage(newDamage);
+            }
+            else
+            {
+                opponentIsEnemy.TakeDamage(newDamage);
+            }
+
             newDamage = 0;
             canApplyHit = true;
         }
