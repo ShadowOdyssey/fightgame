@@ -554,15 +554,9 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerHit == "yes<br>" && canApplyHit == false)
         {
-            if (originalPlayer != null)
-            {
-                originalPlayer.TakeHit(newDamage);
-            }
-            else
-            {
-                opponentIsPlayer.TakeHit(newDamage);
-            }
+            Debug.Log("Player got hit");
 
+            originalPlayer.TakeHit(newDamage);
             newDamage = 0;
             canApplyHit = true;
         }
@@ -640,15 +634,9 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerHit == "yes<br>" && canApplyHit == false)
         {
-            if (originalEnemy != null)
-            {
-                originalEnemy.TakeDamage(newDamage);
-            }
-            else
-            {
-                opponentIsEnemy.TakeDamage(newDamage);
-            }
+            Debug.Log("Player got hit");
 
+            originalEnemy.TakeDamage(newDamage);
             newDamage = 0;
             canApplyHit = true;
         }
