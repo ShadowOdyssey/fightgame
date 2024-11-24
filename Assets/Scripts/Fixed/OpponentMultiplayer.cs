@@ -429,12 +429,26 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void UpdatePlayerLife(string newLife)
     {
-        UpdateData(newLife, "health", actualHost.ToString());
+        if (isEnemyPlayer == true)
+        {
+            UpdateData(newLife, "health", actualListener.ToString());
+        }
+        else
+        {
+            UpdateData(newLife, "health", actualHost.ToString());
+        }
     }
 
     public void UpdateEnemyLife(string newLife)
     {
-        UpdateData(newLife, "health", actualListener.ToString());
+        if (isEnemyPlayer == true)
+        {
+            UpdateData(newLife, "health", actualHost.ToString());
+        }
+        else
+        {
+            UpdateData(newLife, "health", actualListener.ToString());
+        }
     }
 
     #endregion
