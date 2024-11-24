@@ -173,10 +173,14 @@ public class OpponentMultiplayer : MonoBehaviour
 
                 if (isEnemyPlayer == true)
                 {
+                    Debug.Log("Registering damage in Clone Enemy");
+
                     RegisterHitEnemy();
                 }
                 else
                 {
+                    Debug.Log("Registering damage in Clone Player");
+
                     RegisterHitPlayer();
                 }
             }
