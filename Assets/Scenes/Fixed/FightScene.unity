@@ -7556,7 +7556,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
-  sendDelay: 3
+  sendDelay: 0.2
   actualAttack: 1
   enemyDifficulty: 2
   attackRange: 13
@@ -28678,7 +28678,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
-  sendDelay: 3
+  sendDelay: 0.2
   actualAttack: 1
   enemyDifficulty: 0
   attackRange: 13
@@ -38721,7 +38721,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
-  sendDelay: 3
+  sendDelay: 0.2
   actualAttack: 1
   enemyDifficulty: 1
   attackRange: 13
@@ -41826,7 +41826,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
-  sendDelay: 3
+  sendDelay: 0.2
   actualAttack: 1
   enemyDifficulty: 3
   attackRange: 13
@@ -50087,7 +50087,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
-  sendDelay: 3
+  sendDelay: 0.2
   actualAttack: 1
   enemyDifficulty: 2
   attackRange: 13
@@ -77286,7 +77286,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
-  sendDelay: 3
+  sendDelay: 0.2
   actualAttack: 1
   enemyDifficulty: 0
   attackRange: 13
@@ -93806,7 +93806,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
-  sendDelay: 3
+  sendDelay: 0.2
   actualAttack: 1
   enemyDifficulty: 1
   attackRange: 13
@@ -101847,7 +101847,7 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
-  sendDelay: 3
+  sendDelay: 0.2
   actualAttack: 1
   enemyDifficulty: 3
   attackRange: 13
@@ -114898,6 +114898,7 @@ MonoBehaviour:
   moveSpeed: 0.4
   stepSize: 0.1
   attackStuckTime: 2
+  sendDelay: 0.2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!65 &5428761219676516486
@@ -126261,6 +126262,7 @@ MonoBehaviour:
   moveSpeed: 0.8
   stepSize: 0.1
   attackStuckTime: 2
+  sendDelay: 0.2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!114 &5866666021251667152
@@ -126388,6 +126390,7 @@ MonoBehaviour:
   moveSpeed: 0.8
   stepSize: 0.1
   attackStuckTime: 2
+  sendDelay: 0.2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!114 &5866666021348040842
@@ -128334,6 +128337,7 @@ MonoBehaviour:
   moveSpeed: 1
   stepSize: 0.1
   attackStuckTime: 2
+  sendDelay: 0.2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!114 &6378531539091363701
@@ -133872,6 +133876,7 @@ MonoBehaviour:
   moveSpeed: 0.8
   stepSize: 0.1
   attackStuckTime: 2
+  sendDelay: 0.2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!1 &7723962380351404322
@@ -136406,6 +136411,7 @@ MonoBehaviour:
   moveSpeed: 0.8
   stepSize: 0.1
   attackStuckTime: 2
+  sendDelay: 0.2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!65 &8361852595730644833
@@ -138830,6 +138836,7 @@ MonoBehaviour:
   moveSpeed: 0.8
   stepSize: 0.1
   attackStuckTime: 2
+  sendDelay: 0.2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!114 &8916439414200134679
@@ -140102,6 +140109,7 @@ MonoBehaviour:
   moveSpeed: 0.8
   stepSize: 0.1
   attackStuckTime: 2
+  sendDelay: 0.2
   trainingSystem: {fileID: 0}
   completedTutorial: 0
 --- !u!114 &9171181848999038339

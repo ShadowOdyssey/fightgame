@@ -41,7 +41,7 @@ public class PlayerSystem : MonoBehaviour
     private bool isIdle = false;
 
     [Header("Multiplayer Setup")]
-    private float sendDelay = 3f;
+    public float sendDelay = 3f;
     private bool selectedMultiplayer = false;
     private bool multiplayerStop = false;
     private bool multiplayerForward = false;
@@ -51,6 +51,12 @@ public class PlayerSystem : MonoBehaviour
     private bool multiplayerAttack3 = false;
     private bool animatedMultiplayer = false;
 
+    [Header("Trainning Mode Setup")]
+    [Tooltip("Actual Training System from RoundManager object in the current scene, it will be loaded when scene to awake")]
+    public TrainingSystem trainingSystem;
+    [Tooltip("If enabled means player completed a tutorial stage in Training Mode")]
+    public bool completedTutorial = false;
+
     #region Hidden Variables
 
     [Header("Monitor")] // Turn variables into public to show monitor
@@ -58,8 +64,6 @@ public class PlayerSystem : MonoBehaviour
     private CameraSystem cameraSystem;
     [Tooltip("Actual Round System from RoundManager object in the current scene, it will be loaded when scene to awake")]
     private RoundManager roundSystem;
-    [Tooltip("Actual Training System from RoundManager object in the current scene, it will be loaded when scene to awake")]
-    public TrainingSystem trainingSystem;
     [Tooltip("Actual Cooldown System from RoundManager object in the current scene, it will be loaded when scene to awake")]
     private CooldownSystem cooldownSystem;
     [Tooltip("Actual Enemy System from selected enemy by IA, it will be loaded when scene to awake")]
@@ -92,8 +96,6 @@ public class PlayerSystem : MonoBehaviour
     private bool isHit = false;
     [Tooltip("If enabled means player dealed a damage to an opponent")]
     private bool checkDamage = false;
-    [Tooltip("If enabled means player completed a tutorial stage in Training Mode")]
-    public bool completedTutorial = false;
     [Tooltip("If enabled means player triggers will be reseted on each end of round")]
     private bool wasResetTriggers = false;
 
