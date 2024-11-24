@@ -32,6 +32,7 @@ public class EnemySystem : MonoBehaviour
     [Tooltip("Attach current player Button Attack 3 component here")]
     public Button buttonAttack3;
     public float sendDelay = 3f;
+    private bool wasDetected = false;
     private bool selectedMultiplayer = false;
     private bool multiplayerStop = false;
     private bool multiplayerForward = false;
@@ -53,6 +54,7 @@ public class EnemySystem : MonoBehaviour
     [Tooltip("Should be public to player read the value on it - Dont change it")]
     public float distanceToTarget = 0f;
     public float checkStuckTimer = 2f;
+    public float hitTime = 0.2f;
 
     #region Hidden Variables
 
@@ -474,9 +476,9 @@ public class EnemySystem : MonoBehaviour
             {
                 damageTime = damageTime + Time.deltaTime;
 
-                if (distanceToTarget <= attackRange && damageTime > 0f)
+                if (distanceToTarget <= attackRange && damageTime > 0f && damageTime <= hitTime && wasDetected == false)
                 {
-                    checkDamage = false;
+                    wasDetected = true;
                     damageTime = 0f;
 
                     if (selectedMultiplayer == true)
@@ -485,16 +487,24 @@ public class EnemySystem : MonoBehaviour
 
                         multiplayerSystem.PlayerTakeHit(20); // If Enemy is the original, so clone Player takes hit
                     }
-                    else
-                    {
-                        Debug.Log("Calling Enemy applied hit in Player because Enemy was not selected");
 
-                        playerSystem.TakeHit(20);
-                    }
+                    playerSystem.TakeHit(20);
+
+                    checkDamage = false;
                 }
 
-                if (damageTime > 0.2f)
+                if (distanceToTarget > attackRange && damageTime > 0f && damageTime <= hitTime && wasDetected == true)
                 {
+                    wasDetected = false;
+                }
+
+                if (damageTime > hitTime)
+                {
+                    if (selectedMultiplayer == true)
+                    {
+                        multiplayerSystem.ResetHitEnemy();
+                    }
+
                     checkDamage = false;
                     damageTime = 0f;
                 }
@@ -1143,7 +1153,7 @@ public class EnemySystem : MonoBehaviour
     {
         if (isHit == false) // With this trigger we make sure opponent only will take damage 1 time
         {
-            if (roundSystem.isTrainingMode == false)
+            if (roundSystem.isTrainingMode == false || roundSystem.isMultiplayer == false)
             {
                 roundSystem.ApplyDamageToOpponent(damage); // Inform RoundManager that Enemy tooks damage by player
                                                            // roundSystem.audioSystem.EnemyDamage(roundSystem.currentEnemyCharacter); // Start character Damage sound in another Audio Source different from what Player will use to play his Damage sound, only after damage has applied, create a new Audio Source for it

@@ -55,6 +55,7 @@ public class OpponentMultiplayer : MonoBehaviour
     public string listenerAttack2 = "";
     public string listenerAttack3 = "";
     public string listenerHit = "";
+    public string listenerHealth = "";
     private string[] listenerInfo = new string[0];
     private int newDamage = 0;
     private string checkWin = "";
@@ -171,17 +172,24 @@ public class OpponentMultiplayer : MonoBehaviour
             {
                 listenerHit = listenerInfo[5];
 
-                if (isEnemyPlayer == true)
+                if (listenerHit == "yes<br>" && canApplyHit == false)
                 {
-                    Debug.Log("Registering damage in Clone Player");
+                    canApplyHit = true;
 
-                    RegisterHitPlayer();
-                }
-                else
-                {
-                    Debug.Log("Registering damage in Clone Enemy");
+                    Debug.Log("Opponent registered a hit attempt");
 
-                    RegisterHitEnemy();
+                    if (isEnemyPlayer == true)
+                    {
+                        Debug.Log("Registering damage in Clone Enemy");
+
+                        RegisterHitEnemy();
+                    }
+                    else
+                    {
+                        Debug.Log("Registering damage in Clone Player");
+
+                        RegisterHitPlayer();
+                    }
                 }
             }
 
@@ -375,33 +383,31 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void PlayerTakeHit(int damage)
     {
-        Debug.Log("Send to server only hits in clone Player");
+        //Debug.Log("Send to server only hits in clone Player");
 
         UpdateData("yes", "hit", actualHost.ToString());
-        Invoke(nameof(ResetHitPlayer), 0.5f);
         newDamage = damage;        
     }
 
     public void EnemyTakeHit(int damage)
     {
-        Debug.Log("Send to server only hits in clone Enemy");
+        //Debug.Log("Send to server only hits in clone Enemy");
 
         UpdateData("yes", "hit", actualHost.ToString());
-        Invoke(nameof(ResetHitEnemy), 0.5f);
         newDamage = damage;
     }
 
-    private void ResetHitPlayer()
+    public void ResetHitPlayer()
     {
-        //Debug.Log("Player hit detection was reset");
+        Debug.Log("Player hit detection was reset");
 
         UpdateData("no", "hit", actualHost.ToString());
         canApplyHit = false;
     }
 
-    private void ResetHitEnemy()
+    public void ResetHitEnemy()
     {
-        //Debug.Log("Enemy hit detection was reset");
+        Debug.Log("Enemy hit detection was reset");
 
         UpdateData("no", "hit", actualHost.ToString());
         canApplyHit = false;
@@ -556,14 +562,24 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void RegisterHitPlayer()
     {
-        if (listenerHit == "yes<br>" && canApplyHit == false)
+        Debug.Log("Player got hit");
+
+        if (opponentIsPlayer != null)
         {
-            Debug.Log("Player got hit");
+            Debug.Log("Damage applied in Clone Player");
 
             opponentIsPlayer.TakeHit(newDamage);
-            newDamage = 0;
-            canApplyHit = true;
         }
+        
+        if (originalPlayer != null)
+        {
+            Debug.Log("Damage applied in Original Player");
+
+            originalPlayer.TakeHit(newDamage);
+        }
+
+        newDamage = 0;
+        canApplyHit = false;
     }
 
     #endregion
@@ -636,14 +652,24 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void RegisterHitEnemy()
     {
-        if (listenerHit == "yes<br>" && canApplyHit == false)
+        Debug.Log("Enemy got hit");
+
+        if (opponentIsEnemy != null)
         {
-            Debug.Log("Enemy got hit");
+            Debug.Log("Damage applied in Clone Enemy");
 
             opponentIsEnemy.TakeDamage(newDamage);
-            newDamage = 0;
-            canApplyHit = true;
         }
+        
+        if (originalEnemy != null)
+        {
+            Debug.Log("Damage applied in Original Enemy");
+
+            originalEnemy.TakeDamage(newDamage);
+        }
+
+        newDamage = 0;
+        canApplyHit = false;
     }
 
     #endregion

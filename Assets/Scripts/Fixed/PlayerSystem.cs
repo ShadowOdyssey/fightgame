@@ -38,10 +38,12 @@ public class PlayerSystem : MonoBehaviour
     [Tooltip("Setup actual player step size to change movement speed")]
     public float stepSize = 0.1f;
     public float attackStuckTime = 2f;
+    public float hitTime = 0.2f;
     private bool isIdle = false;
 
     [Header("Multiplayer Setup")]
     public float sendDelay = 3f;
+    private bool wasDetected = false;
     private bool selectedMultiplayer = false;
     private bool multiplayerStop = false;
     private bool multiplayerForward = false;
@@ -183,9 +185,9 @@ public class PlayerSystem : MonoBehaviour
         {
             damageTime = damageTime + Time.deltaTime;
 
-            if (enemySystem.distanceToTarget <= attackRange && damageTime > 0f)
+            if (enemySystem.distanceToTarget <= attackRange && damageTime > 0f && damageTime <= hitTime && wasDetected == false)
             {
-                checkDamage = false;
+                wasDetected = true;
                 damageTime = 0f;
 
                 if (roundSystem.isMultiplayer == false)
@@ -200,17 +202,25 @@ public class PlayerSystem : MonoBehaviour
 
                         multiplayerSystem.EnemyTakeHit(20); // If Player is the original, so clone Enemy will take hit
                     }
-                    else
-                    {
-                        Debug.Log("Calling Player applied hit in Enemy because Player was not selected");
 
-                        enemySystem.TakeDamage(20); // If Player is the clone, so original Enemy will take hit
-                    }
+                    enemySystem.TakeDamage(20); // If Player is the clone, so original Enemy will take hit
                 }
+
+                checkDamage = false;
             }
 
-            if (damageTime > 0.2f)
+            if (enemySystem.distanceToTarget > attackRange && damageTime > 0f && damageTime <= hitTime && wasDetected == true)
             {
+                wasDetected = false;
+            }
+
+            if (damageTime > hitTime)
+            {
+                if (selectedMultiplayer == true)
+                {
+                    multiplayerSystem.ResetHitPlayer();
+                }
+
                 checkDamage = false;
                 damageTime = 0f;
             }
@@ -533,7 +543,7 @@ public class PlayerSystem : MonoBehaviour
         {
             //Debug.Log("Player got a hit and got " + damageAmmount + " of damage!");
 
-            if (roundSystem.isTrainingMode == false)
+            if (roundSystem.isTrainingMode == false || roundSystem.isMultiplayer == false)
             {
                 roundSystem.ApplyDamageToPlayer(damageAmmount); // Inform RoundManager that Player got damage by Enemy
                                                                 // roundSystem.audioSystem.PlayerDamage(roundSystem.currentPLayerCharacter); // Start character Damage sound in another Audio Source different from what Enemy will use to play his Damage sound, only after damage has applied, create a new Audio Source for it
