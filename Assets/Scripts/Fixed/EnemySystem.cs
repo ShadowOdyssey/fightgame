@@ -647,7 +647,7 @@ public class EnemySystem : MonoBehaviour
         {
             #region Server informed player stopped to move
 
-            if (multiplayerStop == false && multiplayerForward == false && multiplayerBackward == false)
+            if (multiplayerStop == false && multiplayerForward == false && multiplayerBackward == false && isAttacking == false)
             {
                 Debug.Log("Multiplayer Idle is interrupting attack animation if this message to appear!");
 
