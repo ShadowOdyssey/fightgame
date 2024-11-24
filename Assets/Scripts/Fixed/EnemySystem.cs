@@ -470,7 +470,7 @@ public class EnemySystem : MonoBehaviour
 
             #region Check if Multiplayer Enemy dealed damage to Multiplayer Player
 
-            if (checkDamage == true && selectedMultiplayer == true)
+            if (checkDamage == true)
             {
                 damageTime = damageTime + Time.deltaTime;
 
@@ -479,7 +479,14 @@ public class EnemySystem : MonoBehaviour
                     checkDamage = false;
                     damageTime = 0f;
 
-                    multiplayerSystem.PlayerTakeHit(20); // If Enemy is the original, so clone Player takes hit
+                    if (selectedMultiplayer == true)
+                    {
+                        multiplayerSystem.PlayerTakeHit(20); // If Enemy is the original, so clone Player takes hit
+                    }
+                    else
+                    {
+                        playerSystem.TakeHit(20);
+                    }
                 }
 
                 if (damageTime > 0.2f)
@@ -637,7 +644,7 @@ public class EnemySystem : MonoBehaviour
 
             if (multiplayerStop == false && multiplayerForward == false && multiplayerBackward == false && isAttacking == false)
             {
-                Debug.Log("Multiplayer Idle is interrupting attack animation if this message to appear!");
+                //Debug.Log("Multiplayer Idle is interrupting attack animation if this message to appear!");
 
                 animatedMultiplayer = false;
 

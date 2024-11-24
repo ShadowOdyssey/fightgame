@@ -188,7 +188,7 @@ public class PlayerSystem : MonoBehaviour
                 checkDamage = false;
                 damageTime = 0f;
 
-                if (selectedMultiplayer == false)
+                if (roundSystem.isMultiplayer == false)
                 {
                     enemySystem.TakeDamage(20); // If Player is the clone, so original Enemy will take hit
                 }
@@ -197,6 +197,10 @@ public class PlayerSystem : MonoBehaviour
                     if (selectedMultiplayer == true)
                     {
                         multiplayerSystem.EnemyTakeHit(20); // If Player is the original, so clone Enemy will take hit
+                    }
+                    else
+                    {
+                        enemySystem.TakeDamage(20); // If Player is the clone, so original Enemy will take hit
                     }
                 }
             }
