@@ -671,7 +671,7 @@ public class EnemySystem : MonoBehaviour
 
             #region Server informed player is moving forward
 
-            if (multiplayerForward == true)
+            if (multiplayerForward == true && isHit == false)
             {
                 animatedMultiplayer = false;
                 multiplayerStop = false;
@@ -692,7 +692,7 @@ public class EnemySystem : MonoBehaviour
 
             #region Server informed player is moving backward
 
-            if (multiplayerBackward == true)
+            if (multiplayerBackward == true && isHit == false)
             {
                 animatedMultiplayer = false;
                 multiplayerStop = false;
