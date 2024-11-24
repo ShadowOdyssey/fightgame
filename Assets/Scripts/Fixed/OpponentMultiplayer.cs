@@ -310,12 +310,16 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void SetOpponentPlayer(PlayerSystem actualEnemySystem)
     {
+        Debug.Log("Opponent is Player");
+
         opponentIsPlayer = actualEnemySystem;
         isEnemyPlayer = true;
     }
 
     public void SetOpponentEnemy(EnemySystem actualEnemySystem)
     {
+        Debug.Log("Opponent is Enemy");
+
         opponentIsEnemy = actualEnemySystem;
         isEnemyPlayer = false;
     }
