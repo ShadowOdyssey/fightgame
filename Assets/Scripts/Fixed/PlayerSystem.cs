@@ -190,11 +190,14 @@ public class PlayerSystem : MonoBehaviour
 
                 if (selectedMultiplayer == false)
                 {
-                    enemySystem.TakeDamage(20); // If Player is the clone
+                    enemySystem.TakeDamage(20); // If Player is the clone, so original Enemy will take hit
                 }
                 else
                 {
-                    multiplayerSystem.EnemyTakeHit(20); // If Player is the original
+                    if (selectedMultiplayer == true)
+                    {
+                        multiplayerSystem.EnemyTakeHit(20); // If Player is the original, so clone Enemy will take hit
+                    }
                 }
             }
 

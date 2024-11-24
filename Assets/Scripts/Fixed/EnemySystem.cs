@@ -470,7 +470,7 @@ public class EnemySystem : MonoBehaviour
 
             #region Check if Multiplayer Enemy dealed damage to Multiplayer Player
 
-            if (checkDamage == true)
+            if (checkDamage == true && selectedMultiplayer == true)
             {
                 damageTime = damageTime + Time.deltaTime;
 
@@ -479,14 +479,7 @@ public class EnemySystem : MonoBehaviour
                     checkDamage = false;
                     damageTime = 0f;
 
-                    if (selectedMultiplayer == false)
-                    {
-                        playerSystem.TakeHit(20); // If Enemy is the clone
-                    }
-                    else
-                    {
-                        multiplayerSystem.PlayerTakeHit(20); // If Enemy is the original
-                    }
+                    multiplayerSystem.PlayerTakeHit(20); // If Enemy is the original, so clone Player takes hit
                 }
 
                 if (damageTime > 0.2f)

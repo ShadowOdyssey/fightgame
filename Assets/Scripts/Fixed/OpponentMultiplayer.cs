@@ -42,17 +42,14 @@ public class OpponentMultiplayer : MonoBehaviour
     public bool canListen = false;
     public bool wasDataLoaded = false;
     public bool isCheckingWin = false;
+    public bool canApplyHit = false;
+    private int newDamage = 0;
     private string responseFromServer = "";
     private string listenerForward = "";
     private string listenerBackward = "";
     private string listenerAttack1 = "";
     private string listenerAttack2 = "";
     private string listenerAttack3 = "";
-    private string senderForward = "";
-    private string senderBackward = "";
-    private string senderAttack1 = "";
-    private string senderAttack2 = "";
-    private string senderAttack3 = "";
     private string listenerHit = "";
     private string checkWin = "";
 
@@ -164,12 +161,19 @@ public class OpponentMultiplayer : MonoBehaviour
                 }
             }
 
-            /*
             if (listenerHit != listenerInfo[5])
             {
                 listenerHit = listenerInfo[5];
+
+                if (isEnemyPlayer == true)
+                {
+                    RegisterHitPlayer();
+                }
+                else
+                {
+                    RegisterHitEnemy();
+                }
             }
-            */
 
             wasDataLoaded = false;
         }
@@ -356,12 +360,32 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void PlayerTakeHit(int damage)
     {
-        opponentIsPlayer.TakeHit(damage);
+        // Send to server only hits in clone Player
+
+        UpdateData("yes", "hit", actualHost.ToString());
+        Invoke(nameof(ResetHitPlayer), 1f);
+        newDamage = damage;        
     }
 
     public void EnemyTakeHit(int damage)
     {
-        opponentIsEnemy.TakeDamage(damage);
+        // Send to server only hits in clone Enemy
+
+        UpdateData("yes", "hit", actualHost.ToString());
+        Invoke(nameof(ResetHitEnemy), 1f);
+        newDamage = damage;
+    }
+
+    private void ResetHitPlayer()
+    {
+        UpdateData("no", "hit", actualHost.ToString());
+        canApplyHit = false;
+    }
+
+    private void ResetHitEnemy()
+    {
+        UpdateData("no", "hit", actualHost.ToString());
+        canApplyHit = false;
     }
 
     #endregion
@@ -500,6 +524,18 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
+    public void RegisterHitPlayer()
+    {
+        if (listenerHit == "yes" && canApplyHit == false)
+        {
+            //Debug.Log("Opponent as Player got hit");
+
+            opponentIsPlayer.TakeHit(newDamage);
+            newDamage = 0;
+            canApplyHit = true;
+        }
+    }
+
     #endregion
 
     #region Enemy is Enemy, register new data
@@ -558,6 +594,18 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             //Debug.Log("Opponent as Enemy used Attack 3");
             opponentIsEnemy.MultiplayerAttacked3();
+        }
+    }
+
+    public void RegisterHitEnemy()
+    {
+        if (listenerHit == "yes" && canApplyHit == false)
+        {
+            //Debug.Log("Opponent as Enemy got hit");
+            
+            opponentIsEnemy.TakeDamage(newDamage);
+            newDamage = 0;
+            canApplyHit = true;
         }
     }
 
