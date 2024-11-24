@@ -556,7 +556,7 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             Debug.Log("Player got hit");
 
-            originalPlayer.TakeHit(newDamage);
+            opponentIsPlayer.TakeHit(newDamage);
             newDamage = 0;
             canApplyHit = true;
         }
@@ -636,7 +636,7 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             Debug.Log("Enemy got hit");
 
-            originalEnemy.TakeDamage(newDamage);
+            opponentIsEnemy.TakeDamage(newDamage);
             newDamage = 0;
             canApplyHit = true;
         }
