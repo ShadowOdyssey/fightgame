@@ -36,21 +36,21 @@ public class OpponentMultiplayer : MonoBehaviour
     #region Hidden Variables
 
     [Header("Listener Setup")]
-    private string[] listenerInfo = new string[0];
     public float countListen = 0f;
     public bool isEnemyPlayer = false;
     public bool canListen = false;
     public bool wasDataLoaded = false;
     public bool isCheckingWin = false;
     public bool canApplyHit = false;
+    public string responseFromServer = "";
+    public string listenerForward = "";
+    public string listenerBackward = "";
+    public string listenerAttack1 = "";
+    public string listenerAttack2 = "";
+    public string listenerAttack3 = "";
+    public string listenerHit = "";
+    private string[] listenerInfo = new string[0];
     private int newDamage = 0;
-    private string responseFromServer = "";
-    private string listenerForward = "";
-    private string listenerBackward = "";
-    private string listenerAttack1 = "";
-    private string listenerAttack2 = "";
-    private string listenerAttack3 = "";
-    private string listenerHit = "";
     private string checkWin = "";
 
     #endregion
