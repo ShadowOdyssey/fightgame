@@ -89,7 +89,7 @@ public class MainMenu : MonoBehaviour
         float panelX = 100;
         float panelY = Screen.height / 2 - panelHeight / 2;
 
-        GUI.Box(new Rect(panelX, panelY, panelWidth, panelHeight), GUIContent.none, GUI.skin.box);
+       
 
         float centerX = Screen.width / 2 - buttonWidth / 2;
 

@@ -13,7 +13,7 @@ public class CharacterViewing : MonoBehaviour
     private AudioSource audioSource; // AudioSource component
 
     private int currentIndex = 0; // Index to keep track of the current character
-    private string[] characterNames = { "Selena", "Aria", "Orion", "Marcus", "Gabriela", "Nun", "Bryan" }; // Character names
+    private string[] characterNames = { "Selena", "Aria", "Orion", "Marcus", "Gabriela", "Nun", "Bryan","Oliver" }; // Character names
 
     // Character stats and stories
     private string[] characterStories =
@@ -30,13 +30,15 @@ public class CharacterViewing : MonoBehaviour
 
         "Nun, the Celestial Guardian, is a being of light, wielding divine power to protect the realms from malevolent forces. Clad in radiant armor that reflects the stars, Nun has the ability to heal allies and shield them from harm. His mission is to restore balance and harmony, fighting against the forces of darkness that threaten to consume the universe. His journey brings him to join forces with Selena, Aria, Orion, and Gabriela. Together, they stand against the rising evil, combining their powers to protect all that is good.",
 
-        "Bryan, a battle-hardened warrior from a distant war-torn land, carries the weight of countless battles on his shoulders. His rugged armor is scarred from encounters with brutal enemies, and his eyes tell the story of a survivor. Bryan's indomitable will makes him a fearsome opponent. His unmatched strength and resilience make him the cornerstone of any defensive line. Despite his rough exterior, Bryan fights for peace, hoping to one day see an end to the endless wars that have defined his life."
+        "Bryan, a battle-hardened warrior from a distant war-torn land, carries the weight of countless battles on his shoulders. His rugged armor is scarred from encounters with brutal enemies, and his eyes tell the story of a survivor. Bryan's indomitable will makes him a fearsome opponent. His unmatched strength and resilience make him the cornerstone of any defensive line. Despite his rough exterior, Bryan fights for peace, hoping to one day see an end to the endless wars that have defined his life.",
+
+       " Oliver was forced to adapt when the village was destroyed and his mentor killed. Now, he guards the *Abandoned Forge*, the last remaining forge in the region. His ability to fight is rooted in his resourcefulness—using tools and objects around him as weapons. Oliver’s experience in craftsmanship has turned him into a skilled and unpredictable fighter.",
     };
 
-    private int[] durabilityStatsStats = { 80, 70, 95, 85, 75, 90, 100 }; // Strength stats
-    private int[] offenseStats = { 90, 60, 70, 80, 95, 60, 50 };   // Agility stats
-    private int[] controlStats = { 60, 85, 80, 75, 70, 90, 95 }; // Durability stats
-    private int[] difficultyStats = { 70, 75, 80, 75, 80, 90, 100 }; // Durability stats
+    private int[] durabilityStatsStats = { 80, 70, 95, 85, 75, 90, 100, 90 }; // Strength stats
+    private int[] offenseStats = { 90, 60, 70, 80, 95, 60, 50, 85 };   // Agility stats
+    private int[] controlStats = { 60, 85, 80, 75, 70, 90, 95, 90 }; // Durability stats
+    private int[] difficultyStats = { 70, 75, 80, 75, 80, 90, 100,95 }; // Durability stats
 
     public void Start()
     {
@@ -78,34 +80,44 @@ public class CharacterViewing : MonoBehaviour
     }
 
     void DrawHeroDetails()
+{
+    float detailsWidth = Screen.width * 0.5f;
+    float detailsHeight = Screen.height * 0.7f;
+    float detailsX = Screen.width * 0.5f;
+    float detailsY = Screen.height * 0.1f;
+
+    GUI.Box(new Rect(detailsX, detailsY, detailsWidth, detailsHeight), "");
+
+    GUIStyle nameStyle = new GUIStyle(GUI.skin.label)
     {
-        float detailsWidth = Screen.width * 0.5f;
-        float detailsHeight = Screen.height * 0.7f;
-        float detailsX = Screen.width * 0.5f;
-        float detailsY = Screen.height * 0.1f;
+        fontSize = 50,
+        fontStyle = FontStyle.Bold,
+        alignment = TextAnchor.MiddleCenter,
+        normal = { textColor = Color.yellow }
+    };
 
-        GUI.Box(new Rect(detailsX, detailsY, detailsWidth, detailsHeight), "");
-
-        GUIStyle nameStyle = new GUIStyle(GUI.skin.label)
-        {
-            fontSize = 50,
-            fontStyle = FontStyle.Bold,
-            alignment = TextAnchor.MiddleCenter,
-            normal = { textColor = Color.yellow }
-        };
+    // Validate characterNames array
+    if (currentIndex >= 0 && currentIndex < characterNames.Length)
+    {
         GUI.Label(new Rect(detailsX + 20, detailsY + 20, detailsWidth - 40, 40), characterNames[currentIndex], nameStyle);
+    }
 
-        GUIStyle storyStyle = new GUIStyle(GUI.skin.label)
-        {
-            fontSize = 40,
-            wordWrap = true,
-            alignment = TextAnchor.UpperLeft,
-            normal = { textColor = Color.white }
-        };
+    GUIStyle storyStyle = new GUIStyle(GUI.skin.label)
+    {
+        fontSize = 40,
+        wordWrap = true,
+        alignment = TextAnchor.UpperLeft,
+        normal = { textColor = Color.white }
+    };
 
-        float storyHeight = 600;
+    float storyHeight = 600;
+
+    // Validate characterStories array
+    if (currentIndex >= 0 && currentIndex < characterStories.Length)
+    {
         GUI.Label(new Rect(detailsX + 20, detailsY + 70, detailsWidth - 40, storyHeight), characterStories[currentIndex], storyStyle);
     }
+}
 
     void DrawStatsPanel()
     {
