@@ -554,7 +554,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerHit == "yes<br>" && canApplyHit == false)
         {
-            if (selected == false)
+            if (opponentIsPlayer != null)
             {
                 Debug.Log("Opponent as Player got hit");
 
@@ -644,7 +644,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerHit == "yes<br>" && canApplyHit == false)
         {
-            if (selected == false)
+            if (opponentIsEnemy != null)
             {
                 Debug.Log("Opponent as Enemy got hit");
 
