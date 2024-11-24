@@ -200,11 +200,17 @@ public class OpponentMultiplayer : MonoBehaviour
 
                 if (isEnemyPlayer == true)
                 {
-                    roundSystem.playerHealthBar.slider.value = float.Parse(listenerHealth);
+                    if (float.TryParse(listenerHealth, out float healthValue))
+                    {
+                        roundSystem.playerHealthBar.slider.value = healthValue;
+                    }
                 }
                 else
                 {
-                    roundSystem.opponentHealthBar.slider.value = float.Parse(listenerHealth);
+                    if (float.TryParse(listenerHealth, out float healthValue))
+                    {
+                        roundSystem.opponentHealthBar.slider.value = healthValue;
+                    }
                 }
             }
 
