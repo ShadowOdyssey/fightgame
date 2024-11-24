@@ -487,13 +487,13 @@ public class EnemySystem : MonoBehaviour
                     checkDamage = false;
                     damageTime = 0f;
 
-                    if (roundSystem.isMultiplayer == false)
+                    if (selectedMultiplayer == false)
                     {
-                        playerSystem.TakeHit(20);
+                        playerSystem.TakeHit(20); // If Enemy is the clone
                     }
                     else
                     {
-                        multiplayerSystem.PlayerTakeHit(20);
+                        multiplayerSystem.PlayerTakeHit(20); // If Enemy is the original
                     }
                 }
 
