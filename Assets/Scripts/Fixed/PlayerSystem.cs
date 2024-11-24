@@ -196,10 +196,14 @@ public class PlayerSystem : MonoBehaviour
                 {
                     if (selectedMultiplayer == true)
                     {
+                        Debug.Log("Calling Player applied hit in Enemy because Player was selected");
+
                         multiplayerSystem.EnemyTakeHit(20); // If Player is the original, so clone Enemy will take hit
                     }
                     else
                     {
+                        Debug.Log("Calling Player applied hit in Enemy because Player was not selected");
+
                         enemySystem.TakeDamage(20); // If Player is the clone, so original Enemy will take hit
                     }
                 }
@@ -466,6 +470,7 @@ public class PlayerSystem : MonoBehaviour
         selectedMultiplayer = true;
         LoadScripts();
         AddNewEvent();
+        LoadMultiplayer();
     }
 
     private void AddNewEvent()

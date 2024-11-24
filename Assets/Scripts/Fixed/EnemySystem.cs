@@ -481,10 +481,14 @@ public class EnemySystem : MonoBehaviour
 
                     if (selectedMultiplayer == true)
                     {
+                        Debug.Log("Calling Enemy applied hit in Player because Enemy was selected");
+
                         multiplayerSystem.PlayerTakeHit(20); // If Enemy is the original, so clone Player takes hit
                     }
                     else
                     {
+                        Debug.Log("Calling Enemy applied hit in Player because Enemy was not selected");
+
                         playerSystem.TakeHit(20);
                     }
                 }
@@ -819,6 +823,8 @@ public class EnemySystem : MonoBehaviour
         else
         {
             playerSystem = roundSystem.playerSystem;
+
+            LoadMultiplayer();
 
             enemyCollider.enabled = true;
             //backCollider.enabled = false;
