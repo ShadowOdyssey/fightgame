@@ -439,15 +439,7 @@ public class EnemySystem : MonoBehaviour
                     checkDamage = false;
                     damageTime = 0f;
 
-                    if (roundSystem.isMultiplayer == false)
-                    {
-                        playerSystem.TakeHit(20);
-                    }
-                    else
-                    {
-
-                    }
-
+                    playerSystem.TakeHit(20);
                 }
 
                 if (distanceToTarget > attackRange && playerSystem.trainingSystem.actualInfoIndex == 7 && playerSystem.completedTutorial == false)
@@ -1102,7 +1094,7 @@ public class EnemySystem : MonoBehaviour
 
             #region Move enemy backward
 
-            if (changedAnimDirectionToBackward == true || moveSuccessRandom == true && enemyDifficulty == 1 || moveSuccessRandom == true && enemyDifficulty == 3 || isHit == true)
+            if (changedAnimDirectionToBackward == true || moveSuccessRandom == true && enemyDifficulty == 1 || moveSuccessRandom == true && enemyDifficulty == 3)
             {
                 // Check if moderate and hard enemy difficulty got success to move forward
 
