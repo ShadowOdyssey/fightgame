@@ -1681,6 +1681,7 @@ public class EnemySystem : MonoBehaviour
             {
                 if (selectedMultiplayer == true)
                 {
+                    wasDetected = false;
                     MultiplayerAttack3();
                     cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
                     isCooldown3 = true;
@@ -1741,6 +1742,7 @@ public class EnemySystem : MonoBehaviour
             {
                 if (selectedMultiplayer == true)
                 {
+                    wasDetected = false;
                     MultiplayerAttack1();
                     cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
                     isCooldown1 = true;
@@ -1772,6 +1774,7 @@ public class EnemySystem : MonoBehaviour
             {
                 if (selectedMultiplayer == true)
                 {
+                    wasDetected = false;
                     MultiplayerAttack2();
                     cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
                     isCooldown2 = true;
