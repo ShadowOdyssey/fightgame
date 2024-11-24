@@ -490,14 +490,14 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerForward == "yes")
         {
-            Debug.Log("Opponent as Player is moving forward");
+            //Debug.Log("Opponent as Player is moving forward");
             
             opponentIsPlayer.MultiplayerMovesForward();
         }
 
         if (listenerForward == "no")
         {
-            Debug.Log("Opponent as Player stopped to move forward");
+            //Debug.Log("Opponent as Player stopped to move forward");
             
             opponentIsPlayer.MultiplayerStopForward();
         }
@@ -507,14 +507,14 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerBackward == "yes")
         {
-            Debug.Log("Opponent as Player is moving backward");
+            //Debug.Log("Opponent as Player is moving backward");
             
             opponentIsPlayer.MultiplayerMovesBackward();
         }
 
         if (listenerBackward == "no")
         {
-            Debug.Log("Opponent as Player stopped to move backward");
+            //Debug.Log("Opponent as Player stopped to move backward");
             
             opponentIsPlayer.MultiplayerStopBackward();
         }
@@ -524,7 +524,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack1 == "yes")
         {
-            Debug.Log("Opponent as Player used Attack 1");
+            //Debug.Log("Opponent as Player used Attack 1");
             
             opponentIsPlayer.MultiplayerAttacked1();
         }
@@ -534,7 +534,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack2 == "yes")
         {
-            Debug.Log("Opponent as Player used Attack 2");
+            //Debug.Log("Opponent as Player used Attack 2");
             
             opponentIsPlayer.MultiplayerAttacked2();
         }
@@ -544,7 +544,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack3 == "yes")
         {
-            Debug.Log("Opponent as Player used Attack 3");
+            //Debug.Log("Opponent as Player used Attack 3");
             
             opponentIsPlayer.MultiplayerAttacked3();
         }
@@ -554,22 +554,9 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerHit == "yes<br>" && canApplyHit == false)
         {
-            if (opponentIsPlayer != null)
-            {
-                Debug.Log("Opponent as Player got hit");
-
-                opponentIsPlayer.TakeHit(newDamage);
-                newDamage = 0;
-                canApplyHit = true;
-            }
-            else
-            {
-                Debug.Log("Original Player got hit");
-
-                originalPlayer.TakeHit(newDamage);
-                newDamage = 0;
-                canApplyHit = true;
-            }
+            originalPlayer.TakeHit(newDamage);
+            newDamage = 0;
+            canApplyHit = true;
         }
     }
 
@@ -581,14 +568,14 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerForward == "yes")
         {
-            Debug.Log("Opponent as Enemy stopped is moving forward");
+            //Debug.Log("Opponent as Enemy stopped is moving forward");
             
             opponentIsEnemy.MultiplayerMovesForward();
         }
 
         if (listenerForward == "no")
         {
-            Debug.Log("Opponent as Enemy stopped to move forward");
+            //Debug.Log("Opponent as Enemy stopped to move forward");
             
             opponentIsEnemy.MultiplayerStopForward();
         }
@@ -598,14 +585,14 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerBackward == "yes")
         {
-            Debug.Log("Opponent as Enemy stopped is moving backward");
+            //Debug.Log("Opponent as Enemy stopped is moving backward");
             
             opponentIsEnemy.MultiplayerMovesBackward();
         }
 
         if (listenerBackward == "no")
         {
-            Debug.Log("Opponent as Enemy stopped to move backward");
+            //Debug.Log("Opponent as Enemy stopped to move backward");
             
             opponentIsEnemy.MultiplayerStopBackward();
         }
@@ -615,7 +602,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack1 == "yes")
         {
-            Debug.Log("Opponent as Enemy used Attack 1");
+            //Debug.Log("Opponent as Enemy used Attack 1");
             
             opponentIsEnemy.MultiplayerAttacked1();
         }
@@ -626,6 +613,7 @@ public class OpponentMultiplayer : MonoBehaviour
         if (listenerAttack2 == "yes")
         {
             //Debug.Log("Opponent as Enemy used Attack 2");
+            
             opponentIsEnemy.MultiplayerAttacked2();
         }
     }
@@ -634,7 +622,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerAttack3 == "yes")
         {
-            Debug.Log("Opponent as Enemy used Attack 3");
+            //Debug.Log("Opponent as Enemy used Attack 3");
             
             opponentIsEnemy.MultiplayerAttacked3();
         }
@@ -644,22 +632,9 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerHit == "yes<br>" && canApplyHit == false)
         {
-            if (opponentIsEnemy != null)
-            {
-                Debug.Log("Opponent as Enemy got hit");
-
-                opponentIsEnemy.TakeDamage(newDamage);
-                newDamage = 0;
-                canApplyHit = true;
-            }
-            else
-            {
-                Debug.Log("Original Enemy got hit");
-
-                originalEnemy.TakeDamage(newDamage);
-                newDamage = 0;
-                canApplyHit = true;
-            }
+            originalEnemy.TakeDamage(newDamage);
+            newDamage = 0;
+            canApplyHit = true;
         }
     }
 
