@@ -378,12 +378,16 @@ public class OpponentMultiplayer : MonoBehaviour
 
     private void ResetHitPlayer()
     {
+        Debug.Log("Player hit detection was reset");
+
         UpdateData("no", "hit", actualHost.ToString());
         canApplyHit = false;
     }
 
     private void ResetHitEnemy()
     {
+        Debug.Log("Enemy hit detection was reset");
+
         UpdateData("no", "hit", actualHost.ToString());
         canApplyHit = false;
     }
@@ -530,7 +534,7 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             Debug.Log("Opponent as Player got hit");
 
-            opponentIsPlayer.TakeHit(newDamage);
+            opponentIsEnemy.TakeDamage(newDamage);
             newDamage = 0;
             canApplyHit = true;
         }
@@ -603,7 +607,7 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             Debug.Log("Opponent as Enemy got hit");
             
-            opponentIsEnemy.TakeDamage(newDamage);
+            opponentIsPlayer.TakeHit(newDamage);
             newDamage = 0;
             canApplyHit = true;
         }
