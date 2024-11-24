@@ -7581,6 +7581,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 0}
+  originalEnemy: {fileID: 195582297}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -7593,6 +7595,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!54 &195582299
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -28703,6 +28713,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 0}
+  originalEnemy: {fileID: 766459696}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -28715,6 +28727,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!54 &766459698
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -38746,6 +38766,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 0}
+  originalEnemy: {fileID: 1182155159}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -38758,6 +38780,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!54 &1182155161
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -41851,6 +41881,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 0}
+  originalEnemy: {fileID: 1443079220}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -41863,6 +41895,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!54 &1443079222
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -50133,6 +50173,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 0}
+  originalEnemy: {fileID: 1682586385}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -50145,6 +50187,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!54 &1682586388
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -112770,6 +112820,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 0}
+  originalEnemy: {fileID: 413095286369288354}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -112782,6 +112834,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!65 &4950711130276591987
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -114967,6 +115027,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 5428761219676516485}
+  originalEnemy: {fileID: 0}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -114979,6 +115041,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!4 &5434746401014096659
 Transform:
   m_ObjectHideFlags: 0
@@ -126283,6 +126353,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 5866666021251667151}
+  originalEnemy: {fileID: 0}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -126295,6 +126367,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!95 &5866666021348040838
 Animator:
   serializedVersion: 5
@@ -126411,6 +126491,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 5866666021348040841}
+  originalEnemy: {fileID: 0}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -126423,6 +126505,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!137 &5876281528611456057
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -128358,6 +128448,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 6378531539091363700}
+  originalEnemy: {fileID: 0}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -128370,6 +128462,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!1 &6384688211915794111
 GameObject:
   m_ObjectHideFlags: 0
@@ -130284,6 +130384,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 0}
+  originalEnemy: {fileID: 3237866630137544984}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -130296,6 +130398,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!65 &6833581998742927827
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -135096,6 +135206,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 0}
+  originalEnemy: {fileID: 2490782679994551924}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -135108,6 +135220,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!54 &8026062536542031975
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -136480,6 +136600,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 8361852595730644832}
+  originalEnemy: {fileID: 0}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -136492,6 +136614,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!4 &8362416913127135173
 Transform:
   m_ObjectHideFlags: 0
@@ -138857,6 +138987,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 8916439414200134678}
+  originalEnemy: {fileID: 0}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -138869,6 +139001,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!4 &8920993825790356033
 Transform:
   m_ObjectHideFlags: 0
@@ -139381,6 +139521,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 7714413400027032875}
+  originalEnemy: {fileID: 0}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -139393,6 +139535,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!1 &9012348565679367543
 GameObject:
   m_ObjectHideFlags: 0
@@ -140130,6 +140280,8 @@ MonoBehaviour:
   logOffPlayer: https://queensheartgames.com/shadowodyssey/logoffplayer.php
   listenUser: https://queensheartgames.com/shadowodyssey/listenuser.php
   roundSystem: {fileID: 222489663}
+  originalPlayer: {fileID: 9171181848999038338}
+  originalEnemy: {fileID: 0}
   opponentIsPlayer: {fileID: 0}
   opponentIsEnemy: {fileID: 0}
   sendDelay: 0
@@ -140142,6 +140294,14 @@ MonoBehaviour:
   canListen: 0
   wasDataLoaded: 0
   isCheckingWin: 0
+  canApplyHit: 0
+  responseFromServer: 
+  listenerForward: 
+  listenerBackward: 
+  listenerAttack1: 
+  listenerAttack2: 
+  listenerAttack3: 
+  listenerHit: 
 --- !u!4 &9175881999152624815
 Transform:
   m_ObjectHideFlags: 0

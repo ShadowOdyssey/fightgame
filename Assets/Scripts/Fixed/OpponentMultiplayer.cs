@@ -19,8 +19,14 @@ public class OpponentMultiplayer : MonoBehaviour
     [Tooltip("Put the URL of the PHP file Listen User in the host server")]
     public string listenUser = "https://queensheartgames.com/shadowodyssey/listenuser.php";
 
-    [Header("Script Setup")]
+    [Header("Round Setup")]
     public RoundManager roundSystem;
+
+    [Header("Original Setup")]
+    public PlayerSystem originalPlayer;
+    public EnemySystem originalEnemy;
+
+    [Header("Clone Setup")]
     public PlayerSystem opponentIsPlayer;
     public EnemySystem opponentIsEnemy;
 
@@ -548,11 +554,22 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerHit == "yes<br>" && canApplyHit == false)
         {
-            Debug.Log("Opponent as Player got hit");
+            if (selected == false)
+            {
+                Debug.Log("Opponent as Player got hit");
 
-            opponentIsPlayer.TakeHit(newDamage);
-            newDamage = 0;
-            canApplyHit = true;
+                opponentIsPlayer.TakeHit(newDamage);
+                newDamage = 0;
+                canApplyHit = true;
+            }
+            else
+            {
+                Debug.Log("Original Player got hit");
+
+                originalPlayer.TakeHit(newDamage);
+                newDamage = 0;
+                canApplyHit = true;
+            }
         }
     }
 
@@ -627,11 +644,22 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerHit == "yes<br>" && canApplyHit == false)
         {
-            Debug.Log("Opponent as Enemy got hit");
+            if (selected == false)
+            {
+                Debug.Log("Opponent as Enemy got hit");
 
-            opponentIsEnemy.TakeDamage(newDamage);
-            newDamage = 0;
-            canApplyHit = true;
+                opponentIsEnemy.TakeDamage(newDamage);
+                newDamage = 0;
+                canApplyHit = true;
+            }
+            else
+            {
+                Debug.Log("Original Enemy got hit");
+
+                originalEnemy.TakeDamage(newDamage);
+                newDamage = 0;
+                canApplyHit = true;
+            }
         }
     }
 
