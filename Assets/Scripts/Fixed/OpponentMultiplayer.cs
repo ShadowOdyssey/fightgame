@@ -634,7 +634,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerHit == "yes<br>" && canApplyHit == false)
         {
-            Debug.Log("Player got hit");
+            Debug.Log("Enemy got hit");
 
             originalEnemy.TakeDamage(newDamage);
             newDamage = 0;
