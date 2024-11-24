@@ -360,19 +360,19 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void PlayerTakeHit(int damage)
     {
-        // Send to server only hits in clone Player
+        Debug.Log("Send to server only hits in clone Player");
 
         UpdateData("yes", "hit", actualHost.ToString());
-        Invoke(nameof(ResetHitPlayer), 1f);
+        Invoke(nameof(ResetHitPlayer), 0.5f);
         newDamage = damage;        
     }
 
     public void EnemyTakeHit(int damage)
     {
-        // Send to server only hits in clone Enemy
+        Debug.Log("Send to server only hits in clone Enemy");
 
         UpdateData("yes", "hit", actualHost.ToString());
-        Invoke(nameof(ResetHitEnemy), 1f);
+        Invoke(nameof(ResetHitEnemy), 0.5f);
         newDamage = damage;
     }
 
@@ -528,7 +528,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerHit == "yes<br>" && canApplyHit == false)
         {
-            //Debug.Log("Opponent as Player got hit");
+            Debug.Log("Opponent as Player got hit");
 
             opponentIsPlayer.TakeHit(newDamage);
             newDamage = 0;
@@ -601,7 +601,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (listenerHit == "yes<br>" && canApplyHit == false)
         {
-            //Debug.Log("Opponent as Enemy got hit");
+            Debug.Log("Opponent as Enemy got hit");
             
             opponentIsEnemy.TakeDamage(newDamage);
             newDamage = 0;
