@@ -166,6 +166,11 @@ public class EnemySystem : MonoBehaviour
             playerSystem = roundSystem.playerSystem;
         }
 
+        if (roundSystem.isMultiplayer == false)
+        {
+            playerSystem = roundSystem.playerSystem;
+        }
+
         distanceToTarget = Vector3.Distance(transform.position, playerBody.position); // Get initial position from Player to get the first distance measure only once
     }
 
@@ -818,6 +823,8 @@ public class EnemySystem : MonoBehaviour
         }
         else
         {
+            playerSystem = roundSystem.playerSystem;
+
             enemyCollider.enabled = true;
             //backCollider.enabled = false;
 
