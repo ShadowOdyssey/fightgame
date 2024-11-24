@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Runtime.Serialization.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -168,11 +169,6 @@ public class OpponentMultiplayer : MonoBehaviour
                 }
             }
 
-            if (listenerHealth != listenerInfo[6])
-            {
-                listenerHealth = listenerInfo[6];
-            }
-
             if (listenerHit != listenerInfo[5])
             {
                 listenerHit = listenerInfo[5];
@@ -198,9 +194,18 @@ public class OpponentMultiplayer : MonoBehaviour
                 }
             }
 
-            if (listenerForward == "no" && listenerBackward == "no") // Just for debug
+            if (listenerHealth != listenerInfo[6])
             {
-                //Debug.Log("Opponent stopped to move");
+                listenerHealth = listenerInfo[6];
+
+                if (isEnemyPlayer == true)
+                {
+                    roundSystem.playerHealthBar.slider.value = float.Parse(listenerHealth);
+                }
+                else
+                {
+                    roundSystem.opponentHealthBar.slider.value = float.Parse(listenerHealth);
+                }
             }
 
             wasDataLoaded = false;
@@ -416,6 +421,20 @@ public class OpponentMultiplayer : MonoBehaviour
 
         UpdateData("no", "hit", actualHost.ToString());
         canApplyHit = false;
+    }
+
+    #endregion
+
+    #region Health Operations
+
+    public void UpdatePlayerLife(string newLife)
+    {
+        UpdateData(newLife, "health", actualHost.ToString());
+    }
+
+    public void UpdateEnemyLife(string newLife)
+    {
+        UpdateData(newLife, "health", actualListener.ToString());
     }
 
     #endregion

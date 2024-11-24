@@ -798,12 +798,14 @@ public class RoundManager : MonoBehaviour
     {
         playerHealth -= damage;
         playerHealthBar.SetHealth(playerHealth);
+        playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
     }
 
     public void ApplyDamageToOpponent(int damage)
     {
         opponentHealth -= damage;
         opponentHealthBar.SetHealth(opponentHealth);
+        enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
     }
 
     #endregion
