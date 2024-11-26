@@ -65,7 +65,7 @@ public class CooldownSystem : MonoBehaviour
 
                 if (roundSystem.isMultiplayer == false)
                 {
-                    roundSystem.playerSystem.Cooldown1Finished();
+                    roundSystem.playerSystem.Cooldown2Finished();
                 }
                 else
                 {
@@ -94,7 +94,7 @@ public class CooldownSystem : MonoBehaviour
 
                 if (roundSystem.isMultiplayer == false)
                 {
-                    roundSystem.playerSystem.Cooldown1Finished();
+                    roundSystem.playerSystem.Cooldown3Finished();
                 }
                 else
                 {

@@ -8126,8 +8126,6 @@ MonoBehaviour:
   opponentHealthBar: {fileID: 1662190001}
   playerSystem: {fileID: 0}
   enemySystem: {fileID: 0}
-  playerMultiplayer: {fileID: 0}
-  enemyMultiplayer: {fileID: 0}
   arena1: {fileID: 919132147578589512}
   arena2: {fileID: 193646512061278923}
   arena3: {fileID: 6351908984347285709}
@@ -8181,6 +8179,16 @@ MonoBehaviour:
   arena2Color: {r: 0.20784314, g: 0, b: 1, a: 1}
   arena3Color: {r: 0.3882353, g: 0, b: 1, a: 1}
   arena4Color: {r: 1, g: 0.57254905, b: 0, a: 1}
+  playerMultiplayer: {fileID: 0}
+  enemyMultiplayer: {fileID: 0}
+  playerMultiplayerID: 0
+  enemyMultiplayerID: 0
+  playerMultiplayerProfile: 0
+  enemyMultiplayerProfile: 0
+  actualHost: 
+  enemyMultiplayerName: 
+  wasPlayerInput: 0
+  wasEnemyInput: 0
   currentStage: 0
   currentPlayerCharacter: 0
   currentEnemyCharacter: 0
@@ -8194,14 +8202,6 @@ MonoBehaviour:
   isEnemyCombo: 0
   isTrainingMode: 0
   isMultiplayer: 0
-  playerMultiplayerID: 0
-  enemyMultiplayerID: 0
-  playerMultiplayerProfile: 0
-  enemyMultiplayerProfile: 0
-  actualHost: 
-  enemyMultiplayerName: 
-  wasPlayerInput: 0
-  wasEnemyInput: 0
 --- !u!114 &222489664
 MonoBehaviour:
   m_ObjectHideFlags: 0

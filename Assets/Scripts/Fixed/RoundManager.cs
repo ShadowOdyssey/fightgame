@@ -21,10 +21,6 @@ public class RoundManager : MonoBehaviour
     [Tooltip("EnemySystem will be loaded automatically when scene to start, so attach nothing here! Make sure characters and arenas area all disabled!")]
     public EnemySystem enemySystem;
 
-    [Header("Multiplayer Setup")]
-    public OpponentMultiplayer playerMultiplayer;
-    public OpponentMultiplayer enemyMultiplayer;
-
     [Header("Arena Battlegrounds")]
     [Tooltip("Attach here Arena 1 object inside Battlegrounds object in hierarchy")]
     public GameObject arena1;
@@ -167,6 +163,21 @@ public class RoundManager : MonoBehaviour
 
     #endregion
 
+    #region Multiplayer
+    [Header("Multiplayer Setup")]
+    public OpponentMultiplayer playerMultiplayer;
+    public OpponentMultiplayer enemyMultiplayer;
+    public int playerMultiplayerID = 0;
+    public int enemyMultiplayerID = 0;
+    public int playerMultiplayerProfile = 0;
+    public int enemyMultiplayerProfile = 0;
+    public string actualHost = "";
+    public string enemyMultiplayerName = "";
+    public bool wasPlayerInput = false;
+    public bool wasEnemyInput = false;
+
+    #endregion
+
     #region Hidden Variables
 
     [Header("Monitor - Dont change values")]
@@ -219,18 +230,6 @@ public class RoundManager : MonoBehaviour
 
     #endregion
 
-    #region Multiplayer
-
-    public int playerMultiplayerID = 0;
-    public int enemyMultiplayerID = 0;
-    public int playerMultiplayerProfile = 0;
-    public int enemyMultiplayerProfile = 0;
-    public string actualHost = "";
-    public string enemyMultiplayerName = "";
-    public bool wasPlayerInput = false;
-    public bool wasEnemyInput = false;
-
-    #endregion
 
     #endregion
 
@@ -292,7 +291,7 @@ public class RoundManager : MonoBehaviour
 
     private void CheckForMultiplayerOrTrainningMode()
     {
-        if (PlayerPrefs.GetString("isMultiplayerActivade") == "no") // Check if is multiplayer game to the loaded scene
+        if (PlayerPrefs.GetString("isMultiplayerActivated") == "no") // Check if is multiplayer game to the loaded scene
         {
             isMultiplayer = false;
 
@@ -796,16 +795,30 @@ public class RoundManager : MonoBehaviour
 
     public void ApplyDamageToPlayer(int damage)
     {
-        playerHealth -= damage;
-        playerHealthBar.SetHealth(playerHealth);
-        playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
+        if (isTrainingMode == false)
+        {
+            playerHealth -= damage;
+            playerHealthBar.SetHealth(playerHealth);
+
+            if (isMultiplayer == true)
+            {
+                playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
+            }
+        }
     }
 
     public void ApplyDamageToOpponent(int damage)
     {
-        opponentHealth -= damage;
-        opponentHealthBar.SetHealth(opponentHealth);
-        enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
+        if (isTrainingMode == false)
+        {
+            opponentHealth -= damage;
+            opponentHealthBar.SetHealth(opponentHealth);
+
+            if (isMultiplayer == true)
+            {
+                enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
+            }
+        }
     }
 
     #endregion

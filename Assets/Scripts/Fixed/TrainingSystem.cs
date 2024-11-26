@@ -1,3 +1,4 @@
+using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 
 public class TrainingSystem : MonoBehaviour
@@ -16,6 +17,7 @@ public class TrainingSystem : MonoBehaviour
 
     public int actualInfoIndex = 0;
 
+    [Header("Debug Setup")]
     public bool resetStats = false;
 
     public void Start()
