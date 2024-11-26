@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentAudio: {fileID: 1624205833}
-  _playButtonImage: {fileID: 2800000, guid: 2bb6ad18c4303bf498e4863cedbb43fd, type: 3}
+  _playButtonImage: {fileID: 2800000, guid: 02eb6091e194cf34baf68d6d418b14e1, type: 3}
   _settingsButtonImage: {fileID: 2800000, guid: 8fb01363561ed044b88d2b211fec8adb,
     type: 3}
   _exitButtonImage: {fileID: 2800000, guid: e398e18ce81a42c4bba5f4d9f394e0d2, type: 3}
