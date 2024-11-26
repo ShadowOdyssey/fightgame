@@ -316,6 +316,7 @@ MonoBehaviour:
   oliverEnemy: {fileID: 2800000, guid: d25312ff3f439394db38072b77ee225a, type: 3}
   orionEnemy: {fileID: 2800000, guid: f8f2213541ab3ea418685d3b9c25fe39, type: 3}
   ariaEnemy: {fileID: 2800000, guid: 62de27965e571334185b0c8a26de0288, type: 3}
+  selectArenaSound: {fileID: 0}
   arenaImages:
   - {fileID: 2800000, guid: b7f64b28f362aae47a5475f56e45d97d, type: 3}
   - {fileID: 2800000, guid: 0508d24811d244e459ac2c65d6c59c4c, type: 3}
