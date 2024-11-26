@@ -720,7 +720,8 @@ public class RoundManager : MonoBehaviour
                 Invoke(nameof(StartRoundAgain), 6f);
             }
 
-            if (timesPlayerWon == 2 && timesEnemyWon == 1 || timesEnemyWon == 2 && timesPlayerWon == 1)
+            if (timesPlayerWon == 2 && timesEnemyWon == 1 || timesEnemyWon == 2 && timesPlayerWon == 1 ||
+                timesPlayerWon == 2 && timesEnemyWon == 0 || timesEnemyWon == 2 && timesPlayerWon == 0)
             {
 
                 if (timesPlayerWon == 2)
