@@ -168,16 +168,12 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void SetOpponentPlayer(PlayerSystem actualEnemySystem)
     {
-        //Debug.Log("Opponent is Player");
-
         opponentIsPlayer = actualEnemySystem;
         isEnemyPlayer = true;
     }
 
     public void SetOpponentEnemy(EnemySystem actualEnemySystem)
     {
-        //Debug.Log("Opponent is Enemy");
-
         opponentIsEnemy = actualEnemySystem;
         isEnemyPlayer = false;
     }
@@ -278,11 +274,15 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void SendStopForward()
     {
+        Debug.Log("Sending stop to move forward");
+
         UpdateData("no", "forward", actualHost.ToString());
     }
 
     public void SendStopBackward()
     {
+        Debug.Log("Sending stop to move backward");
+
         UpdateData("no", "backward", actualHost.ToString());
     }
 
@@ -327,27 +327,55 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void RegisterForwardPlayer(string listenerForward)
     {
-        if (listenerForward == "yes")
+        if (opponentIsPlayer != null)
         {
-            opponentIsPlayer.MultiplayerMovesForward();
+            if (listenerForward == "yes")
+            {
+                opponentIsPlayer.MultiplayerMovesForward();
+            }
+            else
+            {
+                opponentIsPlayer.MultiplayerStopForward();
+            }
         }
 
-        if (listenerForward == "no")
+        if (originalPlayer != null)
         {
-            opponentIsPlayer.MultiplayerStopForward();
+            if (listenerForward == "yes")
+            {
+                originalPlayer.MultiplayerMovesForward();
+            }
+            else
+            {
+                originalPlayer.MultiplayerStopForward();
+            }
         }
     }
 
     public void RegisterBackwardPlayer(string listenerBackward)
     {
-        if (listenerBackward == "yes")
+        if (opponentIsPlayer != null)
         {
-            opponentIsPlayer.MultiplayerMovesBackward();
+            if (listenerBackward == "yes")
+            {
+                opponentIsPlayer.MultiplayerMovesBackward();
+            }
+            else
+            {
+                opponentIsPlayer.MultiplayerStopBackward();
+            }
         }
 
-        if (listenerBackward == "no")
+        if (originalPlayer != null)
         {
-            opponentIsPlayer.MultiplayerStopBackward();
+            if (listenerBackward == "yes")
+            {
+                originalPlayer.MultiplayerMovesBackward();
+            }
+            else
+            {
+                originalPlayer.MultiplayerStopBackward();
+            }
         }
     }
 
@@ -396,27 +424,55 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void RegisterForwardEnemy(string listenerForward)
     {
-        if (listenerForward == "yes")
+        if (opponentIsEnemy != null)
         {
-            opponentIsEnemy.MultiplayerMovesForward();
+            if (listenerForward == "yes")
+            {
+                opponentIsEnemy.MultiplayerMovesForward();
+            }
+            else
+            {
+                opponentIsEnemy.MultiplayerStopForward();
+            }
         }
 
-        if (listenerForward == "no")
+        if (originalEnemy != null)
         {
-            opponentIsEnemy.MultiplayerStopForward();
+            if (listenerForward == "yes")
+            {
+                originalEnemy.MultiplayerMovesForward();
+            }
+            else
+            {
+                originalEnemy.MultiplayerStopForward();
+            }
         }
     }
 
     public void RegisterBackwardEnemy(string listenerBackward)
     {
-        if (listenerBackward == "yes")
+        if (opponentIsEnemy != null)
         {
-            opponentIsEnemy.MultiplayerMovesBackward();
+            if (listenerBackward == "yes")
+            {
+                opponentIsEnemy.MultiplayerMovesBackward();
+            }
+            else
+            {
+                opponentIsEnemy.MultiplayerStopBackward();
+            }
         }
 
-        if (listenerBackward == "no")
+        if (originalEnemy != null)
         {
-            opponentIsEnemy.MultiplayerStopBackward();
+            if (listenerBackward == "yes")
+            {
+                originalEnemy.MultiplayerMovesBackward();
+            }
+            else
+            {
+                originalEnemy.MultiplayerStopBackward();
+            }
         }
     }
 

@@ -633,20 +633,6 @@ public class EnemySystem : MonoBehaviour
                     {
                         wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
                     }
-
-                    if (isMovingBackward == false && isMovingForward == false && isIdle == false)
-                    {
-                        AnimIsIdle();
-
-                        isIdle = true;
-                    }
-
-                    if (isMovingBackward == true || isMovingForward == true)
-                    {
-                        // Check if Player is moving so apply new position, turned 2 lines code into 1 since both forward and backward calls same method
-                        Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
-                        transform.localPosition = newPosition;
-                    }
                 }
 
                 #endregion
@@ -657,18 +643,16 @@ public class EnemySystem : MonoBehaviour
 
         #region Multiplayer Operations
 
-        if (selectedMultiplayer == false)
+        if (roundSystem.isMultiplayer == true)
         {
             #region Server informed player stopped to move
 
             if (multiplayerStop == false && multiplayerForward == false && multiplayerBackward == false && isAttacking == false)
             {
-                //Debug.Log("Multiplayer Idle is interrupting attack animation if this message to appear!");
-
-                animatedMultiplayer = false;
-
                 StartIdleAnimation();
-
+                animatedMultiplayer = false;
+                isMovingForward = false;
+                isMovingBackward = false;
                 multiplayerStop = true;
             }
 
@@ -684,9 +668,8 @@ public class EnemySystem : MonoBehaviour
 
                 if (animatedMultiplayer == false)
                 {
-                    MoveRight();
-
-                    animatedMultiplayer = false;
+                    MoveLeft();
+                    animatedMultiplayer = true;
                 }
 
                 Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
@@ -706,8 +689,7 @@ public class EnemySystem : MonoBehaviour
                 if (animatedMultiplayer == false)
                 {
                     MoveRight();
-
-                    animatedMultiplayer = false;
+                    animatedMultiplayer = true;
                 }
 
                 Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
@@ -899,23 +881,24 @@ public class EnemySystem : MonoBehaviour
     {
         if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
         {
-            //Debug.Log("Player is moving forward");
-
-            if (isMovingForward == false)
+            if (isMovingBackward == false && selectedMultiplayer == true)
             {
+                isMovingBackward = true;
+                MultiplayerBackward();
+                isMovingForward = false;
                 isIdle = false;
-                isMovingBackward = false;
-                MoveRight();
-                isMovingForward = true;
             }
         }
-        else
-        {
-            //Debug.Log("Player cant move forward because round not started yet");
 
-            if (isMovingForward == true) // Check if any move boolean is activate when Gabriela cant move and deactivate it
+        if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
+        {
+            if (isMovingForward == true)
             {
                 isMovingForward = false;
+            }
+
+            if (isMovingBackward == true)
+            {
                 isMovingBackward = false;
             }
         }
@@ -925,46 +908,43 @@ public class EnemySystem : MonoBehaviour
     {
         if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
         {
-            //Debug.Log("Player is moving backward");
-
-            if (isMovingBackward == false)
+            if (isMovingForward == false && selectedMultiplayer == true)
             {
+                isMovingForward = true;
+                MultiplayerForward();
+                isMovingBackward = false;
                 isIdle = false;
-                isMovingForward = false;
-                MoveLeft();
-                isMovingBackward = true;
             }
         }
-        else
-        {
-            //Debug.Log("Player cant move backward because round not started yet");
 
-            if (isMovingBackward == true) // Check if any boolean is activate when Gabriela cant move and deactivate it
+        if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
+        {
+            if (isMovingForward == true)
+            {
+                isMovingForward = false;
+            }
+
+            if (isMovingBackward == true)
             {
                 isMovingBackward = false;
-                isMovingForward = false;
             }
         }
     }
 
     private void OnMoveButtonReleased(BaseEventData eventData)
     {
-        if (isMovingForward == true)
+        if (multiplayerForward == true)
         {
-            //Debug.Log("Enemy stopped to move forward");
+            Debug.Log("Enemy stopped to move forward");
 
             Invoke(nameof(MultiplayerStoppedForward), sendDelay);
-            isMovingForward = false;
-            multiplayerStop = false;
         }
 
-        if (isMovingBackward == true)
+        if (multiplayerBackward == true)
         {
-            //Debug.Log("Enemy stopped to move backward");
+            Debug.Log("Enemy stopped to move backward");
 
             Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
-            isMovingBackward = false;
-            multiplayerStop = false;
         }
     }
 
@@ -1028,11 +1008,6 @@ public class EnemySystem : MonoBehaviour
         {
             if (selectedMultiplayer == true)
             {
-                MultiplayerForward();
-            }
-
-            if (selectedMultiplayer == true)
-            {
                 moveDirection = 1; // Setup new direction only once before to apply new position - 
 
                 enemyAnimator.SetBool("isForward", true); // Values in parameters should be low case in the first letter because is variable name - 
@@ -1069,11 +1044,6 @@ public class EnemySystem : MonoBehaviour
     {
         if (enemyAnimator.GetBool("isBackward") == false) // Check if MoveBackwards is false to trigger it only 1 time and to save processing this way - 
         {
-            if (selectedMultiplayer == true)
-            {
-                MultiplayerBackward();
-            }
-
             if (selectedMultiplayer == true)
             {
                 moveDirection = -1; // Setup new direction only once before to apply new position - 
@@ -1880,11 +1850,15 @@ public class EnemySystem : MonoBehaviour
 
     private void MultiplayerForward()
     {
+        Debug.Log("Enemy wants to move forward");
+
         multiplayerSystem.SendForward();
     }
 
     private void MultiplayerBackward()
     {
+        Debug.Log("Enemy wants to move backward");
+
         multiplayerSystem.SendBackward();
     }
 
@@ -1919,12 +1893,18 @@ public class EnemySystem : MonoBehaviour
 
     public void MultiplayerMovesForward()
     {
+        Debug.Log("Server moving Enemy at forward");
+
         multiplayerForward = true;
+        multiplayerStop = false;
     }
 
     public void MultiplayerMovesBackward()
     {
+        Debug.Log("Server moving Enemy at backward");
+
         multiplayerBackward = true;
+        multiplayerStop = false;
     }
 
     public void MultiplayerStopForward()

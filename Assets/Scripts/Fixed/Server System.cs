@@ -33,33 +33,18 @@ public class ServerSystem : MonoBehaviour
     public float countListen = 0f;
     public bool isEnemyPlayer = false;
     public bool canListen = false;
-    public bool wasDataLoaded = false;
+    public bool wasDataLoadedPlayer = false;
+    public bool wasDataLoadedEnemy = false;
     public bool isCheckingWin = false;
     public bool canApplyHit = false;
 
     public string responsePlayerFromServer = "";
     public string responseEnemyFromServer = "";
+    public string playerForward = "";
+    public string enemyForward = "";
 
-    public string listenerPlayerForward = "";
-    public string listenerPlayerBackward = "";
-    public string listenerPlayerAttack1 = "";
-    public string listenerPlayerAttack2 = "";
-    public string listenerPlayerAttack3 = "";
-    public string listenerPlayerHit = "";
-    public string listenerPlayerHealth = "";
-
-    public string listenerEnemyForward = "";
-    public string listenerEnemyBackward = "";
-    public string listenerEnemyAttack1 = "";
-    public string listenerEnemyAttack2 = "";
-    public string listenerEnemyAttack3 = "";
-    public string listenerEnemyHit = "";
-    public string listenerEnemyHealth = "";
-
-    private string[] listenerInfoPlayer = new string[0];
-    private string[] listenerInfoEnemy = new string[0];
-    private int newDamage = 0;
-    private string checkWin = "";
+    public string[] listenerInfoPlayer = new string[0];
+    public string[] listenerInfoEnemy = new string[0];
 
     #region Load Components
 
@@ -86,6 +71,44 @@ public class ServerSystem : MonoBehaviour
             }
         }
 
+        if (wasDataLoadedPlayer == true)
+        {
+            if (playerForward != listenerInfoPlayer[0])
+            {
+                playerForward = listenerInfoPlayer[0];
+
+                if (listenerInfoPlayer[0] == "yes")
+                {
+                    playerMultiplayer.RegisterForwardPlayer("yes");
+                }
+                else
+                {
+                    playerMultiplayer.RegisterForwardPlayer("no");
+                }
+            }
+
+            wasDataLoadedPlayer = false;
+        }
+
+        if (wasDataLoadedEnemy == true)
+        {
+            if (enemyForward != listenerInfoEnemy[0])
+            {
+                enemyForward = listenerInfoEnemy[0];
+
+                if (listenerInfoEnemy[0] == "yes")
+                {
+                    enemyMultiplayer.RegisterForwardEnemy("yes");
+                }
+                else
+                {
+                    enemyMultiplayer.RegisterForwardEnemy("no");
+                }
+            }
+
+            wasDataLoadedEnemy = false;
+        }
+
         #endregion
     }
 
@@ -106,6 +129,7 @@ public class ServerSystem : MonoBehaviour
         {
             responsePlayerFromServer = request.downloadHandler.text;
             listenerInfoPlayer = responsePlayerFromServer.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            wasDataLoadedPlayer = true;
         }
 
         request.Dispose();
@@ -126,7 +150,7 @@ public class ServerSystem : MonoBehaviour
         {
             responseEnemyFromServer = request.downloadHandler.text;
             listenerInfoEnemy = responseEnemyFromServer.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-            wasDataLoaded = true;
+            wasDataLoadedEnemy = true;
         }
 
         request.Dispose();
@@ -134,14 +158,28 @@ public class ServerSystem : MonoBehaviour
 
     #endregion
 
-    public void AddPlayer()
-    {
+    #region Register actual players
 
+    public void RegisterOpponentPlayer(OpponentMultiplayer newPlayer)
+    {
+        playerMultiplayer = newPlayer;
     }
 
-    public void AddEnemy()
+    public void RegisterOpponentEnemy(OpponentMultiplayer newEnemy)
     {
+        enemyMultiplayer = newEnemy;
+    }
 
+    public void RegisterHost(int newHost)
+    {
+        actualPlayer = newHost;
+    }
+
+    public void RegisterDuel(int newDuel)
+    {
+        actualEnemy = newDuel;
         canListen = true;
     }
+
+    #endregion
 }

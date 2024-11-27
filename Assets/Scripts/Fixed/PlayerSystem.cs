@@ -246,27 +246,31 @@ public class PlayerSystem : MonoBehaviour
                 wasResetTriggers = false; // Prepare to use Reset Triggers again when the round to finish
             }
 
-            if (isMovingForward == true && isMovingBackward == false)
+            if (roundSystem.isMultiplayer == false)
             {
-                MoveRight();
-            }
-            if (isMovingBackward == true && isMovingForward == false)
-            {
-                MoveLeft();
-            }
-            
-            if (isMovingBackward == false && isMovingForward == false && isIdle == false)
-            {
-                AnimIsIdle();
+                if (isMovingForward == true && isMovingBackward == false)
+                {
+                    MoveRight();
+                }
 
-                isIdle = true;
-            }
+                if (isMovingBackward == true && isMovingForward == false)
+                {
+                    MoveLeft();
+                }
 
-            if (isMovingBackward == true || isMovingForward == true)
-            {
-                // Check if Player is moving so apply new position, turned 2 lines code into 1 since both forward and backward calls same method
-                Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
-                transform.localPosition = newPosition;
+                if (isMovingBackward == false && isMovingForward == false && isIdle == false)
+                {
+                    AnimIsIdle();
+
+                    isIdle = true;
+                }
+
+                if (isMovingBackward == true || isMovingForward == true)
+                {
+                    // Check if Player is moving so apply new position, turned 2 lines code into 1 since both forward and backward calls same method
+                    Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
+                    transform.localPosition = newPosition;
+                }
             }
         }
 
@@ -657,16 +661,9 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
-            //roundSystem.audioSystem.MoveRight(1, roundSystem.currentPlayerCharacter); // Start character Move Right sound in Player Audio only after animation has started - Optional
+                                                        //roundSystem.audioSystem.MoveRight(1, roundSystem.currentPlayerCharacter); // Start character Move Right sound in Player Audio only after animation has started - Optional
 
-            if (roundSystem.isMultiplayer == false)
-            {
-                if (trainingSystem.actualInfoIndex == 1 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
-            }
-            else
-            {
-                MultiplayerForward();
-            }
+            if (trainingSystem.actualInfoIndex == 1 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
         }
     }
 
@@ -688,16 +685,9 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack1", false); // Values in parameters should be low case in the first letter because is variable name - 
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
-            //roundSystem.audioSystem.MoveLeft(1, roundSystem.currentPlayerCharacter); // Start character Move Left sound in Player Audio only after animation has started - Optional
-            
-            if (roundSystem.isMultiplayer == false)
-            {
-                if (trainingSystem.actualInfoIndex == 2 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
-            }
-            else
-            {
-                MultiplayerBackward();
-            }
+                                                        //roundSystem.audioSystem.MoveLeft(1, roundSystem.currentPlayerCharacter); // Start character Move Left sound in Player Audio only after animation has started - Optional
+
+            if (trainingSystem.actualInfoIndex == 2 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
         }
     }
 

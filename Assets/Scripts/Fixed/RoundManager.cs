@@ -20,6 +20,7 @@ public class RoundManager : MonoBehaviour
     public PlayerSystem playerSystem;
     [Tooltip("EnemySystem will be loaded automatically when scene to start, so attach nothing here! Make sure characters and arenas area all disabled!")]
     public EnemySystem enemySystem;
+    public ServerSystem serverSystem;
 
     [Header("Arena Battlegrounds")]
     [Tooltip("Attach here Arena 1 object inside Battlegrounds object in hierarchy")]
@@ -477,6 +478,10 @@ public class RoundManager : MonoBehaviour
             playerMultiplayer.SetOpponentEnemy(enemySystem);
             playerMultiplayer.SetHost(playerMultiplayerID, enemyMultiplayerID); // If i am the host so i am the player at left side
             playerSystem.RegisterInput();
+            serverSystem.RegisterOpponentPlayer(playerMultiplayer);
+            serverSystem.RegisterOpponentEnemy(enemyMultiplayer);
+            serverSystem.RegisterHost(playerMultiplayerID);
+            serverSystem.RegisterDuel(enemyMultiplayerID);
             wasPlayerInput = true;
         }
 
@@ -485,6 +490,10 @@ public class RoundManager : MonoBehaviour
             enemyMultiplayer.SetOpponentPlayer(playerSystem);
             enemyMultiplayer.SetHost(playerMultiplayerID, enemyMultiplayerID); // If i am not the host so i am the player at right side
             enemySystem.RegisterInput();
+            serverSystem.RegisterOpponentPlayer(playerMultiplayer);
+            serverSystem.RegisterOpponentEnemy(enemyMultiplayer);
+            serverSystem.RegisterHost(enemyMultiplayerID);
+            serverSystem.RegisterDuel(playerMultiplayerID);
             wasEnemyInput = true;
         }
     }
