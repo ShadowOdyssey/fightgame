@@ -1895,16 +1895,18 @@ public class EnemySystem : MonoBehaviour
     {
         Debug.Log("Server moving Enemy at forward");
 
-        multiplayerForward = true;
+        multiplayerBackward = false;
         multiplayerStop = false;
+        multiplayerForward = true;
     }
 
     public void MultiplayerMovesBackward()
     {
         Debug.Log("Server moving Enemy at backward");
 
-        multiplayerBackward = true;
+        multiplayerForward = false;
         multiplayerStop = false;
+        multiplayerBackward = true;
     }
 
     public void MultiplayerStopForward()

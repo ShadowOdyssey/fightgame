@@ -264,11 +264,13 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void SendForward()
     {
+        UpdateData("no", "backward", actualHost.ToString());
         UpdateData("yes", "forward", actualHost.ToString());
     }
 
     public void SendBackward()
     {
+        UpdateData("no", "forward", actualHost.ToString());
         UpdateData("yes", "backward", actualHost.ToString());
     }
 

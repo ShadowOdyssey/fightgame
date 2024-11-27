@@ -42,6 +42,8 @@ public class ServerSystem : MonoBehaviour
     public string responseEnemyFromServer = "";
     public string playerForward = "";
     public string enemyForward = "";
+    public string playerBackward = "";
+    public string enemyBackward = "";
 
     public string[] listenerInfoPlayer = new string[0];
     public string[] listenerInfoEnemy = new string[0];
@@ -77,13 +79,27 @@ public class ServerSystem : MonoBehaviour
             {
                 playerForward = listenerInfoPlayer[0];
 
-                if (listenerInfoPlayer[0] == "yes")
+                if (playerForward == "yes")
                 {
                     playerMultiplayer.RegisterForwardPlayer("yes");
                 }
                 else
                 {
                     playerMultiplayer.RegisterForwardPlayer("no");
+                }
+            }
+
+            if (playerBackward != listenerInfoPlayer[1])
+            {
+                playerBackward = listenerInfoPlayer[1];
+
+                if (playerBackward == "yes")
+                {
+                    playerMultiplayer.RegisterBackwardPlayer("yes");
+                }
+                else
+                {
+                    playerMultiplayer.RegisterBackwardPlayer("no");
                 }
             }
 
@@ -96,13 +112,27 @@ public class ServerSystem : MonoBehaviour
             {
                 enemyForward = listenerInfoEnemy[0];
 
-                if (listenerInfoEnemy[0] == "yes")
+                if (enemyForward == "yes")
                 {
                     enemyMultiplayer.RegisterForwardEnemy("yes");
                 }
                 else
                 {
                     enemyMultiplayer.RegisterForwardEnemy("no");
+                }
+            }
+
+            if (enemyBackward != listenerInfoEnemy[1])
+            {
+                enemyBackward = listenerInfoEnemy[1];
+
+                if (enemyBackward == "yes")
+                {
+                    enemyMultiplayer.RegisterBackwardEnemy("yes");
+                }
+                else
+                {
+                    enemyMultiplayer.RegisterBackwardEnemy("no");
                 }
             }
 
