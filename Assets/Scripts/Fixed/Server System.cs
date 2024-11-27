@@ -121,11 +121,7 @@ public class ServerSystem : MonoBehaviour
 
                 if (playerAttack1 == "yes")
                 {
-                    playerMultiplayer.RegisterAttack1Player("yes");
-                }
-                else
-                {
-                    playerMultiplayer.RegisterAttack1Player("no");
+                    playerMultiplayer.RegisterAttack1Player();
                 }
             }
 
@@ -135,11 +131,7 @@ public class ServerSystem : MonoBehaviour
 
                 if (playerAttack2 == "yes")
                 {
-                    playerMultiplayer.RegisterAttack2Player("yes");
-                }
-                else
-                {
-                    playerMultiplayer.RegisterAttack2Player("no");
+                    playerMultiplayer.RegisterAttack2Player();
                 }
             }
 
@@ -149,11 +141,7 @@ public class ServerSystem : MonoBehaviour
 
                 if (playerAttack3 == "yes")
                 {
-                    playerMultiplayer.RegisterAttack3Player("yes");
-                }
-                else
-                {
-                    playerMultiplayer.RegisterAttack3Player("no");
+                    playerMultiplayer.RegisterAttack3Player();
                 }
             }
 
@@ -196,11 +184,7 @@ public class ServerSystem : MonoBehaviour
 
                 if (enemyAttack1 == "yes")
                 {
-                    enemyMultiplayer.RegisterAttack1Enemy("yes");
-                }
-                else
-                {
-                    enemyMultiplayer.RegisterAttack1Enemy("no");
+                    enemyMultiplayer.RegisterAttack1Enemy();
                 }
             }
 
@@ -210,11 +194,7 @@ public class ServerSystem : MonoBehaviour
 
                 if (enemyAttack2 == "yes")
                 {
-                    enemyMultiplayer.RegisterAttack2Enemy("yes");
-                }
-                else
-                {
-                    enemyMultiplayer.RegisterAttack2Enemy("no");
+                    enemyMultiplayer.RegisterAttack2Enemy();
                 }
             }
 
@@ -224,14 +204,9 @@ public class ServerSystem : MonoBehaviour
 
                 if (enemyAttack3 == "yes")
                 {
-                    enemyMultiplayer.RegisterAttack3Enemy("yes");
-                }
-                else
-                {
-                    enemyMultiplayer.RegisterAttack3Enemy("no");
+                    enemyMultiplayer.RegisterAttack3Enemy();
                 }
             }
-
 
             wasDataLoadedEnemy = false;
         }

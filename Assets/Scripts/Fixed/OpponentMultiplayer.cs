@@ -377,27 +377,42 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
-    public void RegisterAttack1Player(string listenerAttack1)
+    public void RegisterAttack1Player()
     {
-        if (listenerAttack1 == "yes")
+        if (opponentIsPlayer != null)
         {
             opponentIsPlayer.MultiplayerAttacked1();
         }
-    }
 
-    public void RegisterAttack2Player(string listenerAttack2)
-    {
-        if (listenerAttack2 == "yes")
+        if (originalPlayer != null)
         {
-            opponentIsPlayer.MultiplayerAttacked2();
+            originalPlayer.MultiplayerAttacked1();
         }
     }
 
-    public void RegisterAttack3Player(string listenerAttack3)
+    public void RegisterAttack2Player()
     {
-        if (listenerAttack3 == "yes")
+        if (opponentIsPlayer != null)
+        {
+            opponentIsPlayer.MultiplayerAttacked2();
+        }
+
+        if (originalPlayer != null)
+        {
+            originalPlayer.MultiplayerAttacked2();
+        }
+    }
+
+    public void RegisterAttack3Player()
+    {
+        if (opponentIsPlayer != null)
         {
             opponentIsPlayer.MultiplayerAttacked3();
+        }
+
+        if (originalPlayer != null)
+        {
+            originalPlayer.MultiplayerAttacked3();
         }
     }
 
@@ -474,27 +489,42 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
-    public void RegisterAttack1Enemy(string listenerAttack1)
+    public void RegisterAttack1Enemy()
     {
-        if (listenerAttack1 == "yes")
+        if (opponentIsEnemy != null)
         {
             opponentIsEnemy.MultiplayerAttacked1();
         }
-    }
-
-    public void RegisterAttack2Enemy(string listenerAttack2)
-    {
-        if (listenerAttack2 == "yes")
+        
+        if (originalEnemy != null)
         {
-            opponentIsEnemy.MultiplayerAttacked2();
+            originalEnemy.MultiplayerAttacked1();
         }
     }
 
-    public void RegisterAttack3Enemy(string listenerAttack3)
+    public void RegisterAttack2Enemy()
     {
-        if (listenerAttack3 == "yes")
+        if (opponentIsEnemy != null)
+        {
+            opponentIsEnemy.MultiplayerAttacked2();
+        }
+
+        if (originalEnemy != null)
+        {
+            originalEnemy.MultiplayerAttacked2();
+        }
+    }
+
+    public void RegisterAttack3Enemy()
+    {
+        if (opponentIsEnemy != null)
         {
             opponentIsEnemy.MultiplayerAttacked3();
+        }
+
+        if (originalEnemy != null)
+        {
+            originalEnemy.MultiplayerAttacked3();
         }
     }
 
