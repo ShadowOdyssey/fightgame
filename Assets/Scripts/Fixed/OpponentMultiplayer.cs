@@ -276,15 +276,11 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void SendStopForward()
     {
-        Debug.Log("Sending stop to move forward");
-
         UpdateData("no", "forward", actualHost.ToString());
     }
 
     public void SendStopBackward()
     {
-        Debug.Log("Sending stop to move backward");
-
         UpdateData("no", "backward", actualHost.ToString());
     }
 

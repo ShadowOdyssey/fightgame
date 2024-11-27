@@ -806,8 +806,6 @@ public class EnemySystem : MonoBehaviour
 
     #endregion
 
-    #region Movement Operations
-
     #region Multiplayer input register
 
     public void RegisterInput()
@@ -860,125 +858,7 @@ public class EnemySystem : MonoBehaviour
 
     #endregion
 
-    #region Utility method to add event triggers to buttons
-
-    private void AddEventTrigger(Button button, EventTriggerType eventTriggerType, UnityAction<BaseEventData> eventHandler)
-    {
-        EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
-        EventTrigger.Entry entry = new EventTrigger.Entry
-        {
-            eventID = eventTriggerType
-        };
-        entry.callback.AddListener(eventHandler);
-        trigger.triggers.Add(entry);
-    }
-
-    #endregion
-
-    #region Multiplayer buttons actions
-
-    public void OnMoveRightButtonPressed(BaseEventData eventData)
-    {
-        if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
-        {
-            if (isMovingBackward == false && selectedMultiplayer == true)
-            {
-                isMovingBackward = true;
-                MultiplayerBackward();
-                isMovingForward = false;
-                isIdle = false;
-            }
-        }
-
-        if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
-        {
-            if (isMovingForward == true)
-            {
-                isMovingForward = false;
-            }
-
-            if (isMovingBackward == true)
-            {
-                isMovingBackward = false;
-            }
-        }
-    }
-
-    public void OnMoveLeftButtonPressed(BaseEventData eventData)
-    {
-        if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
-        {
-            if (isMovingForward == false && selectedMultiplayer == true)
-            {
-                isMovingForward = true;
-                MultiplayerForward();
-                isMovingBackward = false;
-                isIdle = false;
-            }
-        }
-
-        if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
-        {
-            if (isMovingForward == true)
-            {
-                isMovingForward = false;
-            }
-
-            if (isMovingBackward == true)
-            {
-                isMovingBackward = false;
-            }
-        }
-    }
-
-    private void OnMoveButtonReleased(BaseEventData eventData)
-    {
-        if (multiplayerForward == true)
-        {
-            Debug.Log("Enemy stopped to move forward");
-
-            Invoke(nameof(MultiplayerStoppedForward), sendDelay);
-        }
-
-        if (multiplayerBackward == true)
-        {
-            Debug.Log("Enemy stopped to move backward");
-
-            Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
-        }
-    }
-
-    public void OnAttack1ButtonPressed()
-    {
-        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
-        {
-            //Debug.Log("Player activated Attack 1");
-            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
-            UseAttack1();
-        }
-    }
-
-    public void OnAttack2ButtonPressed()
-    {
-        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
-        {
-            //Debug.Log("Player activated Attack 2");
-            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
-            UseAttack2();
-        }
-    }
-
-    public void OnAttack3ButtonPressed()
-    {
-        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
-        {
-            //Debug.Log("Player activated Attack 3");
-            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
-            UseAttack3();
-        }
-    }
-
-    #endregion
+    #region Movement Operations
 
     #region Stop Multiplayer movement and set idle animation
 
@@ -1138,6 +1018,146 @@ public class EnemySystem : MonoBehaviour
     }
 
     #endregion
+
+    #endregion
+
+    #region Utility method to add event triggers to buttons
+
+    private void AddEventTrigger(Button button, EventTriggerType eventTriggerType, UnityAction<BaseEventData> eventHandler)
+    {
+        EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+        EventTrigger.Entry entry = new EventTrigger.Entry
+        {
+            eventID = eventTriggerType
+        };
+        entry.callback.AddListener(eventHandler);
+        trigger.triggers.Add(entry);
+    }
+
+    #endregion
+
+    #region Multiplayer buttons actions
+
+    public void OnMoveRightButtonPressed(BaseEventData eventData)
+    {
+        if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
+        {
+            if (isMovingBackward == false && selectedMultiplayer == true)
+            {
+                isMovingBackward = true;
+                MultiplayerBackward();
+                isMovingForward = false;
+                isIdle = false;
+            }
+        }
+
+        if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
+        {
+            if (isMovingForward == true)
+            {
+                isMovingForward = false;
+            }
+
+            if (isMovingBackward == true)
+            {
+                isMovingBackward = false;
+            }
+        }
+    }
+
+    public void OnMoveLeftButtonPressed(BaseEventData eventData)
+    {
+        if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
+        {
+            if (isMovingForward == false && selectedMultiplayer == true)
+            {
+                isMovingForward = true;
+                MultiplayerForward();
+                isMovingBackward = false;
+                isIdle = false;
+            }
+        }
+
+        if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
+        {
+            if (isMovingForward == true)
+            {
+                isMovingForward = false;
+            }
+
+            if (isMovingBackward == true)
+            {
+                isMovingBackward = false;
+            }
+        }
+    }
+
+    private void OnMoveButtonReleased(BaseEventData eventData)
+    {
+        if (multiplayerForward == true && selectedMultiplayer == true)
+        {
+            Invoke(nameof(MultiplayerStoppedForward), sendDelay);
+        }
+
+        if (multiplayerBackward == true && selectedMultiplayer == true)
+        {
+            Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
+        }
+    }
+
+    public void OnAttack1ButtonPressed()
+    {
+        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
+        {
+            //Debug.Log("Player activated Attack 1");
+            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
+
+            if (selectedMultiplayer == false)
+            {
+                UseAttack1();
+            }
+            else
+            {
+                MultiplayerAttack1();
+            }
+        }
+    }
+
+    public void OnAttack2ButtonPressed()
+    {
+        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
+        {
+            //Debug.Log("Player activated Attack 2");
+            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
+
+            if (selectedMultiplayer == false)
+            {
+                UseAttack2();
+            }
+            else
+            {
+                MultiplayerAttack2();
+            }
+        }
+    }
+
+    public void OnAttack3ButtonPressed()
+    {
+        if (isAttacking == false && roundSystem.roundStarted == true && isHit == false && roundSystem.roundOver == false)
+        {
+            //Debug.Log("Player activated Attack 3");
+            // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
+
+            if (selectedMultiplayer == false)
+            {
+                UseAttack3();
+            }
+            else
+            {
+                MultiplayerAttack3();
+            }
+        }
+    }
 
     #endregion
 
@@ -1850,15 +1870,11 @@ public class EnemySystem : MonoBehaviour
 
     private void MultiplayerForward()
     {
-        Debug.Log("Enemy wants to move forward");
-
         multiplayerSystem.SendForward();
     }
 
     private void MultiplayerBackward()
     {
-        Debug.Log("Enemy wants to move backward");
-
         multiplayerSystem.SendBackward();
     }
 
@@ -1893,8 +1909,6 @@ public class EnemySystem : MonoBehaviour
 
     public void MultiplayerMovesForward()
     {
-        Debug.Log("Server moving Enemy at forward");
-
         multiplayerBackward = false;
         multiplayerStop = false;
         multiplayerForward = true;
@@ -1902,8 +1916,6 @@ public class EnemySystem : MonoBehaviour
 
     public void MultiplayerMovesBackward()
     {
-        Debug.Log("Server moving Enemy at backward");
-
         multiplayerForward = false;
         multiplayerStop = false;
         multiplayerBackward = true;

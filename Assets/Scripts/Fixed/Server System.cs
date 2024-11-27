@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 
 public class ServerSystem : MonoBehaviour
 {
+    #region Variables
+
     [Header("Round Setup")]
     public RoundManager roundSystem;
     public OpponentMultiplayer playerMultiplayer;
@@ -38,15 +40,25 @@ public class ServerSystem : MonoBehaviour
     public bool isCheckingWin = false;
     public bool canApplyHit = false;
 
+    [Header("Loaded Data")]
+    public string[] listenerInfoPlayer = new string[0];
+    public string[] listenerInfoEnemy = new string[0];
+
+    [Header("Last Data")]
     public string responsePlayerFromServer = "";
     public string responseEnemyFromServer = "";
     public string playerForward = "";
     public string enemyForward = "";
     public string playerBackward = "";
     public string enemyBackward = "";
+    public string playerAttack1 = "";
+    public string enemyAttack1 = "";
+    public string playerAttack2 = "";
+    public string enemyAttack2 = "";
+    public string playerAttack3 = "";
+    public string enemyAttack3 = "";
 
-    public string[] listenerInfoPlayer = new string[0];
-    public string[] listenerInfoEnemy = new string[0];
+    #endregion
 
     #region Load Components
 
@@ -103,6 +115,48 @@ public class ServerSystem : MonoBehaviour
                 }
             }
 
+            if (playerAttack1 != listenerInfoPlayer[2])
+            {
+                playerAttack1 = listenerInfoPlayer[2];
+
+                if (playerAttack1 == "yes")
+                {
+                    playerMultiplayer.RegisterAttack1Player("yes");
+                }
+                else
+                {
+                    playerMultiplayer.RegisterAttack1Player("no");
+                }
+            }
+
+            if (playerAttack2 != listenerInfoPlayer[3])
+            {
+                playerAttack2 = listenerInfoPlayer[3];
+
+                if (playerAttack2 == "yes")
+                {
+                    playerMultiplayer.RegisterAttack2Player("yes");
+                }
+                else
+                {
+                    playerMultiplayer.RegisterAttack2Player("no");
+                }
+            }
+
+            if (playerAttack3 != listenerInfoPlayer[4])
+            {
+                playerAttack3 = listenerInfoPlayer[4];
+
+                if (playerAttack3 == "yes")
+                {
+                    playerMultiplayer.RegisterAttack3Player("yes");
+                }
+                else
+                {
+                    playerMultiplayer.RegisterAttack3Player("no");
+                }
+            }
+
             wasDataLoadedPlayer = false;
         }
 
@@ -135,6 +189,49 @@ public class ServerSystem : MonoBehaviour
                     enemyMultiplayer.RegisterBackwardEnemy("no");
                 }
             }
+
+            if (enemyAttack1 != listenerInfoEnemy[2])
+            {
+                enemyAttack1 = listenerInfoEnemy[2];
+
+                if (enemyAttack1 == "yes")
+                {
+                    enemyMultiplayer.RegisterAttack1Enemy("yes");
+                }
+                else
+                {
+                    enemyMultiplayer.RegisterAttack1Enemy("no");
+                }
+            }
+
+            if (enemyAttack2 != listenerInfoEnemy[3])
+            {
+                enemyAttack2 = listenerInfoEnemy[3];
+
+                if (enemyAttack2 == "yes")
+                {
+                    enemyMultiplayer.RegisterAttack2Enemy("yes");
+                }
+                else
+                {
+                    enemyMultiplayer.RegisterAttack2Enemy("no");
+                }
+            }
+
+            if (enemyAttack3 != listenerInfoEnemy[4])
+            {
+                enemyAttack3 = listenerInfoEnemy[4];
+
+                if (enemyAttack3 == "yes")
+                {
+                    enemyMultiplayer.RegisterAttack3Enemy("yes");
+                }
+                else
+                {
+                    enemyMultiplayer.RegisterAttack3Enemy("no");
+                }
+            }
+
 
             wasDataLoadedEnemy = false;
         }

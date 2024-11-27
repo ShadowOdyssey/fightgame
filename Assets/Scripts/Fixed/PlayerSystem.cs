@@ -272,6 +272,108 @@ public class PlayerSystem : MonoBehaviour
                     transform.localPosition = newPosition;
                 }
             }
+            else
+            {
+                #region Multiplayer Operations
+
+                #region Server informed player stopped to move
+
+                if (multiplayerStop == false && multiplayerForward == false && multiplayerBackward == false && isAttacking == false)
+                {
+                    AnimIsIdle();
+                    animatedMultiplayer = false;
+                    isMovingForward = false;
+                    isMovingBackward = false;
+                    multiplayerStop = true;
+                }
+
+                #endregion
+
+                #region Server informed player is moving forward
+
+                if (multiplayerForward == true && isHit == false)
+                {
+                    animatedMultiplayer = false;
+                    multiplayerStop = false;
+                    multiplayerBackward = false;
+
+                    if (animatedMultiplayer == false)
+                    {
+                        MoveRight();
+                        animatedMultiplayer = true;
+                    }
+
+                    Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
+                    transform.localPosition = newPosition;
+                }
+
+                #endregion
+
+                #region Server informed player is moving backward
+
+                if (multiplayerBackward == true && isHit == false)
+                {
+                    animatedMultiplayer = false;
+                    multiplayerStop = false;
+                    multiplayerForward = false;
+
+                    if (animatedMultiplayer == false)
+                    {
+                        MoveLeft();
+                        animatedMultiplayer = true;
+                    }
+
+                    Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
+                    transform.localPosition = newPosition;
+                }
+
+                #endregion
+
+                #region Server informed player is attacking
+
+                if (multiplayerAttack1 == true)
+                {
+                    multiplayerForward = false;
+                    multiplayerBackward = false;
+                    isMovingForward = false;
+                    isMovingBackward = false;
+                    isAttacking = true;
+
+                    AnimIsAttack1();
+
+                    multiplayerAttack1 = false;
+                }
+
+                if (multiplayerAttack2 == true)
+                {
+                    multiplayerForward = false;
+                    multiplayerBackward = false;
+                    isMovingForward = false;
+                    isMovingBackward = false;
+                    isAttacking = true;
+
+                    AnimIsAttack2();
+
+                    multiplayerAttack2 = false;
+                }
+
+                if (multiplayerAttack3 == true)
+                {
+                    multiplayerForward = false;
+                    multiplayerBackward = false;
+                    isMovingForward = false;
+                    isMovingBackward = false;
+                    isAttacking = true;
+
+                    AnimIsAttack3();
+
+                    multiplayerAttack3 = false;
+                }
+
+                #endregion
+
+                #endregion
+            }
         }
 
         #endregion
@@ -282,102 +384,6 @@ public class PlayerSystem : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime * 3f);
         }
-
-        #endregion
-
-        #region Multiplayer Operations
-
-        #region Server informed player stopped to move
-
-        if (multiplayerStop == false && multiplayerForward == false && multiplayerBackward == false)
-        {
-            animatedMultiplayer = false;
-
-            AnimIsIdle();
-
-            multiplayerStop = true;
-        }
-
-        #endregion
-
-        #region Server informed player is moving forward
-
-        if (multiplayerForward == true)
-        {
-            animatedMultiplayer = false;
-            multiplayerStop = false;
-            multiplayerBackward = false;
-
-            if (animatedMultiplayer == false)
-            {
-                MoveRight();
-
-                animatedMultiplayer = false;
-            }
-
-            Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
-            transform.localPosition = newPosition;
-        }
-
-        #endregion
-
-        #region Server informed player is moving backward
-
-        if (multiplayerBackward == true)
-        {
-            animatedMultiplayer = false;
-            multiplayerStop = false;
-            multiplayerForward = false;
-
-            if (animatedMultiplayer == false)
-            {
-                MoveLeft();
-
-                animatedMultiplayer = false;
-            }
-
-            Vector3 newPosition = transform.localPosition + Vector3.forward * moveDirection * stepSize;
-            transform.localPosition = newPosition;
-        }
-
-        #endregion
-
-        #region Server informed player is attacking
-
-        if (multiplayerAttack1 == true)
-        {
-            multiplayerForward = false;
-            multiplayerBackward = false;
-            isAttacking = true;
-
-            AnimIsAttack1();
-
-            multiplayerAttack1 = false;
-        }
-
-        if (multiplayerAttack2 == true)
-        {
-            multiplayerForward = false;
-            multiplayerBackward = false;
-            isAttacking = true;
-
-            AnimIsAttack2();
-
-            multiplayerAttack2 = false;
-        }
-
-        if (multiplayerAttack3 == true)
-        {
-            multiplayerForward = false;
-            multiplayerBackward = false;
-            isAttacking = true;
-
-            AnimIsAttack3();
-
-            multiplayerAttack3 = false;
-        }
-
-        #endregion
 
         #endregion
     }
@@ -605,18 +611,31 @@ public class PlayerSystem : MonoBehaviour
     {
         if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
         {
-            //Debug.Log("Player is moving forward");
+            if (isMovingForward == false && selectedMultiplayer == true)
+            {
+                isMovingForward = true;
+                MultiplayerForward();
+                isMovingBackward = false;
+                isIdle = false;
+            }
 
-            isMovingForward = true;
-            isMovingBackward = false;
+            if (isMovingForward == false && selectedMultiplayer == false)
+            {
+                isMovingBackward = false;
+                isIdle = false;
+                isMovingForward = true;
+            }
         }
-        else
-        {
-            //Debug.Log("Player cant move forward because round not started yet");
 
-            if (isMovingForward == true) // Check if any move boolean is activate when Gabriela cant move and deactivate it
+        if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
+        {
+            if (isMovingForward == true)
             {
                 isMovingForward = false;
+            }
+
+            if (isMovingBackward == true)
+            {
                 isMovingBackward = false;
             }
         }
@@ -626,19 +645,32 @@ public class PlayerSystem : MonoBehaviour
     {
         if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
         {
-            //Debug.Log("Player is moving backward");
+            if (isMovingBackward == false && selectedMultiplayer == true)
+            {
+                isMovingBackward = true;
+                MultiplayerBackward();
+                isMovingForward = false;
+                isIdle = false;
+            }
 
-            isMovingBackward = true;
-            isMovingForward = false;
+            if (isMovingBackward == false && selectedMultiplayer == true)
+            {
+                isMovingForward = false;
+                isIdle = false;
+                isMovingBackward = true;
+            }
         }
-        else
-        {
-            //Debug.Log("Player cant move backward because round not started yet");
 
-            if (isMovingBackward == true) // Check if any boolean is activate when Gabriela cant move and deactivate it
+        if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
+        {
+            if (isMovingForward == true)
+            {
+                isMovingForward = false;
+            }
+
+            if (isMovingBackward == true)
             {
                 isMovingBackward = false;
-                isMovingForward = false;
             }
         }
     }
@@ -662,7 +694,10 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
                                                         //roundSystem.audioSystem.MoveRight(1, roundSystem.currentPlayerCharacter); // Start character Move Right sound in Player Audio only after animation has started - Optional
+        }
 
+        if (roundSystem.isMultiplayer == false)
+        {
             if (trainingSystem.actualInfoIndex == 1 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
         }
     }
@@ -686,7 +721,10 @@ public class PlayerSystem : MonoBehaviour
             playerAnimator.SetBool("isAttack2", false); // Values in parameters should be low case in the first letter because is variable name - 
             playerAnimator.SetBool("isAttack3", false); // Values in parameters should be low case in the first letter because is variable name - 
                                                         //roundSystem.audioSystem.MoveLeft(1, roundSystem.currentPlayerCharacter); // Start character Move Left sound in Player Audio only after animation has started - Optional
+        }
 
+        if (roundSystem.isMultiplayer == false)
+        {
             if (trainingSystem.actualInfoIndex == 2 && completedTutorial == false) { trainingSystem.SelectInfo(); completedTutorial = true; }
         }
     }
@@ -903,16 +941,33 @@ public class PlayerSystem : MonoBehaviour
 
     private void OnMoveButtonReleased(BaseEventData eventData)
     {
-        if (isMovingForward == true)
+        if (roundSystem.isMultiplayer == false)
         {
-            Invoke(nameof(MultiplayerStoppedForward), sendDelay);
-            isMovingForward = false;
-        }
+            if (isMovingForward == true)
+            {
+                isMovingForward = false;
+            }
 
-        if (isMovingBackward == true)
+            if (isMovingBackward == true)
+            {
+                isMovingBackward = false;
+            }
+        }
+        else
         {
-            Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
-            isMovingBackward = false;
+            if (multiplayerForward == true && selectedMultiplayer == true)
+            {
+                Debug.Log("Player stopped to move forward");
+
+                Invoke(nameof(MultiplayerStoppedForward), sendDelay);
+            }
+
+            if (multiplayerBackward == true && selectedMultiplayer == true)
+            {
+                Debug.Log("Player stopped to move backward");
+
+                Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
+            }
         }
 
         if (isIdle == true)
@@ -931,7 +986,18 @@ public class PlayerSystem : MonoBehaviour
         {
             //Debug.Log("Player activated Attack 1");
             // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
-            AnimIsAttack1();
+
+            if (roundSystem.isMultiplayer == false)
+            {
+                AnimIsAttack1();
+            }
+            else
+            {
+                if (selectedMultiplayer == true)
+                {
+                    MultiplayerAttack1();
+                }
+            }
         }
     }
 
@@ -941,7 +1007,18 @@ public class PlayerSystem : MonoBehaviour
         {
             //Debug.Log("Player activated Attack 2");
             // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
-            AnimIsAttack2();
+
+            if (roundSystem.isMultiplayer == false)
+            {
+                AnimIsAttack2();
+            }
+            else
+            {
+                if (selectedMultiplayer == true)
+                {
+                    MultiplayerAttack2();
+                }
+            }
         }
     }
 
@@ -951,7 +1028,18 @@ public class PlayerSystem : MonoBehaviour
         {
             //Debug.Log("Player activated Attack 3");
             // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
-            AnimIsAttack3();
+
+            if (roundSystem.isMultiplayer == false)
+            {
+                AnimIsAttack3();
+            }
+            else
+            {
+                if (selectedMultiplayer == true)
+                {
+                    MultiplayerAttack3();
+                }
+            }
         }
     }
 
@@ -1139,11 +1227,15 @@ public class PlayerSystem : MonoBehaviour
 
     public void MultiplayerMovesForward()
     {
+        multiplayerBackward = false;
+        multiplayerStop = false;
         multiplayerForward = true;
     }
 
     public void MultiplayerMovesBackward()
     {
+        multiplayerForward = false;
+        multiplayerStop = false;
         multiplayerBackward = true;
     }
 
