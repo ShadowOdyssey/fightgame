@@ -32,6 +32,7 @@ public class EnemySystem : MonoBehaviour
     [Tooltip("Attach current player Button Attack 3 component here")]
     public Button buttonAttack3;
     public float sendDelay = 3f;
+    public bool serverDamage = false;
     private bool wasDetected = false;
     private bool selectedMultiplayer = false;
     private bool multiplayerStop = false;
@@ -488,8 +489,6 @@ public class EnemySystem : MonoBehaviour
                         multiplayerSystem.PlayerTakeHit(20); // If Enemy is the original, so clone Player takes hit
                     }
 
-                    playerSystem.TakeHit(20);
-
                     checkDamage = false;
                 }
 
@@ -508,6 +507,12 @@ public class EnemySystem : MonoBehaviour
                     checkDamage = false;
                     damageTime = 0f;
                 }
+            }
+
+            if (serverDamage == true)
+            {
+                playerSystem.TakeHit(20);
+                serverDamage = false;
             }
 
             #endregion
@@ -1948,6 +1953,11 @@ public class EnemySystem : MonoBehaviour
     }
 
     #endregion
+
+    public void ServerDamage()
+    {
+        serverDamage = true;
+    }
 
     #endregion
 }

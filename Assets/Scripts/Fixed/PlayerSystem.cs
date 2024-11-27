@@ -43,6 +43,7 @@ public class PlayerSystem : MonoBehaviour
 
     [Header("Multiplayer Setup")]
     public float sendDelay = 3f;
+    public bool serverDamage = false;
     private bool wasDetected = false;
     private bool selectedMultiplayer = false;
     private bool multiplayerStop = false;
@@ -202,8 +203,6 @@ public class PlayerSystem : MonoBehaviour
 
                         multiplayerSystem.EnemyTakeHit(20); // If Player is the original, so clone Enemy will take hit
                     }
-
-                    enemySystem.TakeDamage(20); // If Player is the clone, so original Enemy will take hit
                 }
 
                 checkDamage = false;
@@ -223,6 +222,12 @@ public class PlayerSystem : MonoBehaviour
 
                 checkDamage = false;
                 damageTime = 0f;
+            }
+
+            if (serverDamage == true)
+            {
+                enemySystem.TakeDamage(20); // If Player is the clone, so original Enemy will take hit
+                serverDamage = false;
             }
         }
 
@@ -1178,6 +1183,11 @@ public class PlayerSystem : MonoBehaviour
     }
 
     #endregion
+
+    public void ServerDamage()
+    {
+        serverDamage = true;
+    }
 
     #endregion
 }

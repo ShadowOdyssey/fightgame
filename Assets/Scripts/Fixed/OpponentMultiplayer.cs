@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Runtime.Serialization.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -22,6 +21,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
     [Header("Round Setup")]
     public RoundManager roundSystem;
+    public ServerSystem serverSystem;
 
     [Header("Original Setup")]
     public PlayerSystem originalPlayer;
@@ -33,7 +33,6 @@ public class OpponentMultiplayer : MonoBehaviour
 
     [Header("Listener Setup")]
     public float sendDelay = 0f;
-    public float receiveDelay = 0.2f;
 
     [Header("Lobby Data")]
     public int actualHost = 0;
@@ -42,22 +41,11 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #region Hidden Variables
 
-    [Header("Listener Setup")]
+    [Header("Monitor Setup")]
     public float countListen = 0f;
     public bool isEnemyPlayer = false;
-    public bool canListen = false;
-    public bool wasDataLoaded = false;
     public bool isCheckingWin = false;
-    public bool canApplyHit = false;
     public string responseFromServer = "";
-    public string listenerForward = "";
-    public string listenerBackward = "";
-    public string listenerAttack1 = "";
-    public string listenerAttack2 = "";
-    public string listenerAttack3 = "";
-    public string listenerHit = "";
-    public string listenerHealth = "";
-    private string[] listenerInfo = new string[0];
     private int newDamage = 0;
     private string checkWin = "";
 
@@ -74,180 +62,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #endregion
 
-    #region Real Time Operations
-
-    public void Update()
-    {
-        #region Receiving Data from Server
-
-        if (selected == true && roundSystem.roundOver == false)
-        {
-            countListen = countListen + Time.deltaTime;
-
-            if (countListen > receiveDelay)
-            {
-                //Debug.Log("Listening opponent actions");
-
-                StartCoroutine(ListenUser(listenUser, actualListener));
-                countListen = 0f;
-            }
-        }
-
-        #endregion
-
-        #region Processing received Data from Server
-
-        if (wasDataLoaded == true)
-        {
-            if (listenerForward != listenerInfo[0])
-            {
-                listenerForward = listenerInfo[0];
-
-                if (isEnemyPlayer == true)
-                {
-                    RegisterForwardPlayer();
-                }
-                else
-                {
-                    RegisterForwardEnemy();
-                }
-            }
-
-            if (listenerBackward != listenerInfo[1])
-            {
-                listenerBackward = listenerInfo[1];
-
-                if (isEnemyPlayer == true)
-                {
-                    RegisterBackwardPlayer();
-                }
-                else
-                {
-                    RegisterBackwardEnemy();
-                }
-            }
-
-            if (listenerAttack1 != listenerInfo[2])
-            {
-                listenerAttack1 = listenerInfo[2];
-
-                if (isEnemyPlayer == true)
-                {
-                    RegisterAttack1Player();
-                }
-                else
-                {
-                    RegisterAttack1Enemy();
-                }
-            }
-
-            if (listenerAttack2 != listenerInfo[3])
-            {
-                listenerAttack2 = listenerInfo[3];
-
-                if (isEnemyPlayer == true)
-                {
-                    RegisterAttack2Player();
-                }
-                else
-                {
-                    RegisterAttack2Enemy();
-                }
-            }
-
-            if (listenerAttack3 != listenerInfo[4])
-            {
-                listenerAttack3 = listenerInfo[4];
-
-                if (isEnemyPlayer == true)
-                {
-                    RegisterAttack3Player();
-                }
-                else
-                {
-                    RegisterAttack3Enemy();
-                }
-            }
-
-            if (listenerHit != listenerInfo[5])
-            {
-                listenerHit = listenerInfo[5];
-
-                if (listenerHit == "yes<br>" && canApplyHit == false)
-                {
-                    canApplyHit = true;
-
-                    Debug.Log("Opponent registered a hit attempt");
-
-                    if (isEnemyPlayer == true)
-                    {
-                        Debug.Log("Registering damage in Clone Enemy");
-
-                        RegisterHitEnemy();
-                    }
-                    else
-                    {
-                        Debug.Log("Registering damage in Clone Player");
-
-                        RegisterHitPlayer();
-                    }
-                }
-            }
-
-            if (listenerHealth != listenerInfo[6])
-            {
-                listenerHealth = listenerInfo[6];
-
-                if (isEnemyPlayer == true)
-                {
-                    if (float.TryParse(listenerHealth, out float healthValue))
-                    {
-                        roundSystem.playerHealthBar.slider.value = healthValue;
-                    }
-                }
-                else
-                {
-                    if (float.TryParse(listenerHealth, out float healthValue))
-                    {
-                        roundSystem.opponentHealthBar.slider.value = healthValue;
-                    }
-                }
-            }
-
-            wasDataLoaded = false;
-        }
-
-        #endregion
-    }
-
-    #endregion
-
     #region Database Operations
-
-    public IEnumerator ListenUser(string urlPHP, int actualListener)
-    {
-        // UPDATE lobby SET status = 'offline' WHERE id = 1; - Example use of UpdateUser();
-
-        WWWForm form = new WWWForm();
-        form.AddField("actualListener", actualListener);
-
-        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
-
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success && responseFromServer != request.downloadHandler.text)
-        {
-            responseFromServer = request.downloadHandler.text;
-
-            listenerInfo = responseFromServer.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-
-            //Debug.Log("Data received from opponent: " + responseFromServer);
-
-            wasDataLoaded = true;
-        }
-
-        request.Dispose();
-    }
 
     public IEnumerator VerifyUser(string urlPHP, string desiredCollumn, string requestedTable, string requestedCollumn, string desiredSearch)
     {
@@ -399,34 +214,24 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void PlayerTakeHit(int damage)
     {
-        //Debug.Log("Send to server only hits in clone Player");
-
         UpdateData("yes", "hit", actualHost.ToString());
         newDamage = damage;        
     }
 
     public void EnemyTakeHit(int damage)
     {
-        //Debug.Log("Send to server only hits in clone Enemy");
-
         UpdateData("yes", "hit", actualHost.ToString());
         newDamage = damage;
     }
 
     public void ResetHitPlayer()
     {
-        Debug.Log("Player hit detection was reset");
-
         UpdateData("no", "hit", actualHost.ToString());
-        canApplyHit = false;
     }
 
     public void ResetHitEnemy()
     {
-        Debug.Log("Enemy hit detection was reset");
-
         UpdateData("no", "hit", actualHost.ToString());
-        canApplyHit = false;
     }
 
     #endregion
@@ -463,74 +268,54 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void SendForward()
     {
-        //Debug.Log("Sending forward to server");
-
         UpdateData("yes", "forward", actualHost.ToString());
     }
 
     public void SendBackward()
     {
-        //Debug.Log("Sending backward to server");
-
         UpdateData("yes", "backward", actualHost.ToString());
     }
 
     public void SendStopForward()
     {
-        //Debug.Log("Sending stop forward to server");
-
         UpdateData("no", "forward", actualHost.ToString());
     }
 
     public void SendStopBackward()
     {
-        //Debug.Log("Sending stop backward to server");
-
         UpdateData("no", "backward", actualHost.ToString());
     }
 
     public void SendAttack1()
     {
-        //Debug.Log("Sending attack1 to server");
-
         UpdateData("yes", "attack1", actualHost.ToString());
         Invoke(nameof(ResetAttack1), sendDelay);
     }
 
     public void SendAttack2()
     {
-        //Debug.Log("Sending attack2 to server");
-
         UpdateData("yes", "attack2", actualHost.ToString());
         Invoke(nameof(ResetAttack2), sendDelay);
     }
 
     public void SendAttack3()
     {
-        //Debug.Log("Sending attack3 to server");
-
         UpdateData("yes", "attack3", actualHost.ToString());
         Invoke(nameof(ResetAttack3), sendDelay);
     }
 
     private void ResetAttack1()
     {
-        //Debug.Log("Sending reset attack 1 to server");
-
         UpdateData("no", "attack1", actualHost.ToString());
     }
 
     private void ResetAttack2()
     {
-        //Debug.Log("Sending reset attack 2 to server");
-
         UpdateData("no", "attack2", actualHost.ToString());
     }
 
     private void ResetAttack3()
     {
-        //Debug.Log("Sending reset attack 3 to server");
-
         UpdateData("no", "attack3", actualHost.ToString());
     }
 
@@ -540,180 +325,138 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #region Enemy is Player, register new data
 
-    public void RegisterForwardPlayer()
+    public void RegisterForwardPlayer(string listenerForward)
     {
         if (listenerForward == "yes")
         {
-            //Debug.Log("Opponent as Player is moving forward");
-            
             opponentIsPlayer.MultiplayerMovesForward();
         }
 
         if (listenerForward == "no")
         {
-            //Debug.Log("Opponent as Player stopped to move forward");
-            
             opponentIsPlayer.MultiplayerStopForward();
         }
     }
 
-    public void RegisterBackwardPlayer()
+    public void RegisterBackwardPlayer(string listenerBackward)
     {
         if (listenerBackward == "yes")
         {
-            //Debug.Log("Opponent as Player is moving backward");
-            
             opponentIsPlayer.MultiplayerMovesBackward();
         }
 
         if (listenerBackward == "no")
         {
-            //Debug.Log("Opponent as Player stopped to move backward");
-            
             opponentIsPlayer.MultiplayerStopBackward();
         }
     }
 
-    public void RegisterAttack1Player()
+    public void RegisterAttack1Player(string listenerAttack1)
     {
         if (listenerAttack1 == "yes")
         {
-            //Debug.Log("Opponent as Player used Attack 1");
-            
             opponentIsPlayer.MultiplayerAttacked1();
         }
     }
 
-    public void RegisterAttack2Player()
+    public void RegisterAttack2Player(string listenerAttack2)
     {
         if (listenerAttack2 == "yes")
         {
-            //Debug.Log("Opponent as Player used Attack 2");
-            
             opponentIsPlayer.MultiplayerAttacked2();
         }
     }
 
-    public void RegisterAttack3Player()
+    public void RegisterAttack3Player(string listenerAttack3)
     {
         if (listenerAttack3 == "yes")
         {
-            //Debug.Log("Opponent as Player used Attack 3");
-            
             opponentIsPlayer.MultiplayerAttacked3();
         }
     }
 
     public void RegisterHitPlayer()
     {
-        Debug.Log("Player got hit");
-
         if (opponentIsPlayer != null)
         {
-            Debug.Log("Damage applied in Clone Player");
-
             opponentIsPlayer.TakeHit(newDamage);
         }
         
         if (originalPlayer != null)
         {
-            Debug.Log("Damage applied in Original Player");
-
             originalPlayer.TakeHit(newDamage);
         }
 
         newDamage = 0;
-        canApplyHit = false;
     }
 
     #endregion
 
     #region Enemy is Enemy, register new data
 
-    public void RegisterForwardEnemy()
+    public void RegisterForwardEnemy(string listenerForward)
     {
         if (listenerForward == "yes")
         {
-            //Debug.Log("Opponent as Enemy stopped is moving forward");
-            
             opponentIsEnemy.MultiplayerMovesForward();
         }
 
         if (listenerForward == "no")
         {
-            //Debug.Log("Opponent as Enemy stopped to move forward");
-            
             opponentIsEnemy.MultiplayerStopForward();
         }
     }
 
-    public void RegisterBackwardEnemy()
+    public void RegisterBackwardEnemy(string listenerBackward)
     {
         if (listenerBackward == "yes")
         {
-            //Debug.Log("Opponent as Enemy stopped is moving backward");
-            
             opponentIsEnemy.MultiplayerMovesBackward();
         }
 
         if (listenerBackward == "no")
         {
-            //Debug.Log("Opponent as Enemy stopped to move backward");
-            
             opponentIsEnemy.MultiplayerStopBackward();
         }
     }
 
-    public void RegisterAttack1Enemy()
+    public void RegisterAttack1Enemy(string listenerAttack1)
     {
         if (listenerAttack1 == "yes")
         {
-            //Debug.Log("Opponent as Enemy used Attack 1");
-            
             opponentIsEnemy.MultiplayerAttacked1();
         }
     }
 
-    public void RegisterAttack2Enemy()
+    public void RegisterAttack2Enemy(string listenerAttack2)
     {
         if (listenerAttack2 == "yes")
         {
-            //Debug.Log("Opponent as Enemy used Attack 2");
-            
             opponentIsEnemy.MultiplayerAttacked2();
         }
     }
 
-    public void RegisterAttack3Enemy()
+    public void RegisterAttack3Enemy(string listenerAttack3)
     {
         if (listenerAttack3 == "yes")
         {
-            //Debug.Log("Opponent as Enemy used Attack 3");
-            
             opponentIsEnemy.MultiplayerAttacked3();
         }
     }
 
     public void RegisterHitEnemy()
     {
-        Debug.Log("Enemy got hit");
-
         if (opponentIsEnemy != null)
         {
-            Debug.Log("Damage applied in Clone Enemy");
-
             opponentIsEnemy.TakeDamage(newDamage);
         }
         
         if (originalEnemy != null)
         {
-            Debug.Log("Damage applied in Original Enemy");
-
             originalEnemy.TakeDamage(newDamage);
         }
 
         newDamage = 0;
-        canApplyHit = false;
     }
 
     #endregion
