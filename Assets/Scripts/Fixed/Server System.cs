@@ -294,25 +294,34 @@ public class ServerSystem : MonoBehaviour
             if (playerZPosition.Contains("."))
             {
                 decimalIndexA1 = playerZPosition.IndexOf('.');
+                playerZPosition = playerZPosition.Substring(0, decimalIndexA1);
             }
 
             if (playerZPosition.Contains(","))
             {
                 decimalIndexA1 = playerZPosition.IndexOf(',');
+                playerZPosition = playerZPosition.Substring(0, decimalIndexA1);
+            }
+            else
+            {
+                playerZPosition = playerZPosition.Substring(0, 2);
             }
 
             if (enemyZPosition.Contains("."))
             {
                 decimalIndexB1 = enemyZPosition.IndexOf('.');
+                enemyZPosition = enemyZPosition.Substring(0, decimalIndexB1);
             }
 
             if (enemyZPosition.Contains(","))
             {
                 decimalIndexB1 = enemyZPosition.IndexOf(',');
+                enemyZPosition = enemyZPosition.Substring(0, decimalIndexB1);
             }
-
-            playerZPosition = playerZPosition.Substring(0, decimalIndexA1);
-            enemyZPosition = enemyZPosition.Substring(0, decimalIndexB1);
+            else
+            {
+                enemyZPosition = enemyZPosition.Substring(0, 2);
+            }
 
             if (int.TryParse(playerZPosition, out int newDistanceA1))
             {
@@ -343,25 +352,34 @@ public class ServerSystem : MonoBehaviour
             if (playerZPosition.Contains("."))
             {
                 decimalIndexA2 = playerZPosition.IndexOf('.');
+                playerZPosition = playerZPosition.Substring(0, decimalIndexA2);
             }
 
             if (playerZPosition.Contains(","))
             {
                 decimalIndexA2 = playerZPosition.IndexOf(',');
+                playerZPosition = playerZPosition.Substring(0, decimalIndexA2);
+            }
+            else
+            {
+                playerZPosition = playerZPosition.Substring(0, 2);
             }
 
             if (enemyZPosition.Contains("."))
             {
                 decimalIndexB2 = enemyZPosition.IndexOf('.');
+                enemyZPosition = enemyZPosition.Substring(0, decimalIndexB2);
             }
 
             if (enemyZPosition.Contains(","))
             {
                 decimalIndexB2 = enemyZPosition.IndexOf(',');
+                enemyZPosition = enemyZPosition.Substring(0, decimalIndexB2);
             }
-
-            playerZPosition = playerZPosition.Substring(0, decimalIndexA2);
-            enemyZPosition = enemyZPosition.Substring(0, decimalIndexB2);
+            else
+            {
+                enemyZPosition = enemyZPosition.Substring(0, 2);
+            }
 
             if (int.TryParse(playerZPosition, out int newDistanceB1))
             {
