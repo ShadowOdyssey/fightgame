@@ -302,10 +302,6 @@ public class ServerSystem : MonoBehaviour
                 decimalIndexA1 = playerZPosition.IndexOf(',');
                 playerZPosition = playerZPosition.Substring(0, decimalIndexA1);
             }
-            else
-            {
-                playerZPosition = playerZPosition.Substring(0, 2);
-            }
 
             if (enemyZPosition.Contains("."))
             {
@@ -317,10 +313,6 @@ public class ServerSystem : MonoBehaviour
             {
                 decimalIndexB1 = enemyZPosition.IndexOf(',');
                 enemyZPosition = enemyZPosition.Substring(0, decimalIndexB1);
-            }
-            else
-            {
-                enemyZPosition = enemyZPosition.Substring(0, 2);
             }
 
             if (int.TryParse(playerZPosition, out int newDistanceA1))
@@ -360,10 +352,6 @@ public class ServerSystem : MonoBehaviour
                 decimalIndexA2 = playerZPosition.IndexOf(',');
                 playerZPosition = playerZPosition.Substring(0, decimalIndexA2);
             }
-            else
-            {
-                playerZPosition = playerZPosition.Substring(0, 2);
-            }
 
             if (enemyZPosition.Contains("."))
             {
@@ -375,10 +363,6 @@ public class ServerSystem : MonoBehaviour
             {
                 decimalIndexB2 = enemyZPosition.IndexOf(',');
                 enemyZPosition = enemyZPosition.Substring(0, decimalIndexB2);
-            }
-            else
-            {
-                enemyZPosition = enemyZPosition.Substring(0, 2);
             }
 
             if (int.TryParse(playerZPosition, out int newDistanceB1))
