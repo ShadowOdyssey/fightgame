@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>UNITY_2022_3_20;UNITY_2022_3;UNITY_2022;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;UNITY_2022_1_OR_NEWER;UNITY_2022_2_OR_NEWER;UNITY_2022_3_OR_NEWER;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_GENERATE_NATIVE_PLUGINS_FOR_ASSEMBLIES_API;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_RUNTIME_PERMISSIONS;ENABLE_ENGINE_CODE_STRIPPING;ENABLE_ONSCREEN_KEYBOARD;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;ENABLE_NAVIGATION_PACKAGE_DEBUG_VISUALIZATION;ENABLE_NAVIGATION_HEIGHTMESH_RUNTIME_SUPPORT;ENABLE_NAVIGATION_UI_REQUIRES_PACKAGE;PLATFORM_ANDROID;TEXTCORE_1_0_OR_NEWER;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;UNITY_CAN_SHOW_SPLASH_SCREEN;UNITY_HAS_GOOGLEVR;UNITY_HAS_TANGO;ENABLE_SPATIALTRACKING;ENABLE_ETC_COMPRESSION;PLATFORM_EXTENDS_VULKAN_DEVICE;PLATFORM_HAS_MULTIPLE_SWAPCHAINS;UNITY_ANDROID_SUPPORTS_SHADOWFILES;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_4_6;NET_UNITY_4_8;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>UNITY_2022_3_20;UNITY_2022_3;UNITY_2022;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;UNITY_2022_1_OR_NEWER;UNITY_2022_2_OR_NEWER;UNITY_2022_3_OR_NEWER;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_GENERATE_NATIVE_PLUGINS_FOR_ASSEMBLIES_API;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_RUNTIME_PERMISSIONS;ENABLE_ENGINE_CODE_STRIPPING;ENABLE_ONSCREEN_KEYBOARD;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;ENABLE_VIDEO;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;ENABLE_NAVIGATION_PACKAGE_DEBUG_VISUALIZATION;ENABLE_NAVIGATION_HEIGHTMESH_RUNTIME_SUPPORT;ENABLE_NAVIGATION_UI_REQUIRES_PACKAGE;PLATFORM_ANDROID;TEXTCORE_1_0_OR_NEWER;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;UNITY_CAN_SHOW_SPLASH_SCREEN;UNITY_HAS_GOOGLEVR;UNITY_HAS_TANGO;ENABLE_SPATIALTRACKING;ENABLE_ETC_COMPRESSION;PLATFORM_EXTENDS_VULKAN_DEVICE;PLATFORM_HAS_MULTIPLE_SWAPCHAINS;UNITY_ANDROID_SUPPORTS_SHADOWFILES;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_4_6;NET_UNITY_4_8;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_INPUT_SYSTEM;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;LEVELPLAY_DEPENDENCIES_INSTALLED;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169;USG0001</NoWarn>
@@ -114,6 +114,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\link.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -453,6 +454,10 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.5\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.1\Runtime\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Android.Types">
@@ -969,6 +974,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Unity.Notifications.csproj">
+      <Project>{361E79C3-0793-A7BE-A403-8FC015384C6D}</Project>
+      <Name>Unity.Notifications</Name>
+    </ProjectReference>
     <ProjectReference Include="com.unity.cinemachine.editor.csproj">
       <Project>{1594F8CF-D4E2-A4A3-AB63-A3327DC7680D}</Project>
       <Name>com.unity.cinemachine.editor</Name>
@@ -977,13 +986,77 @@
       <Project>{E371D3F2-325E-683B-FD61-ED784D6ABF35}</Project>
       <Name>Unity.Burst.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Burst.csproj">
-      <Project>{8579F740-231C-6C5B-5ECF-1DF2AC6E66B4}</Project>
-      <Name>Unity.Burst</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.Animation.Rigging.Editor.csproj">
       <Project>{169DEE05-1D8D-C472-A72E-9E2D47BF9F7F}</Project>
       <Name>Unity.Animation.Rigging.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Services.Core.csproj">
+      <Project>{BEDF7FF3-A402-27E2-C800-DB35828A5EC4}</Project>
+      <Name>Unity.Services.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.AdaptivePerformance.Simulator.Extension.csproj">
+      <Project>{3182AF67-4822-964C-EFAB-BE33B3FFC79F}</Project>
+      <Name>Unity.AdaptivePerformance.Simulator.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Rider.Editor.csproj">
+      <Project>{8AF8726B-53DE-CC81-286E-30BF81C925DE}</Project>
+      <Name>Unity.Rider.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.AdaptivePerformance.Simulator.Editor.csproj">
+      <Project>{711B3A58-86E7-2722-ABE5-6371D80DEACE}</Project>
+      <Name>Unity.AdaptivePerformance.Simulator.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Formats.Fbx.Runtime.csproj">
+      <Project>{D5B5486F-3F7F-E8A2-48CC-0167AA8F780F}</Project>
+      <Name>Unity.Formats.Fbx.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.VisualScripting.Flow.csproj">
+      <Project>{CF77D43F-5783-B48F-A4F9-3BB6684C9EF5}</Project>
+      <Name>Unity.VisualScripting.Flow</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Mathematics.Editor.csproj">
+      <Project>{1D8F26E6-4BFA-13B6-D36F-F9B75CE1FD63}</Project>
+      <Name>Unity.Mathematics.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Services.Core.Environments.csproj">
+      <Project>{58A8EF59-3755-3621-B042-5DE714A28AD7}</Project>
+      <Name>Unity.Services.Core.Environments</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Formats.Fbx.Editor.csproj">
+      <Project>{190C2C2D-41F3-8343-64C6-09DE424D317A}</Project>
+      <Name>Unity.Formats.Fbx.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.csproj">
+      <Project>{E72A3C6E-1DE9-110B-E814-0C7A1E2C8699}</Project>
+      <Name>Unity.TextMeshPro</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Services.Core.Analytics.csproj">
+      <Project>{3E4A66D6-6935-E03F-A053-09196B7A127C}</Project>
+      <Name>Unity.Services.Core.Analytics</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.VSCode.Editor.csproj">
+      <Project>{9CA81B88-5E5E-28DA-031B-DE5F148F59FC}</Project>
+      <Name>Unity.VSCode.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Animation.Rigging.csproj">
+      <Project>{D847C318-7832-615B-D954-798F9CE6E318}</Project>
+      <Name>Unity.Animation.Rigging</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Profiling.Core.csproj">
+      <Project>{D3EB78DC-D862-B4FE-B313-2CAC15BFF965}</Project>
+      <Name>Unity.Profiling.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Notifications.Unified.csproj">
+      <Project>{BBF958C4-3FFC-0319-71CC-7E9F75CEC460}</Project>
+      <Name>Unity.Notifications.Unified</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.LevelPlay.csproj">
+      <Project>{8EFEEBE7-BA67-AE81-70DF-698943506167}</Project>
+      <Name>Unity.LevelPlay</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Burst.csproj">
+      <Project>{8579F740-231C-6C5B-5ECF-1DF2AC6E66B4}</Project>
+      <Name>Unity.Burst</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.Editor.csproj">
       <Project>{16D9C22B-A80D-A000-B9C6-86858A465C41}</Project>
@@ -993,9 +1066,17 @@
       <Project>{1C9BBA9B-8275-158A-FB68-D6939FBA9578}</Project>
       <Name>Unity.VisualScripting.Shared.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.AdaptivePerformance.csproj">
+      <Project>{5647E6EB-DD6A-5924-414A-6B7AC71382D4}</Project>
+      <Name>Unity.AdaptivePerformance</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.VisualStudio.Editor.csproj">
       <Project>{70D3D2D3-1E04-F773-445E-C0F28F701134}</Project>
       <Name>Unity.VisualStudio.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Notifications.iOS.csproj">
+      <Project>{77A39EC8-9AB9-C40E-9012-2FC0C47B4278}</Project>
+      <Name>Unity.Notifications.iOS</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{84D279EE-EFF9-3880-0E08-3C60DCADD5BD}</Project>
@@ -1009,29 +1090,21 @@
       <Project>{5484548C-B348-CD69-A1EB-D8D8A3830CDA}</Project>
       <Name>Unity.VisualScripting.Core.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Rider.Editor.csproj">
-      <Project>{8AF8726B-53DE-CC81-286E-30BF81C925DE}</Project>
-      <Name>Unity.Rider.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{DFF507D5-7C86-B1DD-6A8A-E78F0CD5415D}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Formats.Fbx.Runtime.csproj">
-      <Project>{D5B5486F-3F7F-E8A2-48CC-0167AA8F780F}</Project>
-      <Name>Unity.Formats.Fbx.Runtime</Name>
+    <ProjectReference Include="Unity.AdaptivePerformance.Profiler.Editor.csproj">
+      <Project>{93A0417D-60D2-2A40-659D-D9E923F8416E}</Project>
+      <Name>Unity.AdaptivePerformance.Profiler.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Flow.csproj">
-      <Project>{CF77D43F-5783-B48F-A4F9-3BB6684C9EF5}</Project>
-      <Name>Unity.VisualScripting.Flow</Name>
+    <ProjectReference Include="Unity.AdaptivePerformance.UI.Editor.csproj">
+      <Project>{0530F392-B5CC-B4FF-48BA-E2402D285A4C}</Project>
+      <Name>Unity.AdaptivePerformance.UI.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj">
       <Project>{5775AA5E-C9BD-38E4-D9E8-CCF829C76663}</Project>
       <Name>Unity.VisualScripting.Flow.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Mathematics.Editor.csproj">
-      <Project>{1D8F26E6-4BFA-13B6-D36F-F9B75CE1FD63}</Project>
-      <Name>Unity.Mathematics.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.csproj">
       <Project>{0EC60AE3-F6FC-F7A8-E0CD-9EE510F1E145}</Project>
@@ -1049,9 +1122,9 @@
       <Project>{7A28EA4C-55D2-D21C-D480-9CA3079EFF07}</Project>
       <Name>Unity.VisualScripting.SettingsProvider.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Formats.Fbx.Editor.csproj">
-      <Project>{190C2C2D-41F3-8343-64C6-09DE424D317A}</Project>
-      <Name>Unity.Formats.Fbx.Editor</Name>
+    <ProjectReference Include="Unity.Subsystem.Registration.csproj">
+      <Project>{4470040E-AA52-FA14-2A3C-F58D5AD0AF84}</Project>
+      <Name>Unity.Subsystem.Registration</Name>
     </ProjectReference>
     <ProjectReference Include="Autodesk.Fbx.csproj">
       <Project>{49736855-E043-0AE1-F819-1F7A7D5FC7EB}</Project>
@@ -1065,33 +1138,33 @@
       <Project>{6D2BC136-E521-440B-7B5A-08912358D7E9}</Project>
       <Name>Autodesk.Fbx.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.Mobile.AndroidLogcat.Editor.csproj">
+      <Project>{D4084FD7-1F2A-B844-7FA4-085D71EC322E}</Project>
+      <Name>Unity.Mobile.AndroidLogcat.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.Mathematics.csproj">
       <Project>{E8384743-9090-A76A-6B44-71C012BC7157}</Project>
       <Name>Unity.Mathematics</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.csproj">
-      <Project>{E72A3C6E-1DE9-110B-E814-0C7A1E2C8699}</Project>
-      <Name>Unity.TextMeshPro</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
       <Project>{ED20DF6B-9EE0-11F0-70E6-59FE7BC33A59}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.AdaptivePerformance.Editor.csproj">
+      <Project>{E0BF2132-193D-DB93-1F9C-A843510F1161}</Project>
+      <Name>Unity.AdaptivePerformance.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
       <Project>{4CB5EDC0-255B-FB22-FCEC-9DAB4A98F398}</Project>
       <Name>Unity.VisualScripting.State</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.VSCode.Editor.csproj">
-      <Project>{9CA81B88-5E5E-28DA-031B-DE5F148F59FC}</Project>
-      <Name>Unity.VSCode.Editor</Name>
+    <ProjectReference Include="Unity.Notifications.Android.csproj">
+      <Project>{391BE2DD-8005-D6FE-CA79-A8E4CD37A1E9}</Project>
+      <Name>Unity.Notifications.Android</Name>
     </ProjectReference>
     <ProjectReference Include="Cinemachine.csproj">
       <Project>{BED19A27-2A21-3C50-0C75-CE8D6370D0BE}</Project>
       <Name>Cinemachine</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Animation.Rigging.csproj">
-      <Project>{D847C318-7832-615B-D954-798F9CE6E318}</Project>
-      <Name>Unity.Animation.Rigging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
