@@ -700,7 +700,7 @@ public class EnemySystem : MonoBehaviour
 
             distanceToTarget = Vector3.Distance(transform.position, playerBody.position);
 
-            //Debug.Log("Actual distance to target from Enemy is: " + distanceToTarget); // Debug actual distance between Enemy and Player
+            Debug.Log("Enemy checking distance is: " + distanceToTarget); // Debug actual distance between Enemy and Player
 
             if (roundSystem.isMultiplayer == false)
             {
