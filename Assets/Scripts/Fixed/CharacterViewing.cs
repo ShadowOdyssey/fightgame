@@ -82,7 +82,7 @@ public class CharacterViewing : MonoBehaviour
     void DrawHeroDetails()
 {
     float detailsWidth = Screen.width * 0.5f;
-    float detailsHeight = Screen.height * 0.7f;
+    float detailsHeight = Screen.height * 0.6f;
     float detailsX = Screen.width * 0.5f;
     float detailsY = Screen.height * 0.1f;
 
@@ -90,7 +90,7 @@ public class CharacterViewing : MonoBehaviour
 
     GUIStyle nameStyle = new GUIStyle(GUI.skin.label)
     {
-        fontSize = 50,
+        fontSize = 45,
         fontStyle = FontStyle.Bold,
         alignment = TextAnchor.MiddleCenter,
         normal = { textColor = Color.yellow }
@@ -104,7 +104,7 @@ public class CharacterViewing : MonoBehaviour
 
     GUIStyle storyStyle = new GUIStyle(GUI.skin.label)
     {
-        fontSize = 40,
+        fontSize = 35,
         wordWrap = true,
         alignment = TextAnchor.UpperLeft,
         normal = { textColor = Color.white }
@@ -122,13 +122,13 @@ public class CharacterViewing : MonoBehaviour
     void DrawStatsPanel()
     {
         float statsWidth = Screen.width * 0.2f;
-        float statsHeight = Screen.height * 0.3f;
+        float statsHeight = Screen.height * 0.4f;
         float statsX = Screen.width * 0.01f;
         float statsY = Screen.height * 0.1f;
 
         GUI.Box(new Rect(statsX, statsY, statsWidth, statsHeight), "");
 
-        float padding = 40;
+        float padding = 50;
         GUIStyle statsStyle = new GUIStyle(GUI.skin.label)
         {
             fontSize = 25,
