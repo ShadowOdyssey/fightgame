@@ -1042,10 +1042,8 @@ public class PlayerSystem : MonoBehaviour
     {
         if (selectedMultiplayer == true)
         {
-            multiplayerForward = false;
-            multiplayerBackward = false;
-            isMovingForward = false;
-            isMovingBackward = false;
+            MultiplayerStoppedForward();
+            MultiplayerStoppedBackward();
             buttonReleased = true;
         }
     }
