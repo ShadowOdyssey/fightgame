@@ -30,10 +30,8 @@ public class ServerSystem : MonoBehaviour
     [Header("Lobby Data")]
     public int actualPlayer = 0;
     public int actualEnemy = 0;
-    public float playerZ = 0f;
-    public float enemyZ = 0f;
-    public float realDistanceA = 0f;
-    public float realDistanceB = 0f;
+    public int realDistanceA = 0;
+    public int realDistanceB = 0;
 
     [Header("Monitor")]
     public float countListen = 0f;
@@ -167,7 +165,6 @@ public class ServerSystem : MonoBehaviour
             if (playerZPosition != listenerInfoPlayer[6])
             {
                 playerZPosition = listenerInfoPlayer[6];
-                playerZ = float.Parse(playerZPosition);
             }
 
             if (playerHit != listenerInfoPlayer[7])
@@ -249,7 +246,6 @@ public class ServerSystem : MonoBehaviour
             if (enemyZPosition != listenerInfoEnemy[6])
             {
                 enemyZPosition = listenerInfoEnemy[6];
-                enemyZ = float.Parse(enemyZPosition);
             }
 
             if (enemyHit != listenerInfoEnemy[7])
@@ -355,9 +351,19 @@ public class ServerSystem : MonoBehaviour
     {
         if (enemyHit == "yes<br>")
         {
-            realDistanceA = enemyZ - playerZ;
-            playerZ = playerZ - realDistanceA;
-            realDistanceA = enemyZ - playerZ;
+            playerZPosition = playerZPosition.Substring(0, 2);
+            enemyZPosition = enemyZPosition.Substring(0, 2);
+            realDistanceA = int.Parse(playerZPosition);
+            realDistanceB = int.Parse(enemyZPosition);
+
+            if (realDistanceA > realDistanceB)
+            {
+                realDistanceA = realDistanceA - realDistanceB;
+            }
+            else
+            {
+                realDistanceA = realDistanceB - realDistanceA;
+            }
 
             Debug.Log("Real Distance A is: " + realDistanceA);
 
@@ -368,7 +374,8 @@ public class ServerSystem : MonoBehaviour
                 playerMultiplayer.RegisterPlayerTakesDamage(20);
             }
 
-            realDistanceA = 0f;
+            realDistanceA = 0;
+            realDistanceB = 0;
         }
     }
 
@@ -376,9 +383,19 @@ public class ServerSystem : MonoBehaviour
     {
         if (playerHit == "yes<br>")
         {
-            realDistanceB = enemyZ - playerZ;
-            playerZ = playerZ - realDistanceB;
-            realDistanceB = enemyZ - playerZ;
+            playerZPosition = playerZPosition.Substring(0, 2);
+            enemyZPosition = enemyZPosition.Substring(0, 2);
+            realDistanceA = int.Parse(playerZPosition);
+            realDistanceB = int.Parse(enemyZPosition);
+
+            if (realDistanceB > realDistanceA)
+            {
+                realDistanceB = realDistanceB - realDistanceA;
+            }
+            else
+            {
+                realDistanceB = realDistanceA - realDistanceB;
+            }
 
             Debug.Log("Real Distance B is: " + realDistanceB);
 
@@ -389,7 +406,8 @@ public class ServerSystem : MonoBehaviour
                 enemyMultiplayer.RegisterEnemyTakesDamage(20);
             }
 
-            realDistanceB = 0f;
+            realDistanceA = 0;
+            realDistanceB = 0;
         }
     }
 
