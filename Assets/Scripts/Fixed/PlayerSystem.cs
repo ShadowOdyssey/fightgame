@@ -318,7 +318,7 @@ public class PlayerSystem : MonoBehaviour
 
         #region Release button method
 
-        if (buttonReleased == true && rightSentData == true || buttonReleased && leftSentData == true)
+        if (buttonReleased == true && rightSentData == true || buttonReleased == true && leftSentData == true || buttonReleased == true)
         {
             if (roundSystem.isMultiplayer == false)
             {

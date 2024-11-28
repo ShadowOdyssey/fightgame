@@ -603,7 +603,7 @@ public class EnemySystem : MonoBehaviour
 
         #region Release button method
 
-        if (buttonReleased == true && rightSentData == true || buttonReleased && leftSentData == true)
+        if (buttonReleased == true && rightSentData == true || buttonReleased == true && leftSentData == true)
         {
             if (roundSystem.isMultiplayer == false)
             {
