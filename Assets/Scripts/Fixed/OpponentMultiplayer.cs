@@ -262,6 +262,11 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #region Data Sent
 
+    public void SendZPosition()
+    {
+        UpdateData(gameObject.transform.position.z.ToString(), "zposition", actualHost.ToString());
+    }
+
     public void SendForward()
     {
         UpdateData("no", "backward", actualHost.ToString());
@@ -277,11 +282,13 @@ public class OpponentMultiplayer : MonoBehaviour
     public void SendStopForward()
     {
         UpdateData("no", "forward", actualHost.ToString());
+        UpdateData(gameObject.transform.position.z.ToString(), "zposition", actualHost.ToString());
     }
 
     public void SendStopBackward()
     {
         UpdateData("no", "backward", actualHost.ToString());
+        UpdateData(gameObject.transform.position.z.ToString(), "zposition", actualHost.ToString());
     }
 
     public void SendAttack1()

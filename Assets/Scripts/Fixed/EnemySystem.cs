@@ -492,9 +492,9 @@ public class EnemySystem : MonoBehaviour
 
                     if (selectedMultiplayer == true)
                     {
-                        Debug.Log("Calling Enemy applied hit in Player because Enemy was selected");
+                        //Debug.Log("Calling Enemy applied hit in Player because Enemy was selected");
 
-                        multiplayerSystem.PlayerTakeHit(20); // If Enemy is the original, so clone Player takes hit
+                        //multiplayerSystem.PlayerTakeHit(20); // If Enemy is the original, so clone Player takes hit
                     }
 
                     checkDamage = false;
@@ -532,6 +532,11 @@ public class EnemySystem : MonoBehaviour
 
         if (leftPressed == true)
         {
+            if (roundSystem.isMultiplayer == true)
+            {
+                SendZPosition();
+            }
+
             thresholdButton = thresholdButton + Time.deltaTime;
 
             if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
@@ -573,6 +578,11 @@ public class EnemySystem : MonoBehaviour
 
         if (rightPressed == true)
         {
+            if (roundSystem.isMultiplayer == true)
+            {
+                SendZPosition();
+            }
+
             thresholdButton = thresholdButton + Time.deltaTime;
 
             if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
@@ -616,6 +626,11 @@ public class EnemySystem : MonoBehaviour
         {
             if (thresholdButton < 1f)
             {
+                if (roundSystem.isMultiplayer == true)
+                {
+                    SendZPosition();
+                }
+
                 thresholdButton = 0f;
                 rightSentData = true;
                 leftSentData = true;
@@ -1981,6 +1996,11 @@ public class EnemySystem : MonoBehaviour
     #region Multiplayer Operations
 
     #region Send Data to Servre
+
+    private void SendZPosition()
+    {
+        multiplayerSystem.SendZPosition();
+    }
 
     private void MultiplayerForward()
     {

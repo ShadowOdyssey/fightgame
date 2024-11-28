@@ -205,9 +205,9 @@ public class PlayerSystem : MonoBehaviour
                 {
                     if (selectedMultiplayer == true)
                     {
-                        Debug.Log("Calling Player applied hit in Enemy because Player was selected");
+                        //Debug.Log("Calling Player applied hit in Enemy because Player was selected");
 
-                        multiplayerSystem.EnemyTakeHit(20); // If Player is the original, so clone Enemy will take hit
+                        //multiplayerSystem.EnemyTakeDamage(20); // If Enemy is the original, so clone Player takes hit
                     }
                 }
 
@@ -243,6 +243,11 @@ public class PlayerSystem : MonoBehaviour
 
         if (rightPressed == true)
         {
+            if (roundSystem.isMultiplayer == true)
+            {
+                SendZPosition();
+            }
+
             thresholdButton = thresholdButton + Time.deltaTime;
 
             if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
@@ -284,6 +289,11 @@ public class PlayerSystem : MonoBehaviour
 
         if (leftPressed == true)
         {
+            if (roundSystem.isMultiplayer == true)
+            {
+                SendZPosition();
+            }
+
             thresholdButton = thresholdButton + Time.deltaTime;
 
             if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
@@ -327,6 +337,11 @@ public class PlayerSystem : MonoBehaviour
         {
             if (thresholdButton < 1f)
             {
+                if (roundSystem.isMultiplayer == true)
+                {
+                    SendZPosition();
+                }
+
                 thresholdButton = 0f;
                 rightSentData = true;
                 leftSentData = true;
@@ -1303,6 +1318,11 @@ public class PlayerSystem : MonoBehaviour
     #region Multiplayer Operations
 
     #region Send Data to Server
+
+    private void SendZPosition()
+    {
+        multiplayerSystem.SendZPosition();
+    }
 
     private void MultiplayerForward()
     {

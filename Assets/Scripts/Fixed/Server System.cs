@@ -59,6 +59,10 @@ public class ServerSystem : MonoBehaviour
     public string enemyAttack3 = "";
     public string playerHit = "";
     public string enemyHit = "";
+    public string playerHealth = "";
+    public string enemyHealth = "";
+    public string playerZPosition = "";
+    public string enemyZPosition = "";
 
     #endregion
 
@@ -147,14 +151,19 @@ public class ServerSystem : MonoBehaviour
                 }
             }
 
-            if (playerHit != listenerInfoPlayer[5])
+            if (playerHealth != listenerInfoPlayer[5])
             {
-                playerHit = listenerInfoPlayer[5];
+                playerHealth = listenerInfoPlayer[5];
+            }
 
-                if (playerHit == "yes")
-                {
-                    //playerMultiplayer.RegisterAttack3Player();
-                }
+            if (playerZPosition != listenerInfoPlayer[6])
+            {
+                playerZPosition = listenerInfoPlayer[6];
+            }
+
+            if (playerHit != listenerInfoPlayer[7])
+            {
+                playerHit = listenerInfoPlayer[7];
             }
 
             wasDataLoadedPlayer = false;
@@ -218,6 +227,21 @@ public class ServerSystem : MonoBehaviour
                 {
                     enemyMultiplayer.RegisterAttack3Enemy();
                 }
+            }
+
+            if (enemyHealth != listenerInfoEnemy[5])
+            {
+                enemyHealth = listenerInfoEnemy[5];
+            }
+
+            if (enemyZPosition != listenerInfoEnemy[6])
+            {
+                enemyZPosition = listenerInfoEnemy[6];
+            }
+
+            if (enemyHit != listenerInfoEnemy[7])
+            {
+                enemyHit = listenerInfoEnemy[7];
             }
 
             wasDataLoadedEnemy = false;
