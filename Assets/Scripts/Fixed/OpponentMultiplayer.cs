@@ -260,7 +260,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void SendZPosition()
     {
-        UpdateData(gameObject.transform.localPosition.z.ToString(), "zposition", actualHost.ToString());
+        UpdateData(originalEnemy.distanceToTarget.ToString(), "zposition", actualHost.ToString());
     }
 
     public void SendForward()
