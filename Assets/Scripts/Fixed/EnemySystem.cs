@@ -126,6 +126,7 @@ public class EnemySystem : MonoBehaviour
     private bool wasResetTriggers = false;
     [Tooltip("Current movement direction player is using when moving")]
     private int moveDirection = 0;
+    private float thresholdButton = 0f;
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
     private bool isIdle = false;
@@ -527,6 +528,8 @@ public class EnemySystem : MonoBehaviour
 
         if (leftPressed == true)
         {
+            thresholdButton = thresholdButton + Time.deltaTime;
+
             if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
             {
                 if (isMovingForward == false && selectedMultiplayer == true)
@@ -566,6 +569,8 @@ public class EnemySystem : MonoBehaviour
 
         if (rightPressed == true)
         {
+            thresholdButton = thresholdButton + Time.deltaTime;
+
             if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
             {
                 if (isMovingBackward == false && selectedMultiplayer == true)
@@ -602,6 +607,16 @@ public class EnemySystem : MonoBehaviour
         #endregion
 
         #region Release button method
+
+        if (buttonReleased == true && thresholdButton > 0f)
+        {
+            if (thresholdButton < 1f)
+            {
+                thresholdButton = 0f;
+                rightSentData = true;
+                leftSentData = true;
+            }
+        }
 
         if (buttonReleased == true && rightSentData == true || buttonReleased == true && leftSentData == true)
         {

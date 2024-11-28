@@ -101,6 +101,7 @@ public class PlayerSystem : MonoBehaviour
     private bool checkDamage = false;
     [Tooltip("If enabled means player triggers will be reseted on each end of round")]
     private bool wasResetTriggers = false;
+    private float thresholdButton = 0f;
     private bool rightPressed = false;
     private bool leftPressed = false;
     private bool rightSentData = false;
@@ -242,6 +243,8 @@ public class PlayerSystem : MonoBehaviour
 
         if (rightPressed == true)
         {
+            thresholdButton = thresholdButton + Time.deltaTime;
+
             if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
             {
                 if (isMovingForward == false && selectedMultiplayer == true)
@@ -281,6 +284,8 @@ public class PlayerSystem : MonoBehaviour
 
         if (leftPressed == true)
         {
+            thresholdButton = thresholdButton + Time.deltaTime;
+
             if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
             {
                 if (isMovingBackward == false && selectedMultiplayer == true)
@@ -317,6 +322,16 @@ public class PlayerSystem : MonoBehaviour
         #endregion
 
         #region Release button method
+
+        if (buttonReleased == true && thresholdButton > 0f)
+        {
+            if (thresholdButton < 1f)
+            {
+                thresholdButton = 0f;
+                rightSentData = true;
+                leftSentData = true;
+            }
+        }
 
         if (buttonReleased == true && rightSentData == true || buttonReleased == true && leftSentData == true || buttonReleased == true)
         {
