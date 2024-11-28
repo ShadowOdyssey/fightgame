@@ -817,10 +817,10 @@ public class RoundManager : MonoBehaviour
     {
         if (isTrainingMode == false)
         {
-            playerHealth -= damage;
+            playerHealth = playerHealth - damage;
             playerHealthBar.SetHealth(playerHealth);
 
-            if (isMultiplayer == true)
+            if (isMultiplayer == true && playerMultiplayer.selected == true)
             {
                 playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
             }
@@ -831,10 +831,10 @@ public class RoundManager : MonoBehaviour
     {
         if (isTrainingMode == false)
         {
-            opponentHealth -= damage;
+            opponentHealth = opponentHealth - damage;
             opponentHealthBar.SetHealth(opponentHealth);
 
-            if (isMultiplayer == true)
+            if (isMultiplayer == true && enemyMultiplayer.selected == true)
             {
                 enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
             }

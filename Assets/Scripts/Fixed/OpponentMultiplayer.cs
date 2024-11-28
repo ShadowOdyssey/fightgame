@@ -21,7 +21,6 @@ public class OpponentMultiplayer : MonoBehaviour
 
     [Header("Round Setup")]
     public RoundManager roundSystem;
-    public ServerSystem serverSystem;
 
     [Header("Original Setup")]
     public PlayerSystem originalPlayer;
@@ -261,7 +260,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void SendZPosition()
     {
-        UpdateData(gameObject.transform.position.z.ToString(), "zposition", actualHost.ToString());
+        UpdateData(gameObject.transform.localPosition.z.ToString(), "zposition", actualHost.ToString());
     }
 
     public void SendForward()

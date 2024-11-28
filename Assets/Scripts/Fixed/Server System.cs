@@ -41,6 +41,8 @@ public class ServerSystem : MonoBehaviour
     public bool canListen = false;
     public bool wasDataLoadedPlayer = false;
     public bool wasDataLoadedEnemy = false;
+    public bool wasPlayerDamaged = false;
+    public bool wasEnemyDamaged = false;
 
     [Header("Loaded Data")]
     public string[] listenerInfoPlayer = new string[0];
@@ -125,11 +127,6 @@ public class ServerSystem : MonoBehaviour
                 }
             }
 
-            if (playerHit != listenerInfoPlayer[7])
-            {
-                playerHit = listenerInfoPlayer[7];
-            }
-
             if (playerAttack1 != listenerInfoPlayer[2])
             {
                 playerAttack1 = listenerInfoPlayer[2];
@@ -173,6 +170,12 @@ public class ServerSystem : MonoBehaviour
                 playerZ = float.Parse(playerZPosition);
             }
 
+            if (playerHit != listenerInfoPlayer[7])
+            {
+                playerHit = listenerInfoPlayer[7];
+                wasEnemyDamaged = true;
+            }
+
             wasDataLoadedPlayer = false;
         }
 
@@ -204,11 +207,6 @@ public class ServerSystem : MonoBehaviour
                 {
                     enemyMultiplayer.RegisterBackwardEnemy("no");
                 }
-            }
-
-            if (enemyHit != listenerInfoEnemy[7])
-            {
-                enemyHit = listenerInfoEnemy[7];
             }
 
             if (enemyAttack1 != listenerInfoEnemy[2])
@@ -254,11 +252,26 @@ public class ServerSystem : MonoBehaviour
                 enemyZ = float.Parse(enemyZPosition);
             }
 
+            if (enemyHit != listenerInfoEnemy[7])
+            {
+                enemyHit = listenerInfoEnemy[7];
+                wasPlayerDamaged = true;
+            }
+
             wasDataLoadedEnemy = false;
         }
 
-        CheckForEnemyDamage();
-        CheckForPlayerDamage();
+        if (wasPlayerDamaged == true)
+        {
+            wasPlayerDamaged = false;
+            CheckForPlayerDamage();
+        }
+
+        if (wasEnemyDamaged == true)
+        {
+            wasEnemyDamaged = false;
+            CheckForEnemyDamage();
+        }
 
         #endregion
     }
