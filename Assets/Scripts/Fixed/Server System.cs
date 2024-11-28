@@ -347,10 +347,12 @@ public class ServerSystem : MonoBehaviour
     {
         if (enemyHit == "yes<br>")
         {
-            realDistanceA = playerZ - enemyZ;
+            realDistanceA = enemyZ - playerZ;
 
             if (realDistanceA <= roundSystem.enemySystem.attackRange)
             {
+                Debug.Log("Player got damage");
+
                 playerMultiplayer.RegisterPlayerTakesDamage(20);
             }
 
@@ -362,10 +364,12 @@ public class ServerSystem : MonoBehaviour
     {
         if (playerHit == "yes<br>")
         {
-            realDistanceB = playerZ - enemyZ;
+            realDistanceB = enemyZ - playerZ;
 
             if (realDistanceB <= roundSystem.playerSystem.attackRange)
             {
+                Debug.Log("Enemy got damage");
+
                 enemyMultiplayer.RegisterEnemyTakesDamage(20);
             }
 
