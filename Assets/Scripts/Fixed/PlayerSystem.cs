@@ -102,11 +102,13 @@ public class PlayerSystem : MonoBehaviour
     [Tooltip("If enabled means player triggers will be reseted on each end of round")]
     private bool wasResetTriggers = false;
     private float thresholdButton = 0f;
+    private float positionDelay = 0f;
     private bool rightPressed = false;
     private bool leftPressed = false;
     private bool rightSentData = false;
     private bool leftSentData = false;
     private bool buttonReleased = false;
+    private bool updatePosition = false;
 
     #endregion
 
@@ -243,7 +245,7 @@ public class PlayerSystem : MonoBehaviour
 
         if (rightPressed == true)
         {
-            if (roundSystem.isMultiplayer == true)
+            if (roundSystem.isMultiplayer == true && updatePosition == false)
             {
                 SendZPosition();
             }
@@ -289,7 +291,7 @@ public class PlayerSystem : MonoBehaviour
 
         if (leftPressed == true)
         {
-            if (roundSystem.isMultiplayer == true)
+            if (roundSystem.isMultiplayer == true && updatePosition == false)
             {
                 SendZPosition();
             }
@@ -337,7 +339,7 @@ public class PlayerSystem : MonoBehaviour
         {
             if (thresholdButton < 1f)
             {
-                if (roundSystem.isMultiplayer == true)
+                if (roundSystem.isMultiplayer == true && updatePosition == false)
                 {
                     SendZPosition();
                 }
@@ -547,6 +549,21 @@ public class PlayerSystem : MonoBehaviour
         if (isHit == true && roundSystem.roundOver == false && roundSystem.isMultiplayer == false)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime * 3f);
+        }
+
+        #endregion
+
+        #region Send Z Position Timer
+
+        if (updatePosition == true)
+        {
+            positionDelay = positionDelay + Time.deltaTime;
+
+            if (positionDelay > 1f)
+            {
+                positionDelay = 0f;
+                updatePosition = false;
+            }
         }
 
         #endregion
@@ -1322,6 +1339,7 @@ public class PlayerSystem : MonoBehaviour
     private void SendZPosition()
     {
         multiplayerSystem.SendZPosition();
+        updatePosition = true;
     }
 
     private void MultiplayerForward()

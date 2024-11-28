@@ -127,6 +127,7 @@ public class EnemySystem : MonoBehaviour
     [Tooltip("Current movement direction player is using when moving")]
     private int moveDirection = 0;
     private float thresholdButton = 0f;
+    private float positionDelay = 0f;
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
     private bool isIdle = false;
@@ -135,6 +136,7 @@ public class EnemySystem : MonoBehaviour
     private bool rightSentData = false;
     private bool leftSentData = false;
     private bool buttonReleased = false;
+    private bool updatePosition = false;
 
     #endregion
 
@@ -532,7 +534,7 @@ public class EnemySystem : MonoBehaviour
 
         if (leftPressed == true)
         {
-            if (roundSystem.isMultiplayer == true)
+            if (roundSystem.isMultiplayer == true && updatePosition == false)
             {
                 SendZPosition();
             }
@@ -578,7 +580,7 @@ public class EnemySystem : MonoBehaviour
 
         if (rightPressed == true)
         {
-            if (roundSystem.isMultiplayer == true)
+            if (roundSystem.isMultiplayer == true && updatePosition == false)
             {
                 SendZPosition();
             }
@@ -626,7 +628,7 @@ public class EnemySystem : MonoBehaviour
         {
             if (thresholdButton < 1f)
             {
-                if (roundSystem.isMultiplayer == true)
+                if (roundSystem.isMultiplayer == true && updatePosition == false)
                 {
                     SendZPosition();
                 }
@@ -907,6 +909,17 @@ public class EnemySystem : MonoBehaviour
         }
 
         #endregion
+
+        if (updatePosition == true)
+        {
+            positionDelay = positionDelay + Time.deltaTime;
+
+            if (positionDelay > 1f)
+            {
+                positionDelay = 0f;
+                updatePosition = false;
+            }
+        }
     }
 
     #endregion
@@ -2000,6 +2013,7 @@ public class EnemySystem : MonoBehaviour
     private void SendZPosition()
     {
         multiplayerSystem.SendZPosition();
+        updatePosition = true;
     }
 
     private void MultiplayerForward()
