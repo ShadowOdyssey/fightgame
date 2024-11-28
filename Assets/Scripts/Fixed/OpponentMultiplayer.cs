@@ -258,16 +258,16 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #region Data Sent
 
-    public void SendZPosition()
+    public void SendDistance(float actualDistance)
     {
         if (originalEnemy != null)
         {
-            UpdateData(originalEnemy.distanceToTarget.ToString(), "zposition", actualHost.ToString());
+            UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
         }
         
         if (opponentIsEnemy != null)
         {
-            UpdateData(opponentIsEnemy.distanceToTarget.ToString(), "zposition", actualHost.ToString());
+            UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
         }
     }
 
@@ -275,14 +275,14 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         UpdateData("no", "backward", actualHost.ToString());
         UpdateData("yes", "forward", actualHost.ToString());
-        Invoke(nameof(SendZPosition), 0.18f);
+        Invoke(nameof(SendDistance), 0.18f);
     }
 
     public void SendBackward()
     {
         UpdateData("no", "forward", actualHost.ToString());
         UpdateData("yes", "backward", actualHost.ToString());
-        Invoke(nameof(SendZPosition), 0.18f);
+        Invoke(nameof(SendDistance), 0.18f);
     }
 
     public void SendStopForward()

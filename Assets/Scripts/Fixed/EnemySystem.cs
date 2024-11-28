@@ -700,7 +700,7 @@ public class EnemySystem : MonoBehaviour
 
             distanceToTarget = Vector3.Distance(transform.position, playerBody.position);
 
-            Debug.Log("Enemy checking distance is: " + distanceToTarget); // Debug actual distance between Enemy and Player
+            //Debug.Log("Enemy checking distance is: " + distanceToTarget); // Debug actual distance between Enemy and Player
 
             if (roundSystem.isMultiplayer == false)
             {
@@ -1029,19 +1029,23 @@ public class EnemySystem : MonoBehaviour
                 AddEventTrigger(buttonForward, EventTriggerType.PointerDown, OnMoveRightButtonPressed);
                 AddEventTrigger(buttonForward, EventTriggerType.PointerUp, OnMoveButtonReleased);
             }
+
             if (buttonBackward != null)
             {
                 AddEventTrigger(buttonBackward, EventTriggerType.PointerDown, OnMoveLeftButtonPressed);
                 AddEventTrigger(buttonBackward, EventTriggerType.PointerUp, OnMoveButtonReleased);
             }
+
             if (buttonAttack1 != null)
             {
                 buttonAttack1.onClick.AddListener(OnAttack1ButtonPressed);
             }
+
             if (buttonAttack2 != null)
             {
                 buttonAttack2.onClick.AddListener(OnAttack2ButtonPressed);
             }
+
             if (buttonAttack3 != null)
             {
                 buttonAttack3.onClick.AddListener(OnAttack3ButtonPressed);
@@ -2028,7 +2032,7 @@ public class EnemySystem : MonoBehaviour
 
     private void SendZPosition()
     {
-        multiplayerSystem.SendZPosition();
+        multiplayerSystem.SendDistance(distanceToTarget);
         updatePosition = true;
     }
 

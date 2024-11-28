@@ -356,6 +356,8 @@ public class ServerSystem : MonoBehaviour
         if (enemyHit == "yes<br>")
         {
             realDistanceA = enemyZ - playerZ;
+            playerZ = playerZ - realDistanceA;
+            realDistanceA = enemyZ - playerZ;
 
             Debug.Log("Real Distance A is: " + realDistanceA);
 
@@ -374,6 +376,8 @@ public class ServerSystem : MonoBehaviour
     {
         if (playerHit == "yes<br>")
         {
+            realDistanceB = enemyZ - playerZ;
+            playerZ = playerZ - realDistanceB;
             realDistanceB = enemyZ - playerZ;
 
             Debug.Log("Real Distance B is: " + realDistanceB);

@@ -190,7 +190,7 @@ public class PlayerSystem : MonoBehaviour
 
         #region Check if Player dealed damage to Enemy
 
-        Debug.Log("Player checking distance is: " + enemySystem.distanceToTarget);
+        //Debug.Log("Player checking distance is: " + enemySystem.distanceToTarget);
 
         if (checkDamage == true)
         {
@@ -1332,7 +1332,7 @@ public class PlayerSystem : MonoBehaviour
 
     private void SendZPosition()
     {
-        multiplayerSystem.SendZPosition();
+        multiplayerSystem.SendDistance(enemySystem.distanceToTarget);
         updatePosition = true;
     }
 
