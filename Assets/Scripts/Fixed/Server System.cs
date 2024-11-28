@@ -177,7 +177,11 @@ public class ServerSystem : MonoBehaviour
             if (playerZPosition != listenerInfoPlayer[6])
             {
                 playerZPosition = listenerInfoPlayer[6];
-                canParseA = true;
+
+                if (playerZPosition != "0")
+                {
+                    canParseA = true;
+                }
             }
 
             if (playerHit != listenerInfoPlayer[7])
@@ -259,7 +263,11 @@ public class ServerSystem : MonoBehaviour
             if (enemyZPosition != listenerInfoEnemy[6])
             {
                 enemyZPosition = listenerInfoEnemy[6];
-                canParseB = true;
+
+                if (enemyZPosition != "0")
+                {
+                    canParseB = true;
+                }
             }
 
             if (enemyHit != listenerInfoEnemy[7])
