@@ -303,7 +303,7 @@ public class PlayerSystem : MonoBehaviour
                     isIdle = false;
                 }
 
-                if (isMovingBackward == false && selectedMultiplayer == true)
+                if (isMovingBackward == false && selectedMultiplayer == false)
                 {
                     isMovingForward = false;
                     isIdle = false;

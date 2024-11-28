@@ -4,7 +4,7 @@ public class InfoSystem : MonoBehaviour
 {
     public RoundManager roundSystem;
 
-    private float disableTimer = 3f;
+    private float disableTimer = 20f;
     private bool canDisable = false;
 
     public void Start()
