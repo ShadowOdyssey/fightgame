@@ -345,7 +345,7 @@ public class ServerSystem : MonoBehaviour
 
     private void CheckForPlayerDamage()
     {
-        if (enemyHit == "yes")
+        if (enemyHit == "yes<br>")
         {
             realDistanceA = playerZ - enemyZ;
 
@@ -360,7 +360,7 @@ public class ServerSystem : MonoBehaviour
 
     private void CheckForEnemyDamage()
     {
-        if (playerHit == "yes")
+        if (playerHit == "yes<br>")
         {
             realDistanceB = playerZ - enemyZ;
 
