@@ -215,6 +215,8 @@ public class EnemySystem : MonoBehaviour
 
         #endregion
 
+        #region General System
+
         if (roundSystem.isMultiplayer == false)
         {
             #region Checking if round started
@@ -523,6 +525,8 @@ public class EnemySystem : MonoBehaviour
 
             #endregion
         }
+
+        #endregion
 
         #region Left button pressed
 

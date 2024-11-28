@@ -57,6 +57,8 @@ public class ServerSystem : MonoBehaviour
     public string enemyAttack2 = "";
     public string playerAttack3 = "";
     public string enemyAttack3 = "";
+    public string playerHit = "";
+    public string enemyHit = "";
 
     #endregion
 
@@ -142,6 +144,16 @@ public class ServerSystem : MonoBehaviour
                 if (playerAttack3 == "yes")
                 {
                     playerMultiplayer.RegisterAttack3Player();
+                }
+            }
+
+            if (playerHit != listenerInfoPlayer[5])
+            {
+                playerHit = listenerInfoPlayer[5];
+
+                if (playerHit == "yes")
+                {
+                    //playerMultiplayer.RegisterAttack3Player();
                 }
             }
 

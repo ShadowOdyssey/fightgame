@@ -13973,9 +13973,9 @@ MonoBehaviour:
   playerWonRound2: {fileID: 1342540482}
   enemyWonRound1: {fileID: 2127597581}
   enemyWonRound2: {fileID: 116245619}
-  roundTime: 9999
-  playerDamagePerSecond: 0
-  opponentDamagePerSecond: 0
+  roundTime: 180
+  playerDamagePerSecond: 2
+  opponentDamagePerSecond: 1
   sceneLight: {fileID: 1496494905}
   arena1Color: {r: 0.9764706, g: 1, b: 0.7254902, a: 1}
   arena2Color: {r: 0.20784314, g: 0, b: 1, a: 1}
@@ -21761,10 +21761,22 @@ MonoBehaviour:
   wasDataLoadedEnemy: 0
   isCheckingWin: 0
   canApplyHit: 0
-  responsePlayerFromServer: 
-  responseEnemyFromServer: 
   listenerInfoPlayer: []
   listenerInfoEnemy: []
+  responsePlayerFromServer: 
+  responseEnemyFromServer: 
+  playerForward: 
+  enemyForward: 
+  playerBackward: 
+  enemyBackward: 
+  playerAttack1: 
+  enemyAttack1: 
+  playerAttack2: 
+  enemyAttack2: 
+  playerAttack3: 
+  enemyAttack3: 
+  playerHit: 
+  enemyHit: 
 --- !u!1 &424223977
 GameObject:
   m_ObjectHideFlags: 0
