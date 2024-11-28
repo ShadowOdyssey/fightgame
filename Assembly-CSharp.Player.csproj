@@ -978,13 +978,13 @@
       <Project>{D24CE4ED-D190-CD1F-DE4D-7BC5A66240F6}</Project>
       <Name>Unity.VisualScripting.State.Player</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Notifications.Android.Player.csproj">
-      <Project>{11486DC3-4CF9-0C2E-E6ED-50BA9A503787}</Project>
-      <Name>Unity.Notifications.Android.Player</Name>
-    </ProjectReference>
     <ProjectReference Include="Cinemachine.Player.csproj">
       <Project>{B900A133-1703-51A6-0C85-CC86CDA03671}</Project>
       <Name>Cinemachine.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Notifications.Android.Player.csproj">
+      <Project>{11486DC3-4CF9-0C2E-E6ED-50BA9A503787}</Project>
+      <Name>Unity.Notifications.Android.Player</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
