@@ -127,6 +127,11 @@ public class ServerSystem : MonoBehaviour
                 }
             }
 
+            if (playerHit != listenerInfoPlayer[7])
+            {
+                playerHit = listenerInfoPlayer[7];
+            }
+
             if (playerAttack1 != listenerInfoPlayer[2])
             {
                 playerAttack1 = listenerInfoPlayer[2];
@@ -173,11 +178,6 @@ public class ServerSystem : MonoBehaviour
                 playerZ = float.Parse(playerZPosition);
             }
 
-            if (playerHit != listenerInfoPlayer[7])
-            {
-                playerHit = listenerInfoPlayer[7];
-            }
-
             wasDataLoadedPlayer = false;
         }
 
@@ -209,6 +209,11 @@ public class ServerSystem : MonoBehaviour
                 {
                     enemyMultiplayer.RegisterBackwardEnemy("no");
                 }
+            }
+
+            if (enemyHit != listenerInfoEnemy[7])
+            {
+                enemyHit = listenerInfoEnemy[7];
             }
 
             if (enemyAttack1 != listenerInfoEnemy[2])
@@ -255,11 +260,6 @@ public class ServerSystem : MonoBehaviour
             {
                 enemyZPosition = listenerInfoEnemy[6];
                 enemyZ = float.Parse(enemyZPosition);
-            }
-
-            if (enemyHit != listenerInfoEnemy[7])
-            {
-                enemyHit = listenerInfoEnemy[7];
             }
 
             wasDataLoadedEnemy = false;

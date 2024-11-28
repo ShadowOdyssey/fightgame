@@ -1305,6 +1305,8 @@ public class EnemySystem : MonoBehaviour
     {
         if (isHit == false) // With this trigger we make sure opponent only will take damage 1 time
         {
+            Debug.Log("Enemy got " + damage + " of damage");
+
             if (roundSystem.isTrainingMode == false)
             {
                 roundSystem.ApplyDamageToOpponent(damage); // Inform RoundManager that Enemy tooks damage by player
@@ -1565,6 +1567,8 @@ public class EnemySystem : MonoBehaviour
     {
         if (enemyAnimator.GetBool("isBlock") == false)
         {
+            Debug.Log("Enemy got damage");
+
             enemyAnimator.SetBool("isBlock", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
             enemyAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
