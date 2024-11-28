@@ -128,6 +128,7 @@ public class ServerSystem : MonoBehaviour
                 if (playerAttack1 == "yes")
                 {
                     playerMultiplayer.RegisterAttack1Player();
+                    CheckForPlayerDamage();
                 }
             }
 
@@ -138,6 +139,7 @@ public class ServerSystem : MonoBehaviour
                 if (playerAttack2 == "yes")
                 {
                     playerMultiplayer.RegisterAttack2Player();
+                    CheckForPlayerDamage();
                 }
             }
 
@@ -148,12 +150,15 @@ public class ServerSystem : MonoBehaviour
                 if (playerAttack3 == "yes")
                 {
                     playerMultiplayer.RegisterAttack3Player();
+                    CheckForPlayerDamage();
                 }
             }
 
             if (playerHealth != listenerInfoPlayer[5])
             {
                 playerHealth = listenerInfoPlayer[5];
+
+                roundSystem.UpdatePlayerHealth(int.Parse(playerHealth));
             }
 
             if (playerZPosition != listenerInfoPlayer[6])
@@ -206,6 +211,7 @@ public class ServerSystem : MonoBehaviour
                 if (enemyAttack1 == "yes")
                 {
                     enemyMultiplayer.RegisterAttack1Enemy();
+                    CheckForEnemyDamage();
                 }
             }
 
@@ -216,6 +222,7 @@ public class ServerSystem : MonoBehaviour
                 if (enemyAttack2 == "yes")
                 {
                     enemyMultiplayer.RegisterAttack2Enemy();
+                    CheckForEnemyDamage();
                 }
             }
 
@@ -226,12 +233,15 @@ public class ServerSystem : MonoBehaviour
                 if (enemyAttack3 == "yes")
                 {
                     enemyMultiplayer.RegisterAttack3Enemy();
+                    CheckForEnemyDamage();
                 }
             }
 
             if (enemyHealth != listenerInfoEnemy[5])
             {
                 enemyHealth = listenerInfoEnemy[5];
+
+                roundSystem.UpdateEnemyHealth(int.Parse(enemyHealth));
             }
 
             if (enemyZPosition != listenerInfoEnemy[6])
@@ -317,6 +327,26 @@ public class ServerSystem : MonoBehaviour
     {
         actualEnemy = newDuel;
         canListen = true;
+    }
+
+    #endregion
+
+    #region Hit Operations
+
+    private void CheckForPlayerDamage()
+    {
+        if (enemyHit == "yes")
+        {
+            playerMultiplayer.RegisterPlayerTakesDamage(20);
+        }
+    }
+
+    private void CheckForEnemyDamage()
+    {
+        if (playerHit == "yes")
+        {
+            enemyMultiplayer.RegisterEnemyTakesDamage(20);
+        }
     }
 
     #endregion

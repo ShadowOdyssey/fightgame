@@ -98,7 +98,7 @@ public class PlayerSystem : MonoBehaviour
     [Tooltip("If enabled means player got a hit")]
     private bool isHit = false;
     [Tooltip("If enabled means player dealed a damage to an opponent")]
-    private bool checkDamage = false;
+    public bool checkDamage = false;
     [Tooltip("If enabled means player triggers will be reseted on each end of round")]
     private bool wasResetTriggers = false;
     private float thresholdButton = 0f;
@@ -205,12 +205,7 @@ public class PlayerSystem : MonoBehaviour
                 }
                 else
                 {
-                    if (selectedMultiplayer == true)
-                    {
-                        //Debug.Log("Calling Player applied hit in Enemy because Player was selected");
-
-                        //multiplayerSystem.EnemyTakeDamage(20); // If Enemy is the original, so clone Player takes hit
-                    }
+                    multiplayerSystem.PlayerRegisterHit();
                 }
 
                 checkDamage = false;

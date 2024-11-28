@@ -115,7 +115,7 @@ public class EnemySystem : MonoBehaviour
     [Tooltip("Enemy can attack when enabled")]
     private bool canFight = false;
     [Tooltip("Enemy can deals damage to player when enabled")]
-    private bool checkDamage = false;
+    public bool checkDamage = false;
     [Tooltip("Enemy can make a decision when enabled")]
     private bool canRandomize = false;
     [Tooltip("Enemy is moving forward when enabled")]
@@ -494,9 +494,7 @@ public class EnemySystem : MonoBehaviour
 
                     if (selectedMultiplayer == true)
                     {
-                        //Debug.Log("Calling Enemy applied hit in Player because Enemy was selected");
-
-                        //multiplayerSystem.PlayerTakeHit(20); // If Enemy is the original, so clone Player takes hit
+                        multiplayerSystem.EnemyRegisterHit();
                     }
 
                     checkDamage = false;
@@ -910,6 +908,8 @@ public class EnemySystem : MonoBehaviour
 
         #endregion
 
+        #region Send Z Position Timer
+
         if (updatePosition == true)
         {
             positionDelay = positionDelay + Time.deltaTime;
@@ -920,6 +920,8 @@ public class EnemySystem : MonoBehaviour
                 updatePosition = false;
             }
         }
+
+        #endregion
     }
 
     #endregion

@@ -803,6 +803,16 @@ public class RoundManager : MonoBehaviour
         opponentHealthBar.SetMaxHealth(maxHealth);
     }
 
+    public void UpdatePlayerHealth(int newHealth)
+    {
+        playerHealthBar.SetHealth(newHealth);
+    }
+
+    public void UpdateEnemyHealth(int newHealth)
+    {
+        opponentHealthBar.SetHealth(newHealth);
+    }
+
     public void ApplyDamageToPlayer(int damage)
     {
         if (isTrainingMode == false)

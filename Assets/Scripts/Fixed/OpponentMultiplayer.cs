@@ -46,7 +46,6 @@ public class OpponentMultiplayer : MonoBehaviour
     public bool isEnemyPlayer = false;
     public bool isCheckingWin = false;
     public string responseFromServer = "";
-    private int newDamage = 0;
     private string checkWin = "";
 
     #endregion
@@ -208,16 +207,14 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #region Hit Operations
 
-    public void PlayerTakeHit(int damage)
+    public void PlayerRegisterHit()
     {
         UpdateData("yes", "hit", actualHost.ToString());
-        newDamage = damage;        
     }
 
-    public void EnemyTakeHit(int damage)
+    public void EnemyRegisterHit()
     {
         UpdateData("yes", "hit", actualHost.ToString());
-        newDamage = damage;
     }
 
     public void ResetHitPlayer()
@@ -271,12 +268,14 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         UpdateData("no", "backward", actualHost.ToString());
         UpdateData("yes", "forward", actualHost.ToString());
+        Invoke(nameof(SendZPosition), 0.18f);
     }
 
     public void SendBackward()
     {
         UpdateData("no", "forward", actualHost.ToString());
         UpdateData("yes", "backward", actualHost.ToString());
+        Invoke(nameof(SendZPosition), 0.18f);
     }
 
     public void SendStopForward()
@@ -423,7 +422,7 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
-    public void RegisterHitPlayer()
+    public void RegisterPlayerTakesDamage(int newDamage)
     {
         if (opponentIsPlayer != null)
         {
@@ -434,8 +433,6 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             originalPlayer.TakeHit(newDamage);
         }
-
-        newDamage = 0;
     }
 
     #endregion
@@ -535,7 +532,7 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
-    public void RegisterHitEnemy()
+    public void RegisterEnemyTakesDamage(int newDamage)
     {
         if (opponentIsEnemy != null)
         {
@@ -546,8 +543,6 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             originalEnemy.TakeDamage(newDamage);
         }
-
-        newDamage = 0;
     }
 
     #endregion
