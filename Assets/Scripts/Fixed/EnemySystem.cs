@@ -1209,6 +1209,10 @@ public class EnemySystem : MonoBehaviour
     {
         if (selectedMultiplayer == true)
         {
+            multiplayerForward = false;
+            multiplayerBackward = false;
+            isMovingForward = false;
+            isMovingBackward = false;
             buttonReleased = true;
         }
     }
