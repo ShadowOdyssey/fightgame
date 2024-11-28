@@ -137,7 +137,6 @@ public class ServerSystem : MonoBehaviour
                 if (playerAttack1 == "yes")
                 {
                     playerMultiplayer.RegisterAttack1Player();
-                    CheckForPlayerDamage();
                 }
             }
 
@@ -148,7 +147,6 @@ public class ServerSystem : MonoBehaviour
                 if (playerAttack2 == "yes")
                 {
                     playerMultiplayer.RegisterAttack2Player();
-                    CheckForPlayerDamage();
                 }
             }
 
@@ -159,7 +157,6 @@ public class ServerSystem : MonoBehaviour
                 if (playerAttack3 == "yes")
                 {
                     playerMultiplayer.RegisterAttack3Player();
-                    CheckForPlayerDamage();
                 }
             }
 
@@ -221,7 +218,6 @@ public class ServerSystem : MonoBehaviour
                 if (enemyAttack1 == "yes")
                 {
                     enemyMultiplayer.RegisterAttack1Enemy();
-                    CheckForEnemyDamage();
                 }
             }
 
@@ -232,7 +228,6 @@ public class ServerSystem : MonoBehaviour
                 if (enemyAttack2 == "yes")
                 {
                     enemyMultiplayer.RegisterAttack2Enemy();
-                    CheckForEnemyDamage();
                 }
             }
 
@@ -243,7 +238,6 @@ public class ServerSystem : MonoBehaviour
                 if (enemyAttack3 == "yes")
                 {
                     enemyMultiplayer.RegisterAttack3Enemy();
-                    CheckForEnemyDamage();
                 }
             }
 
@@ -262,6 +256,9 @@ public class ServerSystem : MonoBehaviour
 
             wasDataLoadedEnemy = false;
         }
+
+        CheckForEnemyDamage();
+        CheckForPlayerDamage();
 
         #endregion
     }

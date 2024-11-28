@@ -205,7 +205,10 @@ public class PlayerSystem : MonoBehaviour
                 }
                 else
                 {
-                    multiplayerSystem.PlayerRegisterHit();
+                    if (selectedMultiplayer == true)
+                    {
+                        multiplayerSystem.PlayerRegisterHit();
+                    }
                 }
 
                 checkDamage = false;
