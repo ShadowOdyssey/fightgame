@@ -101,6 +101,11 @@ public class PlayerSystem : MonoBehaviour
     private bool checkDamage = false;
     [Tooltip("If enabled means player triggers will be reseted on each end of round")]
     private bool wasResetTriggers = false;
+    private bool rightPressed = false;
+    private bool leftPressed = false;
+    private bool rightSentData = false;
+    private bool leftSentData = false;
+    private bool buttonReleased = false;
 
     #endregion
 
@@ -229,6 +234,135 @@ public class PlayerSystem : MonoBehaviour
                 enemySystem.TakeDamage(20); // If Player is the clone, so original Enemy will take hit
                 serverDamage = false;
             }
+        }
+
+        #endregion
+
+        #region Right button pressed
+
+        if (rightPressed == true)
+        {
+            if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
+            {
+                if (isMovingForward == false && selectedMultiplayer == true)
+                {
+                    isMovingForward = true;
+                    MultiplayerForward();
+                    rightSentData = true;
+                    isMovingBackward = false;
+                    isIdle = false;
+                }
+
+                if (isMovingForward == false && selectedMultiplayer == false)
+                {
+                    isMovingBackward = false;
+                    isIdle = false;
+                    isMovingForward = true;
+                }
+            }
+
+            if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
+            {
+                if (isMovingForward == true)
+                {
+                    isMovingForward = false;
+                }
+
+                if (isMovingBackward == true)
+                {
+                    isMovingBackward = false;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Left button pressed
+
+        if (leftPressed == true)
+        {
+            if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
+            {
+                if (isMovingBackward == false && selectedMultiplayer == true)
+                {
+                    isMovingBackward = true;
+                    MultiplayerBackward();
+                    leftSentData = true;
+                    isMovingForward = false;
+                    isIdle = false;
+                }
+
+                if (isMovingBackward == false && selectedMultiplayer == true)
+                {
+                    isMovingForward = false;
+                    isIdle = false;
+                    isMovingBackward = true;
+                }
+            }
+
+            if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
+            {
+                if (isMovingForward == true)
+                {
+                    isMovingForward = false;
+                }
+
+                if (isMovingBackward == true)
+                {
+                    isMovingBackward = false;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Release button method
+
+        if (buttonReleased == true && rightSentData == true || buttonReleased && leftSentData == true)
+        {
+            if (roundSystem.isMultiplayer == false)
+            {
+                if (isMovingForward == true)
+                {
+                    isMovingForward = false;
+                }
+
+                if (isMovingBackward == true)
+                {
+                    isMovingBackward = false;
+                }
+            }
+            else
+            {
+                if (multiplayerForward == true && selectedMultiplayer == true)
+                {
+                    Invoke(nameof(MultiplayerStoppedForward), sendDelay);
+                }
+
+                if (multiplayerBackward == true && selectedMultiplayer == true)
+                {
+                    Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
+                }
+            }
+
+            if (isIdle == true)
+            {
+                isIdle = false;
+            }
+
+            if (rightSentData == true)
+            {
+                rightSentData = false;
+                rightPressed = false;
+            }
+
+            if (leftSentData == true)
+            {
+                leftSentData = false;
+                leftPressed = false;
+            }
+
+            buttonReleased = false;
         }
 
         #endregion
@@ -609,69 +743,19 @@ public class PlayerSystem : MonoBehaviour
 
     public void OnMoveRightButtonPressed(BaseEventData eventData)
     {
-        if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
+        if (selectedMultiplayer == true && rightPressed == false)
         {
-            if (isMovingForward == false && selectedMultiplayer == true)
-            {
-                isMovingForward = true;
-                MultiplayerForward();
-                isMovingBackward = false;
-                isIdle = false;
-            }
-
-            if (isMovingForward == false && selectedMultiplayer == false)
-            {
-                isMovingBackward = false;
-                isIdle = false;
-                isMovingForward = true;
-            }
-        }
-
-        if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
-        {
-            if (isMovingForward == true)
-            {
-                isMovingForward = false;
-            }
-
-            if (isMovingBackward == true)
-            {
-                isMovingBackward = false;
-            }
+            buttonReleased = false;
+            rightPressed = true;
         }
     }
 
     public void OnMoveLeftButtonPressed(BaseEventData eventData)
     {
-        if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
+        if (selectedMultiplayer == true && leftPressed == false)
         {
-            if (isMovingBackward == false && selectedMultiplayer == true)
-            {
-                isMovingBackward = true;
-                MultiplayerBackward();
-                isMovingForward = false;
-                isIdle = false;
-            }
-
-            if (isMovingBackward == false && selectedMultiplayer == true)
-            {
-                isMovingForward = false;
-                isIdle = false;
-                isMovingBackward = true;
-            }
-        }
-
-        if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
-        {
-            if (isMovingForward == true)
-            {
-                isMovingForward = false;
-            }
-
-            if (isMovingBackward == true)
-            {
-                isMovingBackward = false;
-            }
+            buttonReleased = false;
+            leftPressed = true;
         }
     }
 
@@ -941,38 +1025,9 @@ public class PlayerSystem : MonoBehaviour
 
     private void OnMoveButtonReleased(BaseEventData eventData)
     {
-        if (roundSystem.isMultiplayer == false)
+        if (selectedMultiplayer == true)
         {
-            if (isMovingForward == true)
-            {
-                isMovingForward = false;
-            }
-
-            if (isMovingBackward == true)
-            {
-                isMovingBackward = false;
-            }
-        }
-        else
-        {
-            if (multiplayerForward == true && selectedMultiplayer == true)
-            {
-                Debug.Log("Player stopped to move forward");
-
-                Invoke(nameof(MultiplayerStoppedForward), sendDelay);
-            }
-
-            if (multiplayerBackward == true && selectedMultiplayer == true)
-            {
-                Debug.Log("Player stopped to move backward");
-
-                Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
-            }
-        }
-
-        if (isIdle == true)
-        {
-            isIdle = false;
+            buttonReleased = true;
         }
     }
 

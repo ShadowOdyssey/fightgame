@@ -129,6 +129,11 @@ public class EnemySystem : MonoBehaviour
     private bool isMovingForward = false;
     private bool isMovingBackward = false;
     private bool isIdle = false;
+    private bool rightPressed = false;
+    private bool leftPressed = false;
+    private bool rightSentData = false;
+    private bool leftSentData = false;
+    private bool buttonReleased = false;
 
     #endregion
 
@@ -517,6 +522,135 @@ public class EnemySystem : MonoBehaviour
 
             #endregion
         }
+
+        #region Left button pressed
+
+        if (leftPressed == true)
+        {
+            if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
+            {
+                if (isMovingForward == false && selectedMultiplayer == true)
+                {
+                    isMovingForward = true;
+                    MultiplayerForward();
+                    leftSentData = true;
+                    isMovingBackward = false;
+                    isIdle = false;
+                }
+
+                if (isMovingForward == false && selectedMultiplayer == false)
+                {
+                    isMovingBackward = false;
+                    isIdle = false;
+                    isMovingForward = true;
+                }
+            }
+
+            if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
+            {
+                if (isMovingForward == true)
+                {
+                    isMovingForward = false;
+                }
+
+                if (isMovingBackward == true)
+                {
+                    isMovingBackward = false;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Right button pressed
+
+        if (rightPressed == true)
+        {
+            if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
+            {
+                if (isMovingBackward == false && selectedMultiplayer == true)
+                {
+                    isMovingBackward = true;
+                    MultiplayerBackward();
+                    rightSentData = true;
+                    isMovingForward = false;
+                    isIdle = false;
+                }
+
+                if (isMovingBackward == false && selectedMultiplayer == true)
+                {
+                    isMovingForward = false;
+                    isIdle = false;
+                    isMovingBackward = true;
+                }
+            }
+
+            if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
+            {
+                if (isMovingForward == true)
+                {
+                    isMovingForward = false;
+                }
+
+                if (isMovingBackward == true)
+                {
+                    isMovingBackward = false;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Release button method
+
+        if (buttonReleased == true && rightSentData == true || buttonReleased && leftSentData == true)
+        {
+            if (roundSystem.isMultiplayer == false)
+            {
+                if (isMovingForward == true)
+                {
+                    isMovingForward = false;
+                }
+
+                if (isMovingBackward == true)
+                {
+                    isMovingBackward = false;
+                }
+            }
+            else
+            {
+                if (multiplayerForward == true && selectedMultiplayer == true)
+                {
+                    Invoke(nameof(MultiplayerStoppedForward), sendDelay);
+                }
+
+                if (multiplayerBackward == true && selectedMultiplayer == true)
+                {
+                    Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
+                }
+            }
+
+            if (isIdle == true)
+            {
+                isIdle = false;
+            }
+
+            if (rightSentData == true)
+            {
+                rightSentData = false;
+                rightPressed = false;
+            }
+
+            if (leftSentData == true)
+            {
+                leftSentData = false;
+                leftPressed = false;
+            }
+
+            buttonReleased = false;
+        }
+
+        #endregion
     }
 
     private void FixedUpdate()
@@ -1040,68 +1174,27 @@ public class EnemySystem : MonoBehaviour
 
     public void OnMoveRightButtonPressed(BaseEventData eventData)
     {
-        if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
+        if (selectedMultiplayer == true && rightPressed == false)
         {
-            if (isMovingBackward == false && selectedMultiplayer == true)
-            {
-                isMovingBackward = true;
-                MultiplayerBackward();
-                isMovingForward = false;
-                isIdle = false;
-            }
-        }
-
-        if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
-        {
-            if (isMovingForward == true)
-            {
-                isMovingForward = false;
-            }
-
-            if (isMovingBackward == true)
-            {
-                isMovingBackward = false;
-            }
+            buttonReleased = false;
+            rightPressed = true;
         }
     }
 
     public void OnMoveLeftButtonPressed(BaseEventData eventData)
     {
-        if (roundSystem.roundStarted == true && roundSystem.roundOver == false)
+        if (selectedMultiplayer == true && leftPressed == false)
         {
-            if (isMovingForward == false && selectedMultiplayer == true)
-            {
-                isMovingForward = true;
-                MultiplayerForward();
-                isMovingBackward = false;
-                isIdle = false;
-            }
-        }
-
-        if (roundSystem.roundStarted == true && roundSystem.roundOver == true)
-        {
-            if (isMovingForward == true)
-            {
-                isMovingForward = false;
-            }
-
-            if (isMovingBackward == true)
-            {
-                isMovingBackward = false;
-            }
+            buttonReleased = false;
+            leftPressed = true;
         }
     }
 
     private void OnMoveButtonReleased(BaseEventData eventData)
     {
-        if (multiplayerForward == true && selectedMultiplayer == true)
+        if (selectedMultiplayer == true)
         {
-            Invoke(nameof(MultiplayerStoppedForward), sendDelay);
-        }
-
-        if (multiplayerBackward == true && selectedMultiplayer == true)
-        {
-            Invoke(nameof(MultiplayerStoppedBackward), sendDelay);
+            buttonReleased = true;
         }
     }
 
