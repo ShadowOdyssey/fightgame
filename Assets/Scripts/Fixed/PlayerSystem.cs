@@ -1046,6 +1046,12 @@ public class PlayerSystem : MonoBehaviour
             MultiplayerStoppedBackward();
             buttonReleased = true;
         }
+        else
+        {
+            isMovingForward = false;
+            isMovingBackward = false;
+            buttonReleased = true;
+        }
     }
 
     #endregion
