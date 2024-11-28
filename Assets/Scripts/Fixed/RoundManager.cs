@@ -250,10 +250,6 @@ public class RoundManager : MonoBehaviour
         //enemyMultiplayerProfile = int.Parse(PlayerPrefs.GetString("multiplayerOpponentProfile"));
 
         if (int.TryParse(PlayerPrefs.GetString("multiplayerOpponentProfile"), out enemyMultiplayerProfile))
-        {
-            // Conversion successful, use enemyMultiplayerProfile
-            Debug.Log("Conversion successful: " + enemyMultiplayerProfile);
-        }
 
         actualHost = PlayerPrefs.GetString("whoWasTheHost");
         enemyMultiplayerName = PlayerPrefs.GetString("multiplayerOpponentName");

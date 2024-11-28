@@ -31,7 +31,11 @@ public class ServerSystem : MonoBehaviour
     public int actualPlayer = 0;
     public int actualEnemy = 0;
     public int realDistanceA = 0;
+    public int realDistanceA1 = 0;
+    public int realDistanceA2 = 0;
     public int realDistanceB = 0;
+    public int realDistanceB1 = 0;
+    public int realDistanceB2 = 0;
 
     [Header("Monitor")]
     public float countListen = 0f;
@@ -41,6 +45,10 @@ public class ServerSystem : MonoBehaviour
     public bool wasDataLoadedEnemy = false;
     public bool wasPlayerDamaged = false;
     public bool wasEnemyDamaged = false;
+    public bool canParseA = false;
+    public bool canParseB = false;
+    public bool isParsedA = false;
+    public bool isParsedB = false;
 
     [Header("Loaded Data")]
     public string[] listenerInfoPlayer = new string[0];
@@ -94,6 +102,10 @@ public class ServerSystem : MonoBehaviour
                 countListen = 0f;
             }
         }
+
+        #endregion
+
+        #region Setup new Data from Server
 
         if (wasDataLoadedPlayer == true)
         {
@@ -165,6 +177,7 @@ public class ServerSystem : MonoBehaviour
             if (playerZPosition != listenerInfoPlayer[6])
             {
                 playerZPosition = listenerInfoPlayer[6];
+                canParseA = true;
             }
 
             if (playerHit != listenerInfoPlayer[7])
@@ -246,6 +259,7 @@ public class ServerSystem : MonoBehaviour
             if (enemyZPosition != listenerInfoEnemy[6])
             {
                 enemyZPosition = listenerInfoEnemy[6];
+                canParseB = true;
             }
 
             if (enemyHit != listenerInfoEnemy[7])
@@ -257,13 +271,79 @@ public class ServerSystem : MonoBehaviour
             wasDataLoadedEnemy = false;
         }
 
-        if (wasPlayerDamaged == true)
+        #endregion
+
+        #region Parse Distances
+
+        if (canParseA == true)
+        {
+            canParseA = false;
+
+            playerZPosition = playerZPosition.Substring(0, 2);
+            enemyZPosition = enemyZPosition.Substring(0, 2);
+
+            if (int.TryParse(playerZPosition, out int newDistanceA1))
+            {
+                realDistanceA1 = newDistanceA1;
+            }
+
+            if (int.TryParse(enemyZPosition, out int newDistanceA2))
+            {
+                realDistanceA2 = newDistanceA2;
+            }
+
+            if (realDistanceA1 > realDistanceA2)
+            {
+                realDistanceA = realDistanceA1 - realDistanceA2;
+            }
+            else
+            {
+                realDistanceA = realDistanceA2 - realDistanceA1;
+            }
+
+            isParsedA = true;
+        }
+
+        if (canParseB == true)
+        {
+            canParseB = false;
+
+            playerZPosition = playerZPosition.Substring(0, 2);
+            enemyZPosition = enemyZPosition.Substring(0, 2);
+
+            if (int.TryParse(playerZPosition, out int newDistanceB1))
+            {
+                realDistanceB1 = newDistanceB1;
+            }
+
+            if (int.TryParse(enemyZPosition, out int newDistanceB2))
+            {
+                realDistanceB2 = newDistanceB2;
+            }
+
+            if (realDistanceB1 > realDistanceB2)
+            {
+                realDistanceB = realDistanceB1 - realDistanceB2;
+            }
+            else
+            {
+                realDistanceB = realDistanceB2 - realDistanceB1;
+            }
+
+            isParsedB = true;
+        }
+
+        #endregion
+
+        #region Check for damage
+
+        if (wasPlayerDamaged == true && isParsedA == true)
         {
             wasPlayerDamaged = false;
             CheckForPlayerDamage();
         }
 
-        if (wasEnemyDamaged == true)
+        if (wasEnemyDamaged == true && isParsedB == true)
         {
             wasEnemyDamaged = false;
             CheckForEnemyDamage();
@@ -351,31 +431,15 @@ public class ServerSystem : MonoBehaviour
     {
         if (enemyHit == "yes<br>")
         {
-            playerZPosition = playerZPosition.Substring(0, 2);
-            enemyZPosition = enemyZPosition.Substring(0, 2);
-            realDistanceA = int.Parse(playerZPosition);
-            realDistanceB = int.Parse(enemyZPosition);
-
-            if (realDistanceA > realDistanceB)
-            {
-                realDistanceA = realDistanceA - realDistanceB;
-            }
-            else
-            {
-                realDistanceA = realDistanceB - realDistanceA;
-            }
-
-            Debug.Log("Real Distance A is: " + realDistanceA);
-
             if (realDistanceA <= roundSystem.enemySystem.attackRange)
             {
-                Debug.Log("Player got damage");
-
                 playerMultiplayer.RegisterPlayerTakesDamage(20);
             }
 
             realDistanceA = 0;
-            realDistanceB = 0;
+            realDistanceA1 = 0;
+            realDistanceA2 = 0;
+            isParsedA = false;
         }
     }
 
@@ -383,31 +447,15 @@ public class ServerSystem : MonoBehaviour
     {
         if (playerHit == "yes<br>")
         {
-            playerZPosition = playerZPosition.Substring(0, 2);
-            enemyZPosition = enemyZPosition.Substring(0, 2);
-            realDistanceA = int.Parse(playerZPosition);
-            realDistanceB = int.Parse(enemyZPosition);
-
-            if (realDistanceB > realDistanceA)
-            {
-                realDistanceB = realDistanceB - realDistanceA;
-            }
-            else
-            {
-                realDistanceB = realDistanceA - realDistanceB;
-            }
-
-            Debug.Log("Real Distance B is: " + realDistanceB);
-
             if (realDistanceB <= roundSystem.playerSystem.attackRange)
             {
-                Debug.Log("Enemy got damage");
-
                 enemyMultiplayer.RegisterEnemyTakesDamage(20);
             }
 
-            realDistanceA = 0;
             realDistanceB = 0;
+            realDistanceB1 = 0;
+            realDistanceB2 = 0;
+            isParsedB = false;
         }
     }
 
