@@ -830,7 +830,15 @@ public class EnemySystem : MonoBehaviour
 
                 if (animatedMultiplayer == false)
                 {
-                    MoveLeft();
+                    if (selectedMultiplayer == true)
+                    {
+                        MoveLeft();
+                    }
+                    else
+                    {
+                        MoveRight();
+                    }
+                    
                     animatedMultiplayer = true;
                 }
 
@@ -850,7 +858,15 @@ public class EnemySystem : MonoBehaviour
 
                 if (animatedMultiplayer == false)
                 {
-                    MoveRight();
+                    if (selectedMultiplayer == true)
+                    {
+                        MoveRight();
+                    }
+                    else
+                    {
+                        MoveLeft();
+                    }
+                    
                     animatedMultiplayer = true;
                 }
 
