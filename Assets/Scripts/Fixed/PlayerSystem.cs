@@ -758,19 +758,41 @@ public class PlayerSystem : MonoBehaviour
 
     public void OnMoveRightButtonPressed(BaseEventData eventData)
     {
-        if (selectedMultiplayer == true && rightPressed == false)
+        if (roundSystem.isMultiplayer == true)
         {
-            buttonReleased = false;
-            rightPressed = true;
+            if (selectedMultiplayer == true && rightPressed == false)
+            {
+                buttonReleased = false;
+                rightPressed = true;
+            }
+        }
+        else
+        {
+            if (rightPressed == false)
+            {
+                buttonReleased = false;
+                rightPressed = true;
+            }
         }
     }
 
     public void OnMoveLeftButtonPressed(BaseEventData eventData)
     {
-        if (selectedMultiplayer == true && leftPressed == false)
+        if (roundSystem.isMultiplayer == true)
         {
-            buttonReleased = false;
-            leftPressed = true;
+            if (selectedMultiplayer == true && leftPressed == false)
+            {
+                buttonReleased = false;
+                leftPressed = true;
+            }
+        }
+        else
+        {
+            if (leftPressed == false)
+            {
+                buttonReleased = false;
+                leftPressed = true;
+            }
         }
     }
 
@@ -1048,8 +1070,26 @@ public class PlayerSystem : MonoBehaviour
         }
         else
         {
-            isMovingForward = false;
-            isMovingBackward = false;
+            if (rightPressed == true)
+            {
+                rightPressed = false;
+            }
+
+            if (leftPressed == true)
+            {
+                leftPressed = false;
+            }
+
+            if (isMovingForward == true)
+            {
+                isMovingForward = false;
+            }
+
+            if (isMovingBackward == true)
+            {
+                isMovingBackward = false;
+            }
+
             buttonReleased = true;
         }
     }
