@@ -517,12 +517,6 @@ public class EnemySystem : MonoBehaviour
                 }
             }
 
-            if (serverDamage == true)
-            {
-                playerSystem.TakeHit(20);
-                serverDamage = false;
-            }
-
             #endregion
         }
 
@@ -1311,7 +1305,7 @@ public class EnemySystem : MonoBehaviour
     {
         if (isHit == false) // With this trigger we make sure opponent only will take damage 1 time
         {
-            if (roundSystem.isTrainingMode == false || roundSystem.isMultiplayer == false)
+            if (roundSystem.isTrainingMode == false)
             {
                 roundSystem.ApplyDamageToOpponent(damage); // Inform RoundManager that Enemy tooks damage by player
                                                            // roundSystem.audioSystem.EnemyDamage(roundSystem.currentEnemyCharacter); // Start character Damage sound in another Audio Source different from what Player will use to play his Damage sound, only after damage has applied, create a new Audio Source for it
@@ -2097,11 +2091,6 @@ public class EnemySystem : MonoBehaviour
     }
 
     #endregion
-
-    public void ServerDamage()
-    {
-        serverDamage = true;
-    }
 
     #endregion
 }

@@ -30,6 +30,10 @@ public class ServerSystem : MonoBehaviour
     [Header("Lobby Data")]
     public int actualPlayer = 0;
     public int actualEnemy = 0;
+    public float playerZ = 0f;
+    public float enemyZ = 0f;
+    public float realDistanceA = 0f;
+    public float realDistanceB = 0f;
 
     [Header("Monitor")]
     public float countListen = 0f;
@@ -74,6 +78,8 @@ public class ServerSystem : MonoBehaviour
     }
 
     #endregion
+
+    #region Real Time Operation
 
     public void Update()
     {
@@ -164,6 +170,7 @@ public class ServerSystem : MonoBehaviour
             if (playerZPosition != listenerInfoPlayer[6])
             {
                 playerZPosition = listenerInfoPlayer[6];
+                playerZ = float.Parse(playerZPosition);
             }
 
             if (playerHit != listenerInfoPlayer[7])
@@ -247,6 +254,7 @@ public class ServerSystem : MonoBehaviour
             if (enemyZPosition != listenerInfoEnemy[6])
             {
                 enemyZPosition = listenerInfoEnemy[6];
+                enemyZ = float.Parse(enemyZPosition);
             }
 
             if (enemyHit != listenerInfoEnemy[7])
@@ -259,6 +267,8 @@ public class ServerSystem : MonoBehaviour
 
         #endregion
     }
+
+    #endregion
 
     #region Database Operations
 
@@ -337,7 +347,14 @@ public class ServerSystem : MonoBehaviour
     {
         if (enemyHit == "yes")
         {
-            playerMultiplayer.RegisterPlayerTakesDamage(20);
+            realDistanceA = playerZ - enemyZ;
+
+            if (realDistanceA <= roundSystem.enemySystem.attackRange)
+            {
+                playerMultiplayer.RegisterPlayerTakesDamage(20);
+            }
+
+            realDistanceA = 0f;
         }
     }
 
@@ -345,7 +362,14 @@ public class ServerSystem : MonoBehaviour
     {
         if (playerHit == "yes")
         {
-            enemyMultiplayer.RegisterEnemyTakesDamage(20);
+            realDistanceB = playerZ - enemyZ;
+
+            if (realDistanceB <= roundSystem.playerSystem.attackRange)
+            {
+                enemyMultiplayer.RegisterEnemyTakesDamage(20);
+            }
+
+            realDistanceB = 0f;
         }
     }
 

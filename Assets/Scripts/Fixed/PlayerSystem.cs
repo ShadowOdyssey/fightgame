@@ -226,12 +226,6 @@ public class PlayerSystem : MonoBehaviour
                 checkDamage = false;
                 damageTime = 0f;
             }
-
-            if (serverDamage == true)
-            {
-                enemySystem.TakeDamage(20); // If Player is the clone, so original Enemy will take hit
-                serverDamage = false;
-            }
         }
 
         #endregion
@@ -734,7 +728,7 @@ public class PlayerSystem : MonoBehaviour
         {
             //Debug.Log("Player got a hit and got " + damageAmmount + " of damage!");
 
-            if (roundSystem.isTrainingMode == false || roundSystem.isMultiplayer == false)
+            if (roundSystem.isTrainingMode == false)
             {
                 roundSystem.ApplyDamageToPlayer(damageAmmount); // Inform RoundManager that Player got damage by Enemy
                                                                 // roundSystem.audioSystem.PlayerDamage(roundSystem.currentPLayerCharacter); // Start character Damage sound in another Audio Source different from what Enemy will use to play his Damage sound, only after damage has applied, create a new Audio Source for it
@@ -1416,11 +1410,6 @@ public class PlayerSystem : MonoBehaviour
     }
 
     #endregion
-
-    public void ServerDamage()
-    {
-        serverDamage = true;
-    }
 
     #endregion
 }
