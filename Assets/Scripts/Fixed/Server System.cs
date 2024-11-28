@@ -41,8 +41,6 @@ public class ServerSystem : MonoBehaviour
     public bool canListen = false;
     public bool wasDataLoadedPlayer = false;
     public bool wasDataLoadedEnemy = false;
-    public bool isCheckingWin = false;
-    public bool canApplyHit = false;
 
     [Header("Loaded Data")]
     public string[] listenerInfoPlayer = new string[0];
@@ -349,6 +347,8 @@ public class ServerSystem : MonoBehaviour
         {
             realDistanceA = enemyZ - playerZ;
 
+            Debug.Log("Real Distance A is: " + realDistanceA);
+
             if (realDistanceA <= roundSystem.enemySystem.attackRange)
             {
                 Debug.Log("Player got damage");
@@ -365,6 +365,8 @@ public class ServerSystem : MonoBehaviour
         if (playerHit == "yes<br>")
         {
             realDistanceB = enemyZ - playerZ;
+
+            Debug.Log("Real Distance B is: " + realDistanceB);
 
             if (realDistanceB <= roundSystem.playerSystem.attackRange)
             {
