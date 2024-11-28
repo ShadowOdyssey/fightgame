@@ -5495,7 +5495,7 @@ MonoBehaviour:
   serverDamage: 0
   actualAttack: 1
   enemyDifficulty: 3
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 4
   distanceToTarget: 0
   checkStuckTimer: 2
@@ -13339,7 +13339,7 @@ MonoBehaviour:
   serverDamage: 0
   actualAttack: 1
   enemyDifficulty: 2
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 4
   distanceToTarget: 0
   checkStuckTimer: 2
@@ -40777,7 +40777,7 @@ MonoBehaviour:
   serverDamage: 0
   actualAttack: 1
   enemyDifficulty: 0
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 4
   distanceToTarget: 0
   checkStuckTimer: 2
@@ -51418,7 +51418,7 @@ MonoBehaviour:
   serverDamage: 0
   actualAttack: 1
   enemyDifficulty: 1
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 3
   distanceToTarget: 0
   checkStuckTimer: 2
@@ -55018,7 +55018,7 @@ MonoBehaviour:
   serverDamage: 0
   actualAttack: 1
   enemyDifficulty: 3
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 4
   distanceToTarget: 0
   checkStuckTimer: 2
@@ -63643,7 +63643,7 @@ MonoBehaviour:
   serverDamage: 0
   actualAttack: 1
   enemyDifficulty: 2
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 4
   distanceToTarget: 0
   checkStuckTimer: 2
@@ -91035,7 +91035,7 @@ MonoBehaviour:
   serverDamage: 0
   actualAttack: 1
   enemyDifficulty: 0
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 5
   distanceToTarget: 0
   checkStuckTimer: 2
@@ -106984,7 +106984,7 @@ MonoBehaviour:
   serverDamage: 0
   actualAttack: 1
   enemyDifficulty: 1
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 4
   distanceToTarget: 0
   checkStuckTimer: 2
@@ -116947,7 +116947,7 @@ MonoBehaviour:
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
   hitEffect: {fileID: 2134959967}
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 0.4
   stepSize: 0.1
   attackStuckTime: 2
@@ -128033,7 +128033,7 @@ MonoBehaviour:
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
   hitEffect: {fileID: 1884895341}
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 0.8
   stepSize: 0.1
   attackStuckTime: 2
@@ -128164,7 +128164,7 @@ MonoBehaviour:
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
   hitEffect: {fileID: 1747559331}
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 0.8
   stepSize: 0.1
   attackStuckTime: 2
@@ -129911,7 +129911,7 @@ MonoBehaviour:
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
   hitEffect: {fileID: 1259917030062582435}
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 1
   stepSize: 0.1
   attackStuckTime: 2
@@ -131655,7 +131655,7 @@ MonoBehaviour:
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
   hitEffect: {fileID: 720836266}
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 0.8
   stepSize: 0.1
   attackStuckTime: 2
@@ -137018,7 +137018,7 @@ MonoBehaviour:
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
   hitEffect: {fileID: 574991917}
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 0.8
   stepSize: 0.1
   attackStuckTime: 2
@@ -139127,7 +139127,7 @@ MonoBehaviour:
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
   hitEffect: {fileID: 3365772622781283025}
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 0.8
   stepSize: 0.1
   attackStuckTime: 2
@@ -140366,7 +140366,7 @@ MonoBehaviour:
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
   hitEffect: {fileID: 2096847301}
-  attackRange: 14
+  attackRange: 16
   moveSpeed: 0.8
   stepSize: 0.1
   attackStuckTime: 2
