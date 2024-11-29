@@ -888,10 +888,12 @@ public class RoundManager : MonoBehaviour
         }
         else
         {
-            playerHealthBar.SetMaxHealth(maxHealth);
-            opponentHealthBar.SetMaxHealth(maxHealth);
             playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
             enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
+            serverSystem.actualPlayerHealth = maxHealth;
+            serverSystem.actualEnemyHealth = maxHealth;
+            playerHealthBar.SetMaxHealth(maxHealth);
+            opponentHealthBar.SetMaxHealth(maxHealth);
         }
     }
 
