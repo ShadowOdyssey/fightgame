@@ -1364,8 +1364,11 @@ public class PlayerSystem : MonoBehaviour
 
     private void SendZPosition()
     {
-        multiplayerSystem.SendDistance(enemySystem.distanceToTarget);
-        updatePosition = true;
+        if (enemySystem.distanceToTarget < 20f)
+        {
+            multiplayerSystem.SendDistance(enemySystem.distanceToTarget);
+            updatePosition = true;
+        }
     }
 
     private void MultiplayerForward()

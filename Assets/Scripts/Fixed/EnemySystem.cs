@@ -2066,8 +2066,11 @@ public class EnemySystem : MonoBehaviour
 
     private void SendZPosition()
     {
-        multiplayerSystem.SendDistance(distanceToTarget);
-        updatePosition = true;
+        if (distanceToTarget < 20f)
+        {
+            multiplayerSystem.SendDistance(distanceToTarget);
+            updatePosition = true;
+        }
     }
 
     private void MultiplayerForward()

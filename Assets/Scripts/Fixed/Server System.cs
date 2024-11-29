@@ -227,11 +227,7 @@ public class ServerSystem : MonoBehaviour
                 if (enemyZPosition != listenerInfoEnemy[6])
                 {
                     enemyZPosition = listenerInfoEnemy[6];
-
-                    if (enemyZPosition != "0")
-                    {
-                        canParseB = true;
-                    }
+                    canParseB = true;
                 }
 
                 if (enemyHit != listenerInfoEnemy[8])
@@ -309,13 +305,16 @@ public class ServerSystem : MonoBehaviour
             {
                 canParseA = false;
 
-                if (int.TryParse(playerDamage, out damageParseA))
+                if (int.TryParse(playerDamage, out int newDamageA))
+                {
+                    damageParseA = newDamageA;
+                }
 
-                    if (playerZPosition.Contains("."))
-                    {
-                        decimalIndexA1 = playerZPosition.IndexOf('.');
-                        playerZPosition = playerZPosition.Substring(0, decimalIndexA1);
-                    }
+                if (playerZPosition.Contains("."))
+                {
+                    decimalIndexA1 = playerZPosition.IndexOf('.');
+                    playerZPosition = playerZPosition.Substring(0, decimalIndexA1);
+                }
 
                 if (playerZPosition.Contains(","))
                 {
@@ -361,13 +360,16 @@ public class ServerSystem : MonoBehaviour
             {
                 canParseB = false;
 
-                if (int.TryParse(enemyDamage, out damageParseB))
+                if (int.TryParse(enemyDamage, out int newDamageB))
+                {
+                    damageParseB = newDamageB;
+                }
 
-                    if (playerZPosition.Contains("."))
-                    {
-                        decimalIndexA2 = playerZPosition.IndexOf('.');
-                        playerZPosition = playerZPosition.Substring(0, decimalIndexA2);
-                    }
+                if (playerZPosition.Contains("."))
+                {
+                    decimalIndexA2 = playerZPosition.IndexOf('.');
+                    playerZPosition = playerZPosition.Substring(0, decimalIndexA2);
+                }
 
                 if (playerZPosition.Contains(","))
                 {
@@ -425,21 +427,25 @@ public class ServerSystem : MonoBehaviour
                 CheckForEnemyDamage();
             }
 
+            #endregion
+
             #region Health Update
 
-            if (int.TryParse(playerHealth, out actualPlayerHealth) && canParseHealthA == true)
+            if (int.TryParse(playerHealth, out int newHealthA) && canParseHealthA == true)
             {
+                actualPlayerHealth = newHealthA;
+
                 roundSystem.UpdatePlayerHealth(actualPlayerHealth);
                 canParseHealthA = false;
             }
 
-            if (int.TryParse(enemyHealth, out actualEnemyHealth) && canParseHealthB == true)
+            if (int.TryParse(enemyHealth, out int newHealthB) && canParseHealthB == true)
             {
+                actualEnemyHealth = newHealthB;
+
                 roundSystem.UpdateEnemyHealth(actualEnemyHealth);
                 canParseHealthB = false;
             }
-
-            #endregion
 
             #endregion
         }
