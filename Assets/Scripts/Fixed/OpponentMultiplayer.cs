@@ -246,15 +246,16 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         Debug.Log("Sending to server Player health");
 
-        if (isEnemyPlayer == true)
+        if (originalPlayer != null)
         {
-            Debug.Log("Clone Player is sending health");
+            Debug.Log("Original Player is sending health");
 
             UpdateData(newLife, "health", actualListener.ToString());
         }
-        else
+        
+        if (opponentIsPlayer != null)
         {
-            Debug.Log("Original Player is sending health");
+            Debug.Log("Clone Player is sending health");
 
             UpdateData(newLife, "health", actualHost.ToString());
         }
@@ -264,15 +265,16 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         Debug.Log("Sending to server Enemy health");
 
-        if (isEnemyPlayer == true)
+        if (originalEnemy != null)
         {
-            Debug.Log("Clone Enemy is sending health");
+            Debug.Log("Original Enemy is sending health");
 
             UpdateData(newLife, "health", actualHost.ToString());
         }
-        else
+        
+        if (opponentIsEnemy != null)
         {
-            Debug.Log("Original Enemy is sending health");
+            Debug.Log("Clone Enemy is sending health");
 
             UpdateData(newLife, "health", actualListener.ToString());
         }
@@ -288,14 +290,14 @@ public class OpponentMultiplayer : MonoBehaviour
 
         if (originalPlayer != null)
         {
-            Debug.Log("Original Player sending");
+            Debug.Log("Original Player sending distance");
 
             UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
         }
         
         if (opponentIsPlayer != null)
         {
-            Debug.Log("Clone Player sending");
+            Debug.Log("Clone Player sending distance");
 
             UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
         }
@@ -307,14 +309,14 @@ public class OpponentMultiplayer : MonoBehaviour
 
         if (originalEnemy != null)
         {
-            Debug.Log("Original Enemy sending");
+            Debug.Log("Original Enemy sending distance");
 
             UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
         }
 
         if (opponentIsEnemy != null)
         {
-            Debug.Log("Clone Enemy sending");
+            Debug.Log("Clone Enemy sending distance");
 
             UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
         }
@@ -389,10 +391,14 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             if (listenerForward == "yes")
             {
+                Debug.Log("Clone Player is registering Forward move");
+
                 opponentIsPlayer.MultiplayerMovesForward();
             }
             else
             {
+                Debug.Log("Clone Player is registering Forward stop");
+
                 opponentIsPlayer.MultiplayerStopForward();
             }
         }
@@ -401,10 +407,14 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             if (listenerForward == "yes")
             {
+                Debug.Log("Original Player is registering Forward move");
+
                 originalPlayer.MultiplayerMovesForward();
             }
             else
             {
+                Debug.Log("Original Player is registering Forward stop");
+
                 originalPlayer.MultiplayerStopForward();
             }
         }
@@ -416,10 +426,14 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             if (listenerBackward == "yes")
             {
+                Debug.Log("Clone Player is registering Backward move");
+
                 opponentIsPlayer.MultiplayerMovesBackward();
             }
             else
             {
+                Debug.Log("Clone Player is registering Backward stop");
+
                 opponentIsPlayer.MultiplayerStopBackward();
             }
         }
@@ -428,10 +442,14 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             if (listenerBackward == "yes")
             {
+                Debug.Log("Original Player is registering Backward move");
+
                 originalPlayer.MultiplayerMovesBackward();
             }
             else
             {
+                Debug.Log("Original Player is registering Backward stop");
+
                 originalPlayer.MultiplayerStopBackward();
             }
         }
@@ -441,11 +459,15 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (opponentIsPlayer != null)
         {
+            Debug.Log("Clone Player is registering Attack 2");
+
             opponentIsPlayer.MultiplayerAttacked1();
         }
 
         if (originalPlayer != null)
         {
+            Debug.Log("Original Player is registering Attack 1");
+
             originalPlayer.MultiplayerAttacked1();
         }
     }
@@ -454,11 +476,15 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (opponentIsPlayer != null)
         {
+            Debug.Log("Clone Player is registering Attack 2");
+
             opponentIsPlayer.MultiplayerAttacked2();
         }
 
         if (originalPlayer != null)
         {
+            Debug.Log("Original Player is registering Attack 2");
+
             originalPlayer.MultiplayerAttacked2();
         }
     }
@@ -467,11 +493,15 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (opponentIsPlayer != null)
         {
+            Debug.Log("Clone Player is registering Attack 3");
+
             opponentIsPlayer.MultiplayerAttacked3();
         }
 
         if (originalPlayer != null)
         {
+            Debug.Log("Original Player is registering Attack 3");
+
             originalPlayer.MultiplayerAttacked3();
         }
     }
@@ -480,11 +510,15 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (opponentIsPlayer != null)
         {
+            Debug.Log("Clone Player is registering taking damage");
+
             opponentIsPlayer.TakeHit(newDamage);
         }
         
         if (originalPlayer != null)
         {
+            Debug.Log("Original Player is registering taking damage");
+
             originalPlayer.TakeHit(newDamage);
         }
 
@@ -501,10 +535,14 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             if (listenerForward == "yes")
             {
+                Debug.Log("Clone Enemy is registering Forward move");
+
                 opponentIsEnemy.MultiplayerMovesForward();
             }
             else
             {
+                Debug.Log("Clone Enemy is registering Forward stop");
+
                 opponentIsEnemy.MultiplayerStopForward();
             }
         }
@@ -513,10 +551,14 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             if (listenerForward == "yes")
             {
+                Debug.Log("Original Enemy is registering Forward move");
+
                 originalEnemy.MultiplayerMovesForward();
             }
             else
             {
+                Debug.Log("Original Enemy is registering Forward stop");
+
                 originalEnemy.MultiplayerStopForward();
             }
         }
@@ -528,10 +570,14 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             if (listenerBackward == "yes")
             {
+                Debug.Log("Clone Enemy is registering Backward move");
+
                 opponentIsEnemy.MultiplayerMovesBackward();
             }
             else
             {
+                Debug.Log("Clone Enemy is registering Backward stop");
+
                 opponentIsEnemy.MultiplayerStopBackward();
             }
         }
@@ -540,10 +586,14 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             if (listenerBackward == "yes")
             {
+                Debug.Log("Original Enemy is registering Backward move");
+
                 originalEnemy.MultiplayerMovesBackward();
             }
             else
             {
+                Debug.Log("Original Enemy is registering Backward stop");
+
                 originalEnemy.MultiplayerStopBackward();
             }
         }
@@ -553,11 +603,15 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (opponentIsEnemy != null)
         {
+            Debug.Log("Clone Enemy is registering Attack 1");
+
             opponentIsEnemy.MultiplayerAttacked1();
         }
         
         if (originalEnemy != null)
         {
+            Debug.Log("Original Enemy is registering Attack 1");
+
             originalEnemy.MultiplayerAttacked1();
         }
     }
@@ -566,11 +620,15 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (opponentIsEnemy != null)
         {
+            Debug.Log("Clone Enemy is registering Attack 2");
+
             opponentIsEnemy.MultiplayerAttacked2();
         }
 
         if (originalEnemy != null)
         {
+            Debug.Log("Original Enemy is registering Attack 2");
+
             originalEnemy.MultiplayerAttacked2();
         }
     }
@@ -579,11 +637,15 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (opponentIsEnemy != null)
         {
+            Debug.Log("Clone Enemy is registering Attack 3");
+
             opponentIsEnemy.MultiplayerAttacked3();
         }
 
         if (originalEnemy != null)
         {
+            Debug.Log("Original Enemy is registering Attack 3");
+
             originalEnemy.MultiplayerAttacked3();
         }
     }
@@ -592,11 +654,15 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (opponentIsEnemy != null)
         {
+            Debug.Log("Clone Enemy is registering getting damage");
+
             opponentIsEnemy.TakeDamage(newDamage);
         }
         
         if (originalEnemy != null)
         {
+            Debug.Log("Original Enemy is registering getting damage");
+
             originalEnemy.TakeDamage(newDamage);
         }
 
