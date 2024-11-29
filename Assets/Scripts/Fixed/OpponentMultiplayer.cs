@@ -209,11 +209,13 @@ public class OpponentMultiplayer : MonoBehaviour
     public void PlayerRegisterHit()
     {
         UpdateData("yes", "hit", actualHost.ToString());
+        Invoke(nameof(ResetHitPlayer), 0.5f);
     }
 
     public void EnemyRegisterHit()
     {
         UpdateData("yes", "hit", actualHost.ToString());
+        Invoke(nameof(ResetHitEnemy), 0.5f);
     }
 
     public void ResetHitPlayer()

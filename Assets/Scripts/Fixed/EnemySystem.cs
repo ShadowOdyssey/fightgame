@@ -502,6 +502,7 @@ public class EnemySystem : MonoBehaviour
 
                 if (distanceToTarget > attackRange && damageTime > 0f && damageTime <= hitTime && wasDetected == true)
                 {
+                    multiplayerSystem.ResetHitEnemy();
                     wasDetected = false;
                 }
 
