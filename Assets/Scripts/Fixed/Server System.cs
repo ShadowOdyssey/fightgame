@@ -30,6 +30,8 @@ public class ServerSystem : MonoBehaviour
     [Header("Lobby Data")]
     public int actualPlayer = 0;
     public int actualEnemy = 0;
+    public int actualPlayerHealth = 0;
+    public int actualEnemyHealth = 0;
     public int decimalIndexA1 = 0;
     public int decimalIndexA2 = 0;
     public int decimalIndexB1 = 0;
@@ -97,331 +99,340 @@ public class ServerSystem : MonoBehaviour
 
     public void Update()
     {
-        #region Receiving Data from Server
-
-        if (roundSystem.roundOver == false && canListen == true)
+        if (roundSystem.isMultiplayer == true)
         {
-            countListen = countListen + Time.deltaTime;
+            #region Receiving Data from Server
 
-            if (countListen > receiveDelay)
+            if (roundSystem.roundOver == false && canListen == true)
             {
-                StartCoroutine(ListenPlayer(listenUser, actualPlayer));
-                StartCoroutine(ListenEnemy(listenUser, actualEnemy));
-                countListen = 0f;
-            }
-        }
+                countListen = countListen + Time.deltaTime;
 
-        #endregion
-
-        #region Setup new Data from Server
-
-        if (wasDataLoadedPlayer == true)
-        {
-            if (playerForward != listenerInfoPlayer[0])
-            {
-                playerForward = listenerInfoPlayer[0];
-
-                if (playerForward == "yes")
+                if (countListen > receiveDelay)
                 {
-                    playerMultiplayer.RegisterForwardPlayer("yes");
+                    StartCoroutine(ListenPlayer(listenUser, actualPlayer));
+                    StartCoroutine(ListenEnemy(listenUser, actualEnemy));
+                    countListen = 0f;
+                }
+            }
+
+            #endregion
+
+            #region Setup new Data from Server
+
+            if (wasDataLoadedPlayer == true)
+            {
+                if (playerHealth != listenerInfoPlayer[5])
+                {
+                    playerHealth = listenerInfoPlayer[5];
+
+                    if (int.TryParse(playerHealth, out actualPlayerHealth))
+                    {
+                        roundSystem.UpdatePlayerHealth(actualPlayerHealth);
+                    }
+                }
+
+                if (playerForward != listenerInfoPlayer[0])
+                {
+                    playerForward = listenerInfoPlayer[0];
+
+                    if (playerForward == "yes")
+                    {
+                        playerMultiplayer.RegisterForwardPlayer("yes");
+                    }
+                    else
+                    {
+                        playerMultiplayer.RegisterForwardPlayer("no");
+                    }
+                }
+
+                if (playerBackward != listenerInfoPlayer[1])
+                {
+                    playerBackward = listenerInfoPlayer[1];
+
+                    if (playerBackward == "yes")
+                    {
+                        playerMultiplayer.RegisterBackwardPlayer("yes");
+                    }
+                    else
+                    {
+                        playerMultiplayer.RegisterBackwardPlayer("no");
+                    }
+                }
+
+                if (playerAttack1 != listenerInfoPlayer[2])
+                {
+                    playerAttack1 = listenerInfoPlayer[2];
+
+                    if (playerAttack1 == "yes")
+                    {
+                        playerMultiplayer.RegisterAttack1Player();
+                    }
+                }
+
+                if (playerAttack2 != listenerInfoPlayer[3])
+                {
+                    playerAttack2 = listenerInfoPlayer[3];
+
+                    if (playerAttack2 == "yes")
+                    {
+                        playerMultiplayer.RegisterAttack2Player();
+                    }
+                }
+
+                if (playerAttack3 != listenerInfoPlayer[4])
+                {
+                    playerAttack3 = listenerInfoPlayer[4];
+
+                    if (playerAttack3 == "yes")
+                    {
+                        playerMultiplayer.RegisterAttack3Player();
+                    }
+                }
+
+                if (playerZPosition != listenerInfoPlayer[6])
+                {
+                    playerZPosition = listenerInfoPlayer[6];
+
+                    if (playerZPosition != "0")
+                    {
+                        canParseA = true;
+                    }
+                }
+
+                if (playerDamage != listenerInfoPlayer[8])
+                {
+                    playerDamage = listenerInfoPlayer[8];
+                }
+
+                if (playerHit != listenerInfoPlayer[7])
+                {
+                    playerHit = listenerInfoPlayer[7];
+                    wasEnemyDamaged = true;
+                }
+
+                wasDataLoadedPlayer = false;
+            }
+
+            if (wasDataLoadedEnemy == true)
+            {
+                if (enemyHealth != listenerInfoPlayer[5])
+                {
+                    enemyHealth = listenerInfoPlayer[5];
+
+                    if (int.TryParse(enemyHealth, out actualEnemyHealth))
+                    {
+                        roundSystem.UpdateEnemyHealth(actualEnemyHealth);
+                    }
+                }
+
+                if (enemyForward != listenerInfoEnemy[0])
+                {
+                    enemyForward = listenerInfoEnemy[0];
+
+                    if (enemyForward == "yes")
+                    {
+                        enemyMultiplayer.RegisterForwardEnemy("yes");
+                    }
+                    else
+                    {
+                        enemyMultiplayer.RegisterForwardEnemy("no");
+                    }
+                }
+
+                if (enemyBackward != listenerInfoEnemy[1])
+                {
+                    enemyBackward = listenerInfoEnemy[1];
+
+                    if (enemyBackward == "yes")
+                    {
+                        enemyMultiplayer.RegisterBackwardEnemy("yes");
+                    }
+                    else
+                    {
+                        enemyMultiplayer.RegisterBackwardEnemy("no");
+                    }
+                }
+
+                if (enemyAttack1 != listenerInfoEnemy[2])
+                {
+                    enemyAttack1 = listenerInfoEnemy[2];
+
+                    if (enemyAttack1 == "yes")
+                    {
+                        enemyMultiplayer.RegisterAttack1Enemy();
+                    }
+                }
+
+                if (enemyAttack2 != listenerInfoEnemy[3])
+                {
+                    enemyAttack2 = listenerInfoEnemy[3];
+
+                    if (enemyAttack2 == "yes")
+                    {
+                        enemyMultiplayer.RegisterAttack2Enemy();
+                    }
+                }
+
+                if (enemyAttack3 != listenerInfoEnemy[4])
+                {
+                    enemyAttack3 = listenerInfoEnemy[4];
+
+                    if (enemyAttack3 == "yes")
+                    {
+                        enemyMultiplayer.RegisterAttack3Enemy();
+                    }
+                }
+
+                if (enemyZPosition != listenerInfoEnemy[6])
+                {
+                    enemyZPosition = listenerInfoEnemy[6];
+
+                    if (enemyZPosition != "0")
+                    {
+                        canParseB = true;
+                    }
+                }
+
+                if (enemyDamage != listenerInfoEnemy[8])
+                {
+                    enemyDamage = listenerInfoEnemy[8];
+                }
+
+                if (enemyHit != listenerInfoEnemy[7])
+                {
+                    enemyHit = listenerInfoEnemy[7];
+                    wasPlayerDamaged = true;
+                }
+
+                wasDataLoadedEnemy = false;
+            }
+
+            #endregion
+
+            #region Parse Distances
+
+            if (canParseA == true)
+            {
+                canParseA = false;
+
+                if (int.TryParse(playerDamage, out damageParseA))
+
+                    if (playerZPosition.Contains("."))
+                    {
+                        decimalIndexA1 = playerZPosition.IndexOf('.');
+                        playerZPosition = playerZPosition.Substring(0, decimalIndexA1);
+                    }
+
+                if (playerZPosition.Contains(","))
+                {
+                    decimalIndexA1 = playerZPosition.IndexOf(',');
+                    playerZPosition = playerZPosition.Substring(0, decimalIndexA1);
+                }
+
+                if (enemyZPosition.Contains("."))
+                {
+                    decimalIndexB1 = enemyZPosition.IndexOf('.');
+                    enemyZPosition = enemyZPosition.Substring(0, decimalIndexB1);
+                }
+
+                if (enemyZPosition.Contains(","))
+                {
+                    decimalIndexB1 = enemyZPosition.IndexOf(',');
+                    enemyZPosition = enemyZPosition.Substring(0, decimalIndexB1);
+                }
+
+                if (int.TryParse(playerZPosition, out int newDistanceA1))
+                {
+                    realDistanceA1 = newDistanceA1;
+                }
+
+                if (int.TryParse(enemyZPosition, out int newDistanceA2))
+                {
+                    realDistanceA2 = newDistanceA2;
+                }
+
+                if (realDistanceA1 > realDistanceA2)
+                {
+                    realDistanceA = realDistanceA1 - realDistanceA2;
                 }
                 else
                 {
-                    playerMultiplayer.RegisterForwardPlayer("no");
+                    realDistanceA = realDistanceA2 - realDistanceA1;
                 }
+
+                isParsedA = true;
             }
 
-            if (playerBackward != listenerInfoPlayer[1])
+            if (canParseB == true)
             {
-                playerBackward = listenerInfoPlayer[1];
+                canParseB = false;
 
-                if (playerBackward == "yes")
+                if (int.TryParse(enemyDamage, out damageParseB))
+
+                    if (playerZPosition.Contains("."))
+                    {
+                        decimalIndexA2 = playerZPosition.IndexOf('.');
+                        playerZPosition = playerZPosition.Substring(0, decimalIndexA2);
+                    }
+
+                if (playerZPosition.Contains(","))
                 {
-                    playerMultiplayer.RegisterBackwardPlayer("yes");
+                    decimalIndexA2 = playerZPosition.IndexOf(',');
+                    playerZPosition = playerZPosition.Substring(0, decimalIndexA2);
+                }
+
+                if (enemyZPosition.Contains("."))
+                {
+                    decimalIndexB2 = enemyZPosition.IndexOf('.');
+                    enemyZPosition = enemyZPosition.Substring(0, decimalIndexB2);
+                }
+
+                if (enemyZPosition.Contains(","))
+                {
+                    decimalIndexB2 = enemyZPosition.IndexOf(',');
+                    enemyZPosition = enemyZPosition.Substring(0, decimalIndexB2);
+                }
+
+                if (int.TryParse(playerZPosition, out int newDistanceB1))
+                {
+                    realDistanceB1 = newDistanceB1;
+                }
+
+                if (int.TryParse(enemyZPosition, out int newDistanceB2))
+                {
+                    realDistanceB2 = newDistanceB2;
+                }
+
+                if (realDistanceB1 > realDistanceB2)
+                {
+                    realDistanceB = realDistanceB1 - realDistanceB2;
                 }
                 else
                 {
-                    playerMultiplayer.RegisterBackwardPlayer("no");
+                    realDistanceB = realDistanceB2 - realDistanceB1;
                 }
+
+                isParsedB = true;
             }
 
-            if (playerAttack1 != listenerInfoPlayer[2])
+            #endregion
+
+            #region Check for damage
+
+            if (wasPlayerDamaged == true && isParsedA == true)
             {
-                playerAttack1 = listenerInfoPlayer[2];
-
-                if (playerAttack1 == "yes")
-                {
-                    playerMultiplayer.RegisterAttack1Player();
-                }
+                wasPlayerDamaged = false;
+                CheckForPlayerDamage();
             }
 
-            if (playerAttack2 != listenerInfoPlayer[3])
+            if (wasEnemyDamaged == true && isParsedB == true)
             {
-                playerAttack2 = listenerInfoPlayer[3];
-
-                if (playerAttack2 == "yes")
-                {
-                    playerMultiplayer.RegisterAttack2Player();
-                }
+                wasEnemyDamaged = false;
+                CheckForEnemyDamage();
             }
 
-            if (playerAttack3 != listenerInfoPlayer[4])
-            {
-                playerAttack3 = listenerInfoPlayer[4];
-
-                if (playerAttack3 == "yes")
-                {
-                    playerMultiplayer.RegisterAttack3Player();
-                }
-            }
-
-            if (playerHealth != listenerInfoPlayer[5])
-            {
-                playerHealth = listenerInfoPlayer[5];
-
-                roundSystem.UpdatePlayerHealth(int.Parse(playerHealth));
-            }
-
-            if (playerZPosition != listenerInfoPlayer[6])
-            {
-                playerZPosition = listenerInfoPlayer[6];
-
-                if (playerZPosition != "0")
-                {
-                    canParseA = true;
-                }
-            }
-
-            if (playerDamage != listenerInfoPlayer[8])
-            {
-                playerDamage = listenerInfoPlayer[8];
-            }
-
-            if (playerHit != listenerInfoPlayer[7])
-            {
-                playerHit = listenerInfoPlayer[7];
-                wasEnemyDamaged = true;
-            }
-
-            wasDataLoadedPlayer = false;
+            #endregion
         }
-
-        if (wasDataLoadedEnemy == true)
-        {
-            if (enemyForward != listenerInfoEnemy[0])
-            {
-                enemyForward = listenerInfoEnemy[0];
-
-                if (enemyForward == "yes")
-                {
-                    enemyMultiplayer.RegisterForwardEnemy("yes");
-                }
-                else
-                {
-                    enemyMultiplayer.RegisterForwardEnemy("no");
-                }
-            }
-
-            if (enemyBackward != listenerInfoEnemy[1])
-            {
-                enemyBackward = listenerInfoEnemy[1];
-
-                if (enemyBackward == "yes")
-                {
-                    enemyMultiplayer.RegisterBackwardEnemy("yes");
-                }
-                else
-                {
-                    enemyMultiplayer.RegisterBackwardEnemy("no");
-                }
-            }
-
-            if (enemyAttack1 != listenerInfoEnemy[2])
-            {
-                enemyAttack1 = listenerInfoEnemy[2];
-
-                if (enemyAttack1 == "yes")
-                {
-                    enemyMultiplayer.RegisterAttack1Enemy();
-                }
-            }
-
-            if (enemyAttack2 != listenerInfoEnemy[3])
-            {
-                enemyAttack2 = listenerInfoEnemy[3];
-
-                if (enemyAttack2 == "yes")
-                {
-                    enemyMultiplayer.RegisterAttack2Enemy();
-                }
-            }
-
-            if (enemyAttack3 != listenerInfoEnemy[4])
-            {
-                enemyAttack3 = listenerInfoEnemy[4];
-
-                if (enemyAttack3 == "yes")
-                {
-                    enemyMultiplayer.RegisterAttack3Enemy();
-                }
-            }
-
-            if (enemyHealth != listenerInfoEnemy[5])
-            {
-                enemyHealth = listenerInfoEnemy[5];
-
-                roundSystem.UpdateEnemyHealth(int.Parse(enemyHealth));
-            }
-
-            if (enemyZPosition != listenerInfoEnemy[6])
-            {
-                enemyZPosition = listenerInfoEnemy[6];
-
-                if (enemyZPosition != "0")
-                {
-                    canParseB = true;
-                }
-            }
-
-            if (enemyDamage != listenerInfoEnemy[8])
-            {
-                enemyDamage = listenerInfoEnemy[8];
-            }
-
-            if (enemyHit != listenerInfoEnemy[7])
-            {
-                enemyHit = listenerInfoEnemy[7];
-                wasPlayerDamaged = true;
-            }
-
-            wasDataLoadedEnemy = false;
-        }
-
-        #endregion
-
-        #region Parse Distances
-
-        if (canParseA == true)
-        {
-            canParseA = false;
-
-            if (int.TryParse(playerDamage, out damageParseA))
-
-            if (playerZPosition.Contains("."))
-            {
-                decimalIndexA1 = playerZPosition.IndexOf('.');
-                playerZPosition = playerZPosition.Substring(0, decimalIndexA1);
-            }
-
-            if (playerZPosition.Contains(","))
-            {
-                decimalIndexA1 = playerZPosition.IndexOf(',');
-                playerZPosition = playerZPosition.Substring(0, decimalIndexA1);
-            }
-
-            if (enemyZPosition.Contains("."))
-            {
-                decimalIndexB1 = enemyZPosition.IndexOf('.');
-                enemyZPosition = enemyZPosition.Substring(0, decimalIndexB1);
-            }
-
-            if (enemyZPosition.Contains(","))
-            {
-                decimalIndexB1 = enemyZPosition.IndexOf(',');
-                enemyZPosition = enemyZPosition.Substring(0, decimalIndexB1);
-            }
-
-            if (int.TryParse(playerZPosition, out int newDistanceA1))
-            {
-                realDistanceA1 = newDistanceA1;
-            }
-
-            if (int.TryParse(enemyZPosition, out int newDistanceA2))
-            {
-                realDistanceA2 = newDistanceA2;
-            }
-
-            if (realDistanceA1 > realDistanceA2)
-            {
-                realDistanceA = realDistanceA1 - realDistanceA2;
-            }
-            else
-            {
-                realDistanceA = realDistanceA2 - realDistanceA1;
-            }
-
-            isParsedA = true;
-        }
-
-        if (canParseB == true)
-        {
-            canParseB = false;
-
-            if (int.TryParse(enemyDamage, out damageParseB))
-
-            if (playerZPosition.Contains("."))
-            {
-                decimalIndexA2 = playerZPosition.IndexOf('.');
-                playerZPosition = playerZPosition.Substring(0, decimalIndexA2);
-            }
-
-            if (playerZPosition.Contains(","))
-            {
-                decimalIndexA2 = playerZPosition.IndexOf(',');
-                playerZPosition = playerZPosition.Substring(0, decimalIndexA2);
-            }
-
-            if (enemyZPosition.Contains("."))
-            {
-                decimalIndexB2 = enemyZPosition.IndexOf('.');
-                enemyZPosition = enemyZPosition.Substring(0, decimalIndexB2);
-            }
-
-            if (enemyZPosition.Contains(","))
-            {
-                decimalIndexB2 = enemyZPosition.IndexOf(',');
-                enemyZPosition = enemyZPosition.Substring(0, decimalIndexB2);
-            }
-
-            if (int.TryParse(playerZPosition, out int newDistanceB1))
-            {
-                realDistanceB1 = newDistanceB1;
-            }
-
-            if (int.TryParse(enemyZPosition, out int newDistanceB2))
-            {
-                realDistanceB2 = newDistanceB2;
-            }
-
-            if (realDistanceB1 > realDistanceB2)
-            {
-                realDistanceB = realDistanceB1 - realDistanceB2;
-            }
-            else
-            {
-                realDistanceB = realDistanceB2 - realDistanceB1;
-            }
-
-            isParsedB = true;
-        }
-
-        #endregion
-
-        #region Check for damage
-
-        if (wasPlayerDamaged == true && isParsedA == true)
-        {
-            wasPlayerDamaged = false;
-            CheckForPlayerDamage();
-        }
-
-        if (wasEnemyDamaged == true && isParsedB == true)
-        {
-            wasEnemyDamaged = false;
-            CheckForEnemyDamage();
-        }
-
-        #endregion
     }
 
     #endregion

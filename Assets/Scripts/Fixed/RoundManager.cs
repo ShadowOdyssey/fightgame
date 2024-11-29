@@ -792,11 +792,20 @@ public class RoundManager : MonoBehaviour
 
     private void ResetHealth()
     {
-        playerHealth = maxHealth;
-        opponentHealth = maxHealth;
-
-        playerHealthBar.SetMaxHealth(maxHealth);
-        opponentHealthBar.SetMaxHealth(maxHealth);
+        if (isMultiplayer == false)
+        {
+            playerHealth = maxHealth;
+            opponentHealth = maxHealth;
+            playerHealthBar.SetMaxHealth(maxHealth);
+            opponentHealthBar.SetMaxHealth(maxHealth);
+        }
+        else
+        {
+            UpdatePlayerHealth(maxHealth);
+            UpdateEnemyHealth(maxHealth);
+            playerHealthBar.SetMaxHealth(maxHealth);
+            opponentHealthBar.SetMaxHealth(maxHealth);
+        }
     }
 
     public void UpdatePlayerHealth(int newHealth)

@@ -5484,6 +5484,10 @@ MonoBehaviour:
   multiplayerSystem: {fileID: 35722961}
   enemyCollider: {fileID: 35722963}
   backCollider: {fileID: 858272252}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 93138567}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -13328,6 +13332,10 @@ MonoBehaviour:
   multiplayerSystem: {fileID: 195582298}
   enemyCollider: {fileID: 195582300}
   backCollider: {fileID: 1053843229}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 678784640}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -21754,6 +21762,8 @@ MonoBehaviour:
   receiveDelay: 0.2
   actualPlayer: 0
   actualEnemy: 0
+  actualPlayerHealth: 0
+  actualEnemyHealth: 0
   decimalIndexA1: 0
   decimalIndexA2: 0
   decimalIndexB1: 0
@@ -21777,6 +21787,8 @@ MonoBehaviour:
   isParsedB: 0
   listenerInfoPlayer: []
   listenerInfoEnemy: []
+  damageParseA: 0
+  damageParseB: 0
   responsePlayerFromServer: 
   responseEnemyFromServer: 
   playerForward: 
@@ -21795,6 +21807,8 @@ MonoBehaviour:
   enemyHealth: 
   playerZPosition: 
   enemyZPosition: 
+  playerDamage: 
+  enemyDamage: 
 --- !u!1 &424223977
 GameObject:
   m_ObjectHideFlags: 0
@@ -40766,6 +40780,10 @@ MonoBehaviour:
   multiplayerSystem: {fileID: 766459697}
   enemyCollider: {fileID: 766459699}
   backCollider: {fileID: 1755492384}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 1545518282}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -51407,6 +51425,10 @@ MonoBehaviour:
   multiplayerSystem: {fileID: 1182155160}
   enemyCollider: {fileID: 1182155162}
   backCollider: {fileID: 674476907}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 806010340}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -55007,6 +55029,10 @@ MonoBehaviour:
   multiplayerSystem: {fileID: 1443079221}
   enemyCollider: {fileID: 1443079223}
   backCollider: {fileID: 120261888}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 222634076}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -63632,6 +63658,10 @@ MonoBehaviour:
   multiplayerSystem: {fileID: 1682586387}
   enemyCollider: {fileID: 1682586389}
   backCollider: {fileID: 1260060803}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 22025710}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -91024,6 +91054,10 @@ MonoBehaviour:
   multiplayerSystem: {fileID: 4950711130276591986}
   enemyCollider: {fileID: 4950711130276591987}
   backCollider: {fileID: 521084260}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 2700347895830053798}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -106973,6 +107007,10 @@ MonoBehaviour:
   multiplayerSystem: {fileID: 8026062536542031974}
   enemyCollider: {fileID: 8026062536542031976}
   backCollider: {fileID: 338102773}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 4545454749973784299}
   stepSize: 0.1
   buttonForward: {fileID: 620303083}
@@ -116946,6 +116984,10 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 2134959967}
   attackRange: 16
   moveSpeed: 0.4
@@ -128032,6 +128074,10 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 1884895341}
   attackRange: 16
   moveSpeed: 0.8
@@ -128163,6 +128209,10 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 1747559331}
   attackRange: 16
   moveSpeed: 0.8
@@ -129910,6 +129960,10 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 1259917030062582435}
   attackRange: 16
   moveSpeed: 1
@@ -131654,6 +131708,10 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 720836266}
   attackRange: 16
   moveSpeed: 0.8
@@ -137017,6 +137075,10 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 574991917}
   attackRange: 16
   moveSpeed: 0.8
@@ -139126,6 +139188,10 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 3365772622781283025}
   attackRange: 16
   moveSpeed: 0.8
@@ -140365,6 +140431,10 @@ MonoBehaviour:
   buttonAttack1: {fileID: 720947327}
   buttonAttack2: {fileID: 605903491}
   buttonAttack3: {fileID: 436174685}
+  actualDamage: 0
+  attackDamage1: 3
+  attackDamage2: 6
+  attackDamage3: 10
   hitEffect: {fileID: 2096847301}
   attackRange: 16
   moveSpeed: 0.8
