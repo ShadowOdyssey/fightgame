@@ -55,6 +55,8 @@ public class ServerSystem : MonoBehaviour
     public bool canParseB = false;
     public bool isParsedA = false;
     public bool isParsedB = false;
+    public bool canParseHealthA = false;
+    public bool canParseHealthB = false;
 
     [Header("Loaded Data")]
     public string[] listenerInfoPlayer = new string[0];
@@ -124,11 +126,7 @@ public class ServerSystem : MonoBehaviour
                 if (playerHealth != listenerInfoPlayer[5])
                 {
                     playerHealth = listenerInfoPlayer[5];
-
-                    if (int.TryParse(playerHealth, out actualPlayerHealth))
-                    {
-                        roundSystem.UpdatePlayerHealth(actualPlayerHealth);
-                    }
+                    canParseHealthA = true;
                 }
 
                 if (playerForward != listenerInfoPlayer[0])
@@ -218,11 +216,7 @@ public class ServerSystem : MonoBehaviour
                 if (enemyHealth != listenerInfoPlayer[5])
                 {
                     enemyHealth = listenerInfoPlayer[5];
-
-                    if (int.TryParse(enemyHealth, out actualEnemyHealth))
-                    {
-                        roundSystem.UpdateEnemyHealth(actualEnemyHealth);
-                    }
+                    canParseHealthB = true;
                 }
 
                 if (enemyForward != listenerInfoEnemy[0])
@@ -308,6 +302,18 @@ public class ServerSystem : MonoBehaviour
             }
 
             #endregion
+
+            if (int.TryParse(playerHealth, out actualPlayerHealth) && canParseHealthA == true)
+            {
+                roundSystem.UpdatePlayerHealth(actualPlayerHealth);
+                canParseHealthA = false;
+            }
+
+            if (int.TryParse(enemyHealth, out actualEnemyHealth) && canParseHealthB == true)
+            {
+                roundSystem.UpdateEnemyHealth(actualEnemyHealth);
+                canParseHealthB = false;
+            }
 
             #region Parse Distances
 
