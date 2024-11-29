@@ -613,18 +613,17 @@ public class RoundManager : MonoBehaviour
 
     private void CheckCharactersHealth()
     {
-        if (playerHealthBar.slider.value <= 0f && roundOver == false || opponentHealthBar.slider.value <= 0f && roundOver == false)
+        if (isMultiplayer == true)
         {
-            roundOver = true;
-
-            if (isMultiplayer == true)
+            //playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
+            //enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
+            //Invoke(nameof(DetermineRoundWinner), 5f);
+        }
+        else
+        {
+            if (playerHealthBar.slider.value <= 0f && roundOver == false || opponentHealthBar.slider.value <= 0f && roundOver == false)
             {
-                playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
-                enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
-                Invoke(nameof(DetermineRoundWinner), 5f);
-            }
-            else
-            {
+                roundOver = true;
                 DetermineRoundWinner();
             }
         }
