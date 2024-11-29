@@ -46,8 +46,6 @@ public class OpponentMultiplayer : MonoBehaviour
     public bool isCheckingWin = false;
     public string responseFromServer = "";
     private string checkWin = "";
-    private int playerDamage = 0;
-    private int enemyDamage = 0;
 
     #endregion
 
@@ -211,14 +209,14 @@ public class OpponentMultiplayer : MonoBehaviour
     public void PlayerRegisterHit(int newDamage)
     {
         UpdateData("yes", "hit", actualHost.ToString());
-        playerDamage = newDamage;
+        UpdateData(newDamage.ToString(), "damage", actualHost.ToString());
         Invoke(nameof(ResetHitPlayer), 0.5f);
     }
 
     public void EnemyRegisterHit(int newDamage)
     {
         UpdateData("yes", "hit", actualHost.ToString());
-        enemyDamage = newDamage;
+        UpdateData(newDamage.ToString(), "damage", actualHost.ToString());
         Invoke(nameof(ResetHitEnemy), 0.5f);
     }
 
@@ -433,19 +431,19 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
-    public void RegisterPlayerTakesDamage()
+    public void RegisterPlayerTakesDamage(int newDamage)
     {
         if (opponentIsPlayer != null)
         {
-            opponentIsPlayer.TakeHit(enemyDamage);
+            opponentIsPlayer.TakeHit(newDamage);
         }
         
         if (originalPlayer != null)
         {
-            originalPlayer.TakeHit(enemyDamage);
+            originalPlayer.TakeHit(newDamage);
         }
 
-        enemyDamage = 0;
+        UpdateData("0", "damage", actualHost.ToString());
     }
 
     #endregion
@@ -545,19 +543,19 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
-    public void RegisterEnemyTakesDamage()
+    public void RegisterEnemyTakesDamage(int newDamage)
     {
         if (opponentIsEnemy != null)
         {
-            opponentIsEnemy.TakeDamage(playerDamage);
+            opponentIsEnemy.TakeDamage(newDamage);
         }
         
         if (originalEnemy != null)
         {
-            originalEnemy.TakeDamage(playerDamage);
+            originalEnemy.TakeDamage(newDamage);
         }
 
-        playerDamage = 0;
+        UpdateData("0", "damage", actualHost.ToString());
     }
 
     #endregion

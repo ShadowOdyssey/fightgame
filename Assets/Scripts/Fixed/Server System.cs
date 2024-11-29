@@ -59,6 +59,8 @@ public class ServerSystem : MonoBehaviour
     public string[] listenerInfoEnemy = new string[0];
 
     [Header("Last Data")]
+    public int damageParseA = 0;
+    public int damageParseB = 0;
     public string responsePlayerFromServer = "";
     public string responseEnemyFromServer = "";
     public string playerForward = "";
@@ -77,6 +79,8 @@ public class ServerSystem : MonoBehaviour
     public string enemyHealth = "";
     public string playerZPosition = "";
     public string enemyZPosition = "";
+    public string playerDamage = "";
+    public string enemyDamage = "";
 
     #endregion
 
@@ -188,6 +192,11 @@ public class ServerSystem : MonoBehaviour
                 }
             }
 
+            if (playerDamage != listenerInfoPlayer[8])
+            {
+                playerDamage = listenerInfoPlayer[8];
+            }
+
             if (playerHit != listenerInfoPlayer[7])
             {
                 playerHit = listenerInfoPlayer[7];
@@ -274,6 +283,11 @@ public class ServerSystem : MonoBehaviour
                 }
             }
 
+            if (enemyDamage != listenerInfoEnemy[8])
+            {
+                enemyDamage = listenerInfoEnemy[8];
+            }
+
             if (enemyHit != listenerInfoEnemy[7])
             {
                 enemyHit = listenerInfoEnemy[7];
@@ -290,6 +304,8 @@ public class ServerSystem : MonoBehaviour
         if (canParseA == true)
         {
             canParseA = false;
+
+            if (int.TryParse(playerDamage, out damageParseA))
 
             if (playerZPosition.Contains("."))
             {
@@ -340,6 +356,8 @@ public class ServerSystem : MonoBehaviour
         if (canParseB == true)
         {
             canParseB = false;
+
+            if (int.TryParse(enemyDamage, out damageParseB))
 
             if (playerZPosition.Contains("."))
             {
@@ -487,7 +505,7 @@ public class ServerSystem : MonoBehaviour
         {
             if (realDistanceA <= roundSystem.enemySystem.attackRange)
             {
-                playerMultiplayer.RegisterPlayerTakesDamage();
+                playerMultiplayer.RegisterPlayerTakesDamage(damageParseB);
             }
 
             realDistanceA = 0;
@@ -503,7 +521,7 @@ public class ServerSystem : MonoBehaviour
         {
             if (realDistanceB <= roundSystem.playerSystem.attackRange)
             {
-                enemyMultiplayer.RegisterEnemyTakesDamage();
+                enemyMultiplayer.RegisterEnemyTakesDamage(damageParseA);
             }
 
             realDistanceB = 0;
