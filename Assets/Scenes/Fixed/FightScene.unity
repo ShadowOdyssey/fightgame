@@ -21762,8 +21762,8 @@ MonoBehaviour:
   receiveDelay: 0.2
   actualPlayer: 0
   actualEnemy: 0
-  actualPlayerHealth: 0
-  actualEnemyHealth: 0
+  actualPlayerHealth: 100
+  actualEnemyHealth: 100
   decimalIndexA1: 0
   decimalIndexA2: 0
   decimalIndexB1: 0
