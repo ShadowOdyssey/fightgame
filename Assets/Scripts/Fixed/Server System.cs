@@ -111,8 +111,7 @@ public class ServerSystem : MonoBehaviour
 
                 if (countListen > receiveDelay)
                 {
-                    StartCoroutine(ListenPlayer(listenUser, actualPlayer));
-                    StartCoroutine(ListenEnemy(listenUser, actualEnemy));
+                    ListenPlayers();
                     countListen = 0f;
                 }
             }
@@ -500,6 +499,12 @@ public class ServerSystem : MonoBehaviour
     #endregion
 
     #region Register actual players
+
+    public void ListenPlayers()
+    {
+        StartCoroutine(ListenPlayer(listenUser, actualPlayer));
+        StartCoroutine(ListenEnemy(listenUser, actualEnemy));
+    }
 
     public void RegisterOpponentPlayer(OpponentMultiplayer newPlayer)
     {
