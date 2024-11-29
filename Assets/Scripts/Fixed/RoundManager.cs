@@ -615,9 +615,11 @@ public class RoundManager : MonoBehaviour
     {
         if (isMultiplayer == true)
         {
-            //playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
-            //enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
-            //Invoke(nameof(DetermineRoundWinner), 5f);
+            if (serverSystem.actualPlayerHealth <= 0 && roundOver == false || serverSystem.actualEnemyHealth <= 0 && roundOver == false)
+            {
+                roundOver = true;
+                DetermineRoundWinner();
+            }
         }
         else
         {
@@ -637,7 +639,7 @@ public class RoundManager : MonoBehaviour
 
             if (isMultiplayer == false)
             {
-                // Determine the winner of the round based on remaining health
+                // Determine the winner of the round based on remaining health from round manager
                 if (playerHealth > opponentHealth)
                 {
                     playerSystem.StartVictoryAnimation();
@@ -710,86 +712,78 @@ public class RoundManager : MonoBehaviour
             }
             else
             {
-                serverSystem.ListenPlayers();
-                ShowRoundText("WAITING FOR SERVER TO VERIFY WINNER...");
-                Invoke(nameof(CheckMultiplayerWinner), 5f);
-            }
+                // Determine the winner of the round based on remaining health from server
+                if (serverSystem.actualPlayerHealth > serverSystem.actualEnemyHealth)
+                {
+                    playerSystem.StartVictoryAnimation();
+                    enemySystem.StartDefeatAnimation();
 
+                    if (playerWonRound1.activeInHierarchy == false)
+                    {
+                        playerWonRound1.SetActive(true);
+                        timesPlayerWon = 1;
+                    }
+                    else
+                    {
+                        playerWonRound2.SetActive(true);
+                        timesPlayerWon = 2;
+                    }
+
+                    ShowRoundText(playerNameText.text + " WINS ROUND " + currentRound);
+                }
+
+                if (serverSystem.actualEnemyHealth > serverSystem.actualPlayerHealth)
+                {
+                    playerSystem.StartDefeatAnimation();
+                    enemySystem.StartVictoryAnimation();
+
+                    if (enemyWonRound1.activeInHierarchy == false)
+                    {
+                        enemyWonRound1.SetActive(true);
+                        timesEnemyWon = 1;
+                    }
+                    else
+                    {
+                        enemyWonRound2.SetActive(true);
+                        timesEnemyWon = 2;
+                    }
+
+                    ShowRoundText(enemyNameText.text + " WINS ROUND " + currentRound);
+                }
+
+                if (serverSystem.actualPlayerHealth <= 0f && serverSystem.actualEnemyHealth <= 0f)
+                {
+                    playerSystem.StartDrawAnimation();
+                    enemySystem.StartDrawAnimation();
+
+                    if (enemyWonRound1.activeInHierarchy == false)
+                    {
+                        enemyWonRound1.SetActive(true);
+                        timesEnemyWon = 1;
+                    }
+                    else
+                    {
+                        enemyWonRound2.SetActive(true);
+                        timesEnemyWon = 2;
+                    }
+
+                    if (playerWonRound1.activeInHierarchy == false)
+                    {
+                        playerWonRound1.SetActive(true);
+                        timesPlayerWon = 1;
+                    }
+                    else
+                    {
+                        playerWonRound2.SetActive(true);
+                        timesPlayerWon = 2;
+                    }
+
+                    ShowRoundText("ROUND " + currentRound + " DRAW");
+                }
+
+                wasDetermined = true;
+            }
         }
-    }
-
-    private void CheckMultiplayerWinner()
-    {
-        // Determine the winner of the round based on remaining health
-        if (serverSystem.actualPlayerHealth > serverSystem.actualEnemyHealth)
-        {
-            playerSystem.StartVictoryAnimation();
-            enemySystem.StartDefeatAnimation();
-
-            if (playerWonRound1.activeInHierarchy == false)
-            {
-                playerWonRound1.SetActive(true);
-                timesPlayerWon = 1;
-            }
-            else
-            {
-                playerWonRound2.SetActive(true);
-                timesPlayerWon = 2;
-            }
-
-            ShowRoundText(playerNameText.text + " WINS ROUND " + currentRound);
-        }
-
-        if (serverSystem.actualEnemyHealth > serverSystem.actualPlayerHealth)
-        {
-            playerSystem.StartDefeatAnimation();
-            enemySystem.StartVictoryAnimation();
-
-            if (enemyWonRound1.activeInHierarchy == false)
-            {
-                enemyWonRound1.SetActive(true);
-                timesEnemyWon = 1;
-            }
-            else
-            {
-                enemyWonRound2.SetActive(true);
-                timesEnemyWon = 2;
-            }
-
-            ShowRoundText(enemyNameText.text + " WINS ROUND " + currentRound);
-        }
-
-        if (serverSystem.actualPlayerHealth <= 0f && serverSystem.actualEnemyHealth <= 0f)
-        {
-            playerSystem.StartDrawAnimation();
-            enemySystem.StartDrawAnimation();
-
-            if (enemyWonRound1.activeInHierarchy == false)
-            {
-                enemyWonRound1.SetActive(true);
-                timesEnemyWon = 1;
-            }
-            else
-            {
-                enemyWonRound2.SetActive(true);
-                timesEnemyWon = 2;
-            }
-
-            if (playerWonRound1.activeInHierarchy == false)
-            {
-                playerWonRound1.SetActive(true);
-                timesPlayerWon = 1;
-            }
-            else
-            {
-                playerWonRound2.SetActive(true);
-                timesPlayerWon = 2;
-            }
-
-            ShowRoundText("ROUND " + currentRound + " DRAW");
-        }
-
-        wasDetermined = true;
     }
 
     private void CheckRoundWinner()
