@@ -129,7 +129,7 @@ public class ServerSystem : MonoBehaviour
                     canParseHealthA = true;
                 }
 
-                if (playerDamage != listenerInfoPlayer[8])
+                if (playerDamage != listenerInfoPlayer[7])
                 {
                     playerDamage = listenerInfoPlayer[8];
                 }
@@ -202,7 +202,7 @@ public class ServerSystem : MonoBehaviour
                     }
                 }
 
-                if (playerHit != listenerInfoPlayer[7])
+                if (playerHit != listenerInfoPlayer[8])
                 {
                     playerHit = listenerInfoPlayer[7];
                     wasEnemyDamaged = true;
@@ -219,7 +219,7 @@ public class ServerSystem : MonoBehaviour
                     canParseHealthB = true;
                 }
 
-                if (enemyDamage != listenerInfoEnemy[8])
+                if (enemyDamage != listenerInfoEnemy[7])
                 {
                     enemyDamage = listenerInfoEnemy[8];
                 }
@@ -292,7 +292,7 @@ public class ServerSystem : MonoBehaviour
                     }
                 }
 
-                if (enemyHit != listenerInfoEnemy[7])
+                if (enemyHit != listenerInfoEnemy[8])
                 {
                     enemyHit = listenerInfoEnemy[7];
                     wasPlayerDamaged = true;
