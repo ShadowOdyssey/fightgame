@@ -754,10 +754,15 @@ public class PlayerSystem : MonoBehaviour
         {
             Debug.Log("Player got a hit and got " + damageAmmount + " of damage!");
 
-            if (roundSystem.isTrainingMode == false)
+            if (roundSystem.isTrainingMode == false && roundSystem.isMultiplayer == false)
             {
                 roundSystem.ApplyDamageToPlayer(damageAmmount); // Inform RoundManager that Player got damage by Enemy
                                                                 // roundSystem.audioSystem.PlayerDamage(roundSystem.currentPLayerCharacter); // Start character Damage sound in another Audio Source different from what Enemy will use to play his Damage sound, only after damage has applied, create a new Audio Source for it
+            }
+
+            if (roundSystem.isMultiplayer == true && selectedMultiplayer == true)
+            {
+                roundSystem.MultiplayerEnemyDamage(damageAmmount);
             }
 
             if (roundSystem.playerHealthBar.slider.value <= 0)

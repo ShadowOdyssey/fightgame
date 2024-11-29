@@ -804,17 +804,33 @@ public class RoundManager : MonoBehaviour
         }
     }
 
+    public void MultiplayerPlayerDamage(int newDamage)
+    {
+        if (playerMultiplayer.selected == true)
+        {
+            playerHealth = playerHealth - newDamage;
+            playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
+        }
+    }
+
+    public void MultiplayerEnemyDamage(int newDamage)
+    {
+        if (enemyMultiplayer.selected == true)
+        {
+            opponentHealth = opponentHealth - newDamage;
+            enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
+        }
+    }
+
     public void UpdatePlayerHealth(int newHealth)
     {
         playerHealth = newHealth;
-        playerHealth = playerHealth - playerDamagePerSecond;
         playerHealthBar.SetHealth(playerHealth);
     }
 
     public void UpdateEnemyHealth(int newHealth)
     {
         opponentHealth = newHealth;
-        opponentHealth = opponentHealth - playerDamagePerSecond;
         opponentHealthBar.SetHealth(opponentHealth);
     }
 
@@ -822,11 +838,8 @@ public class RoundManager : MonoBehaviour
     {
         if (isTrainingMode == false)
         {
-            if (isMultiplayer == false)
-            {
-                playerHealth = playerHealth - damage;
-                playerHealthBar.SetHealth(playerHealth);
-            }
+            playerHealth = playerHealth - damage;
+            playerHealthBar.SetHealth(playerHealth);
         }
     }
 
@@ -834,11 +847,8 @@ public class RoundManager : MonoBehaviour
     {
         if (isTrainingMode == false)
         {
-            if (isMultiplayer == false)
-            {
-                opponentHealth = opponentHealth - damage;
-                opponentHealthBar.SetHealth(opponentHealth);
-            }
+            opponentHealth = opponentHealth - damage;
+            opponentHealthBar.SetHealth(opponentHealth);
         }
     }
 
