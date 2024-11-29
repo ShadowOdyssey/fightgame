@@ -549,8 +549,10 @@ public class EnemySystem : MonoBehaviour
 
         if (leftPressed == true)
         {
-            if (roundSystem.isMultiplayer == true && updatePosition == false)
+            if (roundSystem.isMultiplayer == true && updatePosition == false && selectedMultiplayer == true)
             {
+                Debug.Log("Original Enemy sending Z position because is moving forward");
+
                 SendZPosition();
             }
 
@@ -595,8 +597,10 @@ public class EnemySystem : MonoBehaviour
 
         if (rightPressed == true)
         {
-            if (roundSystem.isMultiplayer == true && updatePosition == false)
+            if (roundSystem.isMultiplayer == true && updatePosition == false && selectedMultiplayer == true)
             {
+                Debug.Log("Original Enemy sending Z position because is moving backward");
+
                 SendZPosition();
             }
 
@@ -643,8 +647,10 @@ public class EnemySystem : MonoBehaviour
         {
             if (thresholdButton < 1f)
             {
-                if (roundSystem.isMultiplayer == true && updatePosition == false)
+                if (roundSystem.isMultiplayer == true && updatePosition == false && selectedMultiplayer == true)
                 {
+                    Debug.Log("Original Enemy sending Z position because did a fast tap");
+
                     SendZPosition();
                 }
 
@@ -2068,18 +2074,22 @@ public class EnemySystem : MonoBehaviour
     {
         if (distanceToTarget < 20f)
         {
-            multiplayerSystem.SendDistance(distanceToTarget);
+            multiplayerSystem.SendEnemyDistance(distanceToTarget);
             updatePosition = true;
         }
     }
 
     private void MultiplayerForward()
     {
+        Debug.Log("Original Player sending forward");
+
         multiplayerSystem.SendForward();
     }
 
     private void MultiplayerBackward()
     {
+        Debug.Log("Original Player sending backward");
+
         multiplayerSystem.SendBackward();
     }
 

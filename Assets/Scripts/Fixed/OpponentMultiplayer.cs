@@ -208,6 +208,8 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void PlayerRegisterHit(int newDamage)
     {
+        Debug.Log("Original Player is sending Hit");
+
         UpdateData("yes", "hit", actualHost.ToString());
         UpdateData(newDamage.ToString(), "damage", actualHost.ToString());
         Invoke(nameof(ResetHitPlayer), 1f);
@@ -215,6 +217,8 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void EnemyRegisterHit(int newDamage)
     {
+        Debug.Log("Original Enemy is sending Hit");
+
         UpdateData("yes", "hit", actualHost.ToString());
         UpdateData(newDamage.ToString(), "damage", actualHost.ToString());
         Invoke(nameof(ResetHitEnemy), 1f);
@@ -222,11 +226,15 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void ResetHitPlayer()
     {
+        Debug.Log("Original Player was reset Hit in database");
+
         UpdateData("no", "hit", actualHost.ToString());
     }
 
     public void ResetHitEnemy()
     {
+        Debug.Log("Original Enemy was reset Hit in database");
+
         UpdateData("no", "hit", actualHost.ToString());
     }
 
@@ -236,24 +244,36 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void UpdatePlayerLife(string newLife)
     {
+        Debug.Log("Sending to server Player health");
+
         if (isEnemyPlayer == true)
         {
+            Debug.Log("Clone Player is sending health");
+
             UpdateData(newLife, "health", actualListener.ToString());
         }
         else
         {
+            Debug.Log("Original Player is sending health");
+
             UpdateData(newLife, "health", actualHost.ToString());
         }
     }
 
     public void UpdateEnemyLife(string newLife)
     {
+        Debug.Log("Sending to server Enemy health");
+
         if (isEnemyPlayer == true)
         {
+            Debug.Log("Clone Enemy is sending health");
+
             UpdateData(newLife, "health", actualHost.ToString());
         }
         else
         {
+            Debug.Log("Original Enemy is sending health");
+
             UpdateData(newLife, "health", actualListener.ToString());
         }
     }
@@ -262,15 +282,40 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #region Data Sent
 
-    public void SendDistance(float actualDistance)
+    public void SendPlayerDistance(float actualDistance)
     {
-        if (originalEnemy != null)
+        Debug.Log("Sending to server actual Player Distance");
+
+        if (originalPlayer != null)
         {
+            Debug.Log("Original Player sending");
+
             UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
         }
         
+        if (opponentIsPlayer != null)
+        {
+            Debug.Log("Clone Player sending");
+
+            UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
+        }
+    }
+
+    public void SendEnemyDistance(float actualDistance)
+    {
+        Debug.Log("Sending to server actual Enemy Distance");
+
+        if (originalEnemy != null)
+        {
+            Debug.Log("Original Enemy sending");
+
+            UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
+        }
+
         if (opponentIsEnemy != null)
         {
+            Debug.Log("Clone Enemy sending");
+
             UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
         }
     }

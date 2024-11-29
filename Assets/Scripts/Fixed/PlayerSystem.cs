@@ -260,8 +260,10 @@ public class PlayerSystem : MonoBehaviour
 
         if (rightPressed == true)
         {
-            if (roundSystem.isMultiplayer == true && updatePosition == false)
+            if (roundSystem.isMultiplayer == true && updatePosition == false && selectedMultiplayer == true)
             {
+                Debug.Log("Original Player sending Z position because is moving forward");
+
                 SendZPosition();
             }
 
@@ -306,8 +308,10 @@ public class PlayerSystem : MonoBehaviour
 
         if (leftPressed == true)
         {
-            if (roundSystem.isMultiplayer == true && updatePosition == false)
+            if (roundSystem.isMultiplayer == true && updatePosition == false && selectedMultiplayer == true)
             {
+                Debug.Log("Original Player sending Z position because is moving backward");
+
                 SendZPosition();
             }
 
@@ -354,8 +358,10 @@ public class PlayerSystem : MonoBehaviour
         {
             if (thresholdButton < 1f)
             {
-                if (roundSystem.isMultiplayer == true && updatePosition == false)
+                if (roundSystem.isMultiplayer == true && updatePosition == false && selectedMultiplayer == true)
                 {
+                    Debug.Log("Original Player sending Z position because is stopped to move");
+
                     SendZPosition();
                 }
 
@@ -965,7 +971,12 @@ public class PlayerSystem : MonoBehaviour
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
                     wasDetected = false;
-                    MultiplayerAttack1();
+
+                    if (roundSystem.isMultiplayer == true && selectedMultiplayer == true)
+                    {
+                        MultiplayerAttack1();
+                    }
+
                     cooldownSystem.ActivateCooldown1(); // Skill not in cooldown so lets activate cooldown
                     isCooldown1 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                     isAttacking = true; // We make sure only to trigger isAttacking after animation started
@@ -1002,7 +1013,12 @@ public class PlayerSystem : MonoBehaviour
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
                     wasDetected = false;
-                    MultiplayerAttack2();
+
+                    if (roundSystem.isMultiplayer == true && selectedMultiplayer == true)
+                    {
+                        MultiplayerAttack2();
+                    }
+
                     cooldownSystem.ActivateCooldown2(); // Skill not in cooldown so lets activate cooldown
                     isCooldown2 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                     isAttacking = true; // We make sure only to trigger isAttacking after animation started
@@ -1039,7 +1055,12 @@ public class PlayerSystem : MonoBehaviour
                 if (selectedMultiplayer == true || roundSystem.isMultiplayer == false)
                 {
                     wasDetected = false;
-                    MultiplayerAttack3();
+
+                    if (roundSystem.isMultiplayer == true && selectedMultiplayer == true)
+                    {
+                        MultiplayerAttack3();
+                    }
+
                     cooldownSystem.ActivateCooldown3(); // Skill not in cooldown so lets activate cooldown
                     isCooldown3 = true; // Skill in cooldown mode, disable button action till the end of cooldown effect
                     isAttacking = true; // We make sure only to trigger isAttacking after animation started
@@ -1366,7 +1387,7 @@ public class PlayerSystem : MonoBehaviour
     {
         if (enemySystem.distanceToTarget < 20f)
         {
-            multiplayerSystem.SendDistance(enemySystem.distanceToTarget);
+            multiplayerSystem.SendPlayerDistance(enemySystem.distanceToTarget);
             updatePosition = true;
         }
     }
