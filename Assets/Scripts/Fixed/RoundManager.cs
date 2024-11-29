@@ -588,14 +588,6 @@ public class RoundManager : MonoBehaviour
                     ApplyDamageToOpponent(opponentDamagePerSecond);
                     ApplyDamageToPlayer(playerDamagePerSecond);
                 }
-                else
-                {
-                    if (playerMultiplayer.selected == true)
-                    {
-                        ApplyDamageToOpponent(playerDamagePerSecond);
-                        ApplyDamageToPlayer(playerDamagePerSecond);
-                    }
-                }
 
                 decreaseTime = 0f;
             }
@@ -815,28 +807,24 @@ public class RoundManager : MonoBehaviour
     public void UpdatePlayerHealth(int newHealth)
     {
         playerHealth = newHealth;
-        playerHealthBar.SetHealth(newHealth);
+        playerHealth = playerHealth - playerDamagePerSecond;
+        playerHealthBar.SetHealth(playerHealth);
     }
 
     public void UpdateEnemyHealth(int newHealth)
     {
         opponentHealth = newHealth;
-        opponentHealthBar.SetHealth(newHealth);
+        opponentHealth = opponentHealth - playerDamagePerSecond;
+        opponentHealthBar.SetHealth(opponentHealth);
     }
 
     public void ApplyDamageToPlayer(int damage)
     {
         if (isTrainingMode == false)
         {
-            playerHealth = playerHealth - damage;
-
-            if (isMultiplayer == true && playerMultiplayer.selected == true)
-            {
-                playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
-            }
-
             if (isMultiplayer == false)
             {
+                playerHealth = playerHealth - damage;
                 playerHealthBar.SetHealth(playerHealth);
             }
         }
@@ -846,15 +834,9 @@ public class RoundManager : MonoBehaviour
     {
         if (isTrainingMode == false)
         {
-            opponentHealth = opponentHealth - damage;
-
-            if (isMultiplayer == true && enemyMultiplayer.selected == true)
-            {
-                enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
-            }
-
             if (isMultiplayer == false)
             {
+                opponentHealth = opponentHealth - damage;
                 opponentHealthBar.SetHealth(opponentHealth);
             }
         }
