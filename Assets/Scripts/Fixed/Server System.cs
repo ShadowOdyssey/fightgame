@@ -303,6 +303,8 @@ public class ServerSystem : MonoBehaviour
 
             #endregion
 
+            #region Health Update
+
             if (int.TryParse(playerHealth, out actualPlayerHealth) && canParseHealthA == true)
             {
                 roundSystem.UpdatePlayerHealth(actualPlayerHealth);
@@ -314,6 +316,8 @@ public class ServerSystem : MonoBehaviour
                 roundSystem.UpdateEnemyHealth(actualEnemyHealth);
                 canParseHealthB = false;
             }
+
+            #endregion
 
             #region Parse Distances
 

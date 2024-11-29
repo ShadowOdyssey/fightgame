@@ -590,8 +590,11 @@ public class RoundManager : MonoBehaviour
                 }
                 else
                 {
-                    ApplyDamageToOpponent(playerDamagePerSecond);
-                    ApplyDamageToPlayer(playerDamagePerSecond);
+                    if (playerMultiplayer.selected == true)
+                    {
+                        ApplyDamageToOpponent(playerDamagePerSecond);
+                        ApplyDamageToPlayer(playerDamagePerSecond);
+                    }
                 }
 
                 decreaseTime = 0f;
@@ -803,8 +806,12 @@ public class RoundManager : MonoBehaviour
         {
             UpdatePlayerHealth(maxHealth);
             UpdateEnemyHealth(maxHealth);
-            playerHealthBar.SetMaxHealth(maxHealth);
-            opponentHealthBar.SetMaxHealth(maxHealth);
+
+            if (playerMultiplayer.selected == true)
+            {
+                playerHealthBar.SetMaxHealth(maxHealth);
+                opponentHealthBar.SetMaxHealth(maxHealth);
+            }
         }
     }
 
