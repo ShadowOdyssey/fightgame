@@ -210,14 +210,14 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         UpdateData("yes", "hit", actualHost.ToString());
         UpdateData(newDamage.ToString(), "damage", actualHost.ToString());
-        Invoke(nameof(ResetHitPlayer), 0.5f);
+        Invoke(nameof(ResetHitPlayer), 1f);
     }
 
     public void EnemyRegisterHit(int newDamage)
     {
         UpdateData("yes", "hit", actualHost.ToString());
         UpdateData(newDamage.ToString(), "damage", actualHost.ToString());
-        Invoke(nameof(ResetHitEnemy), 0.5f);
+        Invoke(nameof(ResetHitEnemy), 1f);
     }
 
     public void ResetHitPlayer()

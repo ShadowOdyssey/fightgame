@@ -134,6 +134,22 @@ public class ServerSystem : MonoBehaviour
                     playerDamage = listenerInfoPlayer[8];
                 }
 
+                if (playerZPosition != listenerInfoPlayer[6])
+                {
+                    playerZPosition = listenerInfoPlayer[6];
+
+                    if (playerZPosition != "0")
+                    {
+                        canParseA = true;
+                    }
+                }
+
+                if (playerHit != listenerInfoPlayer[8])
+                {
+                    playerHit = listenerInfoPlayer[7];
+                    wasEnemyDamaged = true;
+                }
+
                 if (playerForward != listenerInfoPlayer[0])
                 {
                     playerForward = listenerInfoPlayer[0];
@@ -192,22 +208,6 @@ public class ServerSystem : MonoBehaviour
                     }
                 }
 
-                if (playerZPosition != listenerInfoPlayer[6])
-                {
-                    playerZPosition = listenerInfoPlayer[6];
-
-                    if (playerZPosition != "0")
-                    {
-                        canParseA = true;
-                    }
-                }
-
-                if (playerHit != listenerInfoPlayer[8])
-                {
-                    playerHit = listenerInfoPlayer[7];
-                    wasEnemyDamaged = true;
-                }
-
                 wasDataLoadedPlayer = false;
             }
 
@@ -222,6 +222,22 @@ public class ServerSystem : MonoBehaviour
                 if (enemyDamage != listenerInfoEnemy[7])
                 {
                     enemyDamage = listenerInfoEnemy[8];
+                }
+
+                if (enemyZPosition != listenerInfoEnemy[6])
+                {
+                    enemyZPosition = listenerInfoEnemy[6];
+
+                    if (enemyZPosition != "0")
+                    {
+                        canParseB = true;
+                    }
+                }
+
+                if (enemyHit != listenerInfoEnemy[8])
+                {
+                    enemyHit = listenerInfoEnemy[7];
+                    wasPlayerDamaged = true;
                 }
 
                 if (enemyForward != listenerInfoEnemy[0])
@@ -282,39 +298,7 @@ public class ServerSystem : MonoBehaviour
                     }
                 }
 
-                if (enemyZPosition != listenerInfoEnemy[6])
-                {
-                    enemyZPosition = listenerInfoEnemy[6];
-
-                    if (enemyZPosition != "0")
-                    {
-                        canParseB = true;
-                    }
-                }
-
-                if (enemyHit != listenerInfoEnemy[8])
-                {
-                    enemyHit = listenerInfoEnemy[7];
-                    wasPlayerDamaged = true;
-                }
-
                 wasDataLoadedEnemy = false;
-            }
-
-            #endregion
-
-            #region Health Update
-
-            if (int.TryParse(playerHealth, out actualPlayerHealth) && canParseHealthA == true)
-            {
-                roundSystem.UpdatePlayerHealth(actualPlayerHealth);
-                canParseHealthA = false;
-            }
-
-            if (int.TryParse(enemyHealth, out actualEnemyHealth) && canParseHealthB == true)
-            {
-                roundSystem.UpdateEnemyHealth(actualEnemyHealth);
-                canParseHealthB = false;
             }
 
             #endregion
@@ -440,6 +424,22 @@ public class ServerSystem : MonoBehaviour
                 wasEnemyDamaged = false;
                 CheckForEnemyDamage();
             }
+
+            #region Health Update
+
+            if (int.TryParse(playerHealth, out actualPlayerHealth) && canParseHealthA == true)
+            {
+                roundSystem.UpdatePlayerHealth(actualPlayerHealth);
+                canParseHealthA = false;
+            }
+
+            if (int.TryParse(enemyHealth, out actualEnemyHealth) && canParseHealthB == true)
+            {
+                roundSystem.UpdateEnemyHealth(actualEnemyHealth);
+                canParseHealthB = false;
+            }
+
+            #endregion
 
             #endregion
         }
