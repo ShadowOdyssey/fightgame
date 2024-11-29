@@ -583,10 +583,18 @@ public class RoundManager : MonoBehaviour
                 roundTime = roundTime - 1;
                 actualTime.text = roundTime.ToString();
 
-                if (isMultiplayer == false)
+                if (isTrainingMode == false)
                 {
-                    ApplyDamageToOpponent(opponentDamagePerSecond);
-                    ApplyDamageToPlayer(playerDamagePerSecond);
+                    if (isMultiplayer == false)
+                    {
+                        ApplyDamageToOpponent(opponentDamagePerSecond);
+                        ApplyDamageToPlayer(playerDamagePerSecond);
+                    }
+                    else
+                    {
+                        ApplyDamageToOpponent(playerDamagePerSecond);
+                        ApplyDamageToPlayer(playerDamagePerSecond);
+                    }
                 }
 
                 decreaseTime = 0f;
@@ -806,20 +814,14 @@ public class RoundManager : MonoBehaviour
 
     public void MultiplayerPlayerDamage(int newDamage)
     {
-        if (playerMultiplayer.selected == true)
-        {
-            playerHealth = playerHealth - newDamage;
-            playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
-        }
+        playerHealth = playerHealth - newDamage;
+        playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
     }
 
     public void MultiplayerEnemyDamage(int newDamage)
     {
-        if (enemyMultiplayer.selected == true)
-        {
-            opponentHealth = opponentHealth - newDamage;
-            enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
-        }
+        opponentHealth = opponentHealth - newDamage;
+        enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
     }
 
     public void UpdatePlayerHealth(int newHealth)

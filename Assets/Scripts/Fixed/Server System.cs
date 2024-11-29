@@ -526,9 +526,12 @@ public class ServerSystem : MonoBehaviour
         {
             if (realDistanceA <= roundSystem.enemySystem.attackRange)
             {
+                Debug.Log("Enemy dealed damage to Player");
+
                 playerMultiplayer.RegisterPlayerTakesDamage(damageParseB);
             }
 
+            damageParseB = 0;
             realDistanceA = 0;
             realDistanceA1 = 0;
             realDistanceA2 = 0;
@@ -542,9 +545,12 @@ public class ServerSystem : MonoBehaviour
         {
             if (realDistanceB <= roundSystem.playerSystem.attackRange)
             {
+                Debug.Log("Player dealed damage to Enemy");
+
                 enemyMultiplayer.RegisterEnemyTakesDamage(damageParseA);
             }
 
+            damageParseA = 0;
             realDistanceB = 0;
             realDistanceB1 = 0;
             realDistanceB2 = 0;
