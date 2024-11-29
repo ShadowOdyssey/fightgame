@@ -30,8 +30,8 @@ public class ServerSystem : MonoBehaviour
     [Header("Lobby Data")]
     public int actualPlayer = 0;
     public int actualEnemy = 0;
-    public int actualPlayerHealth = 0;
-    public int actualEnemyHealth = 0;
+    public int actualPlayerHealth = 100;
+    public int actualEnemyHealth = 100;
     public int decimalIndexA1 = 0;
     public int decimalIndexA2 = 0;
     public int decimalIndexB1 = 0;
