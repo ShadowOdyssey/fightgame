@@ -131,7 +131,7 @@ public class ServerSystem : MonoBehaviour
 
                 if (playerDamage != listenerInfoPlayer[7])
                 {
-                    playerDamage = listenerInfoPlayer[8];
+                    playerDamage = listenerInfoPlayer[7];
                 }
 
                 if (playerZPosition != listenerInfoPlayer[6])
@@ -146,7 +146,7 @@ public class ServerSystem : MonoBehaviour
 
                 if (playerHit != listenerInfoPlayer[8])
                 {
-                    playerHit = listenerInfoPlayer[7];
+                    playerHit = listenerInfoPlayer[8];
                     wasEnemyDamaged = true;
                 }
 
@@ -221,7 +221,7 @@ public class ServerSystem : MonoBehaviour
 
                 if (enemyDamage != listenerInfoEnemy[7])
                 {
-                    enemyDamage = listenerInfoEnemy[8];
+                    enemyDamage = listenerInfoEnemy[7];
                 }
 
                 if (enemyZPosition != listenerInfoEnemy[6])
@@ -232,7 +232,7 @@ public class ServerSystem : MonoBehaviour
 
                 if (enemyHit != listenerInfoEnemy[8])
                 {
-                    enemyHit = listenerInfoEnemy[7];
+                    enemyHit = listenerInfoEnemy[8];
                     wasPlayerDamaged = true;
                 }
 
