@@ -65,8 +65,8 @@
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Plugin\Acknowledgements\Acknowledgement_DotNetZip.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Utilities\WarningLevel.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Canvases\ICanvas.cs" />
-    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Documentation\DocumentationGenerator.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Plugin\Changelogs\LegacyLudiqCore\Changelog_1_2_1.cs" />
+    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Documentation\DocumentationGenerator.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Decorators\SingleDecoratorProvider.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Plugin\Changelogs\LegacyLudiqGraphs\Changelog_1_4_0.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Widgets\Groups\GraphGroupWidget.cs" />
@@ -224,8 +224,8 @@
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Plugin\Changelogs\LegacyLudiqCore\Changelog_1_0_6.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Plugin\Changelogs\LegacyLudiqCore\Changelog_1_4_5.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Widgets\Groups\GraphGroupInspector.cs" />
-    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Utilities\EditorTypeUtility.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Plugin\Migrations\Migration_1_2_2_to_1_2_3.cs" />
+    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Utilities\EditorTypeUtility.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\AssetBundleCreator.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Plugin\Migrations\Migration_1_6_to_1_7.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Description\MachineDescription.cs" />
@@ -237,9 +237,9 @@
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Interface\Fuzzy\NullOption.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Products\ProductAttribute.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Inspection\IndividualPropertyDrawer.cs" />
+    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Utilities\ReloadAssets.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Platforms\ConstructorInfoStubWriter.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Utilities\SearchUtility.cs" />
-    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Utilities\ReloadAssets.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Interface\LudiqStyles.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Widgets\WidgetAttribute.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Plugin\Changelogs\LegacyLudiqGraphs\Changelog_1_2_0.cs" />
@@ -492,8 +492,8 @@
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\BoltStyles.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Inspection\Unity\BoundsInspector.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Context\GraphContextExtension.cs" />
-    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Plugin\Migrations\Migration_Asset_to_Package.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Utilities\PathUtility.cs" />
+    <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Plugin\Migrations\Migration_Asset_to_Package.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Inspection\Special\KeyValuePairInspector.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Plugin\Changelogs\LegacyLudiqCore\Changelog_1_4_4.cs" />
     <Compile Include="Library\PackageCache\com.unity.visualscripting@1.9.5\Editor\VisualScripting.Core\Utilities\BackupUtility.cs" />

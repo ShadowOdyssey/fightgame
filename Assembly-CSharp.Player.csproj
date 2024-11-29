@@ -894,22 +894,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.Formats.Fbx.Runtime.Player.csproj">
-      <Project>{4B634033-49EB-970B-3666-D26973C61311}</Project>
-      <Name>Unity.Formats.Fbx.Runtime.Player</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Flow.Player.csproj">
-      <Project>{2F1FDB4E-6F2E-7235-86D2-905F7BBCD269}</Project>
-      <Name>Unity.VisualScripting.Flow.Player</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.Player.csproj">
-      <Project>{6F786B86-BDD8-83E2-EFEB-9C417FDB3014}</Project>
-      <Name>Unity.TextMeshPro.Player</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Animation.Rigging.Player.csproj">
-      <Project>{6F994EF8-12A4-71B4-C886-ED6F7D4ED0AC}</Project>
-      <Name>Unity.Animation.Rigging.Player</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.Burst.Player.csproj">
       <Project>{5C1AEF2A-F814-2C04-EF3C-F5D22072C491}</Project>
       <Name>Unity.Burst.Player</Name>
@@ -921,6 +905,14 @@
     <ProjectReference Include="UnityEngine.UI.Player.csproj">
       <Project>{87960734-D0D4-14EE-0B80-CC9BB28A2906}</Project>
       <Name>UnityEngine.UI.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Formats.Fbx.Runtime.Player.csproj">
+      <Project>{4B634033-49EB-970B-3666-D26973C61311}</Project>
+      <Name>Unity.Formats.Fbx.Runtime.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.VisualScripting.Flow.Player.csproj">
+      <Project>{2F1FDB4E-6F2E-7235-86D2-905F7BBCD269}</Project>
+      <Name>Unity.VisualScripting.Flow.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.Player.csproj">
       <Project>{65329F36-A07D-9C24-251B-F356F84E3D1C}</Project>
@@ -938,6 +930,10 @@
       <Project>{4C3C2947-1451-9A1F-1A21-60265292B6FE}</Project>
       <Name>Unity.Mathematics.Player</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.TextMeshPro.Player.csproj">
+      <Project>{6F786B86-BDD8-83E2-EFEB-9C417FDB3014}</Project>
+      <Name>Unity.TextMeshPro.Player</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.State.Player.csproj">
       <Project>{D24CE4ED-D190-CD1F-DE4D-7BC5A66240F6}</Project>
       <Name>Unity.VisualScripting.State.Player</Name>
@@ -945,6 +941,10 @@
     <ProjectReference Include="Cinemachine.Player.csproj">
       <Project>{B900A133-1703-51A6-0C85-CC86CDA03671}</Project>
       <Name>Cinemachine.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Animation.Rigging.Player.csproj">
+      <Project>{6F994EF8-12A4-71B4-C886-ED6F7D4ED0AC}</Project>
+      <Name>Unity.Animation.Rigging.Player</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -26,6 +26,16 @@ public class PlayerSystem : MonoBehaviour
     [Tooltip("Attach current player Button Attack 3 component here")]
     public Button buttonAttack3;
 
+    [Header("Damage Setup")]
+    [Tooltip("Actual damage that will be applied in the opponent")]
+    public int actualDamage = 0;
+    [Tooltip("Setup the actual damage from Attack 1 of the character")]
+    public int attackDamage1 = 0;
+    [Tooltip("Setup the actual damage from Attack 2 of the character")]
+    public int attackDamage2 = 0;
+    [Tooltip("Setup the actual damage from Attack 3 of the character")]
+    public int attackDamage3 = 0;
+
     [Header("Hit Effect Setup")]
     [Tooltip("Attach current player HitEffect GameObject here")]
     public GameObject hitEffect;
@@ -203,13 +213,17 @@ public class PlayerSystem : MonoBehaviour
 
                 if (roundSystem.isMultiplayer == false)
                 {
-                    enemySystem.TakeDamage(20); // If Player is the clone, so original Enemy will take hit
+                    enemySystem.TakeDamage(actualDamage); // If Player dealed damage in opponent in singleplaye mode
+
+                    actualDamage = 0;
                 }
                 else
                 {
                     if (selectedMultiplayer == true)
                     {
-                        multiplayerSystem.PlayerRegisterHit();
+                        multiplayerSystem.PlayerRegisterHit(actualDamage); // If Player is the clone, so original Enemy will take hit
+
+                        actualDamage = 0;
                     }
                 }
 
@@ -218,7 +232,11 @@ public class PlayerSystem : MonoBehaviour
 
             if (enemySystem.distanceToTarget > attackRange && damageTime > 0f && damageTime <= hitTime && wasDetected == true)
             {
-                multiplayerSystem.ResetHitPlayer();
+                if (selectedMultiplayer == true)
+                {
+                    multiplayerSystem.ResetHitPlayer();
+                }
+
                 wasDetected = false;
             }
 
@@ -228,6 +246,8 @@ public class PlayerSystem : MonoBehaviour
                 {
                     multiplayerSystem.ResetHitPlayer();
                 }
+
+                actualDamage = 0;
 
                 checkDamage = false;
                 damageTime = 0f;
@@ -1132,6 +1152,8 @@ public class PlayerSystem : MonoBehaviour
             //Debug.Log("Player activated Attack 1");
             // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
 
+            actualDamage = attackDamage1;
+
             if (roundSystem.isMultiplayer == false)
             {
                 AnimIsAttack1();
@@ -1153,6 +1175,8 @@ public class PlayerSystem : MonoBehaviour
             //Debug.Log("Player activated Attack 2");
             // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
 
+            actualDamage = attackDamage2;
+
             if (roundSystem.isMultiplayer == false)
             {
                 AnimIsAttack2();
@@ -1173,6 +1197,8 @@ public class PlayerSystem : MonoBehaviour
         {
             //Debug.Log("Player activated Attack 3");
             // roundSystem.audioSystem.PlayButtonSound(1, roundSyste.currentPlayerCharacter); // Optional
+
+            actualDamage = attackDamage3;
 
             if (roundSystem.isMultiplayer == false)
             {

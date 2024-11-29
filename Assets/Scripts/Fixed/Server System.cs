@@ -487,7 +487,7 @@ public class ServerSystem : MonoBehaviour
         {
             if (realDistanceA <= roundSystem.enemySystem.attackRange)
             {
-                playerMultiplayer.RegisterPlayerTakesDamage(20);
+                playerMultiplayer.RegisterPlayerTakesDamage();
             }
 
             realDistanceA = 0;
@@ -503,7 +503,7 @@ public class ServerSystem : MonoBehaviour
         {
             if (realDistanceB <= roundSystem.playerSystem.attackRange)
             {
-                enemyMultiplayer.RegisterEnemyTakesDamage(20);
+                enemyMultiplayer.RegisterEnemyTakesDamage();
             }
 
             realDistanceB = 0;

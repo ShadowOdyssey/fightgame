@@ -14,6 +14,16 @@ public class EnemySystem : MonoBehaviour
     public BoxCollider enemyCollider;
     public BoxCollider backCollider;
 
+    [Header("Damage Setup")]
+    [Tooltip("Actual damage that will be applied in the opponent")]
+    public int actualDamage = 0;
+    [Tooltip("Setup the actual damage from Attack 1 of the character")]
+    public int attackDamage1 = 0;
+    [Tooltip("Setup the actual damage from Attack 2 of the character")]
+    public int attackDamage2 = 0;
+    [Tooltip("Setup the actual damage from Attack 3 of the character")]
+    public int attackDamage3 = 0;
+
     [Header("Hit Effect Setup")]
     [Tooltip("Attach current enemy HitEffect GameObject here")]
     public GameObject hitEffect;
@@ -452,7 +462,9 @@ public class EnemySystem : MonoBehaviour
                     checkDamage = false;
                     damageTime = 0f;
 
-                    playerSystem.TakeHit(20);
+                    playerSystem.TakeHit(actualDamage);
+
+                    actualDamage = 0;
                 }
 
                 if (distanceToTarget > attackRange && playerSystem.trainingSystem.actualInfoIndex == 7 && playerSystem.completedTutorial == false)
@@ -463,6 +475,8 @@ public class EnemySystem : MonoBehaviour
 
                 if (damageTime > 0.2f)
                 {
+                    actualDamage = 0;
+
                     checkDamage = false;
                     damageTime = 0f;
                 }
@@ -494,7 +508,9 @@ public class EnemySystem : MonoBehaviour
 
                     if (selectedMultiplayer == true)
                     {
-                        multiplayerSystem.EnemyRegisterHit();
+                        multiplayerSystem.EnemyRegisterHit(actualDamage);
+
+                        actualDamage = 0;
                     }
 
                     checkDamage = false;
@@ -502,7 +518,11 @@ public class EnemySystem : MonoBehaviour
 
                 if (distanceToTarget > attackRange && damageTime > 0f && damageTime <= hitTime && wasDetected == true)
                 {
-                    multiplayerSystem.ResetHitEnemy();
+                    if (selectedMultiplayer == true)
+                    {
+                        multiplayerSystem.ResetHitEnemy();
+                    }
+
                     wasDetected = false;
                 }
 
@@ -512,6 +532,8 @@ public class EnemySystem : MonoBehaviour
                     {
                         multiplayerSystem.ResetHitEnemy();
                     }
+
+                    actualDamage = 0;
 
                     checkDamage = false;
                     damageTime = 0f;
@@ -1833,6 +1855,8 @@ public class EnemySystem : MonoBehaviour
 
     private void UseAttack3()
     {
+        actualDamage = attackDamage3;
+
         if (roundSystem.isMultiplayer == true)
         {
             if (isCooldown3 == false) // If Attack 3 not in cooldown start Attack 3
@@ -1894,6 +1918,8 @@ public class EnemySystem : MonoBehaviour
 
     private void UseAttack1()
     {
+        actualDamage = attackDamage1;
+
         if (roundSystem.isMultiplayer == true)
         {
             if (isCooldown1 == false) // If Attack 1 not in cooldown start Attack 1
@@ -1926,6 +1952,8 @@ public class EnemySystem : MonoBehaviour
 
     private void UseAttack2()
     {
+        actualDamage = attackDamage2;
+
         if (roundSystem.isMultiplayer == true)
         {
             if (isCooldown2 == false) // If Attack 2 not in cooldown start Attack 2

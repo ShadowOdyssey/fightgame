@@ -46,6 +46,8 @@ public class OpponentMultiplayer : MonoBehaviour
     public bool isCheckingWin = false;
     public string responseFromServer = "";
     private string checkWin = "";
+    private int playerDamage = 0;
+    private int enemyDamage = 0;
 
     #endregion
 
@@ -206,15 +208,17 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #region Hit Operations
 
-    public void PlayerRegisterHit()
+    public void PlayerRegisterHit(int newDamage)
     {
         UpdateData("yes", "hit", actualHost.ToString());
+        playerDamage = newDamage;
         Invoke(nameof(ResetHitPlayer), 0.5f);
     }
 
-    public void EnemyRegisterHit()
+    public void EnemyRegisterHit(int newDamage)
     {
         UpdateData("yes", "hit", actualHost.ToString());
+        enemyDamage = newDamage;
         Invoke(nameof(ResetHitEnemy), 0.5f);
     }
 
@@ -429,17 +433,19 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
-    public void RegisterPlayerTakesDamage(int newDamage)
+    public void RegisterPlayerTakesDamage()
     {
         if (opponentIsPlayer != null)
         {
-            opponentIsPlayer.TakeHit(newDamage);
+            opponentIsPlayer.TakeHit(enemyDamage);
         }
         
         if (originalPlayer != null)
         {
-            originalPlayer.TakeHit(newDamage);
+            originalPlayer.TakeHit(enemyDamage);
         }
+
+        enemyDamage = 0;
     }
 
     #endregion
@@ -539,17 +545,19 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
-    public void RegisterEnemyTakesDamage(int newDamage)
+    public void RegisterEnemyTakesDamage()
     {
         if (opponentIsEnemy != null)
         {
-            opponentIsEnemy.TakeDamage(newDamage);
+            opponentIsEnemy.TakeDamage(playerDamage);
         }
         
         if (originalEnemy != null)
         {
-            originalEnemy.TakeDamage(newDamage);
+            originalEnemy.TakeDamage(playerDamage);
         }
+
+        playerDamage = 0;
     }
 
     #endregion
