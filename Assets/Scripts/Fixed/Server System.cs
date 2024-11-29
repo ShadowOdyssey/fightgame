@@ -213,9 +213,9 @@ public class ServerSystem : MonoBehaviour
 
             if (wasDataLoadedEnemy == true)
             {
-                if (enemyHealth != listenerInfoPlayer[5])
+                if (enemyHealth != listenerInfoEnemy[5])
                 {
-                    enemyHealth = listenerInfoPlayer[5];
+                    enemyHealth = listenerInfoEnemy[5];
                     canParseHealthB = true;
                 }
 
