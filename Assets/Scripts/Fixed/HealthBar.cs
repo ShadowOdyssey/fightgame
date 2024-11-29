@@ -9,6 +9,11 @@ public class HealthBar : MonoBehaviour
 
     private float normalizedValue = 0f;
 
+    public void Update()
+    {
+        Debug.Log("Slider " + gameObject.name + " value is: " + slider.value);
+    }
+
     // Sets the maximum health value for the slider and updates the color to full health
     public void SetMaxHealth(int health)
     {
