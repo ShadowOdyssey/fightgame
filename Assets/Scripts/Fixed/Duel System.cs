@@ -93,8 +93,6 @@ public class DuelSystem : MonoBehaviour
                 case "8": opponentImage.sprite = ariaVersus; Debug.Log("Loaded current versus image - Enemy is: ariaVersus"); break;
             }
         }
-
-        lobbySystem.LoadDuelScreen();
     }
 
     public void UpdateSessions(string actualPlayerSesison, string actualOpponentSession)

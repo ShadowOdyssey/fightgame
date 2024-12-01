@@ -852,7 +852,7 @@ public class LobbyManager : MonoBehaviour
                     wasHostLoaded = true;
                     UpdateDuelPlayer();
 
-                    //Debug.Log("Host Value from server is: " + currentHost);
+                    Debug.Log("Host Value from server is: " + currentHost);
                 }
                 else
                 {
@@ -1101,7 +1101,7 @@ public class LobbyManager : MonoBehaviour
 
         if (currentHost == currentSession)
         {
-            //Debug.Log("You are the host!");
+            Debug.Log("You are the host!");
 
             duelSystem.UpdateSessions(currentSession, requestedSessionDuel);
             duelSystem.UpdateNames(actualName, requestedNameDuel);
@@ -1145,10 +1145,6 @@ public class LobbyManager : MonoBehaviour
         duelSystem.UpdateSessions(currentHost, currentSession);
         duelSystem.UpdateNames(actualName, hostName);
         duelSystem.LoadVersusImages(currentCharacterSelected, hostProfile);
-    }
-
-    public void LoadDuelScreen()
-    {
         duelSystem.OpenDuel(2);
     }
 
