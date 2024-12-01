@@ -46,7 +46,9 @@ public class OpponentMultiplayer : MonoBehaviour
     public float countListen = 0f;
     public bool isEnemyPlayer = false;
     public bool isCheckingWin = false;
+    public bool canLoadArena = false;
     private string currentSession = "";
+    private string newArena = "";
     public string responseFromServer = "";
     private string checkWin = "";
 
@@ -70,6 +72,33 @@ public class OpponentMultiplayer : MonoBehaviour
         currentSession = PlayerPrefs.GetString("playerServerID");
 
         Debug.Log("Actual player session is: " + currentSession);
+    }
+
+    #endregion
+
+    #region Real Time Operations
+
+    public void Update()
+    {
+        if (canLoadArena == true)
+        {
+            if (int.TryParse(newArena, out int currentArena))
+            {
+                actualArena = currentArena;
+
+                Debug.Log("Actual arena from database is: " + actualArena.ToString());
+            }
+
+            if (actualArena != 0)
+            {
+                roundSystem.currentStage = actualArena;
+
+                Debug.Log("Arena being registered in Round Manager! Current arena registered is: " + roundSystem.currentStage);
+
+                roundSystem.CheckCurrentArena();
+                canLoadArena = false;
+            }
+        }
     }
 
     #endregion
@@ -128,20 +157,8 @@ public class OpponentMultiplayer : MonoBehaviour
 
             if (responseFromServer != "error002")
             {
-                string newArena = responseFromServer;
-
-                if (int.TryParse(newArena, out int currentArena))
-                {
-                    actualArena = currentArena;
-
-                    Debug.Log("Actual arena from database is: "+ actualArena.ToString());
-
-                    roundSystem.currentStage = actualArena;
-
-                    Debug.Log("Arena being registered in Round Manager! Current arena registered is: " + roundSystem.currentStage);
-
-                    roundSystem.CheckCurrentArena();
-                }
+                newArena = responseFromServer;
+                canLoadArena = true;
             }
         }
 
