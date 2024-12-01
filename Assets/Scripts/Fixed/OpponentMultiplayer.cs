@@ -42,7 +42,6 @@ public class OpponentMultiplayer : MonoBehaviour
     #region Hidden Variables
 
     [Header("Monitor Setup")]
-    public int actualSession = 0;
     public float countListen = 0f;
     public bool isEnemyPlayer = false;
     public bool isCheckingWin = false;
@@ -153,7 +152,7 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             responseFromServer = request.downloadHandler.text;
 
-            //Debug.Log("Response from server was: " + responseFromServer);
+            Debug.Log("Response Arena from server was: " + responseFromServer);
 
             if (responseFromServer != "error002")
             {
