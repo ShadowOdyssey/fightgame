@@ -160,6 +160,10 @@ public class OpponentMultiplayer : MonoBehaviour
                 canLoadArena = true;
             }
         }
+        else
+        {
+            Debug.Log("Database query to check current arena value was not possible");
+        }
 
         request.Dispose();
     }
