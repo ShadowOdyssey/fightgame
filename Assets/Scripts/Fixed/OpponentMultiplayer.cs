@@ -233,7 +233,14 @@ public class OpponentMultiplayer : MonoBehaviour
             actualHost = newHost;
             actualListener = newListener;
             selected = true;
+
+            Debug.Log("Registering actual Host and Invited");
+            
             StartCoroutine(RegisterDuel(duelingUser, actualHost));
+
+            Debug.Log("Verifying arena from database");
+
+            StartCoroutine(VerifyArena(verifyUser, "arena", "lobby", "id", actualHost.ToString()));
         }
     }
 
@@ -247,17 +254,6 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         opponentIsEnemy = actualEnemySystem;
         isEnemyPlayer = false;
-    }
-
-    #endregion
-
-    #region Load Arena
-
-    public void LoadCurrentArena()
-    {
-        Debug.Log("Verifying arena from database");
-
-        StartCoroutine(VerifyArena(verifyUser, "arena", "lobby", "id", actualHost.ToString()));
     }
 
     #endregion

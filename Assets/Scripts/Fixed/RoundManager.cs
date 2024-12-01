@@ -448,13 +448,7 @@ public class RoundManager : MonoBehaviour
 
     private void LoadArenaAndEnemyCharacter()
     {
-        if (isMultiplayer == true) // If game is Multiplayer load the correct current stage
-        {
-            Debug.Log("Loading Multiplayer Arena");
-
-            serverSystem.LoadArena();
-        }
-        else // If game is SinglePlay load the correct current stage selected from Selection scene and also the correct AI character name
+        if (isMultiplayer == false) // If game is SinglePlay load the correct current stage selected from Selection scene and also the correct AI character name
         {
             if (PlayerPrefs.GetInt("stageSelected") != 0)
             {
@@ -492,7 +486,6 @@ public class RoundManager : MonoBehaviour
             case 4: arena4.SetActive(true); sceneLight.color = arena4Color; audioSystem.PlayMusic(5); Debug.Log("Arena 4 loaded"); break;
         }
     }
-
 
     private void LoadPlayerName()
     {

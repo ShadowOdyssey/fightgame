@@ -45,7 +45,6 @@ public class ServerSystem : MonoBehaviour
 
     [Header("Monitor")]
     public float countListen = 0f;
-    public bool loadArena = false;
     public bool isEnemyPlayer = false;
     public bool canListen = false;
     public bool wasDataLoadedPlayer = false;
@@ -510,23 +509,11 @@ public class ServerSystem : MonoBehaviour
     public void RegisterOpponentPlayer(OpponentMultiplayer newPlayer)
     {
         playerMultiplayer = newPlayer;
-
-        if (loadArena == true)
-        {
-            playerMultiplayer.LoadCurrentArena();
-            loadArena = false;
-        }
     }
 
     public void RegisterOpponentEnemy(OpponentMultiplayer newEnemy)
     {
         enemyMultiplayer = newEnemy;
-
-        if (loadArena == true)
-        {
-            enemyMultiplayer.LoadCurrentArena();
-            loadArena = false;
-        }
     }
 
     public void RegisterHost(int newHost)
@@ -580,15 +567,6 @@ public class ServerSystem : MonoBehaviour
             realDistanceB2 = 0;
             isParsedB = false;
         }
-    }
-
-    #endregion
-
-    #region Arena Operations
-
-    public void LoadArena()
-    {
-        loadArena = true;
     }
 
     #endregion
