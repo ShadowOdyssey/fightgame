@@ -577,11 +577,15 @@ public class ServerSystem : MonoBehaviour
     {
         if (playerMultiplayer != null)
         {
+            Debug.Log("Loading Arena as Player");
+
             playerMultiplayer.LoadCurrentArena();
         }
 
         if (enemyMultiplayer != null)
         {
+            Debug.Log("Loading Arena as Enemy");
+
             enemyMultiplayer.LoadCurrentArena();
         }
     }

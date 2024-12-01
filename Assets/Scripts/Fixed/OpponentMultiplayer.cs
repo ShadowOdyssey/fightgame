@@ -133,7 +133,13 @@ public class OpponentMultiplayer : MonoBehaviour
                 if (int.TryParse(newArena, out int currentArena))
                 {
                     actualArena = currentArena;
+
+                    Debug.Log("Actual arena from database is: "+ actualArena.ToString());
+
                     roundSystem.currentStage = actualArena;
+
+                    Debug.Log("Arena being registered in Round Manager! Current arena registered is: " + roundSystem.currentStage);
+
                     roundSystem.CheckCurrentArena();
                 }
             }
@@ -232,6 +238,8 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void LoadCurrentArena()
     {
+        Debug.Log("Verifying arena from database");
+
         StartCoroutine(VerifyArena(verifyUser, "arena", "lobby", "id", actualHost.ToString()));
     }
 

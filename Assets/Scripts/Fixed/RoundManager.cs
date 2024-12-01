@@ -388,10 +388,10 @@ public class RoundManager : MonoBehaviour
     {
         switch (currentStage) // Loading stage
         {
-            case 1: arena1.SetActive(true); sceneLight.color = arena1Color; audioSystem.PlayMusic(2); break;
-            case 2: arena2.SetActive(true); sceneLight.color = arena2Color; audioSystem.PlayMusic(3); break;
-            case 3: arena3.SetActive(true); sceneLight.color = arena3Color; audioSystem.PlayMusic(4); break;
-            case 4: arena4.SetActive(true); sceneLight.color = arena4Color; audioSystem.PlayMusic(5); break;
+            case 1: arena1.SetActive(true); sceneLight.color = arena1Color; audioSystem.PlayMusic(2); Debug.Log("Arena 1 loaded"); break;
+            case 2: arena2.SetActive(true); sceneLight.color = arena2Color; audioSystem.PlayMusic(3); Debug.Log("Arena 2 loaded"); break;
+            case 3: arena3.SetActive(true); sceneLight.color = arena3Color; audioSystem.PlayMusic(4); Debug.Log("Arena 3 loaded"); break;
+            case 4: arena4.SetActive(true); sceneLight.color = arena4Color; audioSystem.PlayMusic(5); Debug.Log("Arena 4 loaded"); break;
         }
     }
 
