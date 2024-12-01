@@ -45,6 +45,7 @@ public class OpponentMultiplayer : MonoBehaviour
     public float countListen = 0f;
     public bool isEnemyPlayer = false;
     public bool isCheckingWin = false;
+    private string currentSession = "";
     public string responseFromServer = "";
     private string checkWin = "";
 
@@ -57,6 +58,15 @@ public class OpponentMultiplayer : MonoBehaviour
     public void Awake()
     {
         roundSystem = GameObject.Find("RoundManager").GetComponent<RoundManager>();
+    }
+
+    #endregion
+
+    #region Setup Loaded Components
+
+    public void Start()
+    {
+        currentSession = PlayerPrefs.GetString("playerServerID");
     }
 
     #endregion
@@ -725,15 +735,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (gameObject.activeInHierarchy == true)
         {
-            if (opponentIsPlayer != null)
-            {
-                StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.enemyNameText.text));
-            }
-
-            if (opponentIsEnemy != null)
-            {
-                StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.playerNameText.text));
-            }
+            UpdateData("offline", "status", currentSession);
         }
     }
 
@@ -741,15 +743,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (gameObject.activeInHierarchy == true)
         {
-            if (opponentIsPlayer != null)
-            {
-                StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.enemyNameText.text));
-            }
-
-            if (opponentIsEnemy != null)
-            {
-                StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.playerNameText.text));
-            }
+            UpdateData("offline", "status", currentSession);
         }
     }
 
@@ -757,15 +751,7 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (gameObject.activeInHierarchy == true)
         {
-            if (opponentIsPlayer != null)
-            {
-                StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.enemyNameText.text));
-            }
-
-            if (opponentIsEnemy != null)
-            {
-                StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.playerNameText.text));
-            }
+            UpdateData("offline", "status", currentSession);
         }
     }
 

@@ -179,7 +179,7 @@ public class LobbyManager : MonoBehaviour
     private bool isDueling = false;
     private bool wasHostLoaded = false;
     private string actualName = "";
-    private string currentSession = "";
+    public string currentSession = "";
     private string currentHost = "";
     private string hostName = "";
     private string hostProfile = "";
