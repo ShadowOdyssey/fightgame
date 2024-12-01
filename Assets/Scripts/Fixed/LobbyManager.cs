@@ -1107,15 +1107,21 @@ public class LobbyManager : MonoBehaviour
             duelSystem.UpdateNames(actualName, requestedNameDuel);
             duelSystem.LoadVersusImages(currentCharacterSelected, requestedProfileDuel);
 
-            int pn = int.Parse(currentSession);
-            int on = int.Parse(requestedSessionDuel);
+            PlayerPrefs.SetString("whoWasTheHost", currentSession);
 
-            PlayerPrefs.SetString("whoWasTheHost", currentSession); // Done
-            PlayerPrefs.SetInt("multiplayerPlayer", pn); // Done
-            PlayerPrefs.SetInt("multiplayerOpponent", on);
-            PlayerPrefs.SetInt("multiplayerPlayerProfile", currentCharacterSelected); // Done
-            PlayerPrefs.SetString("multiplayerOpponentName", requestedNameDuel); // Done
-            PlayerPrefs.SetString("multiplayerOpponentProfile", requestedProfileDuel); // Done
+            if (int.TryParse(currentSession, out int npn))
+            {
+                PlayerPrefs.SetInt("multiplayerPlayer", npn);
+            }
+
+            if (int.TryParse(requestedSessionDuel, out int non))
+            {
+                PlayerPrefs.SetInt("multiplayerOpponent", non);
+            }
+
+            PlayerPrefs.SetInt("multiplayerPlayerProfile", currentCharacterSelected);
+            PlayerPrefs.SetString("multiplayerOpponentName", requestedNameDuel);
+            PlayerPrefs.SetString("multiplayerOpponentProfile", requestedProfileDuel);
 
             duelSystem.OpenDuel(1);
         }
@@ -1137,12 +1143,12 @@ public class LobbyManager : MonoBehaviour
     {
         connectingScreen.SetActive(false);
         duelSystem.UpdateSessions(currentHost, currentSession);
+        duelSystem.UpdateNames(actualName, hostName);
+        duelSystem.LoadVersusImages(currentCharacterSelected, hostProfile);
     }
 
     public void LoadDuelScreen()
     {
-        duelSystem.UpdateNames(actualName, hostName);
-        duelSystem.LoadVersusImages(currentCharacterSelected, hostProfile);
         duelSystem.OpenDuel(2);
     }
 
