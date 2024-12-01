@@ -67,6 +67,8 @@ public class OpponentMultiplayer : MonoBehaviour
     public void Start()
     {
         currentSession = PlayerPrefs.GetString("playerServerID");
+
+        Debug.Log("Actual player session is: " + currentSession);
     }
 
     #endregion
