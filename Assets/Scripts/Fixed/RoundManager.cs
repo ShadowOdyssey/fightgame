@@ -21,6 +21,7 @@ public class RoundManager : MonoBehaviour
     [Tooltip("EnemySystem will be loaded automatically when scene to start, so attach nothing here! Make sure characters and arenas area all disabled!")]
     public EnemySystem enemySystem;
     public ServerSystem serverSystem;
+    public FadeControl fadeSystem;
 
     [Header("Arena Battlegrounds")]
     [Tooltip("Attach here Arena 1 object inside Battlegrounds object in hierarchy")]
@@ -228,6 +229,7 @@ public class RoundManager : MonoBehaviour
     private bool canDecrease = false;
     [Tooltip("When enabled means game saved the result of the fight to the next scene")]
     private bool dataSent = false;
+    private bool fadeIsOut = false;
 
     #endregion
 
@@ -417,6 +419,8 @@ public class RoundManager : MonoBehaviour
 
             CheckActualHost();
         }
+
+        fadeSystem.StartFadeOut(currentPlayerCharacter, currentEnemyCharacter);
     }
 
     private void CheckActualHost()
@@ -542,7 +546,7 @@ public class RoundManager : MonoBehaviour
 
     private void RoundStarted()
     {
-        if (roundStarted == false)
+        if (roundStarted == false && fadeIsOut == true)
         {
             //Debug.Log("Round started, show current round");
 
@@ -1172,6 +1176,11 @@ public class RoundManager : MonoBehaviour
     private void ReturnToMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void FadeFinished()
+    {
+        fadeIsOut = true;
     }
 
     #endregion

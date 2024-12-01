@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Fixed\LobbyManager.cs" />
     <Compile Include="Assets\Scripts\Old\ComboPunchController.cs" />
     <Compile Include="Assets\Scripts\Old\TrainingModeMenu.cs" />
+    <Compile Include="Assets\Scripts\Fixed\FadeControl.cs" />
     <Compile Include="Assets\Scripts\Old\Joystick.cs" />
     <Compile Include="Assets\Scripts\Old\SinglePlayer.cs" />
     <Compile Include="Assets\Scripts\Fixed\LobbyPlayerSystem.cs" />

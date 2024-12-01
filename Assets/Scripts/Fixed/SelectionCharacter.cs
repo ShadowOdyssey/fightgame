@@ -11,6 +11,9 @@ public class SelectionCharacter : MonoBehaviour
     [Header("Debug Menu")] // To remove it before to release the game - Just for debug purposes
     public bool resetStats = false; // To enable it will reset all player progress
 
+    [Header("Fade Setup")]
+    public FadeControl fadeSystem;
+
     [Header("Scene Setup")]
     public Texture2D background;
     public Texture2D[] characterImages;
@@ -139,24 +142,6 @@ public class SelectionCharacter : MonoBehaviour
         {
             DrawVsPanel();
             DrawCountdown();
-        }
-    }
-
-    #endregion
-
-    #region Coroutines should be always first method after core system methods
-
-    IEnumerator CountdownAndLoadScene()
-    {
-        while (currentCountdown > 0)
-        {
-            yield return new WaitForSeconds(1f);
-            currentCountdown--;
-        }
-
-        if (showVsPanel == true)
-        {
-            SceneManager.LoadScene("FightScene");
         }
     }
 
@@ -631,14 +616,7 @@ private void DrawArenaPanel()
 
     private void ShowVsPanel()
     {
-        showVsPanel = true;
-        currentCountdown = countdownDuration;
-
-        if (canRender == false)
-        {
-            canRender = true;
-            StartCoroutine(CountdownAndLoadScene());
-        }
+        fadeSystem.StartFadeInSelection(PlayerPrefs.GetInt("playerCharacterSelected"), PlayerPrefs.GetInt("enemyCharacterSelected"));
     }
 
     private void DrawVsPanel()
