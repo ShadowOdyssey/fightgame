@@ -119,6 +119,8 @@ public class OpponentMultiplayer : MonoBehaviour
 
         yield return request.SendWebRequest();
 
+        Debug.Log("Response Arena from server was: " + responseFromServer);
+
         if (request.result == UnityWebRequest.Result.Success)
         {
             responseFromServer = request.downloadHandler.text;
