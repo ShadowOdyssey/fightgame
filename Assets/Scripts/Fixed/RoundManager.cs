@@ -246,7 +246,10 @@ public class RoundManager : MonoBehaviour
         enemyMultiplayerID = PlayerPrefs.GetInt("multiplayerOpponent");
         playerMultiplayerProfile = PlayerPrefs.GetInt("multiplayerPlayerProfile");
 
-        if (int.TryParse(PlayerPrefs.GetString("multiplayerOpponentProfile"), out enemyMultiplayerProfile))
+        if (int.TryParse(PlayerPrefs.GetString("multiplayerOpponentProfile"), out int ni))
+        {
+            enemyMultiplayerProfile = ni;
+        }
 
         actualHost = PlayerPrefs.GetString("whoWasTheHost");
         enemyMultiplayerName = PlayerPrefs.GetString("multiplayerOpponentName");
@@ -352,11 +355,13 @@ public class RoundManager : MonoBehaviour
 
     private void LoadArenaAndEnemyCharacter()
     {
-        if (isMultiplayer == true) // If game is Singleplay load the correct enemy name based in the current stage
+        if (isMultiplayer == true) // If game is Multiplayer load the correct current stage
         {
+            Debug.Log("Loading Multiplayer Arena");
+
             serverSystem.LoadArena();
         }
-        else
+        else // If game is SinglePlay load the correct current stage selected from Selection scene and also the correct AI character name
         {
             if (PlayerPrefs.GetInt("stageSelected") != 0)
             {
