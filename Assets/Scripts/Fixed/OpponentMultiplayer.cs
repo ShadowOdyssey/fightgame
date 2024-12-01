@@ -10,6 +10,8 @@ public class OpponentMultiplayer : MonoBehaviour
     [Header("Database Setup")]
     [Tooltip("Put the URL of the PHP file Verify User in the host server")]
     public string verifyUser = "https://queensheartgames.com/shadowodyssey/verifyuser.php";
+    [Tooltip("Put the URL of the PHP file Verify Arena in the host server")]
+    public string verifyArena = "https://queensheartgames.com/shadowodyssey/verifyarena.php";
     [Tooltip("Put the URL of the PHP file Dueling User in the host server")]
     public string duelingUser = "https://queensheartgames.com/shadowodyssey/duelinguser.php";
     [Tooltip("Put the URL of the PHP file Update User in the host server")]
@@ -76,7 +78,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #region Database Operations
 
-    public IEnumerator VerifyUser(string urlPHP, string desiredCollumn, string requestedTable, string requestedCollumn, string desiredSearch)
+    public IEnumerator VerifyWin(string urlPHP, string desiredCollumn, string requestedTable, string requestedCollumn, string desiredSearch)
     {
         // "SELECT " . $selection . " FROM " . $table . " WHERE " . $collumn . " = " . $search;
 
@@ -106,15 +108,12 @@ public class OpponentMultiplayer : MonoBehaviour
         request.Dispose();
     }
 
-    public IEnumerator VerifyArena(string urlPHP, string desiredCollumn, string requestedTable, string requestedCollumn, string desiredSearch)
+    public IEnumerator VerifyArena(string urlPHP, string desiredSearch)
     {
-        // "SELECT " . $selection . " FROM " . $table . " WHERE " . $collumn . " = " . $search;
+        // " SELECT arena FROM lobby WHERE id = $validateRequest; "
 
         WWWForm form = new WWWForm();
-        form.AddField("desiredSelection", desiredCollumn);
-        form.AddField("currentTable", requestedTable);
-        form.AddField("currentCollumn", requestedCollumn);
-        form.AddField("newSearch", desiredSearch);
+        form.AddField("validateRequest", desiredSearch);
 
         UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
 
@@ -131,10 +130,6 @@ public class OpponentMultiplayer : MonoBehaviour
                 newArena = responseFromServer;
                 LoadArena();
             }
-        }
-        else
-        {
-            Debug.Log("Database query to check current arena value was not possible");
         }
 
         request.Dispose();
@@ -230,7 +225,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
             Debug.Log("Verifying arena from database");
 
-            StartCoroutine(VerifyArena(verifyUser, "arena", "lobby", "id", actualID.ToString()));
+            StartCoroutine(VerifyArena(verifyArena, actualID.ToString()));
 
             actualListener = newListener;
             selected = true;
@@ -262,7 +257,7 @@ public class OpponentMultiplayer : MonoBehaviour
         if (isCheckingWin == false && gameObject.activeInHierarchy == true)
         {
             isCheckingWin = true;
-            StartCoroutine(VerifyUser(verifyUser, "wins", "lobby", "id", actualID.ToString()));
+            StartCoroutine(VerifyWin(verifyUser, "wins", "lobby", "id", actualID.ToString()));
         }
     }
 
