@@ -35,7 +35,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
     [Header("Lobby Data")]
     public int actualArena = 0;
-    public int actualHost = 0;
+    public int actualID = 0;
     public int actualListener = 0;
     public bool selected = false;
 
@@ -45,7 +45,6 @@ public class OpponentMultiplayer : MonoBehaviour
     public float countListen = 0f;
     public bool isEnemyPlayer = false;
     public bool isCheckingWin = false;
-    public bool canLoadArena = false;
     private string currentSession = "";
     private string newArena = "";
     public string responseFromServer = "";
@@ -71,33 +70,6 @@ public class OpponentMultiplayer : MonoBehaviour
         currentSession = PlayerPrefs.GetString("playerServerID");
 
         Debug.Log("Actual player session is: " + currentSession);
-    }
-
-    #endregion
-
-    #region Real Time Operations
-
-    public void Update()
-    {
-        if (canLoadArena == true)
-        {
-            if (int.TryParse(newArena, out int currentArena))
-            {
-                actualArena = currentArena;
-
-                Debug.Log("Actual arena from database is: " + actualArena.ToString());
-            }
-
-            if (actualArena != 0)
-            {
-                roundSystem.currentStage = actualArena;
-
-                Debug.Log("Arena being registered in Round Manager! Current arena registered is: " + roundSystem.currentStage);
-
-                roundSystem.CheckCurrentArena();
-                canLoadArena = false;
-            }
-        }
     }
 
     #endregion
@@ -157,7 +129,7 @@ public class OpponentMultiplayer : MonoBehaviour
             if (responseFromServer != "error002")
             {
                 newArena = responseFromServer;
-                canLoadArena = true;
+                LoadArena();
             }
         }
         else
@@ -225,25 +197,47 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
+    public void LoadArena()
+    {
+        Debug.Log("Arena from database was received");
+
+        if (int.TryParse(newArena, out int currentArena))
+        {
+            actualArena = currentArena;
+
+            Debug.Log("Actual arena from database is: " + actualArena.ToString());
+        }
+
+        if (actualArena != 0)
+        {
+            roundSystem.currentStage = actualArena;
+
+            Debug.Log("Arena being registered in Round Manager! Current arena registered is: " + roundSystem.currentStage);
+
+            roundSystem.CheckCurrentArena();
+        }
+    }
+
     #endregion
 
     #region Apply loaded data from Lobby
 
-    public void SetHost(int newHost, int newListener)
+    public void SetID(int newHost, int newListener)
     {
         if (gameObject.activeInHierarchy == true)
         {
-            actualHost = newHost;
+            actualID = newHost;
+
+            Debug.Log("Verifying arena from database");
+
+            StartCoroutine(VerifyArena(verifyUser, "arena", "lobby", "id", actualID.ToString()));
+
             actualListener = newListener;
             selected = true;
 
             Debug.Log("Registering actual Host and Invited");
             
-            StartCoroutine(RegisterDuel(duelingUser, actualHost));
-
-            Debug.Log("Verifying arena from database");
-
-            StartCoroutine(VerifyArena(verifyUser, "arena", "lobby", "id", actualHost.ToString()));
+            StartCoroutine(RegisterDuel(duelingUser, actualID));
         }
     }
 
@@ -268,7 +262,7 @@ public class OpponentMultiplayer : MonoBehaviour
         if (isCheckingWin == false && gameObject.activeInHierarchy == true)
         {
             isCheckingWin = true;
-            StartCoroutine(VerifyUser(verifyUser, "wins", "lobby", "id", actualHost.ToString()));
+            StartCoroutine(VerifyUser(verifyUser, "wins", "lobby", "id", actualID.ToString()));
         }
     }
 
@@ -279,7 +273,7 @@ public class OpponentMultiplayer : MonoBehaviour
             int newWin = int.Parse(checkWin);
             newWin = newWin + 1;
             checkWin = newWin.ToString();
-            UpdateData(checkWin, "wins", actualHost.ToString());
+            UpdateData(checkWin, "wins", actualID.ToString());
         }
     }
 
@@ -293,8 +287,8 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         Debug.Log("Original Player is sending Hit");
 
-        UpdateData("yes", "hit", actualHost.ToString());
-        UpdateData(newDamage.ToString(), "damage", actualHost.ToString());
+        UpdateData("yes", "hit", actualID.ToString());
+        UpdateData(newDamage.ToString(), "damage", actualID.ToString());
         Invoke(nameof(ResetHitPlayer), 1f);
     }
 
@@ -302,8 +296,8 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         Debug.Log("Original Enemy is sending Hit");
 
-        UpdateData("yes", "hit", actualHost.ToString());
-        UpdateData(newDamage.ToString(), "damage", actualHost.ToString());
+        UpdateData("yes", "hit", actualID.ToString());
+        UpdateData(newDamage.ToString(), "damage", actualID.ToString());
         Invoke(nameof(ResetHitEnemy), 1f);
     }
 
@@ -311,14 +305,14 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         Debug.Log("Original Player was reset Hit in database");
 
-        UpdateData("no", "hit", actualHost.ToString());
+        UpdateData("no", "hit", actualID.ToString());
     }
 
     public void ResetHitEnemy()
     {
         Debug.Log("Original Enemy was reset Hit in database");
 
-        UpdateData("no", "hit", actualHost.ToString());
+        UpdateData("no", "hit", actualID.ToString());
     }
 
     #endregion
@@ -340,7 +334,7 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             Debug.Log("Clone Player is sending health");
 
-            UpdateData(newLife, "health", actualHost.ToString());
+            UpdateData(newLife, "health", actualID.ToString());
         }
     }
 
@@ -352,7 +346,7 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             Debug.Log("Original Enemy is sending health");
 
-            UpdateData(newLife, "health", actualHost.ToString());
+            UpdateData(newLife, "health", actualID.ToString());
         }
         
         if (opponentIsEnemy != null)
@@ -375,14 +369,14 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             Debug.Log("Original Player sending distance");
 
-            UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
+            UpdateData(actualDistance.ToString(), "zposition", actualID.ToString());
         }
         
         if (opponentIsPlayer != null)
         {
             Debug.Log("Clone Player sending distance");
 
-            UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
+            UpdateData(actualDistance.ToString(), "zposition", actualID.ToString());
         }
     }
 
@@ -394,72 +388,72 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             Debug.Log("Original Enemy sending distance");
 
-            UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
+            UpdateData(actualDistance.ToString(), "zposition", actualID.ToString());
         }
 
         if (opponentIsEnemy != null)
         {
             Debug.Log("Clone Enemy sending distance");
 
-            UpdateData(actualDistance.ToString(), "zposition", actualHost.ToString());
+            UpdateData(actualDistance.ToString(), "zposition", actualID.ToString());
         }
     }
 
     public void SendForward()
     {
-        UpdateData("no", "backward", actualHost.ToString());
-        UpdateData("yes", "forward", actualHost.ToString());
+        UpdateData("no", "backward", actualID.ToString());
+        UpdateData("yes", "forward", actualID.ToString());
     }
 
     public void SendBackward()
     {
-        UpdateData("no", "forward", actualHost.ToString());
-        UpdateData("yes", "backward", actualHost.ToString());
+        UpdateData("no", "forward", actualID.ToString());
+        UpdateData("yes", "backward", actualID.ToString());
     }
 
     public void SendStopForward()
     {
-        UpdateData("no", "forward", actualHost.ToString());
-        UpdateData(gameObject.transform.position.z.ToString(), "zposition", actualHost.ToString());
+        UpdateData("no", "forward", actualID.ToString());
+        UpdateData(gameObject.transform.position.z.ToString(), "zposition", actualID.ToString());
     }
 
     public void SendStopBackward()
     {
-        UpdateData("no", "backward", actualHost.ToString());
-        UpdateData(gameObject.transform.position.z.ToString(), "zposition", actualHost.ToString());
+        UpdateData("no", "backward", actualID.ToString());
+        UpdateData(gameObject.transform.position.z.ToString(), "zposition", actualID.ToString());
     }
 
     public void SendAttack1()
     {
-        UpdateData("yes", "attack1", actualHost.ToString());
+        UpdateData("yes", "attack1", actualID.ToString());
         Invoke(nameof(ResetAttack1), sendDelay);
     }
 
     public void SendAttack2()
     {
-        UpdateData("yes", "attack2", actualHost.ToString());
+        UpdateData("yes", "attack2", actualID.ToString());
         Invoke(nameof(ResetAttack2), sendDelay);
     }
 
     public void SendAttack3()
     {
-        UpdateData("yes", "attack3", actualHost.ToString());
+        UpdateData("yes", "attack3", actualID.ToString());
         Invoke(nameof(ResetAttack3), sendDelay);
     }
 
     private void ResetAttack1()
     {
-        UpdateData("no", "attack1", actualHost.ToString());
+        UpdateData("no", "attack1", actualID.ToString());
     }
 
     private void ResetAttack2()
     {
-        UpdateData("no", "attack2", actualHost.ToString());
+        UpdateData("no", "attack2", actualID.ToString());
     }
 
     private void ResetAttack3()
     {
-        UpdateData("no", "attack3", actualHost.ToString());
+        UpdateData("no", "attack3", actualID.ToString());
     }
 
     #endregion
@@ -605,7 +599,7 @@ public class OpponentMultiplayer : MonoBehaviour
             originalPlayer.TakeHit(newDamage);
         }
 
-        UpdateData("0", "damage", actualHost.ToString());
+        UpdateData("0", "damage", actualID.ToString());
     }
 
     #endregion
@@ -749,7 +743,7 @@ public class OpponentMultiplayer : MonoBehaviour
             originalEnemy.TakeDamage(newDamage);
         }
 
-        UpdateData("0", "damage", actualHost.ToString());
+        UpdateData("0", "damage", actualID.ToString());
     }
 
     #endregion
