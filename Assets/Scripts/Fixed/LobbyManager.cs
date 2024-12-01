@@ -1228,7 +1228,8 @@ public class LobbyManager : MonoBehaviour
 
     public void RemovePlayer(string playerSession, string playerName)
     {
-        //Debug.Log("Player " + playerName + " is offline!");
+        Debug.Log("Player " + playerName + " is offline!");
+
         StartCoroutine(LogOffPlayer(logOffPlayer, playerSession, playerName));
     }
 

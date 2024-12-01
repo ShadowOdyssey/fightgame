@@ -42,6 +42,7 @@ public class OpponentMultiplayer : MonoBehaviour
     #region Hidden Variables
 
     [Header("Monitor Setup")]
+    public int actualSession = 0;
     public float countListen = 0f;
     public bool isEnemyPlayer = false;
     public bool isCheckingWin = false;
@@ -731,6 +732,8 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #endregion
 
+    #endregion
+
     #region Log Off Operations
 
     public void LeaveFight()
@@ -741,7 +744,7 @@ public class OpponentMultiplayer : MonoBehaviour
         }
     }
 
-    public void OnDisable()
+    public void OnApplicationQuit()
     {
         if (gameObject.activeInHierarchy == true)
         {
@@ -756,8 +759,6 @@ public class OpponentMultiplayer : MonoBehaviour
             UpdateData("offline", "status", currentSession);
         }
     }
-
-    #endregion
 
     #endregion
 }
