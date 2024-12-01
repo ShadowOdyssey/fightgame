@@ -1145,6 +1145,15 @@ public class LobbyManager : MonoBehaviour
 
     public void DuelAccepted()
     {
+        int newArena = UnityEngine.Random.Range(1, 5);
+
+        if (newArena == 5)
+        {
+            newArena = UnityEngine.Random.Range(1, 4);
+        }
+
+        UpdateData(newArena.ToString(), "arena", currentSession);
+        UpdateData(newArena.ToString(), "arena", currentHost);
         UpdateData("fighting", "ready", currentSession);
         UpdateData("fighting", "ready", currentHost);
 

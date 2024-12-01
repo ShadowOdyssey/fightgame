@@ -231,7 +231,6 @@ public class RoundManager : MonoBehaviour
 
     #endregion
 
-
     #endregion
 
     #region Loading Data
@@ -247,20 +246,23 @@ public class RoundManager : MonoBehaviour
         enemyMultiplayerID = PlayerPrefs.GetInt("multiplayerOpponent");
         playerMultiplayerProfile = PlayerPrefs.GetInt("multiplayerPlayerProfile");
 
-        //enemyMultiplayerProfile = int.Parse(PlayerPrefs.GetString("multiplayerOpponentProfile"));
-
         if (int.TryParse(PlayerPrefs.GetString("multiplayerOpponentProfile"), out enemyMultiplayerProfile))
 
         actualHost = PlayerPrefs.GetString("whoWasTheHost");
         enemyMultiplayerName = PlayerPrefs.GetString("multiplayerOpponentName");
 
-        CheckForMultiplayerOrTrainningMode(); // Done
-        LoadArenaAndEnemyCharacter(); // Done
-        CheckCurrentArena(); // Done
-        CheckCurrentPlayerCharacter(); // Working here
-        CheckCurrentEnemyCharacter(); // Working here
-        LoadPlayerName(); // Done
-        SetupCharactersHealth(); // Done 
+        CheckForMultiplayerOrTrainningMode();
+        LoadArenaAndEnemyCharacter();
+
+        if (isMultiplayer == false)
+        {
+            CheckCurrentArena();
+        }
+        
+        CheckCurrentPlayerCharacter();
+        CheckCurrentEnemyCharacter();
+        LoadPlayerName();
+        SetupCharactersHealth();
     }
 
     #endregion
@@ -352,15 +354,7 @@ public class RoundManager : MonoBehaviour
     {
         if (isMultiplayer == true) // If game is Singleplay load the correct enemy name based in the current stage
         {
-            int randomArena = Random.Range(1, 5);
-
-            if (randomArena == 5)
-            {
-                randomArena = Random.Range(1, 4);
-            }
-
-            // Loading random arena to multiplayer
-            currentStage = randomArena;
+            serverSystem.LoadArena();
         }
         else
         {
@@ -390,7 +384,7 @@ public class RoundManager : MonoBehaviour
         }
     }
 
-    private void CheckCurrentArena()
+    public void CheckCurrentArena()
     {
         switch (currentStage) // Loading stage
         {

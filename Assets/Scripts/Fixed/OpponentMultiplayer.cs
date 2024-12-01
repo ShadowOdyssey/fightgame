@@ -34,6 +34,7 @@ public class OpponentMultiplayer : MonoBehaviour
     public float sendDelay = 0f;
 
     [Header("Lobby Data")]
+    public int actualArena = 0;
     public int actualHost = 0;
     public int actualListener = 0;
     public bool selected = false;
@@ -86,6 +87,42 @@ public class OpponentMultiplayer : MonoBehaviour
             {
                 checkWin = responseFromServer;
                 UpdateWins();
+            }
+        }
+
+        request.Dispose();
+    }
+
+    public IEnumerator VerifyArena(string urlPHP, string desiredCollumn, string requestedTable, string requestedCollumn, string desiredSearch)
+    {
+        // "SELECT " . $selection . " FROM " . $table . " WHERE " . $collumn . " = " . $search;
+
+        WWWForm form = new WWWForm();
+        form.AddField("desiredSelection", desiredCollumn);
+        form.AddField("currentTable", requestedTable);
+        form.AddField("currentCollumn", requestedCollumn);
+        form.AddField("newSearch", desiredSearch);
+
+        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            responseFromServer = request.downloadHandler.text;
+
+            //Debug.Log("Response from server was: " + responseFromServer);
+
+            if (responseFromServer != "error002")
+            {
+                string newArena = responseFromServer;
+
+                if (int.TryParse(newArena, out int currentArena))
+                {
+                    actualArena = currentArena;
+                    roundSystem.currentStage = actualArena;
+                    roundSystem.CheckCurrentArena();
+                }
             }
         }
 
@@ -174,6 +211,15 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         opponentIsEnemy = actualEnemySystem;
         isEnemyPlayer = false;
+    }
+
+    #endregion
+
+    #region Load Arena
+
+    public void LoadCurrentArena()
+    {
+        StartCoroutine(VerifyArena(verifyUser, "arena", "lobby", "id", actualHost.ToString()));
     }
 
     #endregion

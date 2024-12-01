@@ -570,4 +570,21 @@ public class ServerSystem : MonoBehaviour
     }
 
     #endregion
+
+    #region Arena Operations
+
+    public void LoadArena()
+    {
+        if (playerMultiplayer.selected == true)
+        {
+            playerMultiplayer.LoadCurrentArena();
+        }
+
+        if (enemyMultiplayer.selected == true)
+        {
+            enemyMultiplayer.LoadCurrentArena();
+        }
+    }
+
+    #endregion
 }
