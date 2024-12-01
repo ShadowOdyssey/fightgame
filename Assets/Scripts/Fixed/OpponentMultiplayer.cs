@@ -740,7 +740,21 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (gameObject.activeInHierarchy == true)
         {
-            UpdateData("offline", "status", currentSession);
+            UpdateData("no", "ready", currentSession);
+            UpdateData("0", "arena", currentSession);
+            UpdateData("0", "duel", currentSession);
+            UpdateData("0", "host", currentSession);
+            UpdateData("no", "forward", currentSession);
+            UpdateData("no", "backward", currentSession);
+            UpdateData("no", "attack1", currentSession);
+            UpdateData("no", "attack2", currentSession);
+            UpdateData("no", "attack3", currentSession);
+            UpdateData("no", "hit", currentSession);
+            UpdateData("0", "profile", currentSession);
+            UpdateData("0", "zposition", currentSession);
+            UpdateData("0", "damage", currentSession);
+            UpdateData("100", "health", currentSession);
+            UpdateData("online", "status", currentSession);
         }
     }
 
@@ -748,6 +762,20 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (gameObject.activeInHierarchy == true)
         {
+            UpdateData("no", "ready", currentSession);
+            UpdateData("0", "arena", currentSession);
+            UpdateData("0", "duel", currentSession);
+            UpdateData("0", "host", currentSession);
+            UpdateData("no", "forward", currentSession);
+            UpdateData("no", "backward", currentSession);
+            UpdateData("no", "attack1", currentSession);
+            UpdateData("no", "attack2", currentSession);
+            UpdateData("no", "attack3", currentSession);
+            UpdateData("no", "hit", currentSession);
+            UpdateData("0", "profile", currentSession);
+            UpdateData("0", "zposition", currentSession);
+            UpdateData("0", "damage", currentSession);
+            UpdateData("100", "health", currentSession);
             UpdateData("offline", "status", currentSession);
         }
     }
@@ -756,6 +784,20 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (gameObject.activeInHierarchy == true)
         {
+            UpdateData("no", "ready", currentSession);
+            UpdateData("0", "arena", currentSession);
+            UpdateData("0", "duel", currentSession);
+            UpdateData("0", "host", currentSession);
+            UpdateData("no", "forward", currentSession);
+            UpdateData("no", "backward", currentSession);
+            UpdateData("no", "attack1", currentSession);
+            UpdateData("no", "attack2", currentSession);
+            UpdateData("no", "attack3", currentSession);
+            UpdateData("no", "hit", currentSession);
+            UpdateData("0", "profile", currentSession);
+            UpdateData("0", "zposition", currentSession);
+            UpdateData("0", "damage", currentSession);
+            UpdateData("100", "health", currentSession);
             UpdateData("offline", "status", currentSession);
         }
     }
