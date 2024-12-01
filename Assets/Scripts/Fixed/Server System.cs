@@ -575,11 +575,17 @@ public class ServerSystem : MonoBehaviour
 
     public void LoadArena()
     {
+        Debug.Log("Server System is checking for multiplayer character");
+
         if (playerMultiplayer != null)
         {
             Debug.Log("Loading Arena as Player");
 
             playerMultiplayer.LoadCurrentArena();
+        }
+        else
+        {
+            Debug.Log("Player Multiplayer was not registered yet");
         }
 
         if (enemyMultiplayer != null)
@@ -587,6 +593,10 @@ public class ServerSystem : MonoBehaviour
             Debug.Log("Loading Arena as Enemy");
 
             enemyMultiplayer.LoadCurrentArena();
+        }
+        else
+        {
+            Debug.Log("Enemy Multiplayer was not registered yet");
         }
     }
 

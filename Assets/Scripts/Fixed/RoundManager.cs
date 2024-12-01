@@ -255,6 +255,7 @@ public class RoundManager : MonoBehaviour
         enemyMultiplayerName = PlayerPrefs.GetString("multiplayerOpponentName");
 
         CheckForMultiplayerOrTrainningMode();
+        LoadArenaAndEnemyCharacter();
 
         if (isMultiplayer == false)
         {
@@ -263,7 +264,6 @@ public class RoundManager : MonoBehaviour
         
         CheckCurrentPlayerCharacter();
         CheckCurrentEnemyCharacter();
-        LoadArenaAndEnemyCharacter();
         LoadPlayerName();
         SetupCharactersHealth();
     }
@@ -350,53 +350,6 @@ public class RoundManager : MonoBehaviour
             // Loading Names
             playerNameText.text = PlayerPrefs.GetString("multiplayerOpponentName").ToUpper(); // Load opponent name at left side
             enemyNameText.text = PlayerPrefs.GetString("playerName").ToUpper(); // Load my name at right side
-        }
-    }
-
-    private void LoadArenaAndEnemyCharacter()
-    {
-        if (isMultiplayer == true) // If game is Multiplayer load the correct current stage
-        {
-            Debug.Log("Loading Multiplayer Arena");
-
-            serverSystem.LoadArena();
-        }
-        else // If game is SinglePlay load the correct current stage selected from Selection scene and also the correct AI character name
-        {
-            if (PlayerPrefs.GetInt("stageSelected") != 0)
-            {
-                currentStage = PlayerPrefs.GetInt("stageSelected");
-            }
-
-            if (PlayerPrefs.GetInt("enemyCharacterSelected") != 0)
-            {
-                currentEnemyCharacter = PlayerPrefs.GetInt("enemyCharacterSelected");
-                
-                //Debug.Log("Enemy selected character: " + currentEnemyCharacter);
-            }
-
-            switch (currentEnemyCharacter) // Load Singleplay Enemy name
-            {
-                case 1: enemyNameText.text = "GABRIELLA"; break;
-                case 2: enemyNameText.text = "MARCUS"; break;
-                case 3: enemyNameText.text = "SELENA"; break;
-                case 4: enemyNameText.text = "BRYAN"; break;
-                case 5: enemyNameText.text = "NUN"; break;
-                case 6: enemyNameText.text = "OLIVER"; break;
-                case 7: enemyNameText.text = "ORION"; break;
-                case 8: enemyNameText.text = "ARIA"; break;
-            }
-        }
-    }
-
-    public void CheckCurrentArena()
-    {
-        switch (currentStage) // Loading stage
-        {
-            case 1: arena1.SetActive(true); sceneLight.color = arena1Color; audioSystem.PlayMusic(2); Debug.Log("Arena 1 loaded"); break;
-            case 2: arena2.SetActive(true); sceneLight.color = arena2Color; audioSystem.PlayMusic(3); Debug.Log("Arena 2 loaded"); break;
-            case 3: arena3.SetActive(true); sceneLight.color = arena3Color; audioSystem.PlayMusic(4); Debug.Log("Arena 3 loaded"); break;
-            case 4: arena4.SetActive(true); sceneLight.color = arena4Color; audioSystem.PlayMusic(5); Debug.Log("Arena 4 loaded"); break;
         }
     }
 
@@ -492,6 +445,54 @@ public class RoundManager : MonoBehaviour
             wasEnemyInput = true;
         }
     }
+
+    private void LoadArenaAndEnemyCharacter()
+    {
+        if (isMultiplayer == true) // If game is Multiplayer load the correct current stage
+        {
+            Debug.Log("Loading Multiplayer Arena");
+
+            serverSystem.LoadArena();
+        }
+        else // If game is SinglePlay load the correct current stage selected from Selection scene and also the correct AI character name
+        {
+            if (PlayerPrefs.GetInt("stageSelected") != 0)
+            {
+                currentStage = PlayerPrefs.GetInt("stageSelected");
+            }
+
+            if (PlayerPrefs.GetInt("enemyCharacterSelected") != 0)
+            {
+                currentEnemyCharacter = PlayerPrefs.GetInt("enemyCharacterSelected");
+
+                //Debug.Log("Enemy selected character: " + currentEnemyCharacter);
+            }
+
+            switch (currentEnemyCharacter) // Load Singleplay Enemy name
+            {
+                case 1: enemyNameText.text = "GABRIELLA"; break;
+                case 2: enemyNameText.text = "MARCUS"; break;
+                case 3: enemyNameText.text = "SELENA"; break;
+                case 4: enemyNameText.text = "BRYAN"; break;
+                case 5: enemyNameText.text = "NUN"; break;
+                case 6: enemyNameText.text = "OLIVER"; break;
+                case 7: enemyNameText.text = "ORION"; break;
+                case 8: enemyNameText.text = "ARIA"; break;
+            }
+        }
+    }
+
+    public void CheckCurrentArena()
+    {
+        switch (currentStage) // Loading stage
+        {
+            case 1: arena1.SetActive(true); sceneLight.color = arena1Color; audioSystem.PlayMusic(2); Debug.Log("Arena 1 loaded"); break;
+            case 2: arena2.SetActive(true); sceneLight.color = arena2Color; audioSystem.PlayMusic(3); Debug.Log("Arena 2 loaded"); break;
+            case 3: arena3.SetActive(true); sceneLight.color = arena3Color; audioSystem.PlayMusic(4); Debug.Log("Arena 3 loaded"); break;
+            case 4: arena4.SetActive(true); sceneLight.color = arena4Color; audioSystem.PlayMusic(5); Debug.Log("Arena 4 loaded"); break;
+        }
+    }
+
 
     private void LoadPlayerName()
     {
