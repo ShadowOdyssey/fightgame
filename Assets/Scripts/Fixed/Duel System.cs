@@ -101,6 +101,7 @@ public class DuelSystem : MonoBehaviour
         {
             playerSession = actualPlayerSesison;
             opponentSession = actualOpponentSession;
+            lobbySystem.LoadDuelScreen();
         }
     }
 

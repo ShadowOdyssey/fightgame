@@ -1136,8 +1136,11 @@ public class LobbyManager : MonoBehaviour
     public void StartInvited()
     {
         connectingScreen.SetActive(false);
-
         duelSystem.UpdateSessions(currentHost, currentSession);
+    }
+
+    public void LoadDuelScreen()
+    {
         duelSystem.UpdateNames(actualName, hostName);
         duelSystem.LoadVersusImages(currentCharacterSelected, hostProfile);
         duelSystem.OpenDuel(2);
