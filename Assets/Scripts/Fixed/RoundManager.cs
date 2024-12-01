@@ -255,7 +255,6 @@ public class RoundManager : MonoBehaviour
         enemyMultiplayerName = PlayerPrefs.GetString("multiplayerOpponentName");
 
         CheckForMultiplayerOrTrainningMode();
-        LoadArenaAndEnemyCharacter();
 
         if (isMultiplayer == false)
         {
@@ -264,6 +263,7 @@ public class RoundManager : MonoBehaviour
         
         CheckCurrentPlayerCharacter();
         CheckCurrentEnemyCharacter();
+        LoadArenaAndEnemyCharacter();
         LoadPlayerName();
         SetupCharactersHealth();
     }
