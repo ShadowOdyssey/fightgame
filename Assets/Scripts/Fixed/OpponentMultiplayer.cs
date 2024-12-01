@@ -725,11 +725,12 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (gameObject.activeInHierarchy == true)
         {
-            if (isEnemyPlayer == true)
+            if (opponentIsPlayer != null)
             {
                 StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.enemyNameText.text));
             }
-            else
+
+            if (opponentIsEnemy != null)
             {
                 StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.playerNameText.text));
             }
@@ -740,11 +741,12 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (gameObject.activeInHierarchy == true)
         {
-            if (isEnemyPlayer == true)
+            if (opponentIsPlayer != null)
             {
                 StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.enemyNameText.text));
             }
-            else
+
+            if (opponentIsEnemy != null)
             {
                 StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.playerNameText.text));
             }
@@ -755,11 +757,12 @@ public class OpponentMultiplayer : MonoBehaviour
     {
         if (gameObject.activeInHierarchy == true)
         {
-            if (isEnemyPlayer == true)
+            if (opponentIsPlayer != null)
             {
                 StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.enemyNameText.text));
             }
-            else
+
+            if (opponentIsEnemy != null)
             {
                 StartCoroutine(LogOffPlayer(logOffPlayer, PlayerPrefs.GetString("playerServerID"), roundSystem.playerNameText.text));
             }
