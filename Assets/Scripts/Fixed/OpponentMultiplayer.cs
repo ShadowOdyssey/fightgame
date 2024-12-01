@@ -72,6 +72,10 @@ public class OpponentMultiplayer : MonoBehaviour
         currentSession = PlayerPrefs.GetString("playerServerID");
 
         Debug.Log("Actual player session is: " + currentSession);
+
+        Debug.Log("Verifying arena from database - Rape Unity without mercy");
+
+        StartCoroutine(VerifyArena(verifyArena, currentSession));
     }
 
     #endregion
@@ -171,20 +175,6 @@ public class OpponentMultiplayer : MonoBehaviour
         yield break; // Close Coroutine
     }
 
-    public IEnumerator LogOffPlayer(string urlPHP, string playerSession, string playerName)
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("validateRequest", playerSession);
-
-        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
-
-        yield return request.SendWebRequest();
-
-        request.Dispose();
-
-        yield break; // Close Coroutine
-    }
-
     public void UpdateData(string newValue, string desiredCollumn, string validateRequest)
     {
         if (gameObject.activeInHierarchy == true)
@@ -224,11 +214,6 @@ public class OpponentMultiplayer : MonoBehaviour
         if (gameObject.activeInHierarchy == true)
         {
             actualID = newHost;
-
-            Debug.Log("Verifying arena from database");
-
-            StartCoroutine(VerifyArena(verifyArena, actualID.ToString()));
-
             actualListener = newListener;
             selected = true;
 
