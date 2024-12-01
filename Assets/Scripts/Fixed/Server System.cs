@@ -575,12 +575,12 @@ public class ServerSystem : MonoBehaviour
 
     public void LoadArena()
     {
-        if (playerMultiplayer.selected == true)
+        if (playerMultiplayer != null)
         {
             playerMultiplayer.LoadCurrentArena();
         }
 
-        if (enemyMultiplayer.selected == true)
+        if (enemyMultiplayer != null)
         {
             enemyMultiplayer.LoadCurrentArena();
         }
