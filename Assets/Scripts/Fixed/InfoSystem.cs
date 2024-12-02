@@ -9,8 +9,9 @@ public class InfoSystem : MonoBehaviour
 
     public void Start()
     {
-        Time.timeScale = 0.01f;
+        disableTimer = 20f;
         canDisable = true;
+        Time.timeScale = 0.01f;
     }
 
     public void Update()
