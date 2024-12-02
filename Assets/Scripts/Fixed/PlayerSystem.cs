@@ -52,6 +52,7 @@ public class PlayerSystem : MonoBehaviour
     private bool isIdle = false;
 
     [Header("Multiplayer Setup")]
+    public float zPositionDelayTimer = 3f;
     public float sendDelay = 3f;
     public bool serverDamage = false;
     private bool wasDetected = false;
@@ -580,7 +581,7 @@ public class PlayerSystem : MonoBehaviour
         {
             positionDelay = positionDelay + Time.deltaTime;
 
-            if (positionDelay > 1f)
+            if (positionDelay > zPositionDelayTimer)
             {
                 positionDelay = 0f;
                 updatePosition = false;

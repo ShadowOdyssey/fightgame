@@ -41,6 +41,7 @@ public class EnemySystem : MonoBehaviour
     public Button buttonAttack2;
     [Tooltip("Attach current player Button Attack 3 component here")]
     public Button buttonAttack3;
+    public float zPositionDelayTimer = 3f;
     public float sendDelay = 3f;
     public bool serverDamage = false;
     private bool wasDetected = false;
@@ -953,7 +954,7 @@ public class EnemySystem : MonoBehaviour
         {
             positionDelay = positionDelay + Time.deltaTime;
 
-            if (positionDelay > 1f)
+            if (positionDelay > zPositionDelayTimer)
             {
                 positionDelay = 0f;
                 updatePosition = false;
