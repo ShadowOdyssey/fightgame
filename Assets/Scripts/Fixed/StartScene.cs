@@ -87,13 +87,14 @@ public class StartScene : MonoBehaviour
 
     private void NameDontHaveEnoughLength() // Display a message to player that name is not acceptable yet
     {
-        if (nameInput.text != "" && nameInput.text.Length < 3)
+        if (nameInput.text != "" && nameInput.text.Length < 3 && nameInput.text != "")
         {
             if (sceneMessage.text != "Your name should contain more than 3 characters")
             {
                 sceneMessage.text = "Your name should contain more than 3 characters";
-                DisableLoginButton(); // Dont allow player to click Login button till player to put an acceptable name
             }
+
+            DisableLoginButton(); // Dont allow player to click Login button till player to put an acceptable name
         }
     }
 
