@@ -11,7 +11,7 @@ public class InfoSystem : MonoBehaviour
     {
         disableTimer = 20f;
         canDisable = true;
-        Time.timeScale = 0.01f;
+        Time.timeScale = 0.1f;
     }
 
     public void Update()
