@@ -9,11 +9,11 @@ public class InfoSystem : MonoBehaviour
 
     public void Start()
     {
-        Time.timeScale = 0.003f;
+        Time.timeScale = 0.01f;
         canDisable = true;
     }
 
-    private void Update()
+    public void Update()
     {
         if (canDisable == true)
         {
