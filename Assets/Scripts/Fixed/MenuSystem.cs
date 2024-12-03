@@ -6,6 +6,7 @@ public class MenuSystem : MonoBehaviour
     public RoundManager roundSystem;
 
     public GameObject menuScreen;
+    public GameObject playerLeftScreen;
 
     public TextMeshProUGUI soundText;
     public TextMeshProUGUI returnText;
@@ -50,6 +51,21 @@ public class MenuSystem : MonoBehaviour
         {
             roundSystem.ReturnToMenu();
         }
+    }
+
+    public void ReturnToMainMenu()
+    {
+        roundSystem.ReturnToMenu();
+    }
+
+    public void ReturnToLobby()
+    {
+        roundSystem.ReturnToLobby();
+    }
+
+    public void OpenPlayerLeftGameScreen()
+    {
+        playerLeftScreen.SetActive(true);
     }
 
     public void OpenMenuScreen()

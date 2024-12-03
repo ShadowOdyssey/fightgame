@@ -22,6 +22,7 @@ public class RoundManager : MonoBehaviour
     public EnemySystem enemySystem;
     public ServerSystem serverSystem;
     public FadeControl fadeSystem;
+    public MenuSystem displaySystem;
 
     [Header("Arena Battlegrounds")]
     [Tooltip("Attach here Arena 1 object inside Battlegrounds object in hierarchy")]
@@ -612,6 +613,12 @@ public class RoundManager : MonoBehaviour
     {
         if (isMultiplayer == true)
         {
+            if (serverSystem.actualPlayerHealth == 100 && roundOver == false && actualTime.text != "180" && playerHealthBar.slider.value < 100f ||
+                serverSystem.actualEnemyHealth == 100 && roundOver == false && actualTime.text != "180" && opponentHealthBar.slider.value < 100f)
+            {
+                displaySystem.OpenPlayerLeftGameScreen();
+            }
+
             if (serverSystem.actualPlayerHealth <= 0 && roundOver == false || serverSystem.actualEnemyHealth <= 0 && roundOver == false)
             {
                 roundOver = true;
