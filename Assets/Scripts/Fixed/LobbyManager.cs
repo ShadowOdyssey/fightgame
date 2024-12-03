@@ -1249,8 +1249,6 @@ public class LobbyManager : MonoBehaviour
 
     public void DuelDeclined()
     {
-        ResetPlayer();
-
         UpdateData("yes", "ready", currentSession);
         UpdateData("yes", "ready", currentHost);
         UpdateData("0", "duel", currentHost);
@@ -1259,7 +1257,6 @@ public class LobbyManager : MonoBehaviour
         UpdateData("yes", "decline", currentHost);
 
         duelScreen.transform.position = hiddeScreen.position;
-        isDueling = false;
     }
 
     public void RestoreDecline()
