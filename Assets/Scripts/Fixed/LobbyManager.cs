@@ -26,6 +26,10 @@ public class LobbyManager : MonoBehaviour
     [Tooltip("Adjust the time Lobby System will spend to refresh Players On Lobby list. Remember that low values cause more server calls making the server unstable. Find a moderated value to refresh Player On Lobby list!")]
     public float timeToRefreshPlayerList = 2f;
 
+    [Header("Screens Setup")]
+    public Transform centerScreens;
+    public Transform hiddeScreen;
+
     [Header("Texts Setup")]
     [Tooltip("Attach here Server Messages object inside Character Selected object that is inside UI object in the hierarchy")]
     public TextMeshProUGUI serverMessage;
@@ -216,7 +220,7 @@ public class LobbyManager : MonoBehaviour
             PlayerPrefs.SetString("isMultiplayerActivated", "yes");
         }
 
-        connectingScreen.SetActive(true); // We make sure that Connecting Screen always will appear enabled when Lobby Manager to start
+        connectingScreen.transform.position = centerScreens.position; // We make sure that Connecting Screen always will appear enabled when Lobby Manager to start
         StopAllCoroutines(); // Stop all coroutines from old scenes
         LoadDefault(); // Load all default values before to apply new values in Select Character
         StartCoroutine(VerifyUser(verifyUser, "id", "lobby", "name", "'" + actualName + "'")); // Everything is ready, so lets start to connect with the server automatically
@@ -268,7 +272,7 @@ public class LobbyManager : MonoBehaviour
         {
             connectedSucces = false;
             StopAllCoroutines(); // After any Coroutine call, stop the last coroutine activated. It is mandatory. Always stop a Coroutine after to use it
-            connectingScreen.SetActive(false);
+            connectingScreen.transform.position = hiddeScreen.position;
             joinedLobby = true;
         }
 
@@ -476,7 +480,7 @@ public class LobbyManager : MonoBehaviour
 
     private void LoadDefault()
     {
-        ButtonIsSelected();
+        ButtonIsNotSelected();
         durabilityValue.value = 7f;
         offenseValue.value = 8f;
         controlEffectValue.value = 6f;
@@ -1053,7 +1057,7 @@ public class LobbyManager : MonoBehaviour
                 PlayerPrefs.SetString("multiplayerOpponentName", "");
                 PlayerPrefs.SetString("multiplayerOpponentProfile", "");
 
-                duelScreen.SetActive(false);
+                duelScreen.transform.position = hiddeScreen.position;
 
                 serverMessage.text = "Player dont want to fight against you anymore!";
 
@@ -1093,15 +1097,15 @@ public class LobbyManager : MonoBehaviour
         UpdateData("queue", "ready", currentSession);
         UpdateData("queue", "ready", requestedSessionDuel);
         currentHost = currentSession;
-        connectingScreen.SetActive(true);
+        connectingScreen.transform.position = centerScreens.position;
         connectionText.text = "Connecting to requested player to fight...";
         Invoke(nameof(UpdateDuelPlayer), 3f);
     }
 
     public void UpdateDuelPlayer()
     {
-        connectingScreen.SetActive(false);
-        duelScreen.SetActive(true);
+        connectingScreen.transform.position = hiddeScreen.position;
+        duelScreen.transform.position = centerScreens.position;
 
         if (currentHost == currentSession)
         {
@@ -1115,7 +1119,7 @@ public class LobbyManager : MonoBehaviour
 
             duelSystem.UpdateNames(actualName, requestedNameDuel);
 
-            Debug.Log("Host is loading versus images");
+            Debug.Log("Host is loading versus images! Host character value is: " + currentCharacterSelected + " and Opponent character value is: " + requestedProfileDuel);
 
             duelSystem.LoadVersusImages(currentCharacterSelected, requestedProfileDuel);
 
@@ -1157,7 +1161,7 @@ public class LobbyManager : MonoBehaviour
         }
         else 
         {
-            connectingScreen.SetActive(true);
+            connectingScreen.transform.position = centerScreens.position;
             connectionText.text = "You was invited to fight, loading...";
 
             //Debug.Log("You are the invited!");
@@ -1173,7 +1177,7 @@ public class LobbyManager : MonoBehaviour
     {
         Debug.Log("Invited started an invite to fight");
 
-        connectingScreen.SetActive(false);
+        connectingScreen.transform.position = hiddeScreen.position;
 
         Debug.Log("Invited is updating sessions");
 
@@ -1216,8 +1220,8 @@ public class LobbyManager : MonoBehaviour
         PlayerPrefs.SetString("multiplayerOpponentName", hostName);
         PlayerPrefs.SetString("multiplayerOpponentProfile", hostProfile);
 
-        duelScreen.SetActive(false);
-        connectingScreen.SetActive(true);
+        duelScreen.transform.position = hiddeScreen.position;
+        connectingScreen.transform.position = centerScreens.position;
         connectionText.text = "Loading Fight! Please wait...";
         SceneManager.LoadScene("FightScene");
     }
@@ -1231,7 +1235,7 @@ public class LobbyManager : MonoBehaviour
         UpdateData("0", "host", currentHost);
         UpdateData("yes", "ready", currentSession);
 
-        duelScreen.SetActive(false);
+        duelScreen.transform.position = hiddeScreen.position;
         isDueling = false;
     }
 
@@ -1265,7 +1269,7 @@ public class LobbyManager : MonoBehaviour
         loadedLobby = false;
         RemovePlayer(currentSession, actualName);
         UpdateData("offline", "status", currentSession);
-        connectingScreen.SetActive(true);
+        connectingScreen.transform.position = centerScreens.position;
         connectionText.text = "Leaving the lobby! Please wait...";
         Invoke(nameof(ReturnToMenu), 5f); // Delay MainMenu load to give enough time to register the Offline data in database before to leave Arcade Mode scene
     }
