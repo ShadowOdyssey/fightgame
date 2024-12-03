@@ -70,26 +70,42 @@ public class DuelSystem : MonoBehaviour
     {
         switch (playerProfile)
         {
-            case 1: playerImage.sprite = gabriellaVersus; Debug.Log("Loaded current versus image - Player is: gabriellaVersus"); break;
-            case 2: playerImage.sprite = marcusVersus; Debug.Log("Loaded current versus image - Player is: marcusVersus"); break;
-            case 3: playerImage.sprite = selenaVersus; Debug.Log("Loaded current versus image - Player is: selenaVersus"); break;
-            case 4: playerImage.sprite = bryanVersus; Debug.Log("Loaded current versus image - Player is: bryanVersus"); break;
-            case 5: playerImage.sprite = nunVersus; Debug.Log("Loaded current versus image - Player is: nunVersus"); break;
-            case 6: playerImage.sprite = oliverVersus; Debug.Log("Loaded current versus image - Player is: oliverVersus"); break;
-            case 7: playerImage.sprite = orionVersus; Debug.Log("Loaded current versus image - Player is: orionVersus"); break;
-            case 8: playerImage.sprite = ariaVersus; Debug.Log("Loaded current versus image - Player is: ariaVersus"); break;
+            case 1: playerImage.sprite = gabriellaVersus; //Debug.Log("Loaded current versus image - Player is: gabriellaVersus"); 
+                break;
+            case 2: playerImage.sprite = marcusVersus; //Debug.Log("Loaded current versus image - Player is: marcusVersus"); 
+                break;
+            case 3: playerImage.sprite = selenaVersus; //Debug.Log("Loaded current versus image - Player is: selenaVersus"); 
+                break;
+            case 4: playerImage.sprite = bryanVersus; //Debug.Log("Loaded current versus image - Player is: bryanVersus"); 
+                break;
+            case 5: playerImage.sprite = nunVersus; //Debug.Log("Loaded current versus image - Player is: nunVersus"); 
+                break;
+            case 6: playerImage.sprite = oliverVersus; //Debug.Log("Loaded current versus image - Player is: oliverVersus"); 
+                break;
+            case 7: playerImage.sprite = orionVersus; //Debug.Log("Loaded current versus image - Player is: orionVersus"); 
+                break;
+            case 8: playerImage.sprite = ariaVersus; //Debug.Log("Loaded current versus image - Player is: ariaVersus"); 
+                break;
         }
 
         switch (opponentProfile)
         {
-            case "1": opponentImage.sprite = gabriellaVersus; Debug.Log("Loaded current versus image - Enemy is: gabriellaVersus"); break;
-            case "2": opponentImage.sprite = marcusVersus; Debug.Log("Loaded current versus image - Enemy is: marcusVersus"); break;
-            case "3": opponentImage.sprite = selenaVersus; Debug.Log("Loaded current versus image - Enemy is: selenaVersus"); break;
-            case "4": opponentImage.sprite = bryanVersus; Debug.Log("Loaded current versus image - Enemy is: bryanVersus"); break;
-            case "5": opponentImage.sprite = nunVersus; Debug.Log("Loaded current versus image - Enemy is: nunVersus"); break;
-            case "6": opponentImage.sprite = oliverVersus; Debug.Log("Loaded current versus image - Enemy is: oliverVersus"); break;
-            case "7": opponentImage.sprite = orionVersus; Debug.Log("Loaded current versus image - Enemy is: orionVersus"); break;
-            case "8": opponentImage.sprite = ariaVersus; Debug.Log("Loaded current versus image - Enemy is: ariaVersus"); break;
+            case "1": opponentImage.sprite = gabriellaVersus; //Debug.Log("Loaded current versus image - Enemy is: gabriellaVersus"); 
+                break;
+            case "2": opponentImage.sprite = marcusVersus; //Debug.Log("Loaded current versus image - Enemy is: marcusVersus"); 
+                break;
+            case "3": opponentImage.sprite = selenaVersus; //Debug.Log("Loaded current versus image - Enemy is: selenaVersus"); 
+                break;
+            case "4": opponentImage.sprite = bryanVersus; //Debug.Log("Loaded current versus image - Enemy is: bryanVersus"); 
+                break;
+            case "5": opponentImage.sprite = nunVersus; //Debug.Log("Loaded current versus image - Enemy is: nunVersus"); 
+                break;
+            case "6": opponentImage.sprite = oliverVersus; //Debug.Log("Loaded current versus image - Enemy is: oliverVersus"); 
+                break;
+            case "7": opponentImage.sprite = orionVersus; //Debug.Log("Loaded current versus image - Enemy is: orionVersus"); 
+                break;
+            case "8": opponentImage.sprite = ariaVersus; //Debug.Log("Loaded current versus image - Enemy is: ariaVersus"); 
+                break;
         }
     }
 
@@ -100,7 +116,7 @@ public class DuelSystem : MonoBehaviour
             playerSession = actualPlayerSesison;
             opponentSession = actualOpponentSession;
 
-            Debug.Log("Loaded current sessions - Player is: " + playerSession + " and Opponent is: " + opponentSession);
+            //Debug.Log("Loaded current sessions - Player is: " + playerSession + " and Opponent is: " + opponentSession);
         }
     }
 
@@ -111,7 +127,7 @@ public class DuelSystem : MonoBehaviour
             playerNameText.text = playerName;
             opponentNameText.text = opponentName;
 
-            Debug.Log("Loaded current names - Player is: " + playerNameText.text + " and Opponent is: " + opponentNameText.text);
+            //Debug.Log("Loaded current names - Player is: " + playerNameText.text + " and Opponent is: " + opponentNameText.text);
         }
     }
 
@@ -135,7 +151,7 @@ public class DuelSystem : MonoBehaviour
 
     public void PlayerIsHost()
     {
-        Debug.Log("Loading versus screen as Host...");
+        //Debug.Log("Loading versus screen as Host...");
 
         acceptButton.SetActive(false);
         declineButton.SetActive(false);
@@ -144,12 +160,12 @@ public class DuelSystem : MonoBehaviour
         waitMessage.SetActive(true);
         isWaiting = true;
 
-        Debug.Log("Loading versus screen as Host was loaded");
+        //Debug.Log("Loading versus screen as Host was loaded");
     }
 
     public void PlayerIsRequested()
     {
-        Debug.Log("Loading versus screen as Invited...");
+        //Debug.Log("Loading versus screen as Invited...");
 
         acceptButton.SetActive(true);
         declineButton.SetActive(true);
@@ -157,7 +173,7 @@ public class DuelSystem : MonoBehaviour
         waitMessage.SetActive(false);
         isWaiting = true;
 
-        Debug.Log("Loading versus screen as Invited was loaded");
+        //Debug.Log("Loading versus screen as Invited was loaded");
     }
 
     public void AcceptButton()
@@ -178,6 +194,6 @@ public class DuelSystem : MonoBehaviour
         wasOpen = false;
         countTime = waitTime;
         timerText.text = waitTime.ToString("00");
-        lobbySystem.DuelDeclined(playerSession, opponentSession);
+        lobbySystem.DuelDeclined();
     }
 }

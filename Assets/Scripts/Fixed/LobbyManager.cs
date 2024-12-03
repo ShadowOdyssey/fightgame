@@ -1226,17 +1226,25 @@ public class LobbyManager : MonoBehaviour
         SceneManager.LoadScene("FightScene");
     }
 
-    public void DuelDeclined(string playerDuel, string opponentDuel)
+    public void DuelDeclined()
     {
         ResetPlayer();
 
+        UpdateData("yes", "ready", currentSession);
         UpdateData("yes", "ready", currentHost);
         UpdateData("0", "duel", currentHost);
         UpdateData("0", "host", currentHost);
-        UpdateData("yes", "ready", currentSession);
+        UpdateData("yes", "decline", currentSession);
+        UpdateData("yes", "decline", currentHost);
 
         duelScreen.transform.position = hiddeScreen.position;
         isDueling = false;
+    }
+
+    public void RestoreDecline()
+    {
+        UpdateData("no", "decline", currentSession);
+        UpdateData("no", "decline", currentHost);
     }
 
     public void ResetPlayer()
