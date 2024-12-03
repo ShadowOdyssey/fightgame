@@ -3,6 +3,8 @@ using UnityEngine.Audio;
 
 public class AudioSystem : MonoBehaviour
 {
+    #region Variables
+
     #region Audio Mixer Setup
 
     [Header("Audio Mixer")]
@@ -169,6 +171,7 @@ public class AudioSystem : MonoBehaviour
 
     [Header("MONITOR - DONT CHANGE ANY VALUE HERE")]
     private int actualSourceIndex = 0;
+    private bool generalAudioTrigger = true;
     private bool checkIncreaseMusic = false;
     private bool checkDecreaseMusic = false;
     private bool checkIncreasePlayer = false;
@@ -187,6 +190,8 @@ public class AudioSystem : MonoBehaviour
     private float musicVolumeInteraction = 0f;
     private float playerVolumeInteraction = 0f;
     private float enemyVolumeInteraction = 0f;
+
+    #endregion
 
     #endregion
 
@@ -610,6 +615,24 @@ public class AudioSystem : MonoBehaviour
         {
             decreaseEnemyVolume = true;
             checkDecreaseEnemy = false;
+        }
+    }
+
+    #endregion
+
+    #region General Audio Operations
+
+    public void ZeroVolume()
+    {
+        if (generalAudioTrigger == true)
+        {
+            generalAudio.SetFloat("GeneralAudio", -40f);
+            generalAudioTrigger = false;
+        }
+        else
+        {
+            generalAudio.SetFloat("GeneralAudio", 0f);
+            generalAudioTrigger = true;
         }
     }
 

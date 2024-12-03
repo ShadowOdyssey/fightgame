@@ -1184,12 +1184,12 @@ public class RoundManager : MonoBehaviour
         SceneManager.LoadScene("SelectionCharacter");
     }
 
-    private void ReturnToLobby()
+    public void ReturnToLobby()
     {
         SceneManager.LoadScene("ArcadeMode");
     }
 
-    private void ReturnToMenu()
+    public void ReturnToMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }
