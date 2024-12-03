@@ -977,18 +977,12 @@ public class LobbyManager : MonoBehaviour
         {
             responseFromServer = request.downloadHandler.text;
 
-            //Debug.Log("Response from server was: " + responseFromServer);
-
-            if (responseFromServer == "error002")
-            {
-                connectionText.text = error002;
-                yield break; // Exit the coroutine if there's an error
-            }
+            Debug.Log("Response from server for Decline was: " + responseFromServer);
 
             if (responseFromServer == "yes")
             {
                 RestoreDecline();
-                //Debug.Log("Opponent declined to fight or cancelled the invite");
+                Debug.Log("Opponent declined to fight or cancelled the invite");
             }
         }
 
@@ -1091,33 +1085,6 @@ public class LobbyManager : MonoBehaviour
             //Debug.Log("Checking for Host");
 
             StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
-        }
-
-        if (isDueling == true && wasHostLoaded == true)
-        {
-            if (currentHost == "0")
-            {
-                currentHost = "";
-                hostName = "";
-                hostProfile = "";
-                requestedSessionDuel = "";
-                requestedProfileDuel = "";
-                requestedNameDuel = "";
-
-                PlayerPrefs.SetString("whoWasTheHost", "");
-                PlayerPrefs.SetInt("multiplayerPlayer", 0);
-                PlayerPrefs.SetInt("multiplayerOpponent", 0);
-                PlayerPrefs.SetInt("multiplayerPlayerProfile", 0);
-                PlayerPrefs.SetString("multiplayerOpponentName", "");
-                PlayerPrefs.SetString("multiplayerOpponentProfile", "");
-
-                duelScreen.transform.position = hiddeScreen.position;
-
-                serverMessage.text = "Player dont want to fight against you anymore!";
-
-                wasHostLoaded = false;
-                isDueling = false;
-            }
         }
     }
 
@@ -1300,6 +1267,7 @@ public class LobbyManager : MonoBehaviour
         UpdateData("no", "decline", currentSession);
         UpdateData("no", "decline", currentHost);
         duelScreen.transform.position = hiddeScreen.position;
+        ResetPlayer();
         isDueling = false;
     }
 
