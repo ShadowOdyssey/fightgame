@@ -589,8 +589,8 @@ public class RoundManager : MonoBehaviour
                     }
                     else
                     {
-                        ApplyDamageToOpponent(playerDamagePerSecond);
-                        ApplyDamageToPlayer(playerDamagePerSecond);
+                        //ApplyDamageToOpponent(playerDamagePerSecond); // Disabled round damage in multiplayer
+                        //ApplyDamageToPlayer(playerDamagePerSecond); // Disabled round damage in multiplayer
                     }
                 }
 
@@ -885,12 +885,28 @@ public class RoundManager : MonoBehaviour
         }
         else
         {
-            playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
-            enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
-            serverSystem.actualPlayerHealth = maxHealth;
-            serverSystem.actualEnemyHealth = maxHealth;
-            playerHealthBar.SetMaxHealth(maxHealth);
-            opponentHealthBar.SetMaxHealth(maxHealth);
+            if (serverSystem.actualPlayerHealth != maxHealth)
+            {
+                serverSystem.actualPlayerHealth = maxHealth;
+                playerHealthBar.SetMaxHealth(maxHealth);
+
+                if (playerSystem.multiplayerSystem.selected == true)
+                {
+                    playerMultiplayer.UpdatePlayerLife(playerHealth.ToString());
+                }
+            }
+
+            
+            if (serverSystem.actualEnemyHealth != maxHealth)
+            {
+                serverSystem.actualEnemyHealth = maxHealth;
+                opponentHealthBar.SetMaxHealth(maxHealth);
+
+                if (enemySystem.multiplayerSystem.selected == true)
+                {
+                    enemyMultiplayer.UpdateEnemyLife(opponentHealth.ToString());
+                }
+            }
         }
     }
 

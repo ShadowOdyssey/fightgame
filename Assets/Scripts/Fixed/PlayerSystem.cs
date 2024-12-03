@@ -769,7 +769,7 @@ public class PlayerSystem : MonoBehaviour
 
             if (roundSystem.isMultiplayer == true && selectedMultiplayer == true)
             {
-                roundSystem.MultiplayerEnemyDamage(damageAmmount);
+                roundSystem.MultiplayerPlayerDamage(damageAmmount);
             }
 
             if (roundSystem.playerHealthBar.slider.value <= 0)
