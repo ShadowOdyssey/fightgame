@@ -306,7 +306,7 @@ public class LobbyManager : MonoBehaviour
 
         #region Synchro Decline
 
-        if (isDueling == true)
+        if (wasHostLoaded == true)
         {
             declineTime = declineTime + Time.deltaTime;
 
@@ -1075,8 +1075,14 @@ public class LobbyManager : MonoBehaviour
 
     public void RefreshList()
     {
+        #region Checking for current players
+
         StartCoroutine(FindOfflinePlayers());
         StartCoroutine(UpdatePlayerList());
+
+        #endregion
+
+        #region Looking for current duels
 
         if (isDueling == false)
         {
@@ -1086,6 +1092,8 @@ public class LobbyManager : MonoBehaviour
 
             StartCoroutine(VerifyHost(verifyUser, "host", "lobby", "name", "'" + actualName + "'"));
         }
+
+        #endregion
     }
 
     #endregion
@@ -1265,12 +1273,12 @@ public class LobbyManager : MonoBehaviour
         UpdateData("no", "decline", currentHost);
         duelScreen.transform.position = hiddeScreen.position;
         ResetPlayer();
-        isDueling = false;
+        wasHostLoaded = false;
     }
 
     public void ResetPlayer()
     {
-        UpdateData("no", "ready", currentSession);
+        UpdateData("yes", "ready", currentSession);
         UpdateData("0", "duel", currentSession);
         UpdateData("0", "host", currentSession);
 
