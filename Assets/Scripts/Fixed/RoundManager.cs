@@ -613,8 +613,8 @@ public class RoundManager : MonoBehaviour
     {
         if (isMultiplayer == true)
         {
-            if (serverSystem.actualPlayerHealth == 100 && roundOver == false && actualTime.text != "180" && playerHealthBar.slider.value < 100f ||
-                serverSystem.actualEnemyHealth == 100 && roundOver == false && actualTime.text != "180" && opponentHealthBar.slider.value < 100f)
+            if (serverSystem.actualPlayerHealth == 100 && roundOver == false && actualTime.text != "180" && playerHealthBar.slider.value != 100f ||
+                serverSystem.actualEnemyHealth == 100 && roundOver == false && actualTime.text != "180" && opponentHealthBar.slider.value != 100f)
             {
                 displaySystem.OpenPlayerLeftGameScreen();
             }

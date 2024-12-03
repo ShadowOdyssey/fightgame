@@ -4,6 +4,7 @@ using TMPro;
 public class MenuSystem : MonoBehaviour
 {
     public RoundManager roundSystem;
+    public ServerSystem multiplayerSystem;
 
     public GameObject menuScreen;
     public GameObject playerLeftScreen;
@@ -45,7 +46,7 @@ public class MenuSystem : MonoBehaviour
     {
         if (roundSystem.isMultiplayer == true)
         {
-            roundSystem.ReturnToLobby();
+            ReturnToLobby();
         }
         else
         {
@@ -55,11 +56,31 @@ public class MenuSystem : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
+        if (multiplayerSystem.playerMultiplayer.selected == true)
+        {
+            multiplayerSystem.playerMultiplayer.LeaveFight();
+        }
+
+        if (multiplayerSystem.enemyMultiplayer.selected == true)
+        {
+            multiplayerSystem.enemyMultiplayer.LeaveFight();
+        }
+
         roundSystem.ReturnToMenu();
     }
 
     public void ReturnToLobby()
     {
+        if (multiplayerSystem.playerMultiplayer.selected == true)
+        {
+            multiplayerSystem.playerMultiplayer.LeaveFight();
+        }
+
+        if (multiplayerSystem.enemyMultiplayer.selected == true)
+        {
+            multiplayerSystem.enemyMultiplayer.LeaveFight();
+        }
+
         roundSystem.ReturnToLobby();
     }
 
@@ -80,6 +101,16 @@ public class MenuSystem : MonoBehaviour
 
     public void QuitGame()
     {
+        if (multiplayerSystem.playerMultiplayer.selected == true)
+        {
+            multiplayerSystem.playerMultiplayer.LeaveFight();
+        }
+
+        if (multiplayerSystem.enemyMultiplayer.selected == true)
+        {
+            multiplayerSystem.enemyMultiplayer.LeaveFight();
+        }
+
         Application.Quit();
     }
 }

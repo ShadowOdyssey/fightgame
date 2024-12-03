@@ -14012,6 +14012,7 @@ MonoBehaviour:
   enemySystem: {fileID: 0}
   serverSystem: {fileID: 418267731}
   fadeSystem: {fileID: 2147173481}
+  displaySystem: {fileID: 1436178381}
   arena1: {fileID: 919132147578589512}
   arena2: {fileID: 193646512061278923}
   arena3: {fileID: 6351908984347285709}
