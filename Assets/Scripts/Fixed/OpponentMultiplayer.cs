@@ -309,14 +309,14 @@ public class OpponentMultiplayer : MonoBehaviour
         {
             Debug.Log("Original Player is sending health");
 
-            UpdateData(newLife, "health", actualListener.ToString());
+            UpdateData(newLife, "health", actualID.ToString());
         }
         
         if (opponentIsPlayer != null)
         {
             Debug.Log("Clone Player is sending health");
 
-            UpdateData(newLife, "health", actualID.ToString());
+            UpdateData(newLife, "health", actualListener.ToString());
         }
     }
 
