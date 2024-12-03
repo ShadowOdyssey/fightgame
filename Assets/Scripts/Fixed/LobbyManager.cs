@@ -860,7 +860,7 @@ public class LobbyManager : MonoBehaviour
                     wasHostLoaded = true;
                     UpdateDuelPlayer();
 
-                    Debug.Log("Host Value from server is: " + currentHost);
+                    //Debug.Log("Host Value from server is: " + currentHost);
                 }
                 else
                 {
@@ -1109,53 +1109,53 @@ public class LobbyManager : MonoBehaviour
 
         if (currentHost == currentSession)
         {
-            Debug.Log("You are the host!");
+            //Debug.Log("You are the host!");
 
-            Debug.Log("Host is updating sessions");
+            //Debug.Log("Host is updating sessions");
 
             duelSystem.UpdateSessions(currentSession, requestedSessionDuel);
 
-            Debug.Log("Host is updating name");
+            //Debug.Log("Host is updating name");
 
             duelSystem.UpdateNames(actualName, requestedNameDuel);
 
-            Debug.Log("Host is loading versus images! Host character value is: " + currentCharacterSelected + " and Opponent character value is: " + requestedProfileDuel);
+            //Debug.Log("Host is loading versus images! Host character value is: " + currentCharacterSelected + " and Opponent character value is: " + requestedProfileDuel);
 
             duelSystem.LoadVersusImages(currentCharacterSelected, requestedProfileDuel);
 
-            Debug.Log("Host is registering current session as Host in database");
+            //Debug.Log("Host is registering current session as Host in database");
 
             PlayerPrefs.SetString("whoWasTheHost", currentSession);
 
             if (int.TryParse(currentSession, out int npn))
             {
-                Debug.Log("Host is registering as Player in database");
+                //Debug.Log("Host is registering as Player in database");
 
                 PlayerPrefs.SetInt("multiplayerPlayer", npn);
             }
 
             if (int.TryParse(requestedSessionDuel, out int non))
             {
-                Debug.Log("Host is registering opponent as Enemy in database");
+                //Debug.Log("Host is registering opponent as Enemy in database");
 
                 PlayerPrefs.SetInt("multiplayerOpponent", non);
             }
 
-            Debug.Log("Host is saving now data persistence");
+            //Debug.Log("Host is saving now data persistence");
 
-            Debug.Log("Host is saving actual Player profile image in data persistence");
+            //Debug.Log("Host is saving actual Player profile image in data persistence");
 
             PlayerPrefs.SetInt("multiplayerPlayerProfile", currentCharacterSelected);
 
-            Debug.Log("Host is saving actual Enemy name in data persistence");
+            //Debug.Log("Host is saving actual Enemy name in data persistence");
 
             PlayerPrefs.SetString("multiplayerOpponentName", requestedNameDuel);
 
-            Debug.Log("Host is saving actual Enemy profile in data persistence");
+            //Debug.Log("Host is saving actual Enemy profile in data persistence");
 
             PlayerPrefs.SetString("multiplayerOpponentProfile", requestedProfileDuel);
 
-            Debug.Log("Host is oppening now the duel screen");
+            //Debug.Log("Host is oppening now the duel screen");
 
             duelSystem.OpenDuel(1);
         }
@@ -1175,23 +1175,23 @@ public class LobbyManager : MonoBehaviour
 
     public void StartInvited()
     {
-        Debug.Log("Invited started an invite to fight");
+        //Debug.Log("Invited started an invite to fight");
 
         connectingScreen.transform.position = hiddeScreen.position;
 
-        Debug.Log("Invited is updating sessions");
+        //Debug.Log("Invited is updating sessions");
 
         duelSystem.UpdateSessions(currentHost, currentSession);
 
-        Debug.Log("Invited is updating name");
+        //Debug.Log("Invited is updating name");
 
         duelSystem.UpdateNames(actualName, hostName);
 
-        Debug.Log("Invited is loading versus images");
+        //Debug.Log("Invited is loading versus images");
 
         duelSystem.LoadVersusImages(currentCharacterSelected, hostProfile);
 
-        Debug.Log("Oppening duel screen on Invited side");
+        //Debug.Log("Oppening duel screen on Invited side");
 
         duelSystem.OpenDuel(2);
     }
@@ -1276,7 +1276,7 @@ public class LobbyManager : MonoBehaviour
 
     public void RemovePlayer(string playerSession, string playerName)
     {
-        Debug.Log("Player " + playerName + " is offline!");
+        //Debug.Log("Player " + playerName + " is offline!");
 
         StartCoroutine(LogOffPlayer(logOffPlayer, playerSession, playerName));
     }

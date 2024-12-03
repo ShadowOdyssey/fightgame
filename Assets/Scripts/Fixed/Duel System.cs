@@ -13,6 +13,7 @@ public class DuelSystem : MonoBehaviour
 
     public GameObject acceptButton;
     public GameObject declineButton;
+    public GameObject declineHostButton;
     public GameObject waitMessage;
 
     public Image playerImage;
@@ -137,6 +138,8 @@ public class DuelSystem : MonoBehaviour
         Debug.Log("Loading versus screen as Host...");
 
         acceptButton.SetActive(false);
+        declineButton.SetActive(false);
+        declineHostButton.SetActive(true);
         waitText.text = "Waiting for opponent " + opponentNameText.text + " to accept...";
         waitMessage.SetActive(true);
         isWaiting = true;
@@ -150,6 +153,7 @@ public class DuelSystem : MonoBehaviour
 
         acceptButton.SetActive(true);
         declineButton.SetActive(true);
+        declineHostButton.SetActive(false);
         waitMessage.SetActive(false);
         isWaiting = true;
 
