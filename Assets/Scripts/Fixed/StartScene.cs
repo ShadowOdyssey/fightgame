@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using JetBrains.Annotations;
 
 public class StartScene : MonoBehaviour
 {
@@ -138,6 +139,50 @@ public class StartScene : MonoBehaviour
 
     #region Buttons Operations
 
+    #region Reset all Playerprefs variables
+
+    public void ResetAllData()
+    {
+        PlayerPrefs.SetString("playerName", ""); // Reset player name
+
+        PlayerPrefs.SetString("playerUnlockedNewCharacter", ""); // Reset the value to make it disponible to next fight
+        PlayerPrefs.SetInt("enemyCharacter", 0); // Reset the value to make it disponible to next fight
+        PlayerPrefs.SetString("currentProgress", ""); // Reset the value to make it disponible to next fight
+        PlayerPrefs.SetString("playerFinishedGame", ""); // Reset the value to make it disponible to next fight
+
+        PlayerPrefs.SetInt("playerCharacterSelected", 0); // Reset Player selection
+        PlayerPrefs.SetInt("enemyCharacterSelected", 0); // Reset Enemy selection
+        PlayerPrefs.SetInt("stageSelected", 0); // Reset Arena selection
+
+        PlayerPrefs.SetString("isMultiplayerActivated", "no"); // Reset multiplayer status
+        PlayerPrefs.SetString("isTraining", "no"); // Reset training status
+        PlayerPrefs.SetString("tutorialComplete", ""); // Reset tutorial status
+
+        PlayerPrefs.SetInt("selectedMultiplayerPlayerCharacter", 0); // Reset Player Multiplayer selection
+        PlayerPrefs.SetString("playerServerID", ""); // Reset actual player session
+
+        PlayerPrefs.SetString("whoWasTheHost", ""); // Reset multiplayer host value
+        PlayerPrefs.SetInt("multiplayerPlayer", 0); // Reset multiplayer Player ID value
+        PlayerPrefs.SetInt("multiplayerOpponent", 0); // Reset multiplayer Enemy ID value
+        PlayerPrefs.SetInt("multiplayerPlayerProfile", 0); // Reset multiplayer Player Profile value
+        PlayerPrefs.SetString("multiplayerOpponentName", ""); // Reset multiplayer Enemy Name value
+        PlayerPrefs.SetString("multiplayerOpponentProfile", ""); // Reset multiplayer Enemy Profile value
+    }
+
+    #endregion
+
+    #region Button Options
+
+    public void RepairTool()
+    {
+        ResetAllData();
+
+        welcomeMessage.text = "Welcome to Shadow Odyssey!";
+        sceneMessage.text = "Game repaired! Type your name again to login!";
+        nameInput.text = "";
+        DisableLoginButton();
+    }
+
     public void SoundOption()
     {
         if (soundOn == true)
@@ -153,6 +198,10 @@ public class StartScene : MonoBehaviour
             soundOn = true;
         }
     }
+
+    #endregion
+
+    #region Button Actions
 
     public void StartButtonClicked()
     {
@@ -176,6 +225,8 @@ public class StartScene : MonoBehaviour
     {
         Application.Quit();
     }
+
+    #endregion
 
     #endregion
 }

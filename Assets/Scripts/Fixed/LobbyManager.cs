@@ -166,7 +166,7 @@ public class LobbyManager : MonoBehaviour
     private string status = "";
 
     [Header("Monitor")]
-    private int currentCharacterSelected = 0;
+    private int currentCharacterSelected = 1;
     private float actualRefreshTime = 0f;
     private bool selectedCharacter = false;
     private bool verifiedSucces = false;
@@ -200,6 +200,8 @@ public class LobbyManager : MonoBehaviour
         {
             actualName = PlayerPrefs.GetString("playerName");
         }
+
+        PlayerPrefs.SetString("playerServerID", "");
     }
 
     #endregion
@@ -473,6 +475,7 @@ public class LobbyManager : MonoBehaviour
 
     private void LoadDefault()
     {
+        ButtonIsSelected();
         durabilityValue.value = 7f;
         offenseValue.value = 8f;
         controlEffectValue.value = 6f;
