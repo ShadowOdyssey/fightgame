@@ -396,13 +396,11 @@ public class OpponentMultiplayer : MonoBehaviour
     public void SendStopForward()
     {
         UpdateData("no", "forward", actualID.ToString());
-        UpdateData(gameObject.transform.position.z.ToString(), "zposition", actualID.ToString());
     }
 
     public void SendStopBackward()
     {
         UpdateData("no", "backward", actualID.ToString());
-        UpdateData(gameObject.transform.position.z.ToString(), "zposition", actualID.ToString());
     }
 
     public void SendAttack1()
@@ -759,6 +757,28 @@ public class OpponentMultiplayer : MonoBehaviour
     }
 
     public void OnApplicationQuit()
+    {
+        if (gameObject.activeInHierarchy == true)
+        {
+            UpdateData("no", "ready", currentSession);
+            UpdateData("0", "arena", currentSession);
+            UpdateData("0", "duel", currentSession);
+            UpdateData("0", "host", currentSession);
+            UpdateData("no", "forward", currentSession);
+            UpdateData("no", "backward", currentSession);
+            UpdateData("no", "attack1", currentSession);
+            UpdateData("no", "attack2", currentSession);
+            UpdateData("no", "attack3", currentSession);
+            UpdateData("no", "hit", currentSession);
+            UpdateData("0", "profile", currentSession);
+            UpdateData("0", "zposition", currentSession);
+            UpdateData("0", "damage", currentSession);
+            UpdateData("100", "health", currentSession);
+            UpdateData("offline", "status", currentSession);
+        }
+    }
+
+    public void OnDisable()
     {
         if (gameObject.activeInHierarchy == true)
         {

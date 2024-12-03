@@ -372,7 +372,7 @@ public class PlayerSystem : MonoBehaviour
             }
         }
 
-        if (buttonReleased == true && rightSentData == true || buttonReleased == true && leftSentData == true || buttonReleased == true)
+        if (buttonReleased == true && rightSentData == true || buttonReleased == true && leftSentData == true)
         {
             if (roundSystem.isMultiplayer == false)
             {
@@ -1386,11 +1386,8 @@ public class PlayerSystem : MonoBehaviour
 
     private void SendZPosition()
     {
-        if (enemySystem.distanceToTarget < 20f)
-        {
-            multiplayerSystem.SendPlayerDistance(enemySystem.distanceToTarget);
-            updatePosition = true;
-        }
+        multiplayerSystem.SendPlayerDistance(enemySystem.distanceToTarget);
+        updatePosition = true;
     }
 
     private void MultiplayerForward()
@@ -1449,11 +1446,21 @@ public class PlayerSystem : MonoBehaviour
     public void MultiplayerStopForward()
     {
         multiplayerForward = false;
+
+        if (selectedMultiplayer == true)
+        {
+            multiplayerSystem.SendPlayerDistance(enemySystem.distanceToTarget);
+        }
     }
 
     public void MultiplayerStopBackward()
     {
         multiplayerBackward = false;
+
+        if (selectedMultiplayer == true)
+        {
+            multiplayerSystem.SendPlayerDistance(enemySystem.distanceToTarget);
+        }
     }
 
     public void MultiplayerAttacked1()

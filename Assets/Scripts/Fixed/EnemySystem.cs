@@ -2073,24 +2073,17 @@ public class EnemySystem : MonoBehaviour
 
     private void SendZPosition()
     {
-        if (distanceToTarget < 20f)
-        {
-            multiplayerSystem.SendEnemyDistance(distanceToTarget);
-            updatePosition = true;
-        }
+        multiplayerSystem.SendEnemyDistance(distanceToTarget);
+        updatePosition = true;
     }
 
     private void MultiplayerForward()
     {
-        Debug.Log("Original Player sending forward");
-
         multiplayerSystem.SendForward();
     }
 
     private void MultiplayerBackward()
     {
-        Debug.Log("Original Player sending backward");
-
         multiplayerSystem.SendBackward();
     }
 
@@ -2140,11 +2133,21 @@ public class EnemySystem : MonoBehaviour
     public void MultiplayerStopForward()
     {
         multiplayerForward = false;
+
+        if (selectedMultiplayer == true)
+        {
+            multiplayerSystem.SendEnemyDistance(distanceToTarget);
+        }
     }
 
     public void MultiplayerStopBackward()
     {
         multiplayerBackward = false;
+
+        if (selectedMultiplayer == true)
+        {
+            multiplayerSystem.SendEnemyDistance(distanceToTarget);
+        }
     }
 
     public void MultiplayerAttacked1()
