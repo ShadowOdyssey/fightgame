@@ -172,6 +172,7 @@ public class LobbyManager : MonoBehaviour
     [Header("Monitor")]
     private int currentCharacterSelected = 1;
     private float actualRefreshTime = 0f;
+    private float declineTime = 0f;
     private bool selectedCharacter = false;
     private bool verifiedSucces = false;
     private bool connectedSucces = false;
@@ -298,6 +299,21 @@ public class LobbyManager : MonoBehaviour
             {
                 actualRefreshTime = 0f;
                 RefreshList();
+            }
+        }
+
+        #endregion
+
+        #region Synchro Decline
+
+        if (isDueling == true)
+        {
+            declineTime = declineTime + Time.deltaTime;
+
+            if (declineTime > timeToRefreshPlayerList)
+            {
+                StartCoroutine(VerifyDecline(verifyUser, "decline", "lobby", "id", currentHost));
+                declineTime = 0f;
             }
         }
 
@@ -943,6 +959,44 @@ public class LobbyManager : MonoBehaviour
 
     #endregion
 
+    #region Verify decline
+
+    public IEnumerator VerifyDecline(string urlPHP, string newSelection, string requestedTable, string requestedCollumn, string desiredSearch)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("desiredSelection", newSelection);
+        form.AddField("currentTable", requestedTable);
+        form.AddField("currentCollumn", requestedCollumn);
+        form.AddField("newSearch", desiredSearch);
+
+        UnityWebRequest request = UnityWebRequest.Post(urlPHP, form);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            responseFromServer = request.downloadHandler.text;
+
+            //Debug.Log("Response from server was: " + responseFromServer);
+
+            if (responseFromServer == "error002")
+            {
+                connectionText.text = error002;
+                yield break; // Exit the coroutine if there's an error
+            }
+
+            if (responseFromServer == "yes")
+            {
+                RestoreDecline();
+                //Debug.Log("Opponent declined to fight or cancelled the invite");
+            }
+        }
+
+        request.Dispose();
+    }
+
+    #endregion
+
     #region Find offline players
 
     public IEnumerator FindOfflinePlayers()
@@ -1245,6 +1299,8 @@ public class LobbyManager : MonoBehaviour
     {
         UpdateData("no", "decline", currentSession);
         UpdateData("no", "decline", currentHost);
+        duelScreen.transform.position = hiddeScreen.position;
+        isDueling = false;
     }
 
     public void ResetPlayer()
