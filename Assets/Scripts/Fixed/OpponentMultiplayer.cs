@@ -186,7 +186,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void LoadArena()
     {
-        Debug.Log("Arena from database was received");
+        //Debug.Log("Arena from database was received");
 
         if (int.TryParse(newArena, out int currentArena))
         {
@@ -267,7 +267,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void PlayerRegisterHit(int newDamage)
     {
-        Debug.Log("Original Player is sending Hit");
+        //Debug.Log("Original Player is sending Hit");
 
         UpdateData("yes", "hit", actualID.ToString());
         UpdateData(newDamage.ToString(), "damage", actualID.ToString());
@@ -276,7 +276,7 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void EnemyRegisterHit(int newDamage)
     {
-        Debug.Log("Original Enemy is sending Hit");
+        //Debug.Log("Original Enemy is sending Hit");
 
         UpdateData("yes", "hit", actualID.ToString());
         UpdateData(newDamage.ToString(), "damage", actualID.ToString());
@@ -285,14 +285,14 @@ public class OpponentMultiplayer : MonoBehaviour
 
     public void ResetHitPlayer()
     {
-        Debug.Log("Original Player was reset Hit in database");
+        //Debug.Log("Original Player was reset Hit in database");
 
         UpdateData("no", "hit", actualID.ToString());
     }
 
     public void ResetHitEnemy()
     {
-        Debug.Log("Original Enemy was reset Hit in database");
+        //Debug.Log("Original Enemy was reset Hit in database");
 
         UpdateData("no", "hit", actualID.ToString());
     }

@@ -486,10 +486,10 @@ public class RoundManager : MonoBehaviour
     {
         switch (currentStage) // Loading stage
         {
-            case 1: arena1.SetActive(true); sceneLight.color = arena1Color; audioSystem.PlayMusic(2); Debug.Log("Arena 1 loaded"); break;
-            case 2: arena2.SetActive(true); sceneLight.color = arena2Color; audioSystem.PlayMusic(3); Debug.Log("Arena 2 loaded"); break;
-            case 3: arena3.SetActive(true); sceneLight.color = arena3Color; audioSystem.PlayMusic(4); Debug.Log("Arena 3 loaded"); break;
-            case 4: arena4.SetActive(true); sceneLight.color = arena4Color; audioSystem.PlayMusic(5); Debug.Log("Arena 4 loaded"); break;
+            case 1: arena1.SetActive(true); sceneLight.color = arena1Color; audioSystem.PlayMusic(2); break; //Debug.Log("Arena 1 loaded"); 
+            case 2: arena2.SetActive(true); sceneLight.color = arena2Color; audioSystem.PlayMusic(3); break; //Debug.Log("Arena 2 loaded");
+            case 3: arena3.SetActive(true); sceneLight.color = arena3Color; audioSystem.PlayMusic(4); break; //Debug.Log("Arena 3 loaded");
+            case 4: arena4.SetActive(true); sceneLight.color = arena4Color; audioSystem.PlayMusic(5); break; //Debug.Log("Arena 4 loaded");
         }
     }
 
@@ -1175,7 +1175,7 @@ public class RoundManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Player won and already finished the game, return to selection character scene");
+                    //Debug.Log("Player won and already finished the game, return to selection character scene");
 
                     Invoke(nameof(ReturnToSelection), 10f); // We use a delay here to make sure the data in Playerprefs will be registered safely to inform the next scene correctly
                 }

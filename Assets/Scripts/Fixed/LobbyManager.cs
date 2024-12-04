@@ -977,12 +977,12 @@ public class LobbyManager : MonoBehaviour
         {
             responseFromServer = request.downloadHandler.text;
 
-            Debug.Log("Response from server for Decline was: " + responseFromServer);
+            //Debug.Log("Response from server for Decline was: " + responseFromServer);
 
             if (responseFromServer == "yes")
             {
                 RestoreDecline();
-                Debug.Log("Opponent declined to fight or cancelled the invite");
+                //Debug.Log("Opponent declined to fight or cancelled the invite");
             }
         }
 

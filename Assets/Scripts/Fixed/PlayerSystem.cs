@@ -263,7 +263,7 @@ public class PlayerSystem : MonoBehaviour
         {
             if (roundSystem.isMultiplayer == true && updatePosition == false && selectedMultiplayer == true)
             {
-                Debug.Log("Original Player sending Z position because is moving forward");
+                //Debug.Log("Original Player sending Z position because is moving forward");
 
                 SendZPosition();
             }
@@ -311,7 +311,7 @@ public class PlayerSystem : MonoBehaviour
         {
             if (roundSystem.isMultiplayer == true && updatePosition == false && selectedMultiplayer == true)
             {
-                Debug.Log("Original Player sending Z position because is moving backward");
+                //Debug.Log("Original Player sending Z position because is moving backward");
 
                 SendZPosition();
             }
@@ -361,7 +361,7 @@ public class PlayerSystem : MonoBehaviour
             {
                 if (roundSystem.isMultiplayer == true && updatePosition == false && selectedMultiplayer == true)
                 {
-                    Debug.Log("Original Player sending Z position because is stopped to move");
+                    //Debug.Log("Original Player sending Z position because is stopped to move");
 
                     SendZPosition();
                 }
@@ -759,7 +759,7 @@ public class PlayerSystem : MonoBehaviour
     {
         if (isHit == false)
         {
-            Debug.Log("Player got a hit and got " + damageAmmount + " of damage!");
+            //Debug.Log("Player got a hit and got " + damageAmmount + " of damage!");
 
             if (roundSystem.isTrainingMode == false && roundSystem.isMultiplayer == false)
             {
@@ -817,6 +817,8 @@ public class PlayerSystem : MonoBehaviour
 
     public void OnMoveRightButtonPressed(BaseEventData eventData)
     {
+        //Debug.Log("Counting calls when move button is being hold pressed");
+
         if (roundSystem.isMultiplayer == true)
         {
             if (selectedMultiplayer == true && rightPressed == false)
@@ -837,6 +839,8 @@ public class PlayerSystem : MonoBehaviour
 
     public void OnMoveLeftButtonPressed(BaseEventData eventData)
     {
+        //Debug.Log("Counting calls when move button is being hold pressed");
+
         if (roundSystem.isMultiplayer == true)
         {
             if (selectedMultiplayer == true && leftPressed == false)
@@ -917,7 +921,7 @@ public class PlayerSystem : MonoBehaviour
     {
         if (playerAnimator.GetBool("isHit") == false)
         {
-            Debug.Log("Hit Animation was activated");
+            //Debug.Log("Hit Animation was activated");
 
             playerAnimator.SetBool("isHit", true); // Trigger isHit animation - Values in parameters should be low case in the first letter because is variable name - 
             playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -1272,7 +1276,7 @@ public class PlayerSystem : MonoBehaviour
 
     private void ResetAllAnimations()
     {
-        Debug.Log("Reset all animations activated");
+        //Debug.Log("Reset all animations activated");
 
         playerAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
         playerAnimator.SetBool("isForward", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -1386,42 +1390,58 @@ public class PlayerSystem : MonoBehaviour
 
     private void SendZPosition()
     {
+        //Debug.Log("Counting Player server calls to Z Position when move button is being hold pressed");
+
         multiplayerSystem.SendPlayerDistance(enemySystem.distanceToTarget);
         updatePosition = true;
     }
 
     private void MultiplayerForward()
     {
+        //Debug.Log("Counting Player server calls to forward when move button is being hold pressed");
+
         multiplayerSystem.SendForward();
     }
 
     private void MultiplayerBackward()
     {
+        //Debug.Log("Counting Player server calls to backward when move button is being hold pressed");
+
         multiplayerSystem.SendBackward();
     }
 
     private void MultiplayerStoppedForward()
     {
+        //Debug.Log("Counting Player server calls to Stop Forward when move button is being released");
+
         multiplayerSystem.SendStopForward();
     }
 
     private void MultiplayerStoppedBackward()
     {
+        //Debug.Log("Counting Player server calls to Stop Backeward when move button is being released");
+
         multiplayerSystem.SendStopBackward();
     }
 
     private void MultiplayerAttack1()
     {
+        //Debug.Log("Counting Player server calls to Attack 1 when attack button is being hold pressed");
+
         multiplayerSystem.SendAttack1();
     }
 
     private void MultiplayerAttack2()
     {
+        //Debug.Log("Counting Player server calls to Attack 2 when attack button is being hold pressed");
+
         multiplayerSystem.SendAttack2();
     }
 
     private void MultiplayerAttack3()
     {
+        //Debug.Log("Counting Player server calls to Attack 3 when attack button is being hold pressed");
+
         multiplayerSystem.SendAttack3();
     }
 
@@ -1431,6 +1451,8 @@ public class PlayerSystem : MonoBehaviour
 
     public void MultiplayerMovesForward()
     {
+        //Debug.Log("Counting Player server receive to Forward when move button is being hold pressed");
+
         multiplayerBackward = false;
         multiplayerStop = false;
         multiplayerForward = true;
@@ -1438,6 +1460,8 @@ public class PlayerSystem : MonoBehaviour
 
     public void MultiplayerMovesBackward()
     {
+        //Debug.Log("Counting Player server receive to Backward when move button is being hold pressed");
+
         multiplayerForward = false;
         multiplayerStop = false;
         multiplayerBackward = true;
@@ -1445,6 +1469,8 @@ public class PlayerSystem : MonoBehaviour
 
     public void MultiplayerStopForward()
     {
+        //Debug.Log("Counting Player server receive to Stop Forward when move button is being hold pressed");
+
         multiplayerForward = false;
 
         if (selectedMultiplayer == true)
@@ -1455,6 +1481,8 @@ public class PlayerSystem : MonoBehaviour
 
     public void MultiplayerStopBackward()
     {
+        //Debug.Log("Counting Player server receive to Stop Backward when move button is being released");
+
         multiplayerBackward = false;
 
         if (selectedMultiplayer == true)
@@ -1465,16 +1493,22 @@ public class PlayerSystem : MonoBehaviour
 
     public void MultiplayerAttacked1()
     {
+        //Debug.Log("Counting Player server receive to Attack 1 when move button is being hold pressed");
+
         multiplayerAttack1 = true;
     }
 
     public void MultiplayerAttacked2()
     {
+        //Debug.Log("Counting Player server receive to Attack 2 when move button is being hold pressed");
+
         multiplayerAttack2 = true;
     }
 
     public void MultiplayerAttacked3()
     {
+        //Debug.Log("Counting Player server receive to Attack 3 when move button is being hold pressed");
+
         multiplayerAttack3 = true;
     }
 

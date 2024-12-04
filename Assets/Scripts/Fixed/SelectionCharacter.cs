@@ -17,7 +17,9 @@ public class SelectionCharacter : MonoBehaviour
 
     [Header("Scene Setup")]
     public AudioClip[] heroIntroClips; // Array for hero-specific intro sounds
-    public GameObject arenaScreen;
+    public AudioClip selectHeroSound;
+    public AudioClip selectArenaSound; // Use PlaySelectHeroSound(); where wish it to be played
+    public GameObject arenaScreen; // Use PlaySelectHeroSound(); where wish it to be played
     public GameObject sceneMessageScreen;
     public GameObject lockedScreen;
 
@@ -167,6 +169,20 @@ public class SelectionCharacter : MonoBehaviour
     {
         audioSource.loop = false;
         audioSource.clip = heroIntroClips[playerIndex - 1];
+        audioSource.Play();
+    }
+
+    private void PlaySelectHeroSound()
+    {
+        audioSource.loop = false;
+        audioSource.clip = selectHeroSound;
+        audioSource.Play();
+    }
+
+    private void PlaySelectArenaSound()
+    {
+        audioSource.loop = false;
+        audioSource.clip = selectArenaSound;
         audioSource.Play();
     }
 
@@ -704,6 +720,7 @@ public class SelectionCharacter : MonoBehaviour
 
         if (isUnlocked[playerIndex - 1] == true && wasArenaSelected == false)
         {
+            PlaySelectArenaSound();
             lockedMessageTimer = 5f;
             sceneMessage.text = "SELECT AN ARENA TO CONTINUE";
             sceneMessageScreen.SetActive(true);
@@ -712,6 +729,7 @@ public class SelectionCharacter : MonoBehaviour
 
         if (isUnlocked[playerIndex - 1] == false)
         {
+            PlaySelectHeroSound();
             lockedMessageTimer = 5f;
             sceneMessage.text = "SELECT UNLOCKED HERO TO CONTINUE";
             sceneMessageScreen.SetActive(true);

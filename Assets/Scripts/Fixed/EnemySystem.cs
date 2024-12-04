@@ -552,7 +552,7 @@ public class EnemySystem : MonoBehaviour
         {
             if (roundSystem.isMultiplayer == true && updatePosition == false && selectedMultiplayer == true)
             {
-                Debug.Log("Original Enemy sending Z position because is moving forward");
+                //Debug.Log("Original Enemy sending Z position because is moving forward");
 
                 SendZPosition();
             }
@@ -600,7 +600,7 @@ public class EnemySystem : MonoBehaviour
         {
             if (roundSystem.isMultiplayer == true && updatePosition == false && selectedMultiplayer == true)
             {
-                Debug.Log("Original Enemy sending Z position because is moving backward");
+                //Debug.Log("Original Enemy sending Z position because is moving backward");
 
                 SendZPosition();
             }
@@ -650,7 +650,7 @@ public class EnemySystem : MonoBehaviour
             {
                 if (roundSystem.isMultiplayer == true && updatePosition == false && selectedMultiplayer == true)
                 {
-                    Debug.Log("Original Enemy sending Z position because did a fast tap");
+                    //Debug.Log("Original Enemy sending Z position because did a fast tap");
 
                     SendZPosition();
                 }
@@ -1355,7 +1355,7 @@ public class EnemySystem : MonoBehaviour
     {
         if (isHit == false) // With this trigger we make sure opponent only will take damage 1 time
         {
-            Debug.Log("Enemy got " + damage + " of damage");
+            //Debug.Log("Enemy got " + damage + " of damage");
 
             if (roundSystem.isTrainingMode == false && roundSystem.isMultiplayer == false)
             {
@@ -1622,7 +1622,7 @@ public class EnemySystem : MonoBehaviour
     {
         if (enemyAnimator.GetBool("isBlock") == false)
         {
-            Debug.Log("Enemy got damage");
+            //Debug.Log("Enemy got damage");
 
             enemyAnimator.SetBool("isBlock", true); // Prevents to execute animation call many times, this way we only call 1 time the correct animation
             enemyAnimator.SetBool("isIdle", false); // Values in parameters should be low case in the first letter because is variable name - 
@@ -2073,42 +2073,58 @@ public class EnemySystem : MonoBehaviour
 
     private void SendZPosition()
     {
+        //Debug.Log("Counting Enemy server calls to Z Position when move button is being hold pressed");
+
         multiplayerSystem.SendEnemyDistance(distanceToTarget);
         updatePosition = true;
     }
 
     private void MultiplayerForward()
     {
+        //Debug.Log("Counting Enemy server calls to forward when move button is being hold pressed");
+
         multiplayerSystem.SendForward();
     }
 
     private void MultiplayerBackward()
     {
+        //Debug.Log("Counting Enemy server calls to backward when move button is being hold pressed");
+
         multiplayerSystem.SendBackward();
     }
 
     private void MultiplayerStoppedForward()
     {
+        //Debug.Log("Counting Enemy server calls to Stop Forward when move button is being released");
+
         multiplayerSystem.SendStopForward();
     }
 
     private void MultiplayerStoppedBackward()
     {
+        //Debug.Log("Counting Enemy server calls to Stop Backeward when move button is being released");
+
         multiplayerSystem.SendStopBackward();
     }
 
     private void MultiplayerAttack1()
     {
+        //Debug.Log("Counting Enemy server calls to Attack 1 when attack button is being hold pressed");
+
         multiplayerSystem.SendAttack1();
     }
 
     private void MultiplayerAttack2()
     {
+        //Debug.Log("Counting Enemy server calls to Attack 2 when attack button is being hold pressed");
+
         multiplayerSystem.SendAttack2();
     }
 
     private void MultiplayerAttack3()
     {
+        //Debug.Log("Counting Enemy server calls to Attack 3 when attack button is being hold pressed");
+
         multiplayerSystem.SendAttack3();
     }
 
@@ -2118,6 +2134,8 @@ public class EnemySystem : MonoBehaviour
 
     public void MultiplayerMovesForward()
     {
+        //Debug.Log("Counting Enemy server receive to Forward when move button is being hold pressed");
+
         multiplayerBackward = false;
         multiplayerStop = false;
         multiplayerForward = true;
@@ -2125,6 +2143,8 @@ public class EnemySystem : MonoBehaviour
 
     public void MultiplayerMovesBackward()
     {
+        //Debug.Log("Counting Enemy server receive to Backward when move button is being hold pressed");
+
         multiplayerForward = false;
         multiplayerStop = false;
         multiplayerBackward = true;
@@ -2132,6 +2152,8 @@ public class EnemySystem : MonoBehaviour
 
     public void MultiplayerStopForward()
     {
+        //Debug.Log("Counting Enemy server receive to Stop Forward when move button is being released");
+
         multiplayerForward = false;
 
         if (selectedMultiplayer == true)
@@ -2142,6 +2164,8 @@ public class EnemySystem : MonoBehaviour
 
     public void MultiplayerStopBackward()
     {
+        //Debug.Log("Counting Enemy server receive to Stop Backward when move button is being released");
+
         multiplayerBackward = false;
 
         if (selectedMultiplayer == true)
@@ -2152,16 +2176,22 @@ public class EnemySystem : MonoBehaviour
 
     public void MultiplayerAttacked1()
     {
+        //Debug.Log("Counting Enemy server receive to Attack 1 when move button is being hold pressed");
+
         multiplayerAttack1 = true;
     }
 
     public void MultiplayerAttacked2()
     {
+        //Debug.Log("Counting Enemy server receive to Attack 2 when move button is being hold pressed");
+
         multiplayerAttack2 = true;
     }
 
     public void MultiplayerAttacked3()
     {
+        //Debug.Log("Counting Enemy server receive to Attack 3 when move button is being hold pressed");
+
         multiplayerAttack3 = true;
     }
 
