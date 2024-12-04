@@ -145,9 +145,9 @@ public class ServerSystem : MonoBehaviour
                     }
                 }
 
-                if (playerHit != listenerInfoPlayer[8])
+                if (playerHit != listenerInfoPlayer[9])
                 {
-                    playerHit = listenerInfoPlayer[8];
+                    playerHit = listenerInfoPlayer[9];
                     wasEnemyDamaged = true;
                 }
 
@@ -209,9 +209,9 @@ public class ServerSystem : MonoBehaviour
                     }
                 }
 
-                if (stageLoadedA != listenerInfoPlayer[9])
+                if (stageLoadedA != listenerInfoPlayer[8])
                 {
-                    stageLoadedA = listenerInfoPlayer[9];
+                    stageLoadedA = listenerInfoPlayer[8];
                 }
 
                 wasDataLoadedPlayer = false;
@@ -236,9 +236,9 @@ public class ServerSystem : MonoBehaviour
                     canParseB = true;
                 }
 
-                if (enemyHit != listenerInfoEnemy[8])
+                if (enemyHit != listenerInfoEnemy[9])
                 {
-                    enemyHit = listenerInfoEnemy[8];
+                    enemyHit = listenerInfoEnemy[9];
                     wasPlayerDamaged = true;
                 }
 
@@ -300,9 +300,9 @@ public class ServerSystem : MonoBehaviour
                     }
                 }
 
-                if (stageLoadedB != listenerInfoEnemy[9])
+                if (stageLoadedB != listenerInfoEnemy[8])
                 {
-                    stageLoadedB = listenerInfoEnemy[9];
+                    stageLoadedB = listenerInfoEnemy[8];
                 }
 
                 wasDataLoadedEnemy = false;
