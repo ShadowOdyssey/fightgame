@@ -747,6 +747,16 @@ public class RoundManager : MonoBehaviour
             }
             else
             {
+                if (playerSystem.multiplayerSystem.selected == true)
+                {
+                    playerMultiplayer.UpdatePlayerLoaded("no");
+                }
+
+                if (enemySystem.multiplayerSystem.selected == true)
+                {
+                    enemyMultiplayer.UpdateEnemyLoaded("no");
+                }
+
                 // Determine the winner of the round based on remaining health from server
                 if (serverSystem.actualPlayerHealth > serverSystem.actualEnemyHealth)
                 {
@@ -1134,16 +1144,6 @@ public class RoundManager : MonoBehaviour
     {
         if (isMultiplayer == true)
         {
-            if (playerSystem.multiplayerSystem.selected == true)
-            {
-                playerMultiplayer.UpdatePlayerLoaded("no");
-            }
-
-            if (enemySystem.multiplayerSystem.selected == true)
-            {
-                enemyMultiplayer.UpdateEnemyLoaded("no");
-            }
-
             wasWaitShow = false;
         }
 
