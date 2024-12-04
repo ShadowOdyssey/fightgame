@@ -107,7 +107,7 @@ public class ServerSystem : MonoBehaviour
         {
             #region Receiving Data from Server
 
-            if (roundSystem.roundOver == false && canListen == true)
+            if (canListen == true)
             {
                 countListen = countListen + Time.deltaTime;
 

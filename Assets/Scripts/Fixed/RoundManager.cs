@@ -563,7 +563,7 @@ public class RoundManager : MonoBehaviour
             }
 
             actualTime.text = roundTime.ToString();
-            roundOver = true;
+
             wasDetermined = false;
             decreaseTime = 0f;
             ResetHealth();
@@ -588,6 +588,7 @@ public class RoundManager : MonoBehaviour
 
                 if (serverSystem.stageLoadedA == "yes" && serverSystem.stageLoadedB == "yes")
                 {
+                    roundOver = true;
                     ShowRoundText("ROUND " + currentRound);
                     roundStarted = true;
                     Invoke(nameof(DisableRoundText), 6f);
@@ -595,6 +596,7 @@ public class RoundManager : MonoBehaviour
             }
             else
             {
+                roundOver = true;
                 roundStarted = true;
                 Invoke(nameof(DisableRoundText), 6f);
             }
