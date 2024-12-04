@@ -85,6 +85,8 @@ public class ServerSystem : MonoBehaviour
     public string enemyZPosition = "";
     public string playerDamage = "";
     public string enemyDamage = "";
+    public string stageLoadedA = "";
+    public string stageLoadedB = "";
 
     #endregion
 
@@ -207,6 +209,11 @@ public class ServerSystem : MonoBehaviour
                     }
                 }
 
+                if (stageLoadedA != listenerInfoPlayer[9])
+                {
+                    stageLoadedA = listenerInfoPlayer[9];
+                }
+
                 wasDataLoadedPlayer = false;
             }
 
@@ -291,6 +298,11 @@ public class ServerSystem : MonoBehaviour
                     {
                         enemyMultiplayer.RegisterAttack3Enemy();
                     }
+                }
+
+                if (stageLoadedB != listenerInfoEnemy[9])
+                {
+                    stageLoadedB = listenerInfoEnemy[9];
                 }
 
                 wasDataLoadedEnemy = false;

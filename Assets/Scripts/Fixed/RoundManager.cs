@@ -231,6 +231,7 @@ public class RoundManager : MonoBehaviour
     [Tooltip("When enabled means game saved the result of the fight to the next scene")]
     private bool dataSent = false;
     private bool fadeIsOut = false;
+    private bool wasWaitShow = false;
 
     #endregion
 
@@ -551,11 +552,12 @@ public class RoundManager : MonoBehaviour
         {
             //Debug.Log("Round started, show current round");
 
-            if (isTrainingMode == false)
+            if (isTrainingMode == false && isMultiplayer == false)
             {
                 ShowRoundText("ROUND " + currentRound);
             }
-            else
+
+            if (isTrainingMode == true && isMultiplayer == false)
             {
                 ShowRoundText("TRAINING MODE");
             }
@@ -565,8 +567,37 @@ public class RoundManager : MonoBehaviour
             wasDetermined = false;
             decreaseTime = 0f;
             ResetHealth();
-            roundStarted = true;
-            Invoke(nameof(DisableRoundText), 6f);
+
+            if (isMultiplayer == true)
+            {
+                if (wasWaitShow == false)
+                {
+                    if (playerSystem.multiplayerSystem.selected == true)
+                    {
+                        playerMultiplayer.UpdatePlayerLoaded("yes");
+                    }
+
+                    if (enemySystem.multiplayerSystem.selected == true)
+                    {
+                        enemyMultiplayer.UpdateEnemyLoaded("yes");
+                    }
+
+                    ShowRoundText("WAITING FOR OPPONENT TO START...");
+                    wasWaitShow = true;
+                }
+
+                if (serverSystem.stageLoadedA == "yes" && serverSystem.stageLoadedB == "yes")
+                {
+                    ShowRoundText("ROUND " + currentRound);
+                    roundStarted = true;
+                    Invoke(nameof(DisableRoundText), 6f);
+                }
+            }
+            else
+            {
+                roundStarted = true;
+                Invoke(nameof(DisableRoundText), 6f);
+            }
         }
     }
 
@@ -1101,6 +1132,21 @@ public class RoundManager : MonoBehaviour
 
     private void StartRoundAgain()
     {
+        if (isMultiplayer == true)
+        {
+            if (playerSystem.multiplayerSystem.selected == true)
+            {
+                playerMultiplayer.UpdatePlayerLoaded("no");
+            }
+
+            if (enemySystem.multiplayerSystem.selected == true)
+            {
+                enemyMultiplayer.UpdateEnemyLoaded("no");
+            }
+
+            wasWaitShow = false;
+        }
+
         roundStarted = false;
     }
 

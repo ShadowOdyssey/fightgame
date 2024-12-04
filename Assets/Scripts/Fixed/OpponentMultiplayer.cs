@@ -341,6 +341,48 @@ public class OpponentMultiplayer : MonoBehaviour
 
     #endregion
 
+    #region Round Operations
+
+    public void UpdatePlayerLoaded(string newLoad)
+    {
+        //Debug.Log("Sending to server Player round load");
+
+        if (originalPlayer != null)
+        {
+            //Debug.Log("Original Player is sending round load");
+
+            UpdateData(newLoad, "loaded", actualID.ToString());
+        }
+
+        if (opponentIsPlayer != null)
+        {
+            //Debug.Log("Clone Player is sending round load");
+
+            UpdateData(newLoad, "loaded", actualListener.ToString());
+        }
+    }
+
+    public void UpdateEnemyLoaded(string newLoad)
+    {
+        //Debug.Log("Sending to server Enemy round load");
+
+        if (originalEnemy != null)
+        {
+            //Debug.Log("Original Enemy is sending round load");
+
+            UpdateData(newLoad, "loaded", actualID.ToString());
+        }
+
+        if (opponentIsEnemy != null)
+        {
+            //Debug.Log("Clone Enemy is sending round load");
+
+            UpdateData(newLoad, "loaded", actualListener.ToString());
+        }
+    }
+
+    #endregion
+
     #region Data Sent
 
     public void SendPlayerDistance(float actualDistance)
